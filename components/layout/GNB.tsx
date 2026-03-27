@@ -154,7 +154,7 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         {/* 로고 */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }} aria-label="인제 GT 마스터즈 홈">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.jpg" alt="인제 GT 마스터즈" style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }} />
+          <img src="/logo.png" alt="인제 GT 마스터즈" style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }} />
         </Link>
 
         {/* 데스크톱 GNB */}
