@@ -31,15 +31,9 @@ export default function Footer({ settings }: { settings: SiteSettings | null }) 
         }}>
           {/* 브랜드 열 */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
-              <div style={{ width: '44px', height: '44px', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }}>
-                <div style={{ flex: 1.7, background: 'var(--red)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Bebas Neue',sans-serif", fontSize: '19px', letterSpacing: '1.5px', color: 'white' }}>GTM</div>
-                <div style={{ flex: 1, background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Barlow Condensed',sans-serif", fontSize: '15.5px', fontWeight: 800, letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' as const }}>{season}</div>
-              </div>
-              <div>
-                <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: '21px', letterSpacing: '4px', color: 'white', display: 'block', lineHeight: 1.05 }}>GT MASTERS</span>
-                <span style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' as const, display: 'block', marginTop: '1px' }}>{settings?.siteName ?? '인제 GT 마스터즈'}</span>
-              </div>
+            <div style={{ marginBottom: '14px' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-white.jpg" alt="인제 GT 마스터즈" style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }} />
             </div>
             <p style={{ fontSize: '15px', lineHeight: 1.9, color: 'rgba(255,255,255,0.32)', maxWidth: '260px', marginBottom: '20px', letterSpacing: '-0.01em', wordBreak: 'keep-all' }}>
               강원도 인제스피디움을 배경으로 펼쳐지는 아마추어 레이서들의 열정의 무대. {season} 시즌도 더욱 뜨겁게 달립니다.

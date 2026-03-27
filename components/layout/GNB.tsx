@@ -152,36 +152,9 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         }}
       >
         {/* 로고 */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }} aria-label="인제 GT 마스터즈 홈">
-          <div style={{ width: '44px', height: '44px', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }}>
-            <div style={{
-              flex: 1.7,
-              background: 'var(--red)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '19px', letterSpacing: '1.5px', color: 'white',
-            }}>GTM</div>
-            <div style={{
-              flex: 1,
-              background: '#000',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontSize: '15.5px', fontWeight: 800, letterSpacing: '2px',
-              color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' as const,
-            }}>{season}</div>
-          </div>
-          <div>
-            <span style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '21px', letterSpacing: '4px',
-              color: 'var(--navy)', display: 'block', lineHeight: 1.05,
-            }}>GT MASTERS</span>
-            <span style={{
-              fontSize: '14px', fontWeight: 600, letterSpacing: '1.5px',
-              color: 'var(--text-sub)', textTransform: 'uppercase' as const,
-              display: 'block', marginTop: '1px',
-            }}>{siteName}</span>
-          </div>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }} aria-label="인제 GT 마스터즈 홈">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.jpg" alt="인제 GT 마스터즈" style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }} />
         </Link>
 
         {/* 데스크톱 GNB */}
