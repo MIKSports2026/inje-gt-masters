@@ -1,151 +1,143 @@
+'use client'
+// components/sections/SectionEntry.tsx — v3 2-col with class image grid
 import Link from 'next/link'
-import RevealOnScroll from '@/components/ui/RevealOnScroll'
 import type { SiteSettings, ClassInfo } from '@/types/sanity'
 
-const STEPS = [
-  {n:'01',icon:'fa-solid fa-file-pen',     title:'온라인 신청서 작성',    desc:'참가 클래스, 드라이버 정보, 차량 제원을 입력합니다.'},
-  {n:'02',icon:'fa-solid fa-mobile-screen',title:'결제 링크 수신',        desc:'이메일/카카오로 토스페이먼츠 결제 링크가 발송됩니다.'},
-  {n:'03',icon:'fa-solid fa-credit-card',  title:'결제 완료',             desc:'결제 완료 후 접수 확정 메일이 발송됩니다.'},
-  {n:'04',icon:'fa-solid fa-flag-checkered',title:'접수 확정 · 출전 준비',desc:'서킷에서 뵙겠습니다. Where Legends Begin.'},
-]
+interface Props {
+  settings: SiteSettings | null
+  classes:  ClassInfo[]
+}
 
-export default function SectionEntry({ settings, classes }: { settings: SiteSettings | null, classes: ClassInfo[] }) {
+const CLASS_COLORS: Record<string, string> = {
+  GT1: 'var(--red)', GT2: '#3b82f6', GT3: 'var(--gold)',
+  DRIFT: '#22c55e', BIKE: '#a855f7', SUPERCAR: '#f97316',
+}
+
+export default function SectionEntry({ settings, classes }: Props) {
   const isOpen = settings?.isEntryOpen ?? false
-  const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
 
-  const classSummary = classes
+  const steps = [
+    { n: '01', t: '온라인 신청서 작성', s: '라운드·종목·팀·드라이버 정보를 입력. 담당자에게 즉시 알림 발송.' },
+    { n: '02', t: '결제 링크 수신', s: '토스페이먼츠 결제 링크를 이메일·카카오로 발송. 카드·간편결제 가능.' },
+    { n: '03', t: '결제 완료 & 접수 확정', s: '결제 후 접수 확정 이메일 발송. 라운드당 선착순 50팀, 조기 마감 가능.' },
+  ]
 
   return (
-    <section className="section" id="entry">
-      <div className="container">
-        <RevealOnScroll>
-          <div className="panel" style={{padding:'28px 32px'}}>
+    <section className="sec sec-dark" id="entry" aria-labelledby="entry-ttl">
+      <div className="inner">
+        <div className="entry-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
 
-            <div style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'32px',alignItems:'start'}}>
+          {/* 좌측 */}
+          <div>
+            <div className="sec-ey">ENTRY INFORMATION</div>
+            <h2 id="entry-ttl" style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: 'clamp(40px, 5vw, 64px)',
+              letterSpacing: '3px', color: 'var(--navy)',
+              lineHeight: 0.9, marginBottom: '18px',
+            }}>
+              참가<br /><span style={{ color: 'var(--red)' }}>신청</span>
+            </h2>
+            <p style={{ fontSize: '18px', lineHeight: 2, color: 'var(--text-mid)', marginBottom: '32px', wordBreak: 'keep-all' }}>
+              대한민국에서 가장 오래 달리고, 가장 저렴하게 참여하며, 가장 자유롭게 개조할 수 있는 GT 내구레이스. 아마추어부터 프로까지 — 당신의 한계를 시험하세요.
+            </p>
 
-              {/* 왼쪽: 안내 */}
-              <div>
-                <span className="eyebrow">Entry Guide</span>
-                <h2>참가 신청 —<br/>지금 바로 시작하세요</h2>
-                <p className="lead" style={{marginTop:'14px'}}>
-                  온라인 신청서 작성 → 결제 링크 수신(토스페이먼츠) → 접수 확정.<br/>
-                  라운드당 선착순 마감이니 서두르세요.
-                </p>
-
-                {/* 프로세스 스텝 */}
-                <div style={{display:'grid',gap:'12px',marginTop:'24px'}}>
-                  {STEPS.map((s,i)=>(
-                    <div key={i} style={{
-                      display:'grid',gridTemplateColumns:'48px 1fr',gap:'14px',alignItems:'start',
-                      padding:'14px',background:'var(--surface-2)',border:'1px solid var(--line)',
-                      clipPath:'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)',
-                    }}>
-                      <div style={{
-                        width:'48px',height:'48px',display:'grid',placeItems:'center',
-                        background:'rgba(230,0,35,.08)',color:'var(--red)',
-                        border:'1px solid rgba(230,0,35,.18)',
-                        clipPath:'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-                      }}>
-                        <i className={s.icon} />
-                      </div>
-                      <div>
-                        <strong style={{display:'flex',alignItems:'center',gap:'8px',fontSize:'.95rem'}}>
-                          <span style={{fontSize:'.72rem',color:'var(--red)',fontWeight:900}}>STEP {s.n}</span>
-                          {s.title}
-                        </strong>
-                        <span style={{color:'var(--muted)',fontSize:'.88rem',lineHeight:1.5,display:'block',marginTop:'2px'}}>{s.desc}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="btns" style={{marginTop:'22px'}}>
-                  {isOpen ? (
-                    <Link href="/entry" className="btn btn-primary">
-                      <i className="fa-solid fa-flag-checkered" /> 온라인 신청하기
-                    </Link>
-                  ) : (
-                    <div style={{
-                      padding:'14px 20px',background:'rgba(230,0,35,.06)',
-                      border:'1px solid rgba(230,0,35,.2)',borderRadius:'6px',
-                      fontSize:'.92rem',color:'var(--muted)',
-                    }}>
-                      <i className="fa-solid fa-clock" style={{color:'var(--red)',marginRight:'8px'}} />
-                      {settings?.entryNotice ?? '참가신청 일정을 준비중입니다.'}
-                    </div>
-                  )}
-                  <a href="#" className="btn btn-secondary">
-                    경기 규정 PDF
-                  </a>
-                </div>
-              </div>
-
-              {/* 오른쪽: 클래스별 접수 현황 */}
-              <div style={{
-                border:'1px solid var(--line)',
-                background:'#fff',padding:'22px',
-                clipPath:cut,
-                position:'relative',
-              }}>
-                <div style={{position:'absolute',left:0,top:0,right:0,height:'3px',background:'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)'}} />
-
-                <h3 style={{marginBottom:'16px'}}>참가 클래스 & 접수 현황</h3>
-
-                {classSummary.length === 0 && (
-                  <div style={{textAlign:'center',padding:'24px 0',color:'var(--muted)'}}>
-                    <i className="fa-solid fa-flag" style={{fontSize:'2rem',opacity:.3,display:'block',marginBottom:'10px'}} />
-                    <p style={{fontSize:'.88rem'}}>클래스 정보를 준비중입니다.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '36px' }}>
+              {steps.map((s, i) => (
+                <div key={s.n} style={{
+                  display: 'flex', gap: '18px', padding: '18px 0',
+                  borderBottom: i < steps.length - 1 ? '1px solid var(--line)' : 'none',
+                }}>
+                  <div style={{
+                    fontFamily: "'Pretendard Variable', Pretendard, sans-serif",
+                    fontSize: '32px', fontWeight: 900,
+                    color: 'var(--red)', lineHeight: 1, minWidth: '36px',
+                  }}>{s.n}</div>
+                  <div>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: '#141414', marginBottom: '4px' }}>{s.t}</div>
+                    <div style={{ fontSize: '18px', color: 'var(--text-sub)', lineHeight: 1.7, wordBreak: 'keep-all' }}>{s.s}</div>
                   </div>
-                )}
-                <div style={{display:'grid',gap:'10px'}}>
-                  {classSummary.map(c=>{
-                    const color = c.accentColor ?? '#e60023'
-                    return (
-                      <div key={c._id} style={{
-                        display:'flex',alignItems:'center',gap:'12px',
-                        padding:'12px 14px',
-                        background:'var(--surface-2)',border:'1px solid var(--line)',
-                        clipPath:'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)',
+                </div>
+              ))}
+            </div>
+
+            <Link href="/entry" className="btn-fill">
+              <i className="fa fa-flag-checkered" />
+              {isOpen ? '지금 신청하기' : '참가 신청 페이지'}
+            </Link>
+          </div>
+
+          {/* 우측 — 클래스 그리드 */}
+          <div>
+            <div className="sec-ey" style={{ marginBottom: '16px' }}>RACE CLASSES</div>
+            {classes.length === 0 ? (
+              <div style={{
+                padding: '40px', textAlign: 'center', color: 'var(--text-sub)',
+                background: 'var(--bg-2)', border: '1px solid var(--line)',
+              }}>
+                <p style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', letterSpacing: '2px' }}>
+                  클래스 정보를 준비중입니다.
+                </p>
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px' }}>
+                {classes.slice(0, 6).map((cls, i) => {
+                  const color = cls.accentColor ?? CLASS_COLORS[cls.classCode] ?? 'var(--red)'
+                  const imgUrl = (cls as any).heroImage?.asset?.url as string | undefined
+                  return (
+                    <Link key={cls._id} href={`/classes/${cls.slug.current}`}
+                      style={{ position: 'relative', overflow: 'hidden', display: 'block', textDecoration: 'none', cursor: 'pointer' }}>
+                      {/* 이미지 or 색상 배경 */}
+                      <div style={{
+                        width: '100%', aspectRatio: '4/3',
+                        backgroundImage: imgUrl ? `url(${imgUrl})` : undefined,
+                        backgroundSize: 'cover', backgroundPosition: 'center',
+                        backgroundColor: imgUrl ? undefined : 'var(--bg-4)',
+                        transition: 'transform 0.5s ease',
+                      }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = ''; }}
+                      />
+                      {/* 오버레이 */}
+                      <div style={{
+                        position: 'absolute', inset: 0,
+                        background: 'linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)',
+                        padding: '16px',
+                        display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
                       }}>
-                        <span style={{
-                          minWidth:'52px',padding:'3px 8px',textAlign:'center',
-                          background:`${color}14`,color,border:`1px solid ${color}38`,
-                          fontWeight:900,fontSize:'.78rem',
-                          clipPath:'polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,0 100%)',
-                        }}>{c.classCode}</span>
-                        <div style={{flex:1,minWidth:0}}>
-                          <strong style={{display:'block',fontSize:'.9rem',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{c.name}</strong>
-                          {c.teamCount && <span style={{color:'var(--muted)',fontSize:'.8rem'}}>{c.teamCount}팀</span>}
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: color }} />
+                        {cls.isEntryOpen && (
+                          <div style={{
+                            position: 'absolute', top: '10px', right: '10px',
+                            fontFamily: "'Barlow Condensed',sans-serif",
+                            fontSize: '16.5px', fontWeight: 800, letterSpacing: '2px',
+                            textTransform: 'uppercase' as const,
+                            padding: '3px 8px', background: 'var(--red)', color: 'white',
+                          }}>접수중</div>
+                        )}
+                        <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: '22px', letterSpacing: '2.5px', color: 'white' }}>
+                          {cls.name}
                         </div>
-                        {c.isEntryOpen ? (
-                          <span style={{
-                            padding:'3px 10px',fontSize:'.74rem',fontWeight:900,
-                            background:'rgba(34,197,94,.1)',color:'#16a34a',
-                            border:'1px solid rgba(34,197,94,.3)',
-                            clipPath:'polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,0 100%)',
-                            whiteSpace:'nowrap',
-                          }}>접수중</span>
-                        ) : (
-                          <span style={{fontSize:'.78rem',color:'var(--muted)',whiteSpace:'nowrap'}}>접수 예정</span>
+                        <div style={{ fontSize: '16.5px', color: 'rgba(255,255,255,0.55)', marginTop: '2px' }}>
+                          {cls.nameEn}
+                        </div>
+                        {cls.teamCount && (
+                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                            <span style={{ fontFamily: "'Pretendard Variable',Pretendard,sans-serif", fontSize: '26px', fontWeight: 900, color: 'white', letterSpacing: '-1px', lineHeight: 1 }}>{cls.teamCount}</span>
+                            <span style={{ fontSize: '18px', color: 'rgba(255,255,255,0.4)' }}>팀</span>
+                          </div>
                         )}
                       </div>
-                    )
-                  })}
-                </div>
-
-                <div style={{marginTop:'18px',paddingTop:'14px',borderTop:'1px solid var(--line)'}}>
-                  <Link href="/entry#guide" style={{
-                    display:'flex',alignItems:'center',gap:'6px',
-                    fontSize:'.85rem',color:'var(--red)',fontWeight:800,
-                  }}>
-                    <i className="fa-solid fa-circle-info" /> 상세 참가 안내 보기 →
-                  </Link>
-                </div>
+                    </Link>
+                  )
+                })}
               </div>
-            </div>
+            )}
           </div>
-        </RevealOnScroll>
+        </div>
       </div>
+
+      
     </section>
   )
 }
