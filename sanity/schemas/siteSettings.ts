@@ -63,6 +63,58 @@ export default defineType({
       options: { hotspot: false },
     }),
 
+    /* ── 히어로 이미지 ────────────────────────────────────── */
+    defineField({
+      name: 'heroImage',
+      title: '메인 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+      description: '홈페이지 메인 히어로 배경',
+    }),
+    defineField({
+      name: 'heroAbout',
+      title: '대회소개 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroSeason',
+      title: '시즌 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroEntry',
+      title: '참가신청 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroResults',
+      title: '경기결과 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroMedia',
+      title: '미디어 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroCircuit',
+      title: '인제스피디움 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+    }),
+
     /* ── SEO ─────────────────────────────────────────────── */
     defineField({
       name: 'metaTitle',

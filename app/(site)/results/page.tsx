@@ -2,8 +2,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
-import { ROUNDS_QUERY, RESULTS_BY_ROUND_QUERY, CHAMPIONSHIP_QUERY } from '@/lib/queries'
-import type { Round, Result, ClassCode } from '@/types/sanity'
+import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, RESULTS_BY_ROUND_QUERY, CHAMPIONSHIP_QUERY } from '@/lib/queries'
+import type { SiteSettings, Round, Result, ClassCode } from '@/types/sanity'
+import PageHero from '@/components/ui/PageHero'
 import ResultsClient from './ResultsClient'
 
 export const metadata: Metadata = {
@@ -29,11 +30,10 @@ export default async function ResultsPage({
   const selectedRound = searchParams.round
   const selectedClass = (searchParams.class ?? 'GT1') as ClassCode
 
-  const rounds = await sanityFetch<Round[]>({
-    query:     ROUNDS_QUERY,
-    params:    { season: 2026 },
-    revalidate: 300,
-  }).catch(() => [] as Round[])
+  const [siteSettings, rounds] = await Promise.all([
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }),
+    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300 }),
+  ]).catch(() => [null, []] as [SiteSettings | null, Round[]])
 
   const displayRounds = rounds as Round[]
 
@@ -42,19 +42,12 @@ export default async function ResultsPage({
   return (
     <>
       {/* ── 히어로 ─────────────────────────────────────────── */}
-      <section style={{
-        background: 'linear-gradient(135deg,#111,#1a0008 55%,#0d0d0d)',
-        padding: '56px 0 48px', position: 'relative', overflow: 'hidden',
-      }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(135deg,rgba(230,0,35,.04) 0 1px,transparent 1px 60px)', pointerEvents: 'none' }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <span className="pill">Race Information</span>
-          <h1 style={{ color: '#fff', marginTop: '10px', fontSize: 'clamp(2rem,5vw,4.2rem)' }}>경기 결과</h1>
-          <p style={{ color: 'rgba(255,255,255,.65)', marginTop: '10px', fontSize: 'clamp(.9rem,1.4vw,1.06rem)' }}>
-            2026 시즌 라운드별 결과 및 챔피언십 스탠딩
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image={(siteSettings as SiteSettings | null)?.heroResults}
+        badge="Race Information"
+        title="경기 결과"
+        subtitle="2026 시즌 라운드별 결과 및 챔피언십 스탠딩"
+      />
 
       {/* ── 라운드 네비게이션 ──────────────────────────────── */}
       <section style={{ background: 'var(--surface-2)', borderBottom: '1px solid var(--line)', padding: '20px 0' }}>

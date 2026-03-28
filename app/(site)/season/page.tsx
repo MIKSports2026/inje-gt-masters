@@ -2,8 +2,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
-import { ROUNDS_QUERY, CLASSES_QUERY } from '@/lib/queries'
-import type { Round, ClassInfo } from '@/types/sanity'
+import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, CLASSES_QUERY } from '@/lib/queries'
+import type { SiteSettings, Round, ClassInfo } from '@/types/sanity'
+import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
   title: '2026 시즌 안내',
@@ -25,10 +26,11 @@ const POINT_TABLE = [
 ]
 
 export default async function SeasonPage() {
-  const [rounds, classes] = await Promise.all([
+  const [settings, rounds, classes] = await Promise.all([
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }),
     sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300 }),
     sanityFetch<ClassInfo[]>({ query: CLASSES_QUERY, revalidate: 3600 }),
-  ]).catch(() => [[], []] as [Round[], ClassInfo[]])
+  ]).catch(() => [null, [], []] as [SiteSettings | null, Round[], ClassInfo[]])
 
   const displayRounds = rounds as Round[]
   const displayClasses = classes as ClassInfo[]
@@ -38,25 +40,19 @@ export default async function SeasonPage() {
   return (
     <>
       {/* ── 히어로 ──────────────────────────────────────────── */}
-      <section style={{
-        background: 'linear-gradient(135deg,#111,#1a0008 55%,#0d0d0d)',
-        padding: '56px 0 48px', position: 'relative', overflow: 'hidden',
-      }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(135deg,rgba(230,0,35,.04) 0 1px,transparent 1px 60px)', pointerEvents: 'none' }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '20px' }}>
-          <div>
-            <span className="pill">2026 Season</span>
-            <h1 style={{ color: '#fff', marginTop: '10px', fontSize: 'clamp(2rem,5vw,4.2rem)' }}>2026 시즌 안내</h1>
-            <p style={{ color: 'rgba(255,255,255,.65)', marginTop: '10px', fontSize: 'clamp(.9rem,1.4vw,1.06rem)' }}>
-              4라운드 · 6클래스 · 인제스피디움 3.9km
-            </p>
-          </div>
+      <PageHero
+        image={(settings as SiteSettings | null)?.heroSeason}
+        badge="2026 Season"
+        title="2026 SEASON"
+        subtitle="레이서의 근성과 머신의 한계가 만나는 곳"
+      >
+        <div style={{ marginTop: '20px' }}>
           <Link href="/entry" className="btn btn-primary">
             <i className="fa-solid fa-flag-checkered" />
             2026 참가 신청
           </Link>
         </div>
-      </section>
+      </PageHero>
 
       {/* ── 라운드 일정 ──────────────────────────────────────── */}
       <section className="section" id="schedule">

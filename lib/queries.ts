@@ -18,6 +18,8 @@ export const SITE_SETTINGS_QUERY = /* groq */`
     email, phone, kakaoChannelUrl, address,
     instagram, youtube, facebook, naverBlog,
     logoLight ${IMAGE}, logoDark ${IMAGE},
+    heroImage ${IMAGE}, heroAbout ${IMAGE}, heroSeason ${IMAGE},
+    heroEntry ${IMAGE}, heroResults ${IMAGE}, heroMedia ${IMAGE}, heroCircuit ${IMAGE},
     isEntryOpen, entryNotice, tossPaymentBaseUrl,
     bannerVisible, bannerMessage, bannerLinkText, bannerLinkUrl, bannerBgColor,
     circuitName, circuitLength, circuitLocation, speediumUrl, circuitMapEmbedUrl

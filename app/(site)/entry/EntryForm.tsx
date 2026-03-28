@@ -8,6 +8,7 @@ interface Props {
   classes:     ClassInfo[]
   rounds:      Round[]
   tossBaseUrl?: string
+  initialRoundNumber?: number
 }
 
 interface FormData {

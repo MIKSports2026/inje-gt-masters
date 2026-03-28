@@ -16,11 +16,13 @@
     "@sanity/vision": "^3.50.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.0",
+    "googleapis": "^171.4.0",
     "next": "14.2.5",
     "next-sanity": "^9.4.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "7.51.0",
+    "resend": "^6.9.4",
     "sanity": "^3.50.0",
     "sanity-plugin-media": "^2.3.4"
   },

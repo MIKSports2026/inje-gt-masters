@@ -3,8 +3,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { sanityFetch } from '@/lib/sanity.client'
-import { PHOTO_ALBUMS_QUERY, VIDEOS_QUERY } from '@/lib/queries'
-import type { Media } from '@/types/sanity'
+import { SITE_SETTINGS_QUERY, PHOTO_ALBUMS_QUERY, VIDEOS_QUERY } from '@/lib/queries'
+import type { SiteSettings, Media } from '@/types/sanity'
+import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
   title: '미디어',
@@ -30,10 +31,11 @@ export default async function MediaPage({
   const start = (page - 1) * PAGE_SIZE
   const end   = start + PAGE_SIZE
 
-  const [photos, videos] = await Promise.all([
+  const [siteSettings, photos, videos] = await Promise.all([
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }),
     sanityFetch<Media[]>({ query: PHOTO_ALBUMS_QUERY, params: { start, end }, revalidate: 300 }),
     sanityFetch<Media[]>({ query: VIDEOS_QUERY,       params: { start: 0, end: 12 }, revalidate: 300 }),
-  ]).catch(() => [[], []] as [Media[], Media[]])
+  ]).catch(() => [null, [], []] as [SiteSettings | null, Media[], Media[]])
 
   const displayPhotos = photos as Media[]
   const displayVideos = videos as Media[]
@@ -43,19 +45,12 @@ export default async function MediaPage({
   return (
     <>
       {/* ── 히어로 ─────────────────────────────────────────── */}
-      <section style={{
-        background: 'linear-gradient(135deg,#111,#1a0008 55%,#0d0d0d)',
-        padding: '56px 0 48px', position: 'relative', overflow: 'hidden',
-      }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(135deg,rgba(230,0,35,.04) 0 1px,transparent 1px 60px)', pointerEvents: 'none' }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <span className="pill">Media Gallery</span>
-          <h1 style={{ color: '#fff', marginTop: '10px', fontSize: 'clamp(2rem,5vw,4.2rem)' }}>미디어 갤러리</h1>
-          <p style={{ color: 'rgba(255,255,255,.65)', marginTop: '10px', fontSize: 'clamp(.9rem,1.4vw,1.06rem)' }}>
-            레이스의 모든 순간을 담은 공식 포토 & 영상 아카이브
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image={(siteSettings as SiteSettings | null)?.heroMedia}
+        badge="Media Gallery"
+        title="미디어 갤러리"
+        subtitle="레이스의 모든 순간을 담은 공식 포토 & 영상 아카이브"
+      />
 
       {/* ── 탭 전환 ────────────────────────────────────────── */}
       <section style={{ borderBottom: '1px solid var(--line)', background: '#fff', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
