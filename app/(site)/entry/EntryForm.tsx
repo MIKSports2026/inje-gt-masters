@@ -1,6 +1,6 @@
 'use client'
 // app/(site)/entry/EntryForm.tsx — Step 1→2→3 참가신청 폼 (A방식: 신청→검토→결제링크 발송)
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import type { ClassInfo, Round } from '@/types/sanity'
 
 interface Props {
@@ -71,6 +71,24 @@ function getStatusBadge(status: string) {
 
 const cut = 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)'
 
+const DRAFT_KEY = 'inje-gt-entry-draft'
+
+function saveDraft(form: FormData, step: number) {
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ form, step, ts: Date.now() })) } catch {}
+}
+function loadDraft(): { form: FormData; step: number } | null {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY)
+    if (!raw) return null
+    const data = JSON.parse(raw)
+    if (data?.form && data?.step) return data
+  } catch {}
+  return null
+}
+function clearDraft() {
+  try { localStorage.removeItem(DRAFT_KEY) } catch {}
+}
+
 // ── 컴포넌트 ────────────────────────────────────────────────
 export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber }: Props) {
   const [step, setStep] = useState(1)
@@ -85,6 +103,29 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState('')
+  const [showDraftBanner, setShowDraftBanner] = useState(false)
+
+  // 초기 로드 시 임시저장 데이터 확인
+  useEffect(() => {
+    const draft = loadDraft()
+    if (draft && (draft.form.teamName || draft.form.driver1Name)) {
+      setShowDraftBanner(true)
+    }
+  }, [])
+
+  const restoreDraft = useCallback(() => {
+    const draft = loadDraft()
+    if (draft) {
+      setForm({ ...draft.form, agree: false })
+      setStep(draft.step)
+    }
+    setShowDraftBanner(false)
+  }, [])
+
+  const dismissDraft = useCallback(() => {
+    clearDraft()
+    setShowDraftBanner(false)
+  }, [])
 
   const set = (k: keyof FormData, v: string | boolean) => setForm(p => ({ ...p, [k]: v }))
 
@@ -128,6 +169,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
         }),
       })
       if (!res.ok) throw new Error('서버 오류')
+      clearDraft()
       setDone(true)
     } catch {
       setError('신청 처리 중 오류가 발생했습니다. 다시 시도해 주세요.')
@@ -190,6 +232,19 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
 
   return (
     <div>
+      {/* 임시저장 복원 배너 */}
+      {showDraftBanner && (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', padding: '14px 18px', marginBottom: '16px', background: 'rgba(59,130,246,.06)', border: '1px solid rgba(59,130,246,.25)', borderRadius: '8px' }}>
+          <span style={{ fontSize: '.9rem', fontWeight: 700, color: '#2563eb' }}>
+            <i className="fa-solid fa-rotate-left" style={{ marginRight: '8px' }} />이전에 작성 중인 내용이 있습니다. 불러올까요?
+          </span>
+          <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+            <button type="button" onClick={restoreDraft} style={{ padding: '6px 14px', fontSize: '.82rem', fontWeight: 800, background: '#2563eb', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>불러오기</button>
+            <button type="button" onClick={dismissDraft} style={{ padding: '6px 14px', fontSize: '.82rem', fontWeight: 700, background: 'transparent', color: '#6b7280', border: '1px solid #d1d5db', borderRadius: '4px', cursor: 'pointer' }}>새로 작성</button>
+          </div>
+        </div>
+      )}
+
       {/* 스텝 인디케이터 */}
       <div style={{ display: 'flex', gap: '0', marginBottom: '24px' }}>
         {steps.map((s, i) => (
@@ -288,7 +343,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
             </div>
           </div>
 
-          <button type="button" disabled={!step1Valid} onClick={() => setStep(2)} style={{
+          <button type="button" disabled={!step1Valid} onClick={() => { saveDraft(form, 2); setStep(2) }} style={{
             padding: '14px', fontWeight: 800, fontSize: '1rem',
             background: step1Valid ? 'var(--red)' : 'var(--surface-2)',
             color: step1Valid ? '#fff' : 'var(--muted)',
@@ -367,14 +422,14 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           </div>
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button type="button" onClick={() => setStep(1)} style={{
+            <button type="button" onClick={() => { saveDraft(form, 1); setStep(1) }} style={{
               flex: 1, padding: '14px', fontWeight: 700, fontSize: '.95rem',
               background: '#fff', color: 'var(--text-sub)', border: '1px solid var(--line)',
               clipPath: cut, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
             }}>
               <i className="fa-solid fa-arrow-left" /> 이전
             </button>
-            <button type="button" disabled={!step2Valid} onClick={() => setStep(3)} style={{
+            <button type="button" disabled={!step2Valid} onClick={() => { saveDraft(form, 3); setStep(3) }} style={{
               flex: 2, padding: '14px', fontWeight: 800, fontSize: '1rem',
               background: step2Valid ? 'var(--red)' : 'var(--surface-2)',
               color: step2Valid ? '#fff' : 'var(--muted)',
@@ -434,7 +489,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           )}
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button type="button" onClick={() => setStep(2)} style={{
+            <button type="button" onClick={() => { saveDraft(form, 2); setStep(2) }} style={{
               flex: 1, padding: '14px', fontWeight: 700, fontSize: '.95rem',
               background: '#fff', color: 'var(--text-sub)', border: '1px solid var(--line)',
               clipPath: cut, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
