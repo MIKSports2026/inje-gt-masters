@@ -49,7 +49,7 @@ export const ROUND_DETAIL_QUERY = /* groq */`
     entryOpenDate, entryCloseDate, tossPaymentUrl, entryFeeNote, maxEntries,
     notices, description, hasResults,
     heroImage ${IMAGE}, posterImage ${IMAGE},
-    gallery[]{ ${IMAGE} }
+    gallery[] ${IMAGE}
   }
 `
 
@@ -89,7 +89,7 @@ export const CLASS_DETAIL_QUERY = /* groq */`
     vehicleRegulations,
     regulationPdf { asset->{ url } },
     heroImage ${IMAGE}, cardImage ${IMAGE},
-    gallery[]{ ${IMAGE} },
+    gallery[] ${IMAGE},
     isActive, isEntryOpen
   }
 `
@@ -252,7 +252,7 @@ export const HISTORY_DETAIL_QUERY = /* groq */`
     },
     milestones,
     heroImage ${IMAGE},
-    gallery[]{ ${IMAGE} },
+    gallery[] ${IMAGE},
     highlightVideoUrl
   }
 `
