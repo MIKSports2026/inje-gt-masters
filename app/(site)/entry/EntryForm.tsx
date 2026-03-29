@@ -343,6 +343,24 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
             </div>
           </div>
 
+          {/* 참가비 요약 패널 */}
+          {selectedClass?.entryFeePerRound && selectedClass.isFeePublic !== false && selectedRound && (
+            <div style={{ padding: '16px 20px', background: 'rgba(230,0,35,.03)', border: '1px solid rgba(230,0,35,.15)', clipPath: cut, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ fontSize: '.78rem', color: 'var(--muted)', fontWeight: 700, marginBottom: '4px' }}>예상 참가비</div>
+                <div style={{ fontSize: '.82rem', color: 'var(--text-sub)' }}>
+                  {selectedClass.classCode} · R{selectedRound.roundNumber}
+                </div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '1.3rem', fontWeight: 900, color: 'var(--red)', fontFamily: "'Barlow Condensed', sans-serif" }}>
+                  ₩{selectedClass.entryFeePerRound.toLocaleString()}
+                </div>
+                <div style={{ fontSize: '.75rem', color: 'var(--muted)' }}>라운드당</div>
+              </div>
+            </div>
+          )}
+
           <button type="button" disabled={!step1Valid} onClick={() => { saveDraft(form, 2); setStep(2) }} style={{
             padding: '14px', fontWeight: 800, fontSize: '1rem',
             background: step1Valid ? 'var(--red)' : 'var(--surface-2)',
