@@ -39,13 +39,13 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
 
   const r = round
 
-  const CAMPAIGN_COPY: Record<string, string> = {
+  const CAMPAIGN_FALLBACK: Record<string, string> = {
     '2026-r1': 'PUSH YOUR LIMIT — 전설의 시작',
     '2026-r2': '한여름의 열기를 넘어라',
     '2026-r3': '가을 바람 속, 끝까지 달린다',
     '2026-r4': '마지막 랩, 전설이 완성된다',
   }
-  const campaign = CAMPAIGN_COPY[r.slug?.current ?? '']
+  const campaign = r.campaignCopy ?? CAMPAIGN_FALLBACK[r.slug?.current ?? '']
 
   const st = STATUS_MAP[r.status ?? 'upcoming']
   const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'

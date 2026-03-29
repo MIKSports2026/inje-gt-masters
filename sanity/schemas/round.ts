@@ -68,6 +68,13 @@ export default defineType({
       description: '예: 2026 인제 GT 마스터즈 R1',
     }),
     defineField({
+      name: 'campaignCopy',
+      title: '캠페인 카피',
+      type: 'string',
+      group: 'basic',
+      description: '히어로 영역에 표시되는 슬로건. 예: PUSH YOUR LIMIT — 전설의 시작',
+    }),
+    defineField({
       name: 'badge',
       title: '뱃지 레이블',
       type: 'string',

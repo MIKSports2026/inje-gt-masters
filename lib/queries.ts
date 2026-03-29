@@ -45,7 +45,7 @@ export const ROUNDS_QUERY = /* groq */`
 export const ROUND_DETAIL_QUERY = /* groq */`
   *[_type == "round" && slug.current == $slug][0]{
     _id, season, roundNumber, slug, title, titleEn, subtitle,
-    badge, dateStart, dateEnd, schedule, status,
+    campaignCopy, badge, dateStart, dateEnd, schedule, status,
     entryOpenDate, entryCloseDate, tossPaymentUrl, entryFeeNote, maxEntries,
     notices, description, hasResults,
     heroImage ${IMAGE}, posterImage ${IMAGE},
