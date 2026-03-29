@@ -45,9 +45,11 @@ export default function SectionDDayBanner({ nextRound }: Props) {
     whiteSpace: 'nowrap',
   }
   const numStyle: React.CSSProperties = {
-    fontFamily: "'Pretendard Variable', Pretendard, sans-serif",
+    fontFamily: "'Barlow Condensed', sans-serif",
     fontSize: '26px', fontWeight: 900, color: 'white', lineHeight: 1,
-    letterSpacing: '-1px', display: 'block',
+    letterSpacing: '2px', display: 'block',
+    fontVariantNumeric: 'tabular-nums',
+    minWidth: '2ch', textAlign: 'center',
   }
   const lblStyle: React.CSSProperties = {
     fontFamily: "'Barlow Condensed', sans-serif",

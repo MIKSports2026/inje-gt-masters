@@ -338,12 +338,13 @@ textarea:focus-visible {
   justify-content: center;
 }
 .sch-dd {
-  font-family: 'Pretendard Variable', Pretendard, sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   font-size: 38px;
   font-weight: 900;
   color: var(--navy);
   line-height: 1;
-  letter-spacing: -1px;
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
 }
 .sch-row.is-open .sch-dd { color: var(--red); }
 .sch-mm {
@@ -400,10 +401,13 @@ textarea:focus-visible {
   justify-content: center;
 }
 .sch-rn {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   font-size: 30px;
+  font-weight: 800;
   color: var(--navy);
   line-height: 1;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
 }
 .sch-rl {
   font-family: 'Barlow Condensed', sans-serif;

@@ -41,9 +41,11 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
   const mon = dd ? dd.toLocaleDateString('en', { month: 'short', year: 'numeric' }).toUpperCase() : ''
 
   const numStyle: React.CSSProperties = {
-    fontFamily: "'Pretendard Variable', Pretendard, sans-serif",
+    fontFamily: "'Barlow Condensed', sans-serif",
     fontSize: '48px', fontWeight: 900, color: 'white',
-    letterSpacing: '-2px', lineHeight: 1, display: 'block',
+    letterSpacing: '2px', lineHeight: 1, display: 'block',
+    fontVariantNumeric: 'tabular-nums',
+    minWidth: '2ch', textAlign: 'center',
   }
   const lblStyle: React.CSSProperties = {
     fontFamily: "'Barlow Condensed', sans-serif",
@@ -96,7 +98,7 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
               {season} SEASON
             </span>
             <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '19px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,0.45)' }}>
-              Official Website
+              WHERE LEGENDS BEGIN
             </span>
           </div>
 
@@ -117,7 +119,7 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
             letterSpacing: '5px', color: 'rgba(255,255,255,0.38)',
             textTransform: 'uppercase' as const, marginBottom: '36px',
           }}>
-            {circuit} · Circuit {settings?.circuitLength ?? 3.908}KM · {rounds.length || 4} Rounds
+            레이서의 근성과 머신의 한계가 만나는 곳
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
@@ -154,7 +156,7 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', width: '100%' }}>
                 {[{ v: countdown.d, l: 'DAYS' }, { v: countdown.h, l: 'HRS' }, { v: countdown.m, l: 'MIN' }, { v: countdown.s, l: 'SEC' }].map((u, i) => (
                   <div key={u.l} style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1 }}>
-                    {i > 0 && <span style={{ fontFamily: "'Pretendard Variable',Pretendard,sans-serif", fontSize: '36px', fontWeight: 900, color: 'rgba(255,255,255,0.18)', flexShrink: 0 }}>:</span>}
+                    {i > 0 && <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '36px', fontWeight: 900, color: 'rgba(255,255,255,0.18)', flexShrink: 0 }}>:</span>}
                     <div style={{ flex: 1, textAlign: 'center' }}>
                       <span style={numStyle}>{u.v}</span>
                       <span style={lblStyle}>{u.l}</span>
@@ -182,7 +184,7 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
             >
               {day && (
                 <div style={{ textAlign: 'center', paddingRight: '16px', borderRight: '1px solid #e0ddd8', flexShrink: 0 }}>
-                  <div style={{ fontFamily: "'Pretendard Variable',Pretendard,sans-serif", fontSize: '44px', fontWeight: 900, color: 'var(--red)', lineHeight: 1, letterSpacing: '-2px' }}>{day}</div>
+                  <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '44px', fontWeight: 900, color: 'var(--red)', lineHeight: 1, letterSpacing: '1px', fontVariantNumeric: 'tabular-nums' }}>{day}</div>
                   <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' as const, color: '#8a8680' }}>{mon}</div>
                 </div>
               )}
