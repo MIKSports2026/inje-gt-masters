@@ -326,8 +326,8 @@ textarea:focus-visible {
 .sch-row.is-soon::after  { background: var(--gold); }
 .sch-row:hover {
   border-color: var(--red);
-  box-shadow: 0 8px 32px rgba(220,0,26,0.1);
-  transform: translateY(-2px) translateX(3px);
+  box-shadow: 0 8px 32px rgba(220,0,26,0.12);
+  transform: translateY(-2px) scale(1.02);
 }
 .sch-date {
   padding: 24px 16px 24px 22px;
@@ -547,6 +547,12 @@ textarea:focus-visible {
   position: relative;
   overflow: hidden;
   border-radius: 4px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.panel:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+  border-color: var(--line-mid);
 }
 .panel::before {
   content: '';
