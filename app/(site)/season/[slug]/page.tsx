@@ -7,6 +7,7 @@ import { ROUND_DETAIL_QUERY } from '@/lib/queries'
 import type { Round } from '@/types/sanity'
 import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
+import { resolveRoundStatus } from '@/lib/roundStatus'
 
 const STATUS_MAP: Record<string, { text: string; color: string; bg: string }> = {
   upcoming:     { text: '예정',     color: '#3b82f6', bg: 'rgba(59,130,246,.1)'  },
@@ -47,7 +48,8 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
   }
   const campaign = r.campaignCopy ?? CAMPAIGN_FALLBACK[r.slug?.current ?? '']
 
-  const st = STATUS_MAP[r.status ?? 'upcoming']
+  const resolvedStatus = resolveRoundStatus(r)
+  const st = STATUS_MAP[resolvedStatus]
   const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
   const SESSION_COLORS: Record<string, string> = { practice: '#3b82f6', qualifying: '#f59e0b', race: '#e60023', other: '#6b7280' }
 
@@ -209,7 +211,7 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <h3 style={{ fontSize: '1rem', marginBottom: '14px' }}>참가 신청</h3>
 
-                {r.status === 'entry_open' ? (
+                {resolvedStatus === 'entry_open' ? (
                   <>
                     <div style={{ padding: '10px 12px', background: 'rgba(34,197,94,.08)', border: '1px solid rgba(34,197,94,.25)', borderRadius: '6px', marginBottom: '14px', fontSize: '.86rem', color: '#16a34a', fontWeight: 800 }}>
                       <i className="fa-solid fa-circle-check" style={{ marginRight: '6px' }} />현재 접수 중
@@ -221,11 +223,11 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
                       <i className="fa-solid fa-flag-checkered" />지금 신청하기
                     </Link>
                   </>
-                ) : r.status === 'entry_closed' ? (
+                ) : resolvedStatus === 'entry_closed' ? (
                   <div style={{ padding: '14px', background: 'rgba(217,119,6,.06)', border: '1px solid rgba(217,119,6,.2)', borderRadius: '6px', fontSize: '.88rem', color: '#d97706', fontWeight: 800, textAlign: 'center' }}>
                     <i className="fa-solid fa-ban" style={{ marginRight: '6px' }} />접수가 마감되었습니다.
                   </div>
-                ) : r.status === 'finished' ? (
+                ) : resolvedStatus === 'finished' ? (
                   <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '.88rem' }}>
                     <i className="fa-solid fa-flag-checkered" style={{ fontSize: '1.4rem', display: 'block', marginBottom: '8px' }} />
                     대회가 종료되었습니다.

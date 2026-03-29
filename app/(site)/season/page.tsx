@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, CLASSES_QUERY, REGULATIONS_QUERY } from '@/lib/queries'
 import type { SiteSettings, Round, ClassInfo } from '@/types/sanity'
+import { resolveRoundStatus } from '@/lib/roundStatus'
 import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
@@ -74,7 +75,7 @@ export default async function SeasonPage() {
           )}
           <div style={{ display: 'grid', gap: '20px' }}>
             {displayRounds.map((r) => {
-              const st = STATUS_MAP[r.status] ?? STATUS_MAP.upcoming
+              const st = STATUS_MAP[resolveRoundStatus(r)] ?? STATUS_MAP.upcoming
               return (
                 <div key={r._id} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden', position: 'relative' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '4px', background: 'var(--red)' }} />
@@ -119,7 +120,7 @@ export default async function SeasonPage() {
 
                     {/* CTA */}
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'space-between', gap: '10px' }}>
-                      {r.status === 'entry_open' && (
+                      {resolveRoundStatus(r) === 'entry_open' && (
                         <Link href="/entry" className="btn btn-primary" style={{ whiteSpace: 'nowrap' }}>
                           <i className="fa-solid fa-flag-checkered" />참가 신청
                         </Link>
