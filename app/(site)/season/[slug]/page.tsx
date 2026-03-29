@@ -27,12 +27,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function RoundDetailPage({ params }: { params: { slug: string } }) {
-  let round: Round | null = null
-  try {
-    round = await sanityFetch<Round>({ query: ROUND_DETAIL_QUERY, params: { slug: params.slug }, revalidate: 300 })
-  } catch (err) {
-    console.error('[RoundDetail] sanityFetch failed:', err)
-  }
+  const round = await sanityFetch<Round>({ query: ROUND_DETAIL_QUERY, params: { slug: params.slug }, revalidate: 300 }).catch(() => null)
 
   if (!round) notFound()
 
