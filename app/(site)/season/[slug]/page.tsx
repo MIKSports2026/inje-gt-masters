@@ -27,11 +27,24 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function RoundDetailPage({ params }: { params: { slug: string } }) {
-  const round = await sanityFetch<Round>({ query: ROUND_DETAIL_QUERY, params: { slug: params.slug }, revalidate: 300 }).catch(() => null)
+  let round: Round | null = null
+  try {
+    round = await sanityFetch<Round>({ query: ROUND_DETAIL_QUERY, params: { slug: params.slug }, revalidate: 300 })
+  } catch (err) {
+    console.error('[RoundDetail] sanityFetch failed:', err)
+  }
 
   if (!round) notFound()
 
   const r = round
+
+  const CAMPAIGN_COPY: Record<string, string> = {
+    '2026-r1': 'PUSH YOUR LIMIT — 전설의 시작',
+    '2026-r2': '한여름의 열기를 넘어라',
+    '2026-r3': '가을 바람 속, 끝까지 달린다',
+    '2026-r4': '마지막 랩, 전설이 완성된다',
+  }
+  const campaign = CAMPAIGN_COPY[r.slug?.current ?? '']
 
   const st = STATUS_MAP[r.status ?? 'upcoming']
   const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
@@ -67,7 +80,17 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
             <span style={{ padding: '4px 12px', fontSize: '.82rem', fontWeight: 900, background: st.bg, color: st.color, borderRadius: '4px', backdropFilter: 'blur(4px)' }}>{st.text}</span>
           </div>
 
-          <h1 style={{ color: '#fff', fontSize: 'clamp(1.8rem,4vw,3.2rem)', lineHeight: 1.1, marginBottom: '12px' }}>{r.title}</h1>
+          <h1 style={{ color: '#fff', fontSize: 'clamp(1.8rem,4vw,3.2rem)', lineHeight: 1.1, marginBottom: campaign ? '8px' : '12px' }}>{r.title}</h1>
+          {campaign && (
+            <p style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontSize: 'clamp(.95rem,1.4vw,1.15rem)',
+              fontWeight: 600, fontStyle: 'italic',
+              letterSpacing: '1.5px',
+              color: 'var(--red)',
+              marginBottom: '12px',
+            }}>{campaign}</p>
+          )}
           <div style={{ display: 'flex', gap: '18px', color: 'rgba(255,255,255,.7)', fontSize: '.9rem', flexWrap: 'wrap' }}>
             <span><i className="fa-solid fa-calendar" style={{ marginRight: '6px', color: 'var(--red)' }} />{r.dateStart}{r.dateEnd && r.dateEnd !== r.dateStart && ` — ${r.dateEnd}`}</span>
             <span><i className="fa-solid fa-location-dot" style={{ marginRight: '6px', color: 'var(--red)' }} />강원도 인제스피디움 3.9km</span>
