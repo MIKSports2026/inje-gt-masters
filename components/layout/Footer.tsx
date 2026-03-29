@@ -1,141 +1,123 @@
-// components/layout/Footer.tsx
+'use client'
+// components/layout/Footer.tsx — v3 dark footer
 import Link from 'next/link'
 import type { SiteSettings } from '@/types/sanity'
 
 export default function Footer({ settings }: { settings: SiteSettings | null }) {
   const year = new Date().getFullYear()
 
+  const cols = [
+    { title: 'MASTERS', links: [{ label: '대회 소개', href: '/#about' }, { label: '클래스 소개', href: '/season#classes' }, { label: '후원사 소개', href: '/#partners' }, { label: '조직 안내', href: '/#about' }] },
+    { title: 'SEASON',  links: [{ label: '경기 일정', href: '/season' }, { label: '관람 안내', href: '/season#info' }, { label: '경기 규정', href: '/season#regulations' }, { label: '오시는 길', href: '/#speedium' }] },
+    { title: 'ENTRY',   links: [{ label: '참가 자격', href: '/entry#eligibility' }, { label: '온라인 신청', href: '/entry' }, { label: '팀·드라이버 등록', href: '/entry#registration' }, { label: 'FAQ', href: '/entry#faq' }] },
+    { title: 'RESULTS', links: [{ label: '경기 결과', href: '/results' }, { label: '포인트 순위', href: '/results#standings' }, { label: '드라이버 기록', href: '/results#records' }] },
+    { title: 'MEDIA',   links: [{ label: '공지사항', href: '/news' }, { label: '포토 갤러리', href: '/media' }, { label: '영상 하이라이트', href: '/media?type=video' }, { label: '보도자료', href: '/news?category=press' }] },
+  ]
+
+  const season = settings?.currentSeason ?? 2026
+
   return (
-    <footer
-      className="mt-0"
-      style={{ background: 'linear-gradient(180deg, var(--surface-2), #e8ecf0)' }}
-    >
-      <div className="container py-12">
+    <footer style={{ background: '#050505', padding: '60px 0 36px', borderTop: '3px solid var(--red)', position: 'relative', zIndex: 1 }}>
+      <div className="inner">
 
-        {/* ── 상단 패널 ─────────────────────────────────────── */}
-        <div
-          className="panel p-8 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
-        >
+        {/* ── 링크 그리드 ──────────────────────────────────── */}
+        <div className="ft-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: '2fr repeat(5, 1fr)',
+          gap: '28px',
+          marginBottom: '44px',
+          paddingBottom: '40px',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+        }}>
+          {/* 브랜드 열 */}
           <div>
-            <span className="eyebrow">INJE GT MASTERS 2026</span>
-            <h3 className="mt-1" style={{ fontSize: 'clamp(1.28rem, 2vw, 1.7rem)' }}>
-              인제 GT 마스터즈 — {settings?.slogan ?? 'Where Legends Begin'}
-            </h3>
-            <p className="muted mt-2 text-sm">
-              강원도 인제스피디움에서 펼쳐지는 대한민국 정통 GT 내구레이스.<br />
-              2026 시즌 참가 신청 접수 중.
+            <div style={{ marginBottom: '14px' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="인제 GT 마스터즈" style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }} />
+            </div>
+            <p style={{ fontSize: '15px', lineHeight: 1.9, color: 'rgba(255,255,255,0.32)', maxWidth: '260px', marginBottom: '20px', letterSpacing: '-0.01em', wordBreak: 'keep-all' }}>
+              강원도 인제스피디움을 배경으로 펼쳐지는 아마추어 레이서들의 열정의 무대. {season} 시즌도 더욱 뜨겁게 달립니다.
             </p>
+            <div style={{ display: 'flex', gap: '7px' }}>
+              {settings?.youtube && (
+                <a href={settings.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" style={{ width: '34px', height: '34px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.color = 'var(--red)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(255,255,255,0.3)'; }}
+                ><i className="fab fa-youtube" /></a>
+              )}
+              {settings?.instagram && (
+                <a href={settings.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={{ width: '34px', height: '34px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.color = 'var(--red)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(255,255,255,0.3)'; }}
+                ><i className="fab fa-instagram" /></a>
+              )}
+              {settings?.facebook && (
+                <a href={settings.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" style={{ width: '34px', height: '34px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.color = 'var(--red)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(255,255,255,0.3)'; }}
+                ><i className="fab fa-facebook-f" /></a>
+              )}
+              {settings?.kakaoChannelUrl && (
+                <a href={settings.kakaoChannelUrl} target="_blank" rel="noopener noreferrer" aria-label="KakaoTalk" style={{ width: '34px', height: '34px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.color = 'var(--red)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(255,255,255,0.3)'; }}
+                ><i className="fas fa-comment" /></a>
+              )}
+            </div>
           </div>
-          <div className="btns shrink-0">
-            <Link href="/entry" className="btn btn-primary">
-              <i className="fa fa-flag-checkered" />
-              참가 신청
-            </Link>
-            <Link href="#top" className="btn btn-secondary">
-              맨 위로
-            </Link>
-          </div>
-        </div>
 
-        {/* ── 링크 그리드 ───────────────────────────────────── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          {[
-            {
-              title: '대회',
-              links: [
-                { label: '대회 소개',   href: '/#about' },
-                { label: '대회 역사',   href: '/#history' },
-                { label: '인제스피디움', href: '/#speedium' },
-              ],
-            },
-            {
-              title: '시즌',
-              links: [
-                { label: '2026 라운드', href: '/#season' },
-                { label: '클래스 정보', href: '/#classes' },
-                { label: '경기 결과',   href: '/#results' },
-              ],
-            },
-            {
-              title: '참가',
-              links: [
-                { label: '참가 신청',   href: '/entry' },
-                { label: '참가 안내',   href: '/entry#guide' },
-                { label: '규정 PDF',   href: '/entry#regulations' },
-              ],
-            },
-            {
-              title: '미디어',
-              links: [
-                { label: '포토 갤러리', href: '/media' },
-                { label: '동영상',      href: '/media?type=video' },
-                { label: '소식 / 공지', href: '/news' },
-              ],
-            },
-          ].map((col) => (
+          {/* 링크 열들 */}
+          {cols.map((col) => (
             <div key={col.title}>
-              <h4 className="text-sm font-900 tracking-widest text-muted uppercase mb-3">
+              <div style={{
+                fontFamily: "'Barlow Condensed',sans-serif",
+                fontSize: '16.5px', fontWeight: 800, letterSpacing: '3px',
+                textTransform: 'uppercase' as const,
+                color: 'rgba(255,255,255,0.85)',
+                marginBottom: '16px', paddingBottom: '12px',
+                borderBottom: '1px solid rgba(255,255,255,0.08)',
+              }}>
                 {col.title}
-              </h4>
-              <ul className="space-y-2">
-                {col.links.map(link => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-[#39434d] hover:text-red transition-colors font-[700]"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {col.links.map((link) => (
+                  <Link key={link.label} href={link.href} style={{
+                    fontSize: '15px', color: 'rgba(255,255,255,0.32)', textDecoration: 'none', transition: 'color 0.2s',
+                  }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.85)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.32)'; }}
+                  >
+                    {link.label}
+                  </Link>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* ── SNS ──────────────────────────────────────────── */}
-        <div className="flex items-center gap-4 mb-6">
-          {settings?.instagram && (
-            <a href={settings.instagram} target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 border border-line bg-white grid place-items-center text-muted hover:text-red hover:border-red transition-colors rounded-sm">
-              <i className="fab fa-instagram" />
-            </a>
-          )}
-          {settings?.youtube && (
-            <a href={settings.youtube} target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 border border-line bg-white grid place-items-center text-muted hover:text-red hover:border-red transition-colors rounded-sm">
-              <i className="fab fa-youtube" />
-            </a>
-          )}
-          {settings?.facebook && (
-            <a href={settings.facebook} target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 border border-line bg-white grid place-items-center text-muted hover:text-red hover:border-red transition-colors rounded-sm">
-              <i className="fab fa-facebook-f" />
-            </a>
-          )}
-          {settings?.kakaoChannelUrl && (
-            <a href={settings.kakaoChannelUrl} target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 border border-line bg-white grid place-items-center text-muted hover:text-yellow-500 hover:border-yellow-400 transition-colors rounded-sm">
-              <i className="fas fa-comment" />
-            </a>
-          )}
-        </div>
-
         {/* ── 하단 ─────────────────────────────────────────── */}
-        <div className="border-t border-line pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-sm text-muted">
-          <span>© {year} INJE GT MASTERS. All rights reserved.</span>
-          <span>
-            운영 주체 : {settings?.circuitName ?? '인제스피디움'} / 인제군
-          </span>
-          {(settings?.email || settings?.phone) && (
-            <span>
-              {settings.phone && <span className="mr-3">{settings.phone}</span>}
-              {settings.email && <a href={`mailto:${settings.email}`} className="hover:text-red">{settings.email}</a>}
-            </span>
-          )}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+          <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.2)', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{ color: 'var(--red)' }}>©</span>
+            <span>{year} INJE GT MASTERS. All rights reserved.</span>
+            <span>|</span>
+            <span>운영 주체 : {settings?.circuitName ?? '인제스피디움'} / 인제군</span>
+          </p>
+          <div style={{ display: 'flex', gap: '18px' }}>
+            {[{ label: '이용약관', href: '#' }, { label: '개인정보처리방침', href: '#' }].map((l) => (
+              <Link key={l.label} href={l.href} style={{ fontSize: '15px', color: 'rgba(255,255,255,0.25)', textDecoration: 'none', transition: 'color 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.8)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.25)'; }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
         </div>
 
       </div>
+
+      
     </footer>
   )
 }

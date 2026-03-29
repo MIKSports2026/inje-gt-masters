@@ -5,6 +5,7 @@ import { sanityFetch } from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY, CLASSES_QUERY, ROUNDS_QUERY } from '@/lib/queries'
 import type { SiteSettings, ClassInfo, Round } from '@/types/sanity'
 import EntryForm from './EntryForm'
+import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
   title: '참가 신청',
@@ -57,51 +58,27 @@ export default async function EntryPage() {
   return (
     <>
       {/* ── 페이지 히어로 ────────────────────────────────────── */}
-      <section style={{
-        background: 'linear-gradient(135deg,#111 0%,#1a0008 55%,#0d0d0d 100%)',
-        padding: '64px 0 56px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        {/* 배경 사선 패턴 */}
+      <PageHero
+        image={(settings as SiteSettings | null)?.heroEntry}
+        badge="2026 Season Entry"
+        title="참가 신청"
+        subtitle="당신의 도전이 시작되는 곳, 인제 GT 마스터즈."
+      >
+        {/* 상태 배너 */}
         <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'repeating-linear-gradient(135deg,rgba(230,0,35,.04) 0 1px,transparent 1px 60px)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', right: 0, bottom: 0,
-          width: '40%', height: '100%',
-          background: 'linear-gradient(225deg,rgba(230,0,35,.12),transparent 60%)',
-          pointerEvents: 'none',
-        }} />
-
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <span className="pill">2026 Season Entry</span>
-          <h1 style={{ color: '#fff', marginTop: '12px', fontSize: 'clamp(2.2rem,6vw,5rem)' }}>
-            참가 신청
-          </h1>
-          <p style={{ color: 'rgba(255,255,255,.7)', fontSize: 'clamp(.96rem,1.5vw,1.12rem)', marginTop: '12px', maxWidth: '600px', lineHeight: 1.65 }}>
-            대한민국 정통 GT 내구레이스, 인제 GT 마스터즈.<br />
-            온라인 신청 → 토스페이먼츠 결제 → 접수 확정의 3단계로 완료됩니다.
-          </p>
-
-          {/* 상태 배너 */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '10px',
-            marginTop: '20px', padding: '10px 18px',
-            background: isOpen ? 'rgba(34,197,94,.12)' : 'rgba(230,0,35,.10)',
-            border: `1px solid ${isOpen ? 'rgba(34,197,94,.3)' : 'rgba(230,0,35,.3)'}`,
-            borderRadius: '6px', color: isOpen ? '#4ade80' : '#ff6b6b',
-            fontSize: '.9rem', fontWeight: 800,
-          }}>
-            <i className={`fa-solid ${isOpen ? 'fa-circle-check' : 'fa-clock'}`} />
-            {isOpen
-              ? '현재 참가 신청 접수 중입니다.'
-              : (settings?.entryNotice ?? '참가 신청 일정을 준비 중입니다.')}
-          </div>
+          display: 'inline-flex', alignItems: 'center', gap: '10px',
+          marginTop: '20px', padding: '10px 18px',
+          background: isOpen ? 'rgba(34,197,94,.12)' : 'rgba(230,0,35,.10)',
+          border: `1px solid ${isOpen ? 'rgba(34,197,94,.3)' : 'rgba(230,0,35,.3)'}`,
+          borderRadius: '6px', color: isOpen ? '#4ade80' : '#ff6b6b',
+          fontSize: '.9rem', fontWeight: 800,
+        }}>
+          <i className={`fa-solid ${isOpen ? 'fa-circle-check' : 'fa-clock'}`} />
+          {isOpen
+            ? '현재 참가 신청 접수 중입니다.'
+            : ((settings as SiteSettings | null)?.entryNotice ?? '참가 신청 일정을 준비 중입니다.')}
         </div>
-      </section>
+      </PageHero>
 
       {/* ── 클래스 & 참가비 ────────────────────────────────────── */}
       <section className="section" id="fee" style={{ background: 'var(--surface-2)' }}>

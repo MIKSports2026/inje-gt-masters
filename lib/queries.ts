@@ -18,6 +18,8 @@ export const SITE_SETTINGS_QUERY = /* groq */`
     email, phone, kakaoChannelUrl, address,
     instagram, youtube, facebook, naverBlog,
     logoLight ${IMAGE}, logoDark ${IMAGE},
+    heroImage ${IMAGE}, heroAbout ${IMAGE}, heroSeason ${IMAGE},
+    heroEntry ${IMAGE}, heroResults ${IMAGE}, heroMedia ${IMAGE}, heroCircuit ${IMAGE},
     isEntryOpen, entryNotice, tossPaymentBaseUrl,
     bannerVisible, bannerMessage, bannerLinkText, bannerLinkUrl, bannerBgColor,
     circuitName, circuitLength, circuitLocation, speediumUrl, circuitMapEmbedUrl
@@ -47,7 +49,7 @@ export const ROUND_DETAIL_QUERY = /* groq */`
     entryOpenDate, entryCloseDate, tossPaymentUrl, entryFeeNote, maxEntries,
     notices, description, hasResults,
     heroImage ${IMAGE}, posterImage ${IMAGE},
-    gallery[]{ ${IMAGE} }
+    gallery[] ${IMAGE}
   }
 `
 
@@ -87,7 +89,7 @@ export const CLASS_DETAIL_QUERY = /* groq */`
     vehicleRegulations,
     regulationPdf { asset->{ url } },
     heroImage ${IMAGE}, cardImage ${IMAGE},
-    gallery[]{ ${IMAGE} },
+    gallery[] ${IMAGE},
     isActive, isEntryOpen
   }
 `
@@ -250,7 +252,7 @@ export const HISTORY_DETAIL_QUERY = /* groq */`
     },
     milestones,
     heroImage ${IMAGE},
-    gallery[]{ ${IMAGE} },
+    gallery[] ${IMAGE},
     highlightVideoUrl
   }
 `

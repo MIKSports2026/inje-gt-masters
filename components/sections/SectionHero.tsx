@@ -1,4 +1,5 @@
 'use client'
+// components/sections/SectionHero.tsx — v3 Hero
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -10,218 +11,218 @@ interface Props {
   rounds:    Round[]
 }
 
-function useCountdown(target?: string) {
+function pad(n: number) { return String(Math.max(0, n)).padStart(2, '0') }
+
+function useCountdown(dateStart?: string) {
   const calc = () => {
-    if (!target) return null
-    const diff = new Date(target).getTime() - Date.now()
+    if (!dateStart) return null
+    const diff = new Date(`${dateStart}T09:00:00+09:00`).getTime() - Date.now()
     if (diff <= 0) return null
     return {
-      days:    Math.floor(diff / 86400000),
-      hours:   Math.floor((diff % 86400000) / 3600000),
-      minutes: Math.floor((diff % 3600000)  / 60000),
-      seconds: Math.floor((diff % 60000)    / 1000),
+      d: pad(Math.floor(diff / 86400000)),
+      h: pad(Math.floor((diff % 86400000) / 3600000)),
+      m: pad(Math.floor((diff % 3600000) / 60000)),
+      s: pad(Math.floor((diff % 60000) / 1000)),
     }
   }
   const [t, setT] = useState(calc)
-  useEffect(() => {
-    const id = setInterval(() => setT(calc()), 1000)
-    return () => clearInterval(id)
-  })
+  useEffect(() => { const id = setInterval(() => setT(calc()), 1000); return () => clearInterval(id) })
   return t
 }
 
-const SL: Record<string,{text:string;color:string}> = {
-  upcoming:     {text:'예정',    color:'#3b82f6'},
-  entry_open:   {text:'접수중',  color:'#22c55e'},
-  entry_closed: {text:'접수마감',color:'#f59e0b'},
-  ongoing:      {text:'진행중',  color:'#e60023'},
-  finished:     {text:'종료',   color:'#6b7280'},
-}
+export default function SectionHero({ settings, nextRound, rounds }: Props) {
+  const countdown = useCountdown(nextRound?.dateStart)
+  const season    = settings?.currentSeason ?? 2026
+  const circuit   = settings?.circuitName ?? '인제스피디움'
+  const heroImg   = (settings as any)?.heroImage?.asset?.url as string | undefined
 
-export default function SectionHero({ settings, nextRound }: Props) {
-  const cd = useCountdown(nextRound?.dateStart)
-  const metrics = [
-    {v:'107',l:'경주차',  s:'2026 시즌'},
-    {v:'208',l:'드라이버',s:'남녀 통합'},
-    {v:'4',  l:'라운드',  s:'연간 일정'},
-  ]
+  const dd  = nextRound?.dateStart ? new Date(nextRound.dateStart) : null
+  const day = dd ? dd.getDate() : null
+  const mon = dd ? dd.toLocaleDateString('en', { month: 'short', year: 'numeric' }).toUpperCase() : ''
 
-  /* 공통 스타일 */
-  const panel = {
-    border:'1px solid var(--line)',
-    borderRadius:'10px',
-    overflow:'hidden' as const,
-    position:'relative' as const,
+  const numStyle: React.CSSProperties = {
+    fontFamily: "'Pretendard Variable', Pretendard, sans-serif",
+    fontSize: '48px', fontWeight: 900, color: 'white',
+    letterSpacing: '-2px', lineHeight: 1, display: 'block',
   }
-  const redLine = {
-    position:'absolute' as const,left:0,top:0,right:0,height:'2px',
-    background:'linear-gradient(90deg,var(--red),transparent 72%)',
+  const lblStyle: React.CSSProperties = {
+    fontFamily: "'Barlow Condensed', sans-serif",
+    fontSize: '16.5px', fontWeight: 700, letterSpacing: '2px',
+    textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
+    marginTop: '4px', display: 'block',
   }
-  const cutSm = 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)'
-  const cutMd = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
 
   return (
-    <section style={{padding:'18px 0 28px'}}>
-      <div className="container">
-        <div style={{
-          display:'grid',
-          gridTemplateColumns:'1.02fr .98fr',
-          gap:'20px',
-          minHeight:'calc(100vh - var(--header-h) - 28px)',
-          alignItems:'stretch',
-        }}>
+    <section aria-label="메인 히어로" style={{
+      position: 'relative',
+      minHeight: 'calc(100vh - 104px)',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      overflow: 'hidden',
+    }}>
+      {/* 키 비주얼 */}
+      <div style={{ position: 'absolute', inset: 0, background: 'var(--bg-2)' }}>
+        {heroImg ? (
+          <Image src={heroImg} alt="Hero" fill style={{ objectFit: 'cover', objectPosition: 'center 35%' }} priority sizes="100vw" />
+        ) : null}
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 65% 40%, rgba(220,0,26,0.1) 0%, transparent 55%), radial-gradient(ellipse 100% 100% at 10% 80%, rgba(0,0,0,0.8) 0%, transparent 55%), linear-gradient(160deg, #0b0b0b 0%, #181818 50%, #0f0b0b 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-conic-gradient(rgba(255,255,255,0.01) 0% 25%, transparent 0% 50%)', backgroundSize: '30px 30px' }} />
+      </div>
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.02) 25%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.94) 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.32) 40%, transparent 65%)' }} />
 
-          {/* ── 왼쪽 카피 ──────────────────────────────────── */}
-          <div style={{
-            ...panel,
-            padding:'clamp(24px,4vw,48px)',
-            background:'linear-gradient(135deg,rgba(230,0,35,.06),transparent 28%),linear-gradient(180deg,#fff,#f3f6f8)',
-            display:'flex',flexDirection:'column',justifyContent:'space-between',
-          }}>
-            {/* 모서리 장식 */}
-            <div style={{position:'absolute',right:0,top:0,width:0,height:0,borderStyle:'solid',borderWidth:'0 48px 48px 0',borderColor:'transparent var(--red) transparent transparent',opacity:.18}} />
+      {/* 배경 연도 텍스트 */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', right: '-1%', bottom: '-8%',
+        fontFamily: "'Bebas Neue', sans-serif",
+        fontSize: 'clamp(200px, 26vw, 400px)', lineHeight: 1, letterSpacing: '-10px',
+        color: 'transparent', WebkitTextStroke: '1px rgba(0,0,0,0.06)',
+        pointerEvents: 'none', userSelect: 'none',
+      }}>{String(season).slice(-2)}</div>
 
-            <div>
-              {/* 키커 */}
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'12px',marginBottom:'20px',flexWrap:'wrap'}}>
-                <span className="pill">2026 SEASON</span>
-                {nextRound && (
-                  <span className="chip">
-                    <i className="fa-solid fa-calendar-days" style={{color:'var(--red)',marginRight:'6px'}} />
-                    Next: {nextRound.dateStart}
-                  </span>
-                )}
-              </div>
+      {/* 본문 */}
+      <div style={{
+        position: 'relative', zIndex: 10,
+        display: 'grid', gridTemplateColumns: '1fr minmax(280px,400px)',
+        alignItems: 'flex-end', gap: '40px',
+        padding: '0 var(--pad) 60px',
+      }}>
 
-              <p style={{fontSize:'clamp(1.02rem,1.8vw,1.34rem)',fontWeight:850,color:'#1f2831',marginBottom:'8px',letterSpacing:'.06em',textTransform:'uppercase'}}>
-                {settings?.slogan ?? 'Where Legends Begin'}
-              </p>
-              <h1>인제<br/>GT<br/>마스터즈</h1>
-              <p className="lead" style={{marginTop:'16px'}}>
-                강원도 인제스피디움 3.9km 서킷.<br/>
-                GT 내구레이스부터 드리프트·바이크·슈퍼카까지<br/>
-                대한민국 최고의 모터스포츠 무대.
-              </p>
-            </div>
-
-            {/* 카운트다운 */}
-            {nextRound && (
-              <div style={{margin:'24px 0'}}>
-                <p style={{fontSize:'.78rem',fontWeight:900,letterSpacing:'.12em',textTransform:'uppercase',color:'var(--muted)',marginBottom:'10px'}}>
-                  <i className="fa-solid fa-stopwatch" style={{color:'var(--red)',marginRight:'6px'}} />
-                  {nextRound.title} — D-DAY
-                </p>
-                <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'8px'}}>
-                  {cd ? (
-                    [{v:cd.days,l:'DAYS'},{v:cd.hours,l:'HRS'},{v:cd.minutes,l:'MIN'},{v:cd.seconds,l:'SEC'}].map(({v,l})=>(
-                      <div key={l} style={{background:'#fff',border:'1px solid var(--line)',padding:'12px 8px',textAlign:'center',clipPath:cutSm,position:'relative'}}>
-                        <div style={redLine} />
-                        <strong style={{display:'block',fontSize:'clamp(1.4rem,2.5vw,2rem)',lineHeight:1,letterSpacing:'-.04em',fontWeight:950}}>
-                          {String(v).padStart(2,'0')}
-                        </strong>
-                        <span style={{fontSize:'.72rem',fontWeight:900,letterSpacing:'.1em',color:'var(--muted)'}}>{l}</span>
-                      </div>
-                    ))
-                  ) : (
-                    <div style={{gridColumn:'1/-1',textAlign:'center',color:'var(--muted)',padding:'16px',fontSize:'.9rem'}}>
-                      레이스 당일입니다!
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* 메트릭 */}
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px'}}>
-              {metrics.map(m=>(
-                <div key={m.l} style={{minHeight:'100px',padding:'16px',background:'#fff',border:'1px solid var(--line)',position:'relative',clipPath:cutMd}}>
-                  <div style={redLine} />
-                  <strong style={{display:'block',fontSize:'clamp(1.5rem,2.5vw,2.2rem)',lineHeight:1,letterSpacing:'-.04em',marginBottom:'10px',fontWeight:950}}>{m.v}</strong>
-                  <span style={{display:'block',color:'var(--muted)',fontSize:'.85rem',fontWeight:700}}>{m.l}</span>
-                  <span style={{display:'block',color:'var(--muted)',fontSize:'.78rem'}}>{m.s}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="btns" style={{marginTop:'22px'}}>
-              <Link href="/entry" className="btn btn-primary">
-                <i className="fa-solid fa-flag-checkered" /> 참가 신청하기
-              </Link>
-              <Link href="/#season" className="btn btn-secondary">
-                2026 시즌 보기
-              </Link>
-            </div>
+        {/* 좌측 */}
+        <div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+            <span style={{ background: 'var(--red)', color: 'white', fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', fontWeight: 800, letterSpacing: '3.5px', textTransform: 'uppercase' as const, padding: '5px 14px' }}>
+              {season} SEASON
+            </span>
+            <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '19px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,0.45)' }}>
+              Official Website
+            </span>
           </div>
 
-          {/* ── 오른쪽 비주얼 ──────────────────────────────── */}
-          <div style={{display:'grid',gridTemplateRows:'1fr auto',gap:'18px'}}>
+          <h1 style={{
+            fontFamily: "'Bebas Neue', sans-serif",
+            fontSize: 'clamp(72px, 10vw, 152px)',
+            lineHeight: 0.88, letterSpacing: '2px',
+            color: 'white', marginBottom: '16px',
+          }}>
+            INJE<br />
+            <span style={{ color: 'var(--red)' }}>GT</span><br />
+            <span style={{ color: 'transparent', WebkitTextStroke: '1.5px rgba(255,255,255,0.5)' }}>MASTERS</span>
+          </h1>
 
-            {/* 메인 KV */}
-            <div style={{
-              minHeight:'490px',position:'relative',overflow:'hidden',
-              background:'linear-gradient(120deg,rgba(17,17,17,.18),rgba(17,17,17,.76)),linear-gradient(135deg,#393939,#111)',
-              clipPath:'polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,0 100%)',
-            }}>
-              <div style={{
-                position:'absolute',inset:0,
-                backgroundImage:`url("${nextRound?.heroImage?.asset?.url ?? 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80'}")`,
-                backgroundSize:'cover',backgroundPosition:'center',
-                transform:'scale(1.05)',
-                animation:'heroZoom 12s ease-in-out infinite alternate',
-              }} />
-              {/* 레드 라인 효과 */}
-              <div style={{position:'absolute',inset:0,background:'linear-gradient(90deg,transparent 0 86%,rgba(230,0,35,.28) 86% 87%,transparent 87% 100%)',mixBlendMode:'screen',opacity:.9}} />
+          <p style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontSize: 'clamp(15px, 1.5vw, 19px)', fontWeight: 400,
+            letterSpacing: '5px', color: 'rgba(255,255,255,0.38)',
+            textTransform: 'uppercase' as const, marginBottom: '36px',
+          }}>
+            {circuit} · Circuit {settings?.circuitLength ?? 3.908}KM · {rounds.length || 4} Rounds
+          </p>
 
-              {/* 오버레이 */}
-              <div style={{
-                position:'absolute',left:0,right:0,bottom:0,zIndex:1,
-                padding:'22px',display:'flex',alignItems:'end',justifyContent:'space-between',gap:'12px',
-                background:'linear-gradient(180deg,transparent,rgba(17,17,17,.76))',
-                color:'#fff',
-              }}>
-                <div>
-                  <strong style={{display:'block',fontSize:'1.06rem',fontWeight:900}}>
-                    {nextRound ? `${nextRound.season} R${nextRound.roundNumber} — ${nextRound.title}` : '인제스피디움 3.9km'}
-                    {nextRound?.badge && <span style={{marginLeft:'8px',fontSize:'.72rem',padding:'2px 8px',background:'rgba(230,0,35,.7)',borderRadius:'3px'}}>{nextRound.badge}</span>}
-                  </strong>
-                  <span style={{display:'block',opacity:.84,fontSize:'.92rem'}}>
-                    {nextRound ? `${nextRound.dateStart} · 인제스피디움` : '강원도 인제군 기린면'}
-                  </span>
-                </div>
-                {nextRound && (
-                  <span style={{padding:'6px 12px',fontSize:'.78rem',fontWeight:900,color:'#fff',background:SL[nextRound.status]?.color??'#3b82f6',clipPath:'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)'}}>
-                    {SL[nextRound.status]?.text}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* 미니 KV 2개 */}
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'18px'}}>
-              {[
-                {bg:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80',t:'6개 클래스',s:'GT1·GT2·GT3·DRIFT·BIKE·SUPER',href:'/#classes'},
-                {bg:'https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?auto=format&fit=crop&w=800&q=80',t:'참가 신청',s:'온라인 접수 · 토스페이먼츠',href:'/entry'},
-              ].map((m,i)=>(
-                <Link key={i} href={m.href} style={{
-                  minHeight:'190px',position:'relative',overflow:'hidden',
-                  background:'#222',border:'1px solid var(--line)',boxShadow:'var(--shadow)',
-                  clipPath:'polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)',
-                  display:'block',
-                }}>
-                  <div style={{position:'absolute',inset:0,backgroundImage:`url("${m.bg}")`,backgroundSize:'cover',backgroundPosition:'center'}} />
-                  <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(17,17,17,.08),rgba(17,17,17,.76))'}} />
-                  <div style={{position:'absolute',left:0,top:0,width:'100%',height:'2px',background:'linear-gradient(90deg,var(--red),transparent 70%)'}} />
-                  <div style={{position:'absolute',left:'16px',right:'16px',bottom:'16px',zIndex:1,color:'#fff'}}>
-                    <strong style={{display:'block',fontSize:'1rem',fontWeight:900}}>{m.t}</strong>
-                    <span style={{display:'block',opacity:.84,fontSize:'.88rem'}}>{m.s}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+            <Link href="/entry" className="btn-fill">
+              <i className="fa fa-flag-checkered" />
+              참가 신청하기
+            </Link>
+            <Link href="/season" className="btn-line">
+              {season} 일정 보기
+            </Link>
           </div>
         </div>
+
+        {/* 우측: 카운트다운 + 다음 라운드 */}
+        <div style={{ display: 'grid', gap: '0' }}>
+          {/* 카운트다운 박스 */}
+          {countdown && (
+            <div style={{
+              background: 'rgba(10,10,10,0.6)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              backdropFilter: 'blur(20px)',
+              padding: '24px 22px',
+              marginBottom: '0',
+            }}>
+              <div style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontSize: '18px', fontWeight: 800, letterSpacing: '3.5px',
+                textTransform: 'uppercase' as const, color: 'var(--red)',
+                marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px',
+              }}>
+                <span style={{ width: '16px', height: '2px', background: 'var(--red)', display: 'inline-block' }} />
+                개막전 D-DAY
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', width: '100%' }}>
+                {[{ v: countdown.d, l: 'DAYS' }, { v: countdown.h, l: 'HRS' }, { v: countdown.m, l: 'MIN' }, { v: countdown.s, l: 'SEC' }].map((u, i) => (
+                  <div key={u.l} style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1 }}>
+                    {i > 0 && <span style={{ fontFamily: "'Pretendard Variable',Pretendard,sans-serif", fontSize: '36px', fontWeight: 900, color: 'rgba(255,255,255,0.18)', flexShrink: 0 }}>:</span>}
+                    <div style={{ flex: 1, textAlign: 'center' }}>
+                      <span style={numStyle}>{u.v}</span>
+                      <span style={lblStyle}>{u.l}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 다음 라운드 카드 */}
+          {nextRound && (
+            <Link href={`/season/${nextRound.slug.current}`} style={{
+              background: 'white',
+              padding: '18px 22px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              textDecoration: 'none',
+              cursor: 'pointer',
+              transition: 'background 0.2s',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#f8f6f3'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'white'; }}
+            >
+              {day && (
+                <div style={{ textAlign: 'center', paddingRight: '16px', borderRight: '1px solid #e0ddd8', flexShrink: 0 }}>
+                  <div style={{ fontFamily: "'Pretendard Variable',Pretendard,sans-serif", fontSize: '44px', fontWeight: 900, color: 'var(--red)', lineHeight: 1, letterSpacing: '-2px' }}>{day}</div>
+                  <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' as const, color: '#8a8680' }}>{mon}</div>
+                </div>
+              )}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '15.5px', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'var(--red)', marginBottom: '5px' }}>
+                  INJE GT MASTERS · Round {String(nextRound.roundNumber).padStart(2, '0')}
+                </div>
+                <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: '19px', letterSpacing: '2px', color: '#141414', lineHeight: 1.1 }}>
+                  {nextRound.title}
+                </div>
+                <div style={{ fontSize: '16.5px', color: '#8a8680', marginTop: '3px' }}>
+                  📍 강원도 {circuit}
+                </div>
+              </div>
+              <div style={{ fontSize: '18px', color: 'var(--red)', flexShrink: 0, transition: 'transform 0.2s' }}>→</div>
+            </Link>
+          )}
+
+          {/* 라운드 없을 때 */}
+          {!nextRound && (
+            <div style={{ background: 'rgba(10,10,10,0.6)', border: '1px solid rgba(255,255,255,0.12)', padding: '24px 22px', textAlign: 'center', color: 'rgba(255,255,255,0.4)' }}>
+              <p style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', letterSpacing: '2px' }}>
+                {season} 시즌 일정을 준비중입니다
+              </p>
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* 스크롤 힌트 */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
+        zIndex: 10, animation: 'scrollhint 2.5s ease-in-out infinite',
+      }}>
+        <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '19px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,0.3)' }}>scroll</span>
+        <div style={{ width: '1px', height: '32px', background: 'linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%)' }} />
+      </div>
+
+      
     </section>
   )
 }

@@ -8,6 +8,7 @@ interface Props {
   classes:     ClassInfo[]
   rounds:      Round[]
   tossBaseUrl?: string
+  initialRoundNumber?: number
 }
 
 interface FormData {
@@ -74,27 +75,43 @@ export default function EntryForm({ isOpen, classes, rounds, tossBaseUrl }: Prop
     if (validate()) setStep('confirm')
   }
 
-  // ── 토스페이먼츠 결제 링크로 이동 ───────────────────────
-  const handlePayment = () => {
-    // 선택한 라운드의 tossPaymentUrl 우선 사용, 없으면 base URL 사용
+  // ── 토스페이먼츠 결제 링크로 이동 + 이메일 발송 ───────
+  const handlePayment = async () => {
     const selectedRounds = rounds.filter(r => form.roundIds.includes(r._id))
     const paymentUrl =
       selectedRounds[0]?.tossPaymentUrl ??
       tossBaseUrl ??
-      'https://toss.im'   // fallback (실제 URL은 Sanity에서 관리)
+      'https://toss.im'
 
-    // 참가자 메타데이터를 쿼리 파라미터로 전달 (토스 커스텀 필드)
+    // 결제 창 먼저 오픈
     const params = new URLSearchParams({
-      orderId:     `GT-${Date.now()}`,
-      orderName:   `인제GT마스터즈 ${form.classId} 참가비`,
-      customerName: form.driver1,
-      customerEmail: form.email,
+      orderId:             `GT-${Date.now()}`,
+      orderName:           `인제GT마스터즈 ${selectedClass?.name ?? form.classId} 참가비`,
+      customerName:        form.driver1,
+      customerEmail:       form.email,
       customerMobilePhone: form.phone,
     })
-
-    // 토스페이먼츠 결제 링크 페이지로 이동
     window.open(`${paymentUrl}?${params.toString()}`, '_blank', 'noopener,noreferrer')
     setStep('done')
+
+    // 이메일 발송 (백그라운드 — 실패해도 결제 흐름에 영향 없음)
+    fetch('/api/entry', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        teamName:   form.teamName,
+        driver1:    form.driver1,
+        driver2:    form.driver2,
+        phone:      form.phone,
+        email:      form.email,
+        className:  selectedClass?.name ?? form.classId,
+        rounds:     selectedRounds.map(r => `R${r.roundNumber} ${r.title}`),
+        carModel:   form.carModel,
+        carNumber:  form.carNumber,
+        licenseNum: form.licenseNum,
+        totalFee,
+      }),
+    }).catch(() => { /* 이메일 실패는 무시 */ })
   }
 
   const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
