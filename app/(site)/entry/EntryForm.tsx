@@ -1,368 +1,462 @@
 'use client'
-// app/(site)/entry/EntryForm.tsx — 토스페이먼츠 연동 참가신청 폼
-import { useState, FormEvent } from 'react'
+// app/(site)/entry/EntryForm.tsx — Step 1→2→3 참가신청 폼 (A방식: 신청→검토→결제링크 발송)
+import { useState } from 'react'
 import type { ClassInfo, Round } from '@/types/sanity'
 
 interface Props {
-  isOpen:      boolean
-  classes:     ClassInfo[]
-  rounds:      Round[]
-  tossBaseUrl?: string
+  isOpen: boolean
+  classes: ClassInfo[]
+  rounds: Round[]
   initialRoundNumber?: number
 }
 
 interface FormData {
-  teamName:    string
-  driver1:     string
-  driver2:     string
-  phone:       string
-  email:       string
-  classId:     string
-  roundIds:    string[]
-  carModel:    string
-  carNumber:   string
-  licenseNum:  string
-  agree:       boolean
+  // Step 1: 팀 & 차량
+  teamName: string
+  classId: string
+  roundId: string
+  carNumber: string
+  carModel: string
+  // Step 2: 드라이버
+  driver1Name: string
+  driver1Phone: string
+  driver1Email: string
+  driver1Birth: string
+  driver2Name: string
+  driver2Phone: string
+  driver2Email: string
+  // Step 3
+  agree: boolean
 }
 
 const EMPTY: FormData = {
-  teamName: '', driver1: '', driver2: '', phone: '', email: '',
-  classId: '', roundIds: [], carModel: '', carNumber: '', licenseNum: '', agree: false,
+  teamName: '', classId: '', roundId: '', carNumber: '', carModel: '',
+  driver1Name: '', driver1Phone: '', driver1Email: '', driver1Birth: '',
+  driver2Name: '', driver2Phone: '', driver2Email: '',
+  agree: false,
 }
 
-export default function EntryForm({ isOpen, classes, rounds, tossBaseUrl }: Props) {
-  const [form, setForm]     = useState<FormData>(EMPTY)
-  const [step, setStep]     = useState<'form' | 'confirm' | 'done'>('form')
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
+// ── 유틸 ──────────────────────────────────────────────────
+function formatPhone(v: string) {
+  const d = v.replace(/\D/g, '').slice(0, 11)
+  if (d.length <= 3) return d
+  if (d.length <= 7) return `${d.slice(0, 3)}-${d.slice(3)}`
+  return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`
+}
+
+function formatCarNumber(v: string) {
+  return v.replace(/[^0-9가-힣a-zA-Z\s]/g, '').slice(0, 12)
+}
+
+function isValidEmail(e: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)
+}
+
+function isOver18(birth: string) {
+  if (!birth) return false
+  const b = new Date(birth)
+  const today = new Date()
+  let age = today.getFullYear() - b.getFullYear()
+  const m = today.getMonth() - b.getMonth()
+  if (m < 0 || (m === 0 && today.getDate() < b.getDate())) age--
+  return age >= 18
+}
+
+function getStatusBadge(status: string) {
+  if (status === 'entry_open') return { text: '접수중', color: '#16a34a', bg: 'rgba(34,197,94,.1)' }
+  if (status === 'upcoming') return { text: '접수 예정', color: '#3b82f6', bg: 'rgba(59,130,246,.08)' }
+  if (status === 'entry_closed') return { text: '접수마감', color: '#d97706', bg: 'rgba(217,119,6,.08)' }
+  return { text: '마감', color: '#6b7280', bg: 'rgba(107,114,128,.08)' }
+}
+
+const cut = 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)'
+
+// ── 컴포넌트 ────────────────────────────────────────────────
+export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber }: Props) {
+  const [step, setStep] = useState(1)
+  const [form, setForm] = useState<FormData>(() => {
+    const init = { ...EMPTY }
+    if (initialRoundNumber) {
+      const r = rounds.find(r => r.roundNumber === initialRoundNumber && r.status === 'entry_open')
+      if (r) init.roundId = r._id
+    }
+    return init
+  })
+  const [submitting, setSubmitting] = useState(false)
+  const [done, setDone] = useState(false)
+  const [error, setError] = useState('')
+
+  const set = (k: keyof FormData, v: string | boolean) => setForm(p => ({ ...p, [k]: v }))
 
   const selectedClass = classes.find(c => c._id === form.classId)
-  const totalFee = selectedClass?.entryFeePerRound
-    ? selectedClass.entryFeePerRound * form.roundIds.length
-    : null
+  const selectedRound = rounds.find(r => r._id === form.roundId)
 
-  // ── 입력 핸들러 ─────────────────────────────────────────
-  const set = (key: keyof FormData) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => setForm(f => ({ ...f, [key]: e.target.value }))
+  // ── Step 유효성 ────────────────────────────────────────
+  const step1Valid =
+    form.teamName.length >= 2 && form.teamName.length <= 20 &&
+    form.classId !== '' &&
+    form.roundId !== '' &&
+    form.carModel.length >= 1
 
-  const toggleRound = (id: string) => {
-    setForm(f => ({
-      ...f,
-      roundIds: f.roundIds.includes(id)
-        ? f.roundIds.filter(r => r !== id)
-        : [...f.roundIds, id],
-    }))
+  const step2Valid =
+    form.driver1Name.length >= 2 && form.driver1Name.length <= 10 &&
+    /^010-\d{4}-\d{4}$/.test(form.driver1Phone) &&
+    isValidEmail(form.driver1Email) &&
+    isOver18(form.driver1Birth)
+
+  // ── 제출 ───────────────────────────────────────────────
+  async function handleSubmit() {
+    if (!form.agree) return
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('/api/entry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          teamName: form.teamName,
+          driver1: form.driver1Name,
+          driver2: form.driver2Name || '',
+          phone: form.driver1Phone,
+          email: form.driver1Email,
+          className: selectedClass?.name ?? '',
+          rounds: [selectedRound?.title ?? ''],
+          carModel: form.carModel,
+          carNumber: form.carNumber,
+          licenseNum: '',
+          totalFee: selectedClass?.entryFeePerRound ?? 0,
+        }),
+      })
+      if (!res.ok) throw new Error('서버 오류')
+      setDone(true)
+    } catch {
+      setError('신청 처리 중 오류가 발생했습니다. 다시 시도해 주세요.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
-  // ── 유효성 검사 ─────────────────────────────────────────
-  const validate = (): boolean => {
-    const e: typeof errors = {}
-    if (!form.teamName.trim())  e.teamName   = '팀명을 입력해주세요.'
-    if (!form.driver1.trim())   e.driver1    = '드라이버 1 이름을 입력해주세요.'
-    if (!form.phone.trim())     e.phone      = '연락처를 입력해주세요.'
-    if (!form.email.trim())     e.email      = '이메일을 입력해주세요.'
-    if (!form.classId)          e.classId    = '클래스를 선택해주세요.'
-    if (form.roundIds.length === 0) e.roundIds = '라운드를 1개 이상 선택해주세요.'
-    if (!form.carModel.trim())  e.carModel   = '차종을 입력해주세요.'
-    if (!form.agree)            e.agree      = '이용약관에 동의해주세요.'
-    setErrors(e)
-    return Object.keys(e).length === 0
-  }
-
-  // ── 제출 → 확인 단계 ────────────────────────────────────
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    if (validate()) setStep('confirm')
-  }
-
-  // ── 토스페이먼츠 결제 링크로 이동 + 이메일 발송 ───────
-  const handlePayment = async () => {
-    const selectedRounds = rounds.filter(r => form.roundIds.includes(r._id))
-    const paymentUrl =
-      selectedRounds[0]?.tossPaymentUrl ??
-      tossBaseUrl ??
-      'https://toss.im'
-
-    // 결제 창 먼저 오픈
-    const params = new URLSearchParams({
-      orderId:             `GT-${Date.now()}`,
-      orderName:           `인제GT마스터즈 ${selectedClass?.name ?? form.classId} 참가비`,
-      customerName:        form.driver1,
-      customerEmail:       form.email,
-      customerMobilePhone: form.phone,
-    })
-    window.open(`${paymentUrl}?${params.toString()}`, '_blank', 'noopener,noreferrer')
-    setStep('done')
-
-    // 이메일 발송 (백그라운드 — 실패해도 결제 흐름에 영향 없음)
-    fetch('/api/entry', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        teamName:   form.teamName,
-        driver1:    form.driver1,
-        driver2:    form.driver2,
-        phone:      form.phone,
-        email:      form.email,
-        className:  selectedClass?.name ?? form.classId,
-        rounds:     selectedRounds.map(r => `R${r.roundNumber} ${r.title}`),
-        carModel:   form.carModel,
-        carNumber:  form.carNumber,
-        licenseNum: form.licenseNum,
-        totalFee,
-      }),
-    }).catch(() => { /* 이메일 실패는 무시 */ })
-  }
-
-  const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
-  const fieldStyle: React.CSSProperties = {
-    width: '100%', padding: '11px 14px', fontSize: '.95rem',
-    border: '1px solid var(--line)', background: '#fff',
-    fontFamily: 'inherit', outline: 'none',
-    clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-    transition: 'border-color .2s',
-  }
-  const errStyle: React.CSSProperties = { color: '#e60023', fontSize: '.8rem', marginTop: '4px', display: 'block' }
-  const labelStyle: React.CSSProperties = { display: 'block', fontSize: '.85rem', fontWeight: 800, marginBottom: '6px', color: '#1d2630' }
-
-  // ── 완료 화면 ───────────────────────────────────────────
-  if (step === 'done') {
-    return (
-      <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '48px 32px', textAlign: 'center', position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-        <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: 'rgba(34,197,94,.1)', border: '2px solid rgba(34,197,94,.3)', display: 'grid', placeItems: 'center', margin: '0 auto 20px' }}>
-          <i className="fa-solid fa-check" style={{ fontSize: '2rem', color: '#16a34a' }} />
-        </div>
-        <h2 style={{ fontSize: '1.6rem', marginBottom: '10px' }}>신청이 접수되었습니다!</h2>
-        <p style={{ color: 'var(--muted)', lineHeight: 1.7, marginBottom: '24px' }}>
-          결제 창에서 결제를 완료해 주세요.<br />
-          결제 완료 후 <strong>{form.email}</strong>로<br />
-          접수 확정 메일이 발송됩니다.
-        </p>
-        <p style={{ fontSize: '.88rem', color: 'var(--muted)', marginBottom: '28px' }}>
-          결제 창이 열리지 않았다면{' '}
-          <button
-            type="button"
-            onClick={handlePayment}
-            style={{ color: 'var(--red)', fontWeight: 800, background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit' }}
-          >
-            여기를 클릭
-          </button>
-          하세요.
-        </p>
-        <button type="button" className="btn btn-secondary" onClick={() => { setForm(EMPTY); setStep('form') }}>
-          추가 신청하기
-        </button>
-      </div>
-    )
-  }
-
-  // ── 확인 단계 ───────────────────────────────────────────
-  if (step === 'confirm') {
-    const selectedRounds = rounds.filter(r => form.roundIds.includes(r._id))
-    return (
-      <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '28px 32px', position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-        <h2 style={{ marginBottom: '20px', fontSize: '1.3rem' }}>신청 내용 확인</h2>
-
-        <div style={{ display: 'grid', gap: '10px', marginBottom: '24px' }}>
-          {[
-            { label: '팀명',      value: form.teamName },
-            { label: '드라이버 1', value: form.driver1 },
-            { label: '드라이버 2', value: form.driver2 || '—' },
-            { label: '클래스',    value: selectedClass?.name ?? form.classId },
-            { label: '라운드',    value: selectedRounds.map(r => r.title).join(', ') },
-            { label: '차종',      value: form.carModel },
-            { label: '차량 번호', value: form.carNumber || '—' },
-            { label: '연락처',    value: form.phone },
-            { label: '이메일',    value: form.email },
-          ].map(({ label, value }) => (
-            <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: 'var(--surface-2)', borderRadius: '4px' }}>
-              <span style={{ fontSize: '.88rem', color: 'var(--muted)', fontWeight: 700 }}>{label}</span>
-              <strong style={{ fontSize: '.92rem' }}>{value}</strong>
-            </div>
-          ))}
-        </div>
-
-        {totalFee && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', background: 'rgba(230,0,35,.06)', border: '1px solid rgba(230,0,35,.2)', borderRadius: '6px', marginBottom: '20px' }}>
-            <span style={{ fontWeight: 800 }}>결제 예정 금액</span>
-            <strong style={{ fontSize: '1.3rem', color: 'var(--red)' }}>{totalFee.toLocaleString()}원</strong>
-          </div>
-        )}
-
-        <p style={{ fontSize: '.84rem', color: 'var(--muted)', marginBottom: '20px', lineHeight: 1.6 }}>
-          &#39;결제하기&#39; 클릭 시 토스페이먼츠 결제 페이지로 이동합니다.<br />
-          결제 완료 후 <strong>{form.email}</strong>로 접수 확정 메일이 발송됩니다.
-        </p>
-
-        <div className="btns">
-          <button type="button" onClick={handlePayment} className="btn btn-primary" style={{ flex: 1, justifyContent: 'center' }}>
-            <i className="fa-solid fa-credit-card" />
-            토스페이먼츠로 결제하기
-          </button>
-          <button type="button" onClick={() => setStep('form')} className="btn btn-secondary">
-            수정하기
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  // ── 메인 폼 ─────────────────────────────────────────────
   if (!isOpen) {
     return (
-      <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '40px 32px', textAlign: 'center', position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-        <i className="fa-solid fa-clock" style={{ fontSize: '2.5rem', color: 'var(--red)', marginBottom: '16px', display: 'block' }} />
-        <h2 style={{ fontSize: '1.4rem', marginBottom: '10px' }}>참가 신청 준비 중</h2>
-        <p style={{ color: 'var(--muted)', lineHeight: 1.7 }}>
-          현재 참가 신청 접수 기간이 아닙니다.<br />
-          공지사항을 확인하거나 카카오 채널로 문의해 주세요.
+      <div style={{ padding: '40px', textAlign: 'center', background: '#fff', border: '1px solid var(--line)', clipPath: cut }}>
+        <i className="fa-solid fa-clock" style={{ fontSize: '2rem', color: 'var(--red)', marginBottom: '12px', display: 'block' }} />
+        <p style={{ fontSize: '1rem', fontWeight: 700 }}>현재 참가 신청 접수 기간이 아닙니다.</p>
+      </div>
+    )
+  }
+
+  // ── 완료 화면 ──────────────────────────────────────────
+  if (done) {
+    return (
+      <div style={{ padding: '40px', background: '#fff', border: '1px solid var(--line)', clipPath: cut, textAlign: 'center' }}>
+        <div style={{ width: '64px', height: '64px', margin: '0 auto 16px', borderRadius: '50%', background: 'rgba(34,197,94,.1)', display: 'grid', placeItems: 'center' }}>
+          <i className="fa-solid fa-circle-check" style={{ fontSize: '2rem', color: '#16a34a' }} />
+        </div>
+        <h3 style={{ fontSize: '1.2rem', marginBottom: '12px' }}>신청이 접수되었습니다</h3>
+        <p style={{ fontSize: '.95rem', color: 'var(--muted)', lineHeight: 1.7, maxWidth: '480px', margin: '0 auto 20px', wordBreak: 'keep-all' }}>
+          담당자 검토 후 결제 링크를 이메일로 발송해드립니다.<br />
+          보통 1~2 영업일 이내 발송됩니다.
+        </p>
+        <div style={{ display: 'inline-flex', flexDirection: 'column', gap: '6px', padding: '16px 24px', background: 'var(--surface-2)', border: '1px solid var(--line)', clipPath: cut, textAlign: 'left', fontSize: '.9rem' }}>
+          <div><strong style={{ color: 'var(--red)', marginRight: '8px' }}>신청자</strong>{form.driver1Name}</div>
+          <div><strong style={{ color: 'var(--red)', marginRight: '8px' }}>클래스</strong>{selectedClass?.name ?? '-'}</div>
+          <div><strong style={{ color: 'var(--red)', marginRight: '8px' }}>라운드</strong>{selectedRound?.title ?? '-'}</div>
+        </div>
+        <p style={{ fontSize: '.85rem', color: 'var(--muted)', marginTop: '16px' }}>
+          문의: <a href="mailto:miksports2026@gmail.com" style={{ color: 'var(--red)', fontWeight: 700 }}>miksports2026@gmail.com</a>
         </p>
       </div>
     )
   }
 
+  // ── 스텝 인디케이터 ────────────────────────────────────
+  const steps = [
+    { n: 1, label: '팀 & 차량' },
+    { n: 2, label: '드라이버' },
+    { n: 3, label: '확인 & 제출' },
+  ]
+
+  const inputStyle: React.CSSProperties = {
+    width: '100%', padding: '12px 14px', fontSize: '.95rem',
+    border: '1px solid var(--line)', background: '#fff',
+    clipPath: cut, transition: 'border-color .2s',
+  }
+  const labelStyle: React.CSSProperties = {
+    display: 'block', fontSize: '.82rem', fontWeight: 700,
+    color: 'var(--text-sub)', marginBottom: '6px',
+    letterSpacing: '.5px',
+  }
+  const reqDot: React.CSSProperties = { color: 'var(--red)', marginLeft: '2px' }
+
   return (
-    <form onSubmit={handleSubmit} noValidate style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '28px 32px', position: 'relative' }}>
-      <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-
-      <h2 style={{ marginBottom: '22px', fontSize: '1.3rem' }}>
-        <i className="fa-solid fa-flag-checkered" style={{ color: 'var(--red)', marginRight: '10px' }} />
-        온라인 참가 신청서
-      </h2>
-
-      <div style={{ display: 'grid', gap: '18px' }}>
-
-        {/* 팀 & 드라이버 */}
-        <fieldset style={{ border: 'none', margin: 0, padding: 0 }}>
-          <legend style={{ fontSize: '.8rem', fontWeight: 900, letterSpacing: '.1em', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '12px' }}>팀 & 드라이버 정보</legend>
-          <div style={{ display: 'grid', gap: '12px' }}>
-            <div>
-              <label style={labelStyle}>팀명 <span style={{ color: 'var(--red)' }}>*</span></label>
-              <input style={fieldStyle} value={form.teamName} onChange={set('teamName')} placeholder="Team Apex Racing" />
-              {errors.teamName && <span style={errStyle}>{errors.teamName}</span>}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-              <div>
-                <label style={labelStyle}>드라이버 1 <span style={{ color: 'var(--red)' }}>*</span></label>
-                <input style={fieldStyle} value={form.driver1} onChange={set('driver1')} placeholder="홍길동" />
-                {errors.driver1 && <span style={errStyle}>{errors.driver1}</span>}
-              </div>
-              <div>
-                <label style={labelStyle}>드라이버 2</label>
-                <input style={fieldStyle} value={form.driver2} onChange={set('driver2')} placeholder="선택사항" />
-              </div>
-            </div>
+    <div>
+      {/* 스텝 인디케이터 */}
+      <div style={{ display: 'flex', gap: '0', marginBottom: '24px' }}>
+        {steps.map((s, i) => (
+          <div key={s.n} style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+            <div style={{
+              width: '32px', height: '32px', borderRadius: '50%', display: 'grid', placeItems: 'center',
+              fontSize: '.82rem', fontWeight: 900,
+              background: step >= s.n ? 'var(--red)' : 'var(--surface-2)',
+              color: step >= s.n ? '#fff' : 'var(--muted)',
+              border: step >= s.n ? '2px solid var(--red)' : '2px solid var(--line)',
+              transition: 'all .2s',
+            }}>{s.n}</div>
+            <span style={{ fontSize: '.82rem', fontWeight: 700, marginLeft: '8px', color: step >= s.n ? 'var(--text)' : 'var(--muted)' }}>{s.label}</span>
+            {i < steps.length - 1 && (
+              <div style={{ flex: 1, height: '2px', background: step > s.n ? 'var(--red)' : 'var(--line)', margin: '0 12px', transition: 'background .2s' }} />
+            )}
           </div>
-        </fieldset>
-
-        {/* 연락처 */}
-        <fieldset style={{ border: 'none', margin: 0, padding: 0 }}>
-          <legend style={{ fontSize: '.8rem', fontWeight: 900, letterSpacing: '.1em', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '12px' }}>연락처</legend>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-            <div>
-              <label style={labelStyle}>휴대폰 번호 <span style={{ color: 'var(--red)' }}>*</span></label>
-              <input style={fieldStyle} type="tel" value={form.phone} onChange={set('phone')} placeholder="010-0000-0000" />
-              {errors.phone && <span style={errStyle}>{errors.phone}</span>}
-            </div>
-            <div>
-              <label style={labelStyle}>이메일 <span style={{ color: 'var(--red)' }}>*</span></label>
-              <input style={fieldStyle} type="email" value={form.email} onChange={set('email')} placeholder="race@example.com" />
-              {errors.email && <span style={errStyle}>{errors.email}</span>}
-            </div>
-          </div>
-        </fieldset>
-
-        {/* 클래스 & 라운드 */}
-        <fieldset style={{ border: 'none', margin: 0, padding: 0 }}>
-          <legend style={{ fontSize: '.8rem', fontWeight: 900, letterSpacing: '.1em', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '12px' }}>클래스 & 라운드</legend>
-          <div style={{ display: 'grid', gap: '12px' }}>
-            <div>
-              <label style={labelStyle}>참가 클래스 <span style={{ color: 'var(--red)' }}>*</span></label>
-              <select style={{ ...fieldStyle, appearance: 'auto' }} value={form.classId} onChange={set('classId')}>
-                <option value="">— 클래스 선택 —</option>
-                {classes.filter(c => c.isEntryOpen).map(c => (
-                  <option key={c._id} value={c._id}>{c.name}</option>
-                ))}
-              </select>
-              {errors.classId && <span style={errStyle}>{errors.classId}</span>}
-            </div>
-            <div>
-              <label style={labelStyle}>참가 라운드 <span style={{ color: 'var(--red)' }}>*</span> (중복 선택 가능)</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '8px' }}>
-                {rounds.map(r => (
-                  <label key={r._id} style={{
-                    display: 'flex', alignItems: 'center', gap: '10px',
-                    padding: '10px 14px', cursor: 'pointer',
-                    background: form.roundIds.includes(r._id) ? 'rgba(230,0,35,.06)' : 'var(--surface-2)',
-                    border: `1px solid ${form.roundIds.includes(r._id) ? 'rgba(230,0,35,.3)' : 'var(--line)'}`,
-                    clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-                    fontSize: '.88rem', fontWeight: 700,
-                    transition: 'all .15s',
-                  }}>
-                    <input type="checkbox" checked={form.roundIds.includes(r._id)} onChange={() => toggleRound(r._id)} style={{ accentColor: 'var(--red)' }} />
-                    <span>
-                      <strong style={{ display: 'block', fontSize: '.9rem' }}>R{r.roundNumber} — {r.title.replace(/R\d — /, '')}</strong>
-                      <span style={{ color: 'var(--muted)', fontSize: '.78rem' }}>{r.dateStart}</span>
-                    </span>
-                  </label>
-                ))}
-              </div>
-              {errors.roundIds && <span style={errStyle}>{errors.roundIds}</span>}
-            </div>
-          </div>
-        </fieldset>
-
-        {/* 차량 정보 */}
-        <fieldset style={{ border: 'none', margin: 0, padding: 0 }}>
-          <legend style={{ fontSize: '.8rem', fontWeight: 900, letterSpacing: '.1em', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '12px' }}>차량 정보</legend>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-            <div>
-              <label style={labelStyle}>차종 <span style={{ color: 'var(--red)' }}>*</span></label>
-              <input style={fieldStyle} value={form.carModel} onChange={set('carModel')} placeholder="BMW M4 GT3" />
-              {errors.carModel && <span style={errStyle}>{errors.carModel}</span>}
-            </div>
-            <div>
-              <label style={labelStyle}>차량 번호판</label>
-              <input style={fieldStyle} value={form.carNumber} onChange={set('carNumber')} placeholder="123가 4567" />
-            </div>
-          </div>
-        </fieldset>
-
-        {/* 라이선스 */}
-        <div>
-          <label style={labelStyle}>레이싱 라이선스 번호</label>
-          <input style={fieldStyle} value={form.licenseNum} onChange={set('licenseNum')} placeholder="KAF-2025-XXXX" />
-        </div>
-
-        {/* 결제 금액 미리보기 */}
-        {totalFee !== null && totalFee > 0 && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', background: 'rgba(230,0,35,.04)', border: '1px solid rgba(230,0,35,.16)', borderRadius: '6px' }}>
-            <span style={{ fontWeight: 700, fontSize: '.92rem' }}>
-              예상 결제 금액 ({form.roundIds.length}라운드)
-            </span>
-            <strong style={{ fontSize: '1.2rem', color: 'var(--red)' }}>{totalFee.toLocaleString()}원</strong>
-          </div>
-        )}
-
-        {/* 약관 동의 */}
-        <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer', fontSize: '.9rem', lineHeight: 1.5 }}>
-          <input type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))} style={{ accentColor: 'var(--red)', marginTop: '2px', flexShrink: 0 }} />
-          <span>
-            <strong>참가 규정 및 이용약관에 동의합니다.</strong>
-            {' '}대회 규정, 개인정보 처리방침, 부상·사고에 대한 면책 동의 사항을 모두 확인하였습니다.
-          </span>
-        </label>
-        {errors.agree && <span style={errStyle}>{errors.agree}</span>}
-
-        {/* 제출 버튼 */}
-        <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', minHeight: '56px', fontSize: '1.05rem' }}>
-          <i className="fa-solid fa-flag-checkered" />
-          신청서 제출 → 결제 진행
-        </button>
+        ))}
       </div>
-    </form>
+
+      {/* ── Step 1: 팀 & 차량 ──────────────────────────── */}
+      {step === 1 && (
+        <div style={{ display: 'grid', gap: '16px' }}>
+          <div>
+            <label style={labelStyle}>팀명<span style={reqDot}>*</span></label>
+            <input style={inputStyle} placeholder="한글/영문/숫자, 2~20자"
+              value={form.teamName}
+              onChange={e => set('teamName', e.target.value.replace(/[^가-힣a-zA-Z0-9\s]/g, '').slice(0, 20))}
+            />
+          </div>
+
+          <div>
+            <label style={labelStyle}>클래스 선택<span style={reqDot}>*</span></label>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(140px,1fr))', gap: '8px' }}>
+              {classes.map(c => {
+                const color = c.accentColor ?? '#e60023'
+                const sel = form.classId === c._id
+                return (
+                  <button key={c._id} type="button" onClick={() => set('classId', c._id)} style={{
+                    padding: '12px', border: sel ? `2px solid ${color}` : '1px solid var(--line)',
+                    background: sel ? `${color}0a` : '#fff', clipPath: cut, cursor: 'pointer',
+                    textAlign: 'left', transition: 'all .15s',
+                  }}>
+                    <div style={{ fontSize: '.78rem', fontWeight: 900, color, marginBottom: '4px' }}>{c.classCode}</div>
+                    <div style={{ fontSize: '.88rem', fontWeight: 700 }}>{c.name}</div>
+                    {c.entryFeePerRound && c.isFeePublic !== false && (
+                      <div style={{ fontSize: '.78rem', color: 'var(--muted)', marginTop: '4px' }}>{c.entryFeePerRound.toLocaleString()}원/R</div>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <div>
+            <label style={labelStyle}>라운드 선택<span style={reqDot}>*</span></label>
+            <div style={{ display: 'grid', gap: '8px' }}>
+              {rounds.map(r => {
+                const isEntryOpen = r.status === 'entry_open'
+                const badge = getStatusBadge(r.status)
+                const sel = form.roundId === r._id
+                return (
+                  <button key={r._id} type="button" disabled={!isEntryOpen}
+                    onClick={() => isEntryOpen && set('roundId', r._id)}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px',
+                      padding: '14px 16px', border: sel ? '2px solid var(--red)' : '1px solid var(--line)',
+                      background: sel ? 'rgba(230,0,35,.04)' : '#fff', clipPath: cut, cursor: isEntryOpen ? 'pointer' : 'not-allowed',
+                      opacity: isEntryOpen ? 1 : 0.55, textAlign: 'left', transition: 'all .15s',
+                    }}>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '.95rem' }}>R{r.roundNumber} — {r.title}</div>
+                      <div style={{ fontSize: '.82rem', color: 'var(--muted)', marginTop: '2px' }}>{r.dateStart}</div>
+                    </div>
+                    <span style={{ fontSize: '.76rem', fontWeight: 900, padding: '3px 10px', background: badge.bg, color: badge.color, border: `1px solid ${badge.color}33`, borderRadius: '4px', whiteSpace: 'nowrap' }}>{badge.text}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div>
+              <label style={labelStyle}>차량번호</label>
+              <input style={inputStyle} placeholder="예: 12가 3456"
+                value={form.carNumber}
+                onChange={e => set('carNumber', formatCarNumber(e.target.value))}
+              />
+            </div>
+            <div>
+              <label style={labelStyle}>차량모델<span style={reqDot}>*</span></label>
+              <input style={inputStyle} placeholder="예: BMW E46 M3"
+                value={form.carModel}
+                onChange={e => set('carModel', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <button type="button" disabled={!step1Valid} onClick={() => setStep(2)} style={{
+            padding: '14px', fontWeight: 800, fontSize: '1rem',
+            background: step1Valid ? 'var(--red)' : 'var(--surface-2)',
+            color: step1Valid ? '#fff' : 'var(--muted)',
+            border: 'none', clipPath: cut, cursor: step1Valid ? 'pointer' : 'not-allowed',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+          }}>
+            다음: 드라이버 정보 <i className="fa-solid fa-arrow-right" />
+          </button>
+        </div>
+      )}
+
+      {/* ── Step 2: 드라이버 정보 ──────────────────────── */}
+      {step === 2 && (
+        <div style={{ display: 'grid', gap: '16px' }}>
+          <h3 style={{ fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <i className="fa-solid fa-user" style={{ color: 'var(--red)' }} /> 드라이버 1 (필수)
+          </h3>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div>
+              <label style={labelStyle}>이름<span style={reqDot}>*</span></label>
+              <input style={inputStyle} placeholder="한글/영문, 2~10자"
+                value={form.driver1Name}
+                onChange={e => set('driver1Name', e.target.value.replace(/[^가-힣a-zA-Z\s]/g, '').slice(0, 10))}
+              />
+            </div>
+            <div>
+              <label style={labelStyle}>연락처<span style={reqDot}>*</span></label>
+              <input style={inputStyle} placeholder="010-0000-0000"
+                value={form.driver1Phone}
+                onChange={e => set('driver1Phone', formatPhone(e.target.value))}
+              />
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div>
+              <label style={labelStyle}>이메일<span style={reqDot}>*</span></label>
+              <input style={inputStyle} type="email" placeholder="example@email.com"
+                value={form.driver1Email}
+                onChange={e => set('driver1Email', e.target.value)}
+              />
+            </div>
+            <div>
+              <label style={labelStyle}>생년월일<span style={reqDot}>*</span> <span style={{ fontWeight: 400, color: 'var(--muted)' }}>(만 18세 이상)</span></label>
+              <input style={inputStyle} type="date" max={new Date(Date.now() - 18 * 365.25 * 86400000).toISOString().slice(0, 10)}
+                value={form.driver1Birth}
+                onChange={e => set('driver1Birth', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <h3 style={{ fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px' }}>
+            <i className="fa-solid fa-user-plus" style={{ color: 'var(--muted)' }} /> 드라이버 2 (선택)
+          </h3>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div>
+              <label style={labelStyle}>이름</label>
+              <input style={inputStyle} placeholder="한글/영문"
+                value={form.driver2Name}
+                onChange={e => set('driver2Name', e.target.value.replace(/[^가-힣a-zA-Z\s]/g, '').slice(0, 10))}
+              />
+            </div>
+            <div>
+              <label style={labelStyle}>연락처</label>
+              <input style={inputStyle} placeholder="010-0000-0000"
+                value={form.driver2Phone}
+                onChange={e => set('driver2Phone', formatPhone(e.target.value))}
+              />
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>이메일</label>
+            <input style={inputStyle} type="email" placeholder="example@email.com"
+              value={form.driver2Email}
+              onChange={e => set('driver2Email', e.target.value)}
+            />
+          </div>
+
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button type="button" onClick={() => setStep(1)} style={{
+              flex: 1, padding: '14px', fontWeight: 700, fontSize: '.95rem',
+              background: '#fff', color: 'var(--text-sub)', border: '1px solid var(--line)',
+              clipPath: cut, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            }}>
+              <i className="fa-solid fa-arrow-left" /> 이전
+            </button>
+            <button type="button" disabled={!step2Valid} onClick={() => setStep(3)} style={{
+              flex: 2, padding: '14px', fontWeight: 800, fontSize: '1rem',
+              background: step2Valid ? 'var(--red)' : 'var(--surface-2)',
+              color: step2Valid ? '#fff' : 'var(--muted)',
+              border: 'none', clipPath: cut, cursor: step2Valid ? 'pointer' : 'not-allowed',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            }}>
+              다음: 최종 확인 <i className="fa-solid fa-arrow-right" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Step 3: 최종 확인 & 제출 ──────────────────── */}
+      {step === 3 && (
+        <div style={{ display: 'grid', gap: '16px' }}>
+          <h3 style={{ fontSize: '1rem' }}>
+            <i className="fa-solid fa-clipboard-check" style={{ color: 'var(--red)', marginRight: '8px' }} />
+            신청 내용 확인
+          </h3>
+
+          <div style={{ background: 'var(--surface-2)', border: '1px solid var(--line)', clipPath: cut, padding: '20px' }}>
+            {[
+              { label: '팀명', value: form.teamName },
+              { label: '클래스', value: selectedClass?.name ?? '-' },
+              { label: '라운드', value: selectedRound ? `R${selectedRound.roundNumber} — ${selectedRound.title}` : '-' },
+              { label: '차량모델', value: form.carModel },
+              { label: '차량번호', value: form.carNumber || '—' },
+              { label: '드라이버 1', value: `${form.driver1Name} / ${form.driver1Phone}` },
+              { label: '이메일', value: form.driver1Email },
+              { label: '생년월일', value: form.driver1Birth },
+              ...(form.driver2Name ? [{ label: '드라이버 2', value: `${form.driver2Name}${form.driver2Phone ? ' / ' + form.driver2Phone : ''}` }] : []),
+              ...(selectedClass?.entryFeePerRound && selectedClass.isFeePublic !== false
+                ? [{ label: '참가비', value: `${selectedClass.entryFeePerRound.toLocaleString()}원 (라운드당)` }]
+                : []),
+            ].map((row, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--line)', gap: '12px' }}>
+                <span style={{ fontSize: '.85rem', color: 'var(--muted)', fontWeight: 700, minWidth: '80px' }}>{row.label}</span>
+                <span style={{ fontSize: '.9rem', fontWeight: 600, textAlign: 'right' }}>{row.value}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* 개인정보 동의 */}
+          <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '14px', background: '#fff', border: '1px solid var(--line)', clipPath: cut, cursor: 'pointer' }}>
+            <input type="checkbox" checked={form.agree} onChange={e => set('agree', e.target.checked)}
+              style={{ marginTop: '2px', width: '18px', height: '18px', accentColor: 'var(--red)' }}
+            />
+            <span style={{ fontSize: '.88rem', color: 'var(--text-mid)', lineHeight: 1.6 }}>
+              개인정보 수집 및 이용에 동의합니다. 수집 항목: 팀명, 드라이버 이름, 연락처, 이메일, 차량 정보. 수집 목적: 참가신청 접수 및 대회 운영. 보유 기간: 해당 시즌 종료 후 1년.
+            </span>
+          </label>
+
+          {error && (
+            <div style={{ padding: '12px 16px', background: 'rgba(230,0,35,.06)', border: '1px solid rgba(230,0,35,.2)', borderRadius: '6px', fontSize: '.88rem', color: 'var(--red)', fontWeight: 700 }}>
+              <i className="fa-solid fa-circle-exclamation" style={{ marginRight: '6px' }} />{error}
+            </div>
+          )}
+
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button type="button" onClick={() => setStep(2)} style={{
+              flex: 1, padding: '14px', fontWeight: 700, fontSize: '.95rem',
+              background: '#fff', color: 'var(--text-sub)', border: '1px solid var(--line)',
+              clipPath: cut, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            }}>
+              <i className="fa-solid fa-arrow-left" /> 이전
+            </button>
+            <button type="button" disabled={!form.agree || submitting} onClick={handleSubmit} style={{
+              flex: 2, padding: '14px', fontWeight: 800, fontSize: '1rem',
+              background: form.agree && !submitting ? 'var(--red)' : 'var(--surface-2)',
+              color: form.agree && !submitting ? '#fff' : 'var(--muted)',
+              border: 'none', clipPath: cut, cursor: form.agree && !submitting ? 'pointer' : 'not-allowed',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            }}>
+              {submitting ? (
+                <><i className="fa-solid fa-spinner fa-spin" /> 제출 중...</>
+              ) : (
+                <><i className="fa-solid fa-flag-checkered" /> 참가 신청 제출</>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }

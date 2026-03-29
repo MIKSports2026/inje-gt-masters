@@ -20,9 +20,15 @@ const STATUS_MAP: Record<string, { text: string; color: string; bg: string }> = 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const round = await sanityFetch<Round>({ query: ROUND_DETAIL_QUERY, params: { slug: params.slug }, revalidate: 300 }).catch(() => null)
   const title = round?.title ?? '라운드 상세'
+  const ogImage = round?.heroImage?.asset?.url ?? '/og-default.jpg'
   return {
     title,
     description: `인제 GT 마스터즈 ${title} — ${round?.dateStart ?? ''} 인제스피디움`,
+    openGraph: {
+      title,
+      description: `인제 GT 마스터즈 ${title} — ${round?.dateStart ?? ''} 인제스피디움`,
+      images: [ogImage],
+    },
   }
 }
 
