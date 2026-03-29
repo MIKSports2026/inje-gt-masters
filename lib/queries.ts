@@ -43,7 +43,7 @@ export const ROUNDS_QUERY = /* groq */`
 export const ROUND_DETAIL_QUERY = /* groq */`
   *[_type == "round" && slug.current == $slug][0]{
     _id, season, roundNumber, slug, title, titleEn, subtitle,
-    badge, dateStart, dateEnd, schedule, status,
+    campaignCopy, badge, dateStart, dateEnd, schedule, status,
     entryOpenDate, entryCloseDate, tossPaymentUrl, entryFeeNote, maxEntries,
     notices, description, hasResults,
     heroImage ${IMAGE}, posterImage ${IMAGE},
@@ -89,6 +89,18 @@ export const CLASS_DETAIL_QUERY = /* groq */`
     heroImage ${IMAGE}, cardImage ${IMAGE},
     gallery[] ${IMAGE},
     isActive, isEntryOpen
+  }
+`
+
+// ════════════════════════════════════════════════════════════
+// regulation
+// ════════════════════════════════════════════════════════════
+
+/** 특정 시즌의 규정 문서 목록 */
+export const REGULATIONS_QUERY = /* groq */`
+  *[_type == "regulation" && season == $season] | order(order asc){
+    _id, title, version,
+    file { asset->{ url } }
   }
 `
 

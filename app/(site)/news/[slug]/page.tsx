@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: post.metaTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt,
-    openGraph: { title: post.title, description: post.excerpt },
+    openGraph: { title: post.title, description: post.excerpt, images: [post.coverImage?.asset?.url ?? '/og-default.jpg'] },
   }
 }
 
@@ -120,7 +120,7 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
                       types: {
                         image: ({ value }) => value?.asset?.url ? (
                           <div style={{ margin: '1.6em 0', position: 'relative', paddingBottom: '56%', overflow: 'hidden', clipPath: cut }}>
-                            <Image src={value.asset.url} alt={value.alt ?? ''} fill style={{ objectFit: 'cover' }} sizes="(max-width:768px) 100vw, 600px" />
+                            <Image src={value.asset.url} alt={value.alt ?? value.caption ?? '기사 이미지'} fill style={{ objectFit: 'cover' }} sizes="(max-width:768px) 100vw, 600px" />
                           </div>
                         ) : null,
                       },

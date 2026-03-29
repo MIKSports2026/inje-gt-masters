@@ -7,6 +7,7 @@ import post         from './post'
 import media        from './media'
 import partner      from './partner'
 import history      from './history'
+import regulation   from './regulation'
 
 export const schemaTypes = [
   siteSettings,
@@ -17,4 +18,5 @@ export const schemaTypes = [
   media,
   partner,
   history,
+  regulation,
 ]

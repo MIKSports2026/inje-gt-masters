@@ -27,7 +27,7 @@ export default function SanityImage({
     .fit('crop')
     .url()
 
-  const altText = alt ?? image.alt ?? ''
+  const altText = alt ?? image.alt ?? '이미지'
   const lqip    = image.asset.metadata?.lqip
 
   if (fill) {

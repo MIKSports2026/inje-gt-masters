@@ -116,7 +116,7 @@ export default function SectionHero({ settings, nextRound }: Props) {
                     [{v:cd.days,l:'DAYS'},{v:cd.hours,l:'HRS'},{v:cd.minutes,l:'MIN'},{v:cd.seconds,l:'SEC'}].map(({v,l})=>(
                       <div key={l} style={{background:'#fff',border:'1px solid var(--line)',padding:'12px 8px',textAlign:'center',clipPath:cutSm,position:'relative'}}>
                         <div style={redLine} />
-                        <strong style={{display:'block',fontSize:'clamp(1.4rem,2.5vw,2rem)',lineHeight:1,letterSpacing:'-.04em',fontWeight:950}}>
+                        <strong style={{display:'block',fontFamily:"'Barlow Condensed',sans-serif",fontSize:'clamp(1.4rem,2.5vw,2rem)',lineHeight:1,letterSpacing:'2px',fontWeight:900,fontVariantNumeric:'tabular-nums'}}>
                           {String(v).padStart(2,'0')}
                         </strong>
                         <span style={{fontSize:'.72rem',fontWeight:900,letterSpacing:'.1em',color:'var(--muted)'}}>{l}</span>

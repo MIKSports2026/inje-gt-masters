@@ -144,6 +144,20 @@ h3 { font-size: clamp(1.02rem, 2vw, 1.36rem); line-height: 1.18; letter-spacing:
 }
 .btns { display: flex; gap: 12px; flex-wrap: wrap; }
 
+/* 포커스 스타일 (접근성) */
+.btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid #E60023;
+  outline-offset: 2px;
+}
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #E60023;
+  outline-offset: 0;
+  border-color: #E60023;
+}
+
 /* 패널 */
 .panel {
   background: var(--surface);
@@ -152,6 +166,12 @@ h3 { font-size: clamp(1.02rem, 2vw, 1.36rem); line-height: 1.18; letter-spacing:
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.panel:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+  border-color: var(--line-2);
 }
 .panel::before {
   content: "";

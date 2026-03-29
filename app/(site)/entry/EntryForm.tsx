@@ -1,6 +1,6 @@
 'use client'
 // app/(site)/entry/EntryForm.tsx — 토스페이먼츠 연동 참가신청 폼
-import { useState, FormEvent } from 'react'
+import { useState, useEffect, useCallback, FormEvent } from 'react'
 import type { ClassInfo, Round } from '@/types/sanity'
 
 interface Props {
@@ -29,10 +29,44 @@ const EMPTY: FormData = {
   classId: '', roundIds: [], carModel: '', carNumber: '', licenseNum: '', agree: false,
 }
 
+const DRAFT_KEY = 'inje-gt-entry-draft'
+function saveDraft(form: FormData) {
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ form, ts: Date.now() })) } catch {}
+}
+function loadDraft(): FormData | null {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY)
+    if (!raw) return null
+    const data = JSON.parse(raw)
+    if (data?.form) return data.form
+  } catch {}
+  return null
+}
+function clearDraft() {
+  try { localStorage.removeItem(DRAFT_KEY) } catch {}
+}
+
 export default function EntryForm({ isOpen, classes, rounds, tossBaseUrl }: Props) {
   const [form, setForm]     = useState<FormData>(EMPTY)
   const [step, setStep]     = useState<'form' | 'confirm' | 'done'>('form')
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
+  const [showDraftBanner, setShowDraftBanner] = useState(false)
+
+  useEffect(() => {
+    const draft = loadDraft()
+    if (draft && (draft.teamName || draft.driver1)) setShowDraftBanner(true)
+  }, [])
+
+  const restoreDraft = useCallback(() => {
+    const draft = loadDraft()
+    if (draft) setForm({ ...draft, agree: false })
+    setShowDraftBanner(false)
+  }, [])
+
+  const dismissDraft = useCallback(() => {
+    clearDraft()
+    setShowDraftBanner(false)
+  }, [])
 
   const selectedClass = classes.find(c => c._id === form.classId)
   const totalFee = selectedClass?.entryFeePerRound
@@ -71,7 +105,7 @@ export default function EntryForm({ isOpen, classes, rounds, tossBaseUrl }: Prop
   // ── 제출 → 확인 단계 ────────────────────────────────────
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (validate()) setStep('confirm')
+    if (validate()) { saveDraft(form); setStep('confirm') }
   }
 
   // ── 토스페이먼츠 결제 링크로 이동 ───────────────────────
@@ -94,6 +128,7 @@ export default function EntryForm({ isOpen, classes, rounds, tossBaseUrl }: Prop
 
     // 토스페이먼츠 결제 링크 페이지로 이동
     window.open(`${paymentUrl}?${params.toString()}`, '_blank', 'noopener,noreferrer')
+    clearDraft()
     setStep('done')
   }
 
@@ -208,6 +243,18 @@ export default function EntryForm({ isOpen, classes, rounds, tossBaseUrl }: Prop
   }
 
   return (
+    <>
+    {showDraftBanner && (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', padding: '14px 18px', marginBottom: '16px', background: 'rgba(59,130,246,.06)', border: '1px solid rgba(59,130,246,.25)', borderRadius: '8px' }}>
+        <span style={{ fontSize: '.9rem', fontWeight: 700, color: '#2563eb' }}>
+          <i className="fa-solid fa-rotate-left" style={{ marginRight: '8px' }} />이전에 작성 중인 내용이 있습니다. 불러올까요?
+        </span>
+        <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+          <button type="button" onClick={restoreDraft} style={{ padding: '6px 14px', fontSize: '.82rem', fontWeight: 800, background: '#2563eb', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>불러오기</button>
+          <button type="button" onClick={dismissDraft} style={{ padding: '6px 14px', fontSize: '.82rem', fontWeight: 700, background: 'transparent', color: '#6b7280', border: '1px solid #d1d5db', borderRadius: '4px', cursor: 'pointer' }}>새로 작성</button>
+        </div>
+      </div>
+    )}
     <form onSubmit={handleSubmit} noValidate style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '28px 32px', position: 'relative' }}>
       <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
 
@@ -347,5 +394,6 @@ export default function EntryForm({ isOpen, classes, rounds, tossBaseUrl }: Prop
         </button>
       </div>
     </form>
+    </>
   )
 }
