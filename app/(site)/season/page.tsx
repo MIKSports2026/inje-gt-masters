@@ -2,7 +2,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
-import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, CLASSES_QUERY } from '@/lib/queries'
+import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, CLASSES_QUERY, REGULATIONS_QUERY } from '@/lib/queries'
 import type { SiteSettings, Round, ClassInfo } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
 
@@ -26,14 +26,16 @@ const POINT_TABLE = [
 ]
 
 export default async function SeasonPage() {
-  const [settings, rounds, classes] = await Promise.all([
+  const [settings, rounds, classes, regulations] = await Promise.all([
     sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }),
     sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300 }),
     sanityFetch<ClassInfo[]>({ query: CLASSES_QUERY, revalidate: 3600 }),
-  ]).catch(() => [null, [], []] as [SiteSettings | null, Round[], ClassInfo[]])
+    sanityFetch<any[]>({ query: REGULATIONS_QUERY, params: { season: 2026 }, revalidate: 3600 }),
+  ]).catch(() => [null, [], [], []] as [SiteSettings | null, Round[], ClassInfo[], any[]])
 
   const displayRounds = rounds as Round[]
   const displayClasses = classes as ClassInfo[]
+  const displayRegulations = (regulations as any[]) ?? []
 
   const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
 
@@ -268,25 +270,46 @@ export default async function SeasonPage() {
               <h2>기술 규정</h2>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '12px' }}>
-            {[
+          {(() => {
+            const FALLBACK_DOCS = [
               '2026 공통 기술 규정 v1.2',
               'GT1/GT2 클래스 세부 규정',
               'GT3 입문 클래스 규정',
               '드리프트 KDGP 규정',
               '안전장비 기준 가이드라인',
               '차량 계량 & 검차 절차',
-            ].map((doc, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', cursor: 'pointer' }}>
-                <i className="fa-regular fa-file-pdf" style={{ fontSize: '1.4rem', color: 'var(--red)', flexShrink: 0 }} />
-                <span style={{ fontSize: '.9rem', fontWeight: 700 }}>{doc}</span>
-                <i className="fa-solid fa-download" style={{ marginLeft: 'auto', color: 'var(--muted)', fontSize: '.85rem' }} />
-              </div>
-            ))}
-          </div>
-          <p style={{ marginTop: '12px', fontSize: '.84rem', color: 'var(--muted)' }}>
-            * 규정 PDF는 추후 업데이트 예정입니다.
-          </p>
+            ]
+            const docs = displayRegulations.length > 0
+              ? displayRegulations.map(r => ({ title: r.title, url: r.file?.asset?.url }))
+              : FALLBACK_DOCS.map(title => ({ title, url: null }))
+
+            return (
+              <>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '12px' }}>
+                  {docs.map((doc, i) => (
+                    doc.url ? (
+                      <a key={i} href={doc.url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', textDecoration: 'none', color: 'inherit' }}>
+                        <i className="fa-regular fa-file-pdf" style={{ fontSize: '1.4rem', color: 'var(--red)', flexShrink: 0 }} />
+                        <span style={{ fontSize: '.9rem', fontWeight: 700 }}>{doc.title}</span>
+                        <i className="fa-solid fa-download" style={{ marginLeft: 'auto', color: 'var(--muted)', fontSize: '.85rem' }} />
+                      </a>
+                    ) : (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', opacity: .6 }}>
+                        <i className="fa-regular fa-file-pdf" style={{ fontSize: '1.4rem', color: 'var(--red)', flexShrink: 0 }} />
+                        <span style={{ fontSize: '.9rem', fontWeight: 700 }}>{doc.title}</span>
+                        <span style={{ marginLeft: 'auto', fontSize: '.75rem', color: 'var(--muted)' }}>준비중</span>
+                      </div>
+                    )
+                  ))}
+                </div>
+                {displayRegulations.length === 0 && (
+                  <p style={{ marginTop: '12px', fontSize: '.84rem', color: 'var(--muted)' }}>
+                    * 규정 PDF는 추후 업데이트 예정입니다.
+                  </p>
+                )}
+              </>
+            )
+          })()}
         </div>
       </section>
 

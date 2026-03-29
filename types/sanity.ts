@@ -90,6 +90,7 @@ export interface Round {
   title:         string
   titleEn?:      string
   subtitle?:     string
+  campaignCopy?: string
   badge?:        string
   dateStart:     string
   dateEnd?:      string
