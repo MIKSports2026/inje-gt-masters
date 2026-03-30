@@ -68,12 +68,19 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
       <div style={{ position: 'absolute', inset: 0, background: 'var(--bg-2)' }}>
         {heroImg ? (
           <Image src={heroImg} alt={heroAlt} fill style={{ objectFit: 'cover', objectPosition: 'center 35%' }} priority sizes="100vw" />
-        ) : null}
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 65% 40%, rgba(220,0,26,0.1) 0%, transparent 55%), radial-gradient(ellipse 100% 100% at 10% 80%, rgba(0,0,0,0.8) 0%, transparent 55%), linear-gradient(160deg, #0b0b0b 0%, #181818 50%, #0f0b0b 100%)' }} />
+        ) : (
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 65% 40%, rgba(220,0,26,0.1) 0%, transparent 55%), radial-gradient(ellipse 100% 100% at 10% 80%, rgba(0,0,0,0.8) 0%, transparent 55%), linear-gradient(160deg, #0b0b0b 0%, #181818 50%, #0f0b0b 100%)' }} />
+        )}
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-conic-gradient(rgba(255,255,255,0.01) 0% 25%, transparent 0% 50%)', backgroundSize: '30px 30px' }} />
       </div>
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.02) 25%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.94) 100%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.32) 40%, transparent 65%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: heroImg
+        ? 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 25%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0.85) 100%)'
+        : 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.02) 25%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.94) 100%)'
+      }} />
+      <div style={{ position: 'absolute', inset: 0, background: heroImg
+        ? 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 40%, transparent 65%)'
+        : 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.32) 40%, transparent 65%)'
+      }} />
 
       {/* 배경 연도 텍스트 */}
       <div aria-hidden="true" style={{
