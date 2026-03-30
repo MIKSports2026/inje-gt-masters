@@ -117,20 +117,24 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
                     세션 일정
                   </h2>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: '16px' }}>
-                    {r.schedule.map((day, di) => (
-                      <div key={di} style={{ background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
-                        <div style={{ padding: '10px 16px', background: '#111', color: '#fff', fontSize: '.82rem', fontWeight: 900, letterSpacing: '.06em', textTransform: 'uppercase' }}>{day.dayLabel}</div>
-                        {day.items.map((item, ii) => (
-                          <div key={ii} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 16px', borderBottom: ii < day.items.length - 1 ? '1px solid var(--line)' : 'none' }}>
-                            <span style={{ fontFamily: 'monospace', fontSize: '.85rem', fontWeight: 900, color: 'var(--red)', minWidth: '46px' }}>{item.time}</span>
-                            <div style={{ flex: 1 }}>
-                              <span style={{ fontSize: '.92rem', fontWeight: 700 }}>{item.label}</span>
+                    {r.schedule.map((day: any, di: number) => {
+                      const label = day.dayLabel ?? day.day ?? `Day ${di + 1}`
+                      const sessions = day.items ?? day.sessions ?? []
+                      return (
+                        <div key={di} style={{ background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
+                          <div style={{ padding: '10px 16px', background: '#111', color: '#fff', fontSize: '.82rem', fontWeight: 900, letterSpacing: '.06em', textTransform: 'uppercase' }}>{label}</div>
+                          {sessions.map((item: any, ii: number) => (
+                            <div key={ii} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 16px', borderBottom: ii < sessions.length - 1 ? '1px solid var(--line)' : 'none' }}>
+                              <span style={{ fontFamily: 'monospace', fontSize: '.85rem', fontWeight: 900, color: 'var(--red)', minWidth: '46px' }}>{item.time ?? item.startTime}</span>
+                              <div style={{ flex: 1 }}>
+                                <span style={{ fontSize: '.92rem', fontWeight: 700 }}>{item.label}</span>
+                              </div>
+                              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: SESSION_COLORS[item.sessionType ?? item.type] ?? '#999', flexShrink: 0 }} />
                             </div>
-                            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: SESSION_COLORS[item.sessionType] ?? '#999', flexShrink: 0 }} />
-                          </div>
-                        ))}
-                      </div>
-                    ))}
+                          ))}
+                        </div>
+                      )
+                    })}
                   </div>
                   {/* 범례 */}
                   <div style={{ display: 'flex', gap: '16px', marginTop: '14px', flexWrap: 'wrap' }}>
