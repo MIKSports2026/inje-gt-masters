@@ -21,6 +21,7 @@ export const SITE_SETTINGS_QUERY = /* groq */`
     heroImage ${IMAGE}, heroVideo,
     isEntryOpen, entryNotice, tossPaymentBaseUrl,
     bannerVisible, bannerMessage, bannerLinkText, bannerLinkUrl, bannerBgColor,
+    announcementBar { isVisible, text, link },
     circuitName, circuitLength, circuitLocation, speediumUrl, circuitMapEmbedUrl
   }
 `

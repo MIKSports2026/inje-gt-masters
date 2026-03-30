@@ -54,6 +54,12 @@ export interface SiteSettings {
   bannerLinkText?:  string
   bannerLinkUrl?:   string
   bannerBgColor?:   string
+  // 공지 알림 띠
+  announcementBar?: {
+    isVisible?: boolean
+    text?:      string
+    link?:      string
+  }
   // 서킷
   circuitName:      string
   circuitLength:    number

@@ -17,6 +17,7 @@ import type {
 } from '@/types/sanity'
 
 // ── 섹션 컴포넌트 (Step 4에서 구현) ──────────────────────────
+import SectionDDayBanner from '@/components/sections/SectionDDayBanner'
 import SectionHero       from '@/components/sections/SectionHero'
 import SectionQuickAccess from '@/components/sections/SectionQuickAccess'
 import SectionAbout      from '@/components/sections/SectionAbout'
@@ -74,6 +75,9 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* 0. Announcement Bar */}
+      <SectionDDayBanner settings={settings as SiteSettings} />
+
       {/* 1. Hero */}
       <SectionHero
         settings={settings as SiteSettings}
