@@ -72,7 +72,7 @@ export default function SectionHero({ settings, nextRound }: Props) {
         }}>
 
           {/* ── 왼쪽 카피 ──────────────────────────────────── */}
-          <div style={{
+          <div className="hero-copy" style={{
             ...panel,
             padding:'clamp(24px,4vw,48px)',
             background:'linear-gradient(135deg,rgba(230,0,35,.06),transparent 28%),linear-gradient(180deg,#fff,#f3f6f8)',
@@ -155,7 +155,7 @@ export default function SectionHero({ settings, nextRound }: Props) {
           </div>
 
           {/* ── 오른쪽 비주얼 ──────────────────────────────── */}
-          <div style={{display:'grid',gridTemplateRows:'1fr auto',gap:'18px'}}>
+          <div className="hero-visual" style={{display:'grid',gridTemplateRows:'1fr auto',gap:'18px'}}>
 
             {/* 메인 KV */}
             <div style={{
