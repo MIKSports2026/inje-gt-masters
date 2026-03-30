@@ -41,6 +41,9 @@ export interface SiteSettings {
   // 로고
   logoLight?:       SanityImage
   logoDark?:        SanityImage
+  // 히어로 이미지
+  heroImage?:       SanityImage
+  heroVideo?:       string
   // 참가신청
   isEntryOpen:      boolean
   entryNotice?:     string

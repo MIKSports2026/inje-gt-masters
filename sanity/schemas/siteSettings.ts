@@ -63,6 +63,31 @@ export default defineType({
       options: { hotspot: false },
     }),
 
+    /* ── 히어로 이미지 ────────────────────────────────────── */
+    defineField({
+      name: 'heroImage',
+      title: '메인 히어로 이미지',
+      type: 'image',
+      group: 'basic',
+      options: { hotspot: true },
+      description: '홈페이지 메인 히어로 배경',
+      fields: [
+        defineField({
+          name: 'alt',
+          title: '대체 텍스트',
+          type: 'string',
+          description: '이미지를 설명하는 텍스트 (접근성)',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'heroVideo',
+      title: '메인 히어로 배경 영상 URL',
+      type: 'url',
+      group: 'basic',
+      description: '선택사항 — 배경 영상이 있으면 이미지 대신 표시',
+    }),
+
     /* ── SEO ─────────────────────────────────────────────── */
     defineField({
       name: 'metaTitle',

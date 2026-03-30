@@ -165,7 +165,7 @@ export default function SectionHero({ settings, nextRound }: Props) {
             }}>
               <div style={{
                 position:'absolute',inset:0,
-                backgroundImage:`url("${nextRound?.heroImage?.asset?.url ?? 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80'}")`,
+                backgroundImage:`url("${settings?.heroImage?.asset?.url ?? nextRound?.heroImage?.asset?.url ?? 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80'}")`,
                 backgroundSize:'cover',backgroundPosition:'center',
                 transform:'scale(1.05)',
                 animation:'heroZoom 12s ease-in-out infinite alternate',
