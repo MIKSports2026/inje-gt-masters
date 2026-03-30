@@ -271,6 +271,34 @@ export default defineType({
       initialValue: '#e60023',
     }),
 
+    /* ── 공지 알림 띠 (Announcement Bar) ──────────────────── */
+    defineField({
+      name: 'announcementBar',
+      title: '공지 알림 띠',
+      type: 'object',
+      group: 'banner',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: '표시 여부',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'text',
+          title: '공지 문구',
+          type: 'string',
+          description: '상단 알림 띠에 표시할 문구',
+        }),
+        defineField({
+          name: 'link',
+          title: '클릭 시 이동 URL',
+          type: 'string',
+          description: '선택사항 — 입력하면 클릭 가능한 링크로 표시 (예: /entry?tab=apply)',
+        }),
+      ],
+    }),
+
     /* ── 서킷 정보 ────────────────────────────────────────── */
     defineField({
       name: 'circuitName',

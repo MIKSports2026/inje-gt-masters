@@ -66,7 +66,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <SectionDDayBanner nextRound={nr} />
+      <SectionDDayBanner settings={s} />
       <SectionHero settings={s} nextRound={nr} rounds={rs} />
       <SectionStatsBar
         rounds={rs.length || 4}
