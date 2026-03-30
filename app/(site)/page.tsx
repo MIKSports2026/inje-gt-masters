@@ -9,7 +9,7 @@ import type { SiteSettings, Round, ClassInfo, Post, Media, Partner } from '@/typ
 
 import SectionDDayBanner from '@/components/sections/SectionDDayBanner'
 import SectionHero       from '@/components/sections/SectionHero'
-import SectionStatsBar   from '@/components/sections/SectionStatsBar'
+// import SectionStatsBar   from '@/components/sections/SectionStatsBar'
 import SectionTicker     from '@/components/sections/SectionTicker'
 import SectionSeason     from '@/components/sections/SectionSeason'
 import SectionEntry      from '@/components/sections/SectionEntry'
@@ -60,20 +60,10 @@ export default async function HomePage() {
   const md = media    as Media[]
   const pt = partners as Partner[]
 
-  // StatsBar용 집계
-  const totalCars    = cl.reduce((a, c) => a + (c.teamCount   ?? 0), 0)
-  const totalDrivers = cl.reduce((a, c) => a + (c.driverCount ?? 0), 0)
-
   return (
     <>
       <SectionDDayBanner settings={s} />
       <SectionHero settings={s} nextRound={nr} rounds={rs} />
-      <SectionStatsBar
-        rounds={rs.length || 4}
-        cars={totalCars   || 107}
-        drivers={totalDrivers || 208}
-        classes={cl.length || 6}
-      />
       <SectionTicker />
       <SectionSeason   rounds={rs} />
       <SectionEntry    settings={s} classes={cl} />
