@@ -34,7 +34,8 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
   const countdown = useCountdown(nextRound?.dateStart)
   const season    = settings?.currentSeason ?? 2026
   const circuit   = settings?.circuitName ?? '인제스피디움'
-  const heroImg   = (settings as any)?.heroImage?.asset?.url as string | undefined
+  const heroImg   = settings?.heroImage?.asset?.url
+  const heroAlt   = settings?.heroImage?.alt ?? '인제 GT 마스터즈 히어로'
 
   const dd  = nextRound?.dateStart ? new Date(nextRound.dateStart) : null
   const day = dd ? dd.getDate() : null
@@ -66,7 +67,7 @@ export default function SectionHero({ settings, nextRound, rounds }: Props) {
       {/* 키 비주얼 */}
       <div style={{ position: 'absolute', inset: 0, background: 'var(--bg-2)' }}>
         {heroImg ? (
-          <Image src={heroImg} alt="Hero" fill style={{ objectFit: 'cover', objectPosition: 'center 35%' }} priority sizes="100vw" />
+          <Image src={heroImg} alt={heroAlt} fill style={{ objectFit: 'cover', objectPosition: 'center 35%' }} priority sizes="100vw" />
         ) : null}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 65% 40%, rgba(220,0,26,0.1) 0%, transparent 55%), radial-gradient(ellipse 100% 100% at 10% 80%, rgba(0,0,0,0.8) 0%, transparent 55%), linear-gradient(160deg, #0b0b0b 0%, #181818 50%, #0f0b0b 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-conic-gradient(rgba(255,255,255,0.01) 0% 25%, transparent 0% 50%)', backgroundSize: '30px 30px' }} />
