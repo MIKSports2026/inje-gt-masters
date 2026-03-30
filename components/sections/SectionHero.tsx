@@ -1,5 +1,5 @@
 'use client'
-// components/sections/SectionHero.tsx — v3 Hero
+// components/sections/SectionHero.tsx — v3 Hero (키비주얼 + 우측 패널)
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -30,209 +30,189 @@ function useCountdown(dateStart?: string) {
   return t
 }
 
-export default function SectionHero({ settings, nextRound, rounds }: Props) {
+export default function SectionHero({ settings, nextRound }: Props) {
   const countdown = useCountdown(nextRound?.dateStart)
   const season    = settings?.currentSeason ?? 2026
-  const circuit   = settings?.circuitName ?? '인제스피디움'
   const heroImg   = settings?.heroImage?.asset?.url
-  const heroAlt   = settings?.heroImage?.alt ?? '인제 GT 마스터즈 히어로'
+  const heroAlt   = settings?.heroImage?.alt ?? '인제 GT 마스터즈'
 
   const dd  = nextRound?.dateStart ? new Date(nextRound.dateStart) : null
-  const day = dd ? dd.getDate() : null
-  const mon = dd ? dd.toLocaleDateString('en', { month: 'short', year: 'numeric' }).toUpperCase() : ''
+  const monthDay = dd
+    ? `${dd.getMonth() + 1}.${String(dd.getDate()).padStart(2, '0')}`
+    : null
 
-  const numStyle: React.CSSProperties = {
+  const numFont: React.CSSProperties = {
     fontFamily: "'Barlow Condensed', sans-serif",
-    fontSize: '48px', fontWeight: 900, color: 'white',
-    letterSpacing: '2px', lineHeight: 1, display: 'block',
     fontVariantNumeric: 'tabular-nums',
-    minWidth: '2ch', textAlign: 'center',
-  }
-  const lblStyle: React.CSSProperties = {
-    fontFamily: "'Barlow Condensed', sans-serif",
-    fontSize: '16.5px', fontWeight: 700, letterSpacing: '2px',
-    textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
-    marginTop: '4px', display: 'block',
   }
 
   return (
-    <section aria-label="메인 히어로" style={{
-      position: 'relative',
-      minHeight: 'calc(100vh - 104px)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-end',
-      overflow: 'hidden',
-    }}>
-      {/* 키 비주얼 */}
-      <div style={{ position: 'absolute', inset: 0, background: 'var(--bg-2)' }}>
-        {heroImg ? (
-          <Image src={heroImg} alt={heroAlt} fill style={{ objectFit: 'cover', objectPosition: 'center 35%' }} priority sizes="100vw" />
-        ) : (
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 65% 40%, rgba(220,0,26,0.1) 0%, transparent 55%), radial-gradient(ellipse 100% 100% at 10% 80%, rgba(0,0,0,0.8) 0%, transparent 55%), linear-gradient(160deg, #0b0b0b 0%, #181818 50%, #0f0b0b 100%)' }} />
-        )}
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-conic-gradient(rgba(255,255,255,0.01) 0% 25%, transparent 0% 50%)', backgroundSize: '30px 30px' }} />
-      </div>
-      <div style={{ position: 'absolute', inset: 0, background: heroImg
-        ? 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 25%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0.85) 100%)'
-        : 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.02) 25%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.94) 100%)'
-      }} />
-      <div style={{ position: 'absolute', inset: 0, background: heroImg
-        ? 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 40%, transparent 65%)'
-        : 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.32) 40%, transparent 65%)'
-      }} />
-
-      {/* 배경 연도 텍스트 */}
-      <div aria-hidden="true" style={{
-        position: 'absolute', right: '-1%', bottom: '-8%',
-        fontFamily: "'Bebas Neue', sans-serif",
-        fontSize: 'clamp(200px, 26vw, 400px)', lineHeight: 1, letterSpacing: '-10px',
-        color: 'transparent', WebkitTextStroke: '1px rgba(0,0,0,0.06)',
-        pointerEvents: 'none', userSelect: 'none',
-      }}>{String(season).slice(-2)}</div>
-
-      {/* 본문 */}
-      <div style={{
-        position: 'relative', zIndex: 10,
-        display: 'grid', gridTemplateColumns: '1fr minmax(280px,400px)',
-        alignItems: 'flex-end', gap: '40px',
-        padding: '0 var(--pad) 60px',
+    <section aria-label="메인 히어로">
+      {/* ── 데스크톱 (2컬럼) ─────────────────────────────── */}
+      <div className="hero-grid" style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 380px',
       }}>
+        {/* 좌측: 키비주얼 이미지 */}
+        <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', background: '#0a0a0a' }}>
+          {heroImg ? (
+            <Image
+              src={heroImg} alt={heroAlt} fill priority sizes="(max-width: 768px) 100vw, 66vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
+          ) : (
+            <div style={{
+              position: 'absolute', inset: 0,
+              background: 'linear-gradient(135deg, #0b0b0b 0%, #181818 40%, #1a0008 100%)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                fontSize: 'clamp(48px, 8vw, 120px)',
+                letterSpacing: '6px', color: 'rgba(255,255,255,0.04)',
+              }}>INJE GT MASTERS</span>
+            </div>
+          )}
+        </div>
 
-        {/* 좌측 */}
-        <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-            <span style={{ background: 'var(--red)', color: 'white', fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', fontWeight: 800, letterSpacing: '3.5px', textTransform: 'uppercase' as const, padding: '5px 14px' }}>
-              {season} SEASON
-            </span>
-            <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '19px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,0.45)' }}>
-              WHERE LEGENDS BEGIN
-            </span>
-          </div>
+        {/* 우측: 정보 패널 */}
+        <div style={{
+          background: '#111',
+          display: 'flex', flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '36px 32px',
+          gap: '28px',
+          borderLeft: '1px solid rgba(255,255,255,0.08)',
+        }}>
+          {/* 카운트다운 */}
+          {countdown ? (
+            <div>
+              <div style={{
+                ...numFont, fontSize: '13px', fontWeight: 800,
+                letterSpacing: '3px', textTransform: 'uppercase',
+                color: 'var(--red)', marginBottom: '12px',
+                display: 'flex', alignItems: 'center', gap: '8px',
+              }}>
+                <span style={{ width: '14px', height: '2px', background: 'var(--red)', display: 'inline-block' }} />
+                D-DAY
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '2px', ...numFont }}>
+                <span style={{ fontSize: '54px', fontWeight: 900, color: 'white', lineHeight: 1, letterSpacing: '1px' }}>
+                  {countdown.d}
+                </span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.3)', letterSpacing: '1px', marginRight: '6px' }}>DAYS</span>
+                <span style={{ fontSize: '36px', fontWeight: 900, color: 'white', lineHeight: 1, letterSpacing: '1px' }}>
+                  {countdown.h}:{countdown.m}
+                </span>
+                <span style={{ fontSize: '24px', fontWeight: 900, color: 'rgba(255,255,255,0.35)', lineHeight: 1 }}>
+                  :{countdown.s}
+                </span>
+              </div>
+            </div>
+          ) : nextRound ? (
+            <div style={{ ...numFont, fontSize: '18px', fontWeight: 800, color: 'var(--red)', letterSpacing: '2px' }}>
+              RACE DAY
+            </div>
+          ) : null}
 
-          <h1 style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 'clamp(72px, 10vw, 152px)',
-            lineHeight: 0.88, letterSpacing: '2px',
-            color: 'white', marginBottom: '16px',
-          }}>
-            INJE<br />
-            <span style={{ color: 'var(--red)' }}>GT</span><br />
-            <span style={{ color: 'transparent', WebkitTextStroke: '1.5px rgba(255,255,255,0.5)' }}>MASTERS</span>
-          </h1>
+          {/* 구분선 */}
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)' }} />
 
-          <p style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: 'clamp(15px, 1.5vw, 19px)', fontWeight: 400,
-            letterSpacing: '5px', color: 'rgba(255,255,255,0.38)',
-            textTransform: 'uppercase' as const, marginBottom: '36px',
-          }}>
-            레이서의 근성과 머신의 한계가 만나는 곳
-          </p>
+          {/* 라운드 정보 */}
+          {nextRound ? (
+            <div>
+              {monthDay && (
+                <div style={{
+                  ...numFont, fontSize: '15px', fontWeight: 700,
+                  color: 'rgba(255,255,255,0.45)', letterSpacing: '1px',
+                  marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px',
+                }}>
+                  <i className="fa-regular fa-calendar" style={{ fontSize: '13px' }} />
+                  {monthDay}
+                </div>
+              )}
+              <div style={{
+                ...numFont, fontSize: '28px', fontWeight: 900,
+                letterSpacing: '4px', textTransform: 'uppercase',
+                color: 'white', lineHeight: 1.1,
+              }}>
+                ROUND {String(nextRound.roundNumber).padStart(2, '0')}
+              </div>
+              <div style={{
+                fontSize: '14px', fontWeight: 600,
+                color: 'rgba(255,255,255,0.4)', marginTop: '6px',
+              }}>
+                {nextRound.title}
+              </div>
+            </div>
+          ) : (
+            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '14px' }}>
+              {season} 시즌 일정 준비중
+            </div>
+          )}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            <Link href="/entry" className="btn-fill">
-              <i className="fa fa-flag-checkered" />
-              참가 신청하기
+          {/* 구분선 */}
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+
+          {/* CTA 버튼 */}
+          <div style={{ display: 'grid', gap: '10px' }}>
+            <Link
+              href={nextRound ? `/entry?tab=apply&round=R${nextRound.roundNumber}` : '/entry'}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                background: 'var(--red)', color: 'white',
+                padding: '14px 20px', textDecoration: 'none',
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontSize: '16px', fontWeight: 800, letterSpacing: '2px',
+                textTransform: 'uppercase',
+                transition: 'opacity 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.opacity = '0.85' }}
+              onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}
+            >
+              <i className="fa-solid fa-flag-checkered" style={{ fontSize: '14px' }} />
+              참가신청하기
             </Link>
-            <Link href="/season" className="btn-line">
+            <Link
+              href="/season"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                background: 'transparent', color: 'rgba(255,255,255,0.6)',
+                padding: '13px 20px', textDecoration: 'none',
+                border: '1px solid rgba(255,255,255,0.15)',
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontSize: '15px', fontWeight: 700, letterSpacing: '2px',
+                textTransform: 'uppercase',
+                transition: 'border-color 0.2s, color 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; e.currentTarget.style.color = 'white' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)' }}
+            >
+              <i className="fa-regular fa-calendar" style={{ fontSize: '13px' }} />
               {season} 일정 보기
             </Link>
           </div>
         </div>
-
-        {/* 우측: 카운트다운 + 다음 라운드 */}
-        <div style={{ display: 'grid', gap: '0' }}>
-          {/* 카운트다운 박스 */}
-          {countdown && (
-            <div style={{
-              background: 'rgba(10,10,10,0.6)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              backdropFilter: 'blur(20px)',
-              padding: '24px 22px',
-              marginBottom: '0',
-            }}>
-              <div style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontSize: '18px', fontWeight: 800, letterSpacing: '3.5px',
-                textTransform: 'uppercase' as const, color: 'var(--red)',
-                marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px',
-              }}>
-                <span style={{ width: '16px', height: '2px', background: 'var(--red)', display: 'inline-block' }} />
-                개막전 D-DAY
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', width: '100%' }}>
-                {[{ v: countdown.d, l: 'DAYS' }, { v: countdown.h, l: 'HRS' }, { v: countdown.m, l: 'MIN' }, { v: countdown.s, l: 'SEC' }].map((u, i) => (
-                  <div key={u.l} style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1 }}>
-                    {i > 0 && <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '36px', fontWeight: 900, color: 'rgba(255,255,255,0.18)', flexShrink: 0 }}>:</span>}
-                    <div style={{ flex: 1, textAlign: 'center' }}>
-                      <span style={numStyle}>{u.v}</span>
-                      <span style={lblStyle}>{u.l}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* 다음 라운드 카드 */}
-          {nextRound && (
-            <Link href={`/season/${nextRound.slug.current}`} style={{
-              background: 'white',
-              padding: '18px 22px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px',
-              textDecoration: 'none',
-              cursor: 'pointer',
-              transition: 'background 0.2s',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#f8f6f3'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'white'; }}
-            >
-              {day && (
-                <div style={{ textAlign: 'center', paddingRight: '16px', borderRight: '1px solid #e0ddd8', flexShrink: 0 }}>
-                  <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '44px', fontWeight: 900, color: 'var(--red)', lineHeight: 1, letterSpacing: '1px', fontVariantNumeric: 'tabular-nums' }}>{day}</div>
-                  <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' as const, color: '#8a8680' }}>{mon}</div>
-                </div>
-              )}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '15.5px', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'var(--red)', marginBottom: '5px' }}>
-                  INJE GT MASTERS · Round {String(nextRound.roundNumber).padStart(2, '0')}
-                </div>
-                <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: '19px', letterSpacing: '2px', color: '#141414', lineHeight: 1.1 }}>
-                  {nextRound.title}
-                </div>
-                <div style={{ fontSize: '16.5px', color: '#8a8680', marginTop: '3px' }}>
-                  📍 강원도 {circuit}
-                </div>
-              </div>
-              <div style={{ fontSize: '18px', color: 'var(--red)', flexShrink: 0, transition: 'transform 0.2s' }}>→</div>
-            </Link>
-          )}
-
-          {/* 라운드 없을 때 */}
-          {!nextRound && (
-            <div style={{ background: 'rgba(10,10,10,0.6)', border: '1px solid rgba(255,255,255,0.12)', padding: '24px 22px', textAlign: 'center', color: 'rgba(255,255,255,0.4)' }}>
-              <p style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', letterSpacing: '2px' }}>
-                {season} 시즌 일정을 준비중입니다
-              </p>
-            </div>
-          )}
-        </div>
       </div>
 
-      {/* 스크롤 힌트 */}
-      <div aria-hidden="true" style={{
-        position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
-        zIndex: 10, animation: 'scrollhint 2.5s ease-in-out infinite',
-      }}>
-        <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '19px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,0.3)' }}>scroll</span>
-        <div style={{ width: '1px', height: '32px', background: 'linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%)' }} />
-      </div>
-
-      
+      {/* ── 반응형 CSS ────────────────────────────────────── */}
+      <style>{`
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1fr 380px;
+        }
+        @media (max-width: 768px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .hero-grid > div:last-child {
+            padding: 24px 20px !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            gap: 16px !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }
