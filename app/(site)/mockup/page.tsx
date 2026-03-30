@@ -101,7 +101,7 @@ export default function MockupPage() {
         </div>
       </div>
 
-      <SectionDDayBanner nextRound={nextRound} />
+      <SectionDDayBanner settings={SETTINGS} />
       <SectionHero settings={SETTINGS} nextRound={nextRound} rounds={ROUNDS} />
       <SectionStatsBar rounds={4} cars={totalCars} drivers={totalDrvs} classes={6} />
       <SectionTicker />
