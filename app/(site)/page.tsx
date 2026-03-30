@@ -21,7 +21,7 @@ import SectionPartners   from '@/components/sections/SectionPartners'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await sanityFetch<SiteSettings>({
-    query: SITE_SETTINGS_QUERY, revalidate: 3600,
+    query: SITE_SETTINGS_QUERY, revalidate: 60, useCdn: false,
   }).catch(() => null)
   if (!settings) return {}
   return {
@@ -43,7 +43,7 @@ export default async function HomePage() {
 
   const [settings, rounds, nextRound, classes, posts, media, partners] =
     await Promise.all([
-      sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY,  revalidate: 3600 }),
+      sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY,  revalidate: 60, useCdn: false }),
       sanityFetch<Round[]>      ({ query: ROUNDS_QUERY,         params: { season: 2026 }, revalidate: 300 }),
       sanityFetch<Round | null> ({ query: NEXT_ROUND_QUERY,     params: { today },        revalidate: 300 }),
       sanityFetch<ClassInfo[]>  ({ query: CLASSES_QUERY,        revalidate: 3600 }),
