@@ -19,7 +19,7 @@ export default function SectionQuickAccess({ settings }: { settings: SiteSetting
   return (
     <section style={{padding:'0 0 28px'}}>
       <div className="container">
-        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'16px'}}>
+        <div className="quick-grid" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'16px'}}>
           {CARDS.map((c,i)=>(
             <Link key={i} href={c.href} style={{
               minHeight:'158px',padding:'20px',

@@ -20,7 +20,7 @@ export default function SectionSpeedium({ settings }: { settings: SiteSettings |
           </p>
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'20px',alignItems:'stretch'}}>
+        <div className="speedium-grid" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'20px',alignItems:'stretch'}}>
 
           {/* 왼쪽: 서킷 기본 정보 */}
           <RevealOnScroll className="panel" style={{padding:'28px'} as any}>
@@ -42,7 +42,7 @@ export default function SectionSpeedium({ settings }: { settings: SiteSettings |
             </ul>
 
             {/* 서킷 수치 */}
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px',marginTop:'20px',paddingTop:'20px',borderTop:'1px solid var(--line)'}}>
+            <div className="speedium-stats" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px',marginTop:'20px',paddingTop:'20px',borderTop:'1px solid var(--line)'}}>
               {[
                 {v:'3.9km',l:'서킷 전장'},
                 {v:'88m',  l:'고저차'},

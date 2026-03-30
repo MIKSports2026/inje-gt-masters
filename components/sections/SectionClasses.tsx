@@ -26,7 +26,7 @@ export default function SectionClasses({ classes }: { classes: ClassInfo[] }) {
             <p>클래스 데이터를 준비중입니다.</p>
           </div>
         )}
-        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'16px'}}>
+        <div className="classes-grid" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'16px'}}>
           {list.map((c,i)=>{
             const color = c.accentColor ?? '#e60023'
             return (

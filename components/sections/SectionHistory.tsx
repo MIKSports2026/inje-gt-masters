@@ -11,7 +11,7 @@ export default function SectionHistory({ history }: { history: History[] }) {
     <section className="section" id="history"
       style={{background:'linear-gradient(180deg,var(--surface-2),var(--bg))'}}>
       <div className="container">
-        <div style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'20px',alignItems:'start'}}>
+        <div className="history-grid" style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'20px',alignItems:'start'}}>
 
           {/* 왼쪽: 타임라인 */}
           <RevealOnScroll className="panel" style={{padding:'28px'} as any}>

@@ -24,7 +24,7 @@ export default function SectionResults({ rounds }: { rounds: Round[] }) {
           </p>
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1.08fr .92fr',gap:'20px',alignItems:'start'}}>
+        <div className="results-grid" style={{display:'grid',gridTemplateColumns:'1.08fr .92fr',gap:'20px',alignItems:'start'}}>
 
           {/* 왼쪽: 순위표 */}
           <RevealOnScroll className="panel" style={{padding:'24px'} as any}>

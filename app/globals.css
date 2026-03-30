@@ -249,9 +249,63 @@ textarea:focus-visible {
   align-items: start;
 }
 
-/* ── 반응형 ─────────────────────────────────────────────────── */
+/* ── 반응형 (768px 이하) ────────────────────────────────────── */
 @media (max-width: 768px) {
+  :root { --header-h: 60px; }
   .section { padding: 52px 0; }
   .section-head { flex-direction: column; align-items: start; }
   .entry-form-grid { grid-template-columns: 1fr; }
+  h1 { font-size: clamp(2rem, 8vw, 3rem) !important; }
+
+  /* 히어로 */
+  .hero-grid       { grid-template-columns: 1fr !important; min-height: auto !important; }
+  .hero-metrics    { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
+  .hero-mini-kv    { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+
+  /* 퀵 액세스 */
+  .quick-grid      { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+
+  /* 대회 소개 */
+  .about-grid      { grid-template-columns: 1fr !important; }
+  .about-stats     { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* 역사 */
+  .history-grid    { grid-template-columns: 1fr !important; }
+
+  /* 시즌 */
+  .season-grid     { grid-template-columns: 1fr !important; }
+
+  /* 클래스 */
+  .classes-grid    { grid-template-columns: 1fr 1fr !important; }
+
+  /* 참가신청 */
+  .entry-grid      { grid-template-columns: 1fr !important; }
+
+  /* 결과 */
+  .results-grid    { grid-template-columns: 1fr !important; }
+
+  /* 미디어 */
+  .media-grid      { grid-template-columns: 1fr !important; }
+
+  /* 스피디움 */
+  .speedium-grid   { grid-template-columns: 1fr !important; }
+  .speedium-stats  { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* 파트너 */
+  .partner-tier-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* 라운드 상세 */
+  .round-detail-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── 반응형 (480px 이하) ────────────────────────────────────── */
+@media (max-width: 480px) {
+  .section { padding: 40px 0; }
+  .container { width: calc(100% - 24px); }
+
+  .classes-grid    { grid-template-columns: 1fr !important; }
+  .hero-mini-kv    { grid-template-columns: 1fr !important; }
+  .about-stats     { grid-template-columns: 1fr !important; }
+  .speedium-stats  { grid-template-columns: 1fr !important; }
+  .partner-tier-grid { grid-template-columns: 1fr !important; }
 }

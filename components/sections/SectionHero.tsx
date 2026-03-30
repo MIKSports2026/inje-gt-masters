@@ -63,7 +63,7 @@ export default function SectionHero({ settings, nextRound }: Props) {
   return (
     <section style={{padding:'18px 0 28px'}}>
       <div className="container">
-        <div style={{
+        <div className="hero-grid" style={{
           display:'grid',
           gridTemplateColumns:'1.02fr .98fr',
           gap:'20px',
@@ -132,7 +132,7 @@ export default function SectionHero({ settings, nextRound }: Props) {
             )}
 
             {/* 메트릭 */}
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px'}}>
+            <div className="hero-metrics" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px'}}>
               {metrics.map(m=>(
                 <div key={m.l} style={{minHeight:'100px',padding:'16px',background:'#fff',border:'1px solid var(--line)',position:'relative',clipPath:cutMd}}>
                   <div style={redLine} />
@@ -198,7 +198,7 @@ export default function SectionHero({ settings, nextRound }: Props) {
             </div>
 
             {/* 미니 KV 2개 */}
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'18px'}}>
+            <div className="hero-mini-kv" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'18px'}}>
               {[
                 {bg:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80',t:'6개 클래스',s:'GT1·GT2·GT3·DRIFT·BIKE·SUPER',href:'/#classes'},
                 {bg:'https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?auto=format&fit=crop&w=800&q=80',t:'참가 신청',s:'온라인 접수 · 토스페이먼츠',href:'/entry'},

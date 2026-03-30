@@ -12,7 +12,7 @@ export default function SectionAbout() {
   return (
     <section className="section" id="about">
       <div className="container">
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'20px',alignItems:'stretch'}}>
+        <div className="about-grid" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'20px',alignItems:'stretch'}}>
 
           {/* 왼쪽: 텍스트 */}
           <RevealOnScroll className="panel p-28" style={{padding:'28px',display:'flex',flexDirection:'column',justifyContent:'space-between'} as any}>
@@ -49,7 +49,7 @@ export default function SectionAbout() {
             </div>
 
             {/* 통계 */}
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px',marginTop:'24px',paddingTop:'24px',borderTop:'1px solid var(--line)'}}>
+            <div className="about-stats" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px',marginTop:'24px',paddingTop:'24px',borderTop:'1px solid var(--line)'}}>
               {[{v:'2020',l:'창설 연도'},{v:'6+',l:'클래스 종목'},{v:'400+',l:'누적 참가팀'}].map(s=>(
                 <div key={s.l} style={{textAlign:'center'}}>
                   <strong style={{display:'block',fontSize:'1.8rem',fontWeight:950,color:'var(--red)',lineHeight:1}}>{s.v}</strong>

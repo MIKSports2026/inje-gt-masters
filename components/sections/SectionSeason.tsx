@@ -19,7 +19,7 @@ export default function SectionSeason({ rounds }: { rounds: Round[] }) {
   return (
     <section className="section" id="season">
       <div className="container">
-        <div style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'20px',alignItems:'start'}}>
+        <div className="season-grid" style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'20px',alignItems:'start'}}>
 
           {/* 왼쪽: 라운드 리스트 */}
           <RevealOnScroll className="panel" style={{padding:'28px'} as any}>

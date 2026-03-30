@@ -18,7 +18,7 @@ export default function SectionMedia({ media, posts }: { media: Media[]; posts: 
           <p className="lead">인제 GT 마스터즈의 레이스 하이라이트, 현장 포토, 공식 영상을 모두 확인하세요.</p>
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1.08fr .92fr',gap:'20px'}}>
+        <div className="media-grid" style={{display:'grid',gridTemplateColumns:'1.08fr .92fr',gap:'20px'}}>
 
           {/* 메인 비디오 카드 */}
           <RevealOnScroll>

@@ -69,7 +69,7 @@ export default function SectionPartners({ partners }: { partners: Partner[] }) {
               </div>
 
               {/* 파트너 카드 그리드 */}
-              <div style={{
+              <div className="partner-tier-grid" style={{
                 display:'grid',
                 gridTemplateColumns:`repeat(${cols},1fr)`,
                 gap:'12px',

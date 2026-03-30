@@ -21,7 +21,7 @@ export default function SectionEntry({ settings, classes }: { settings: SiteSett
         <RevealOnScroll>
           <div className="panel" style={{padding:'28px 32px'}}>
 
-            <div style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'32px',alignItems:'start'}}>
+            <div className="entry-grid" style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'32px',alignItems:'start'}}>
 
               {/* 왼쪽: 안내 */}
               <div>
