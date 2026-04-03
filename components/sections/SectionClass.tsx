@@ -1,12 +1,12 @@
-// components/sections/SectionClass.tsx — Diagonal 4-card grid (no price)
+// components/sections/SectionClass.tsx — Diagonal 4-card with red offset
 'use client'
 import Link from 'next/link'
 
 const CLASSES = [
-  { id: 'm1', name: 'Master 1', spec: '2,000cc 이하 터보 / 3,800cc 이하 NA' },
-  { id: 'm2', name: 'Master 2', spec: '1,600cc 이하 터보 / 2,000cc 이하 NA' },
-  { id: 'mn', name: 'Master N', spec: '2,000cc 이하 터보 (현대 N 차량)' },
-  { id: 'm3', name: 'Master 3', spec: '1,600cc 이하 NA' },
+  { id: 'm1', num: '01', name: 'Master 1', spec: '2,000cc 이하 터보 / 3,800cc 이하 NA' },
+  { id: 'm2', num: '02', name: 'Master 2', spec: '1,600cc 이하 터보 / 2,000cc 이하 NA' },
+  { id: 'mn', num: '03', name: 'Master N', spec: '2,000cc 이하 터보 (현대 N 차량)' },
+  { id: 'm3', num: '04', name: 'Master 3', spec: '1,600cc 이하 NA' },
 ]
 
 export default function SectionClass() {
@@ -22,11 +22,10 @@ export default function SectionClass() {
       <div className="cls__grid">
         {CLASSES.map((c) => (
           <div key={c.id} className="cls__card">
-            {/* 레드 offset 레이어 */}
             <div className="cls__card-red" />
-            {/* 콘텐츠 레이어 */}
             <div className="cls__card-face">
               <div className="cls__card-bar" />
+              <span className="cls__card-watermark">{c.num}</span>
               <div className="cls__card-body">
                 <h3 className="cls__card-name">{c.name}</h3>
                 <div className="cls__card-divider" />
@@ -56,24 +55,26 @@ export default function SectionClass() {
 
         .cls__grid {
           max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
         }
 
-        /* Card wrapper */
-        .cls__card { position: relative; height: 320px; }
+        .cls__card { position: relative; height: 400px; }
 
-        /* Red offset layer */
+        /* Red offset */
         .cls__card-red {
-          position: absolute;
-          top: 8px; left: 8px; right: -4px; bottom: -4px;
+          position: absolute; inset: 0;
           background: #E60023; opacity: .2;
           clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
-          transition: opacity .3s;
+          transform: translate(6px, 6px);
           z-index: 1;
+          transition: transform .3s ease, opacity .3s ease;
         }
-        .cls__card:hover .cls__card-red { opacity: .4; }
+        .cls__card:hover .cls__card-red {
+          transform: translate(10px, 10px);
+          opacity: .35;
+        }
 
-        /* Content face */
+        /* Face */
         .cls__card-face {
           position: relative; z-index: 2;
           width: 100%; height: 100%;
@@ -82,7 +83,7 @@ export default function SectionClass() {
           overflow: hidden;
           transition: background .3s;
         }
-        .cls__card:hover .cls__card-face { background: #161616; }
+        .cls__card:hover .cls__card-face { background: #151515; }
 
         .cls__card-bar {
           position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
@@ -91,28 +92,40 @@ export default function SectionClass() {
         }
         .cls__card:hover .cls__card-bar { transform: scaleY(1); }
 
+        /* Watermark number */
+        .cls__card-watermark {
+          position: absolute; top: 16px; right: 24px;
+          font-family: 'Oswald',sans-serif; font-size: 8rem; font-weight: 900;
+          letter-spacing: -.05em; line-height: 1;
+          color: rgba(255,255,255,.04);
+          pointer-events: none; user-select: none;
+        }
+
         .cls__card-body {
-          padding: 32px 28px 28px;
+          position: relative; z-index: 2;
+          padding: 0 28px 32px;
           height: 100%; display: flex; flex-direction: column;
+          justify-content: flex-end;
         }
 
         .cls__card-name {
           font-family: 'Oswald',sans-serif;
           font-size: 3.5rem; font-weight: 900;
           letter-spacing: -.04em; color: #fff;
-          line-height: .88; margin: 0 0 16px;
-          transform: skewX(-8deg);
+          text-transform: uppercase;
+          line-height: .88; margin: 0 0 14px;
+          transform: skewX(-6deg);
         }
 
         .cls__card-divider {
           width: 28px; height: 2px; background: rgba(255,255,255,.06);
-          margin-bottom: 16px; transform: skewX(-30deg);
+          margin-bottom: 14px; transform: skewX(-30deg);
         }
 
         .cls__card-spec {
-          font-family: 'Noto Sans KR',sans-serif; font-size: 1.2rem; font-weight: 500;
+          font-family: 'Noto Sans KR',sans-serif; font-size: 1.1rem; font-weight: 500;
           color: rgba(255,255,255,.4); line-height: 1.55;
-          margin: 0 0 auto; padding-bottom: 16px;
+          margin: 0 0 20px;
         }
 
         .cls__card-link {
@@ -129,15 +142,15 @@ export default function SectionClass() {
 
         /* Mobile */
         @media (max-width: 992px) {
-          .cls__grid { grid-template-columns: 1fr 1fr; padding: 0 20px; gap: 12px; }
+          .cls__grid { grid-template-columns: 1fr 1fr; padding: 0 20px; gap: 14px; }
           .cls__hd { padding: 0 20px; }
-          .cls__card { height: 260px; }
+          .cls__card { height: 320px; }
           .cls__card-name { font-size: 2.4rem; }
-          .cls__card-spec { font-size: 1rem; }
+          .cls__card-watermark { font-size: 5rem; }
+          .cls__card-spec { font-size: .95rem; }
         }
         @media (max-width: 600px) {
           .cls__grid { grid-template-columns: 1fr; }
-          .cls__card { height: 240px; }
         }
       `}</style>
     </section>
