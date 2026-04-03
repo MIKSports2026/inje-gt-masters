@@ -104,7 +104,7 @@ export default function SectionClass() {
         /* ── Accordion (ssn__acc 구조 클론) ── */
         .cls__acc {
           max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: flex; gap: 2px; height: 500px;
+          display: flex; gap: 2px; height: 350px;
         }
         .cls__p {
           flex: 0.35; position: relative; overflow: hidden; cursor: pointer;
@@ -205,26 +205,34 @@ export default function SectionClass() {
         .cls__p-right {
           position: relative; height: 100%;
           display: flex; align-items: center; justify-content: flex-end;
+          border: none !important; outline: none !important;
+          box-shadow: none !important;
         }
         .cls__p-slice {
           position: relative; width: 100%; height: 90%;
           clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
+          border: none !important; outline: none !important;
+          box-shadow: none !important;
         }
         .cls__p-slice-red {
           position: absolute; inset: 0;
           background: #E60023;
           transform: translateX(-15px); z-index: 1;
+          border: none !important; outline: none !important;
+          box-shadow: none !important;
         }
         .cls__p-slice-cut {
           position: absolute; inset: 0;
           background: #111111; z-index: 2;
+          border: none !important; outline: none !important;
+          box-shadow: none !important;
         }
 
         /* ── Mobile ── */
         @media (max-width: 900px) {
           .cls__acc { flex-direction: column; height: auto; padding: 0 20px; }
           .cls__p { height: 56px; flex: none !important; transition: height .4s cubic-bezier(.25,1,.5,1); }
-          .cls__p--on { height: 400px; }
+          .cls__p--on { height: 280px; }
           .cls__p-collapsed { flex-direction: row; }
           .cls__p-name { writing-mode: horizontal-tb; transform: none; }
           .cls__p-expanded { grid-template-columns: 1fr; }
