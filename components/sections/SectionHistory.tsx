@@ -31,7 +31,7 @@ export default function SectionHistory({ history }: { history: History[] }) {
                 {items.slice(0,6).map((h,i)=>(
                   <RevealOnScroll key={h._id} delay={(i%3) as 0|1|2|3}
                     style={{
-                      padding:'18px',background:'#fff',border:'1px solid var(--line)',
+                      padding:'18px',background:'var(--surface)',border:'1px solid var(--line)',
                       display:'grid',gridTemplateColumns:'auto 1fr',gap:'14px',alignItems:'start',
                       clipPath:cut12,
                     } as any}
