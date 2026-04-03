@@ -76,13 +76,13 @@ export default function SectionClass() {
           display: flex; align-items: flex-end; justify-content: space-between;
         }
         .cls__kicker {
-          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 600;
+          font-family: 'Oswald',sans-serif; font-size: 1.2rem; font-weight: 600;
           letter-spacing: .2em; color: #E60023; display: flex; align-items: center; gap: 10px;
           margin-bottom: 8px;
         }
         .cls__kicker-line { width: 28px; height: 2px; background: #E60023; }
         .cls__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(2.7rem,5.25vw,4.2rem);
+          font-family: 'Oswald',sans-serif; font-size: clamp(1.62rem,3.15vw,2.52rem);
           font-weight: 700; letter-spacing: .04em; color: #fff; line-height: 1; margin: 0;
         }
         .cls__badge {

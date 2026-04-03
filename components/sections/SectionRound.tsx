@@ -109,7 +109,7 @@ export default function SectionRound({ rounds }: Props) {
         }
         .rnd__kicker-line { width: 28px; height: 2px; background: #E60023; }
         .rnd__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(2.7rem,5.25vw,4.2rem);
+          font-family: 'Oswald',sans-serif; font-size: clamp(1.62rem,3.15vw,2.52rem);
           font-weight: 900; letter-spacing: -.03em; color: #fff; margin: 0;
         }
         .rnd__badge {
