@@ -8,7 +8,9 @@ import {
 import type { SiteSettings, Round, ClassInfo, Post, Media, Partner } from '@/types/sanity'
 
 import SectionHero       from '@/components/sections/SectionHero'
+import SectionRound      from '@/components/sections/SectionRound'
 import SectionSeason     from '@/components/sections/SectionSeason'
+import SectionClass      from '@/components/sections/SectionClass'
 import SectionEntry      from '@/components/sections/SectionEntry'
 import SectionResults    from '@/components/sections/SectionResults'
 import SectionMedia      from '@/components/sections/SectionMedia'
@@ -58,7 +60,9 @@ export default async function HomePage() {
   return (
     <>
       <SectionHero settings={s} nextRound={nr} rounds={rs} />
+      <SectionRound    rounds={rs} />
       <SectionSeason   rounds={rs} />
+      <SectionClass />
       <SectionEntry    settings={s} classes={cl} />
       <SectionResults  rounds={rs} posts={ps} />
       <SectionMedia    media={md} />
