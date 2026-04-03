@@ -35,19 +35,14 @@ export default function SectionHero({ settings }: Props) {
         position: 'relative',
         width: '100%',
         height: '100vh',
-        minHeight: '600px',
-        backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-        backgroundColor: '#0a0a0a',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         overflow: 'hidden',
-        transition: 'background-image 1s ease',
+        backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+        backgroundColor: !bgUrl ? '#0a0a0a' : undefined,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* 오버레이 */}
       <div
         style={{
           position: 'absolute',
@@ -55,24 +50,6 @@ export default function SectionHero({ settings }: Props) {
           background:
             'linear-gradient(to top, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0) 40%, rgba(10,10,10,0.7) 100%)',
           zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* 로고 — 이것만 표시 */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/logo-white.png"
-        alt="INJE GT MASTERS"
-        style={{
-          position: 'relative',
-          zIndex: 2,
-          width: '100%',
-          maxWidth: '500px',
-          height: 'auto',
-          opacity: 0.95,
-          filter: 'drop-shadow(0 0 40px rgba(230,0,35,0.25))',
-          padding: '0 40px',
         }}
       />
     </section>
