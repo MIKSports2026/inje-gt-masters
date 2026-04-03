@@ -1,4 +1,4 @@
-// components/sections/SectionClass.tsx — Diagonal 4-card grid
+// components/sections/SectionClass.tsx — Diagonal 4-card grid (no price)
 'use client'
 import Link from 'next/link'
 
@@ -13,30 +13,29 @@ export default function SectionClass() {
   return (
     <section className="cls" id="classes">
       <div className="cls__hd">
-        <div className="cls__kicker"><span className="cls__kicker-line" />RACE CLASSES</div>
-        <h2 className="cls__title">CLASSES</h2>
+        <div>
+          <div className="cls__kicker"><span className="cls__kicker-line" />RACE CLASSES</div>
+          <h2 className="cls__title">CLASSES</h2>
+        </div>
       </div>
 
       <div className="cls__grid">
-        {CLASSES.map((c, i) => (
+        {CLASSES.map((c) => (
           <div key={c.id} className="cls__card">
-            {/* 사선 accent 상단 */}
-            <div className="cls__card-top">
-              <div className="cls__card-accent" />
-              <div className="cls__card-idx">{String(i + 1).padStart(2, '0')}</div>
+            {/* 레드 offset 레이어 */}
+            <div className="cls__card-red" />
+            {/* 콘텐츠 레이어 */}
+            <div className="cls__card-face">
+              <div className="cls__card-bar" />
+              <div className="cls__card-body">
+                <h3 className="cls__card-name">{c.name}</h3>
+                <div className="cls__card-divider" />
+                <p className="cls__card-spec">{c.spec}</p>
+                <Link href="/entry" className="cls__card-link">
+                  자세히 보기 →
+                </Link>
+              </div>
             </div>
-
-            <div className="cls__card-body">
-              <h3 className="cls__card-name">{c.name}</h3>
-              <div className="cls__card-divider" />
-              <p className="cls__card-spec">{c.spec}</p>
-              <Link href="/entry" className="cls__card-link">
-                자세히 보기 →
-              </Link>
-            </div>
-
-            {/* 호버 레드 바 */}
-            <div className="cls__card-bar" />
           </div>
         ))}
       </div>
@@ -57,86 +56,88 @@ export default function SectionClass() {
 
         .cls__grid {
           max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
         }
 
-        .cls__card {
-          position: relative; overflow: hidden;
-          background: #111; transition: background .3s;
-          display: flex; flex-direction: column;
-        }
-        .cls__card:hover { background: #161616; }
+        /* Card wrapper */
+        .cls__card { position: relative; height: 320px; }
 
-        /* Top accent area */
-        .cls__card-top {
-          position: relative; height: 100px;
-          background: linear-gradient(135deg, #0d0d0d 0%, #1a0008 100%);
-          clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
-          display: flex; align-items: flex-start; justify-content: flex-end;
-          padding: 16px 20px;
+        /* Red offset layer */
+        .cls__card-red {
+          position: absolute;
+          top: 8px; left: 8px; right: -4px; bottom: -4px;
+          background: #E60023; opacity: .2;
+          clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+          transition: opacity .3s;
+          z-index: 1;
         }
-        .cls__card-accent {
-          position: absolute; left: 0; top: 0; width: 100%; height: 3px;
-          background: #E60023;
-          transform: scaleX(0); transform-origin: left;
-          transition: transform .35s ease;
-        }
-        .cls__card:hover .cls__card-accent { transform: scaleX(1); }
-        .cls__card-idx {
-          font-family: 'Oswald',sans-serif; font-size: 3rem; font-weight: 900;
-          letter-spacing: -.05em; color: rgba(255,255,255,.04);
-          line-height: 1;
-        }
+        .cls__card:hover .cls__card-red { opacity: .4; }
 
-        .cls__card-body { padding: 20px 24px 28px; flex: 1; display: flex; flex-direction: column; }
+        /* Content face */
+        .cls__card-face {
+          position: relative; z-index: 2;
+          width: 100%; height: 100%;
+          background: #111;
+          clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+          overflow: hidden;
+          transition: background .3s;
+        }
+        .cls__card:hover .cls__card-face { background: #161616; }
+
+        .cls__card-bar {
+          position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+          background: #E60023; transform: scaleY(0); transform-origin: top;
+          transition: transform .35s ease; z-index: 3;
+        }
+        .cls__card:hover .cls__card-bar { transform: scaleY(1); }
+
+        .cls__card-body {
+          padding: 32px 28px 28px;
+          height: 100%; display: flex; flex-direction: column;
+        }
 
         .cls__card-name {
-          font-family: 'Oswald',sans-serif; font-size: clamp(2.2rem, 4vw, 3rem);
-          font-weight: 900; letter-spacing: -.04em; color: #fff;
-          transform: skewX(-10deg); line-height: .9;
-          margin: 0 0 14px;
+          font-family: 'Oswald',sans-serif;
+          font-size: 3.5rem; font-weight: 900;
+          letter-spacing: -.04em; color: #fff;
+          line-height: .88; margin: 0 0 16px;
+          transform: skewX(-8deg);
         }
 
         .cls__card-divider {
-          width: 32px; height: 2px; background: rgba(255,255,255,.06);
-          margin-bottom: 14px; transform: skewX(-30deg);
+          width: 28px; height: 2px; background: rgba(255,255,255,.06);
+          margin-bottom: 16px; transform: skewX(-30deg);
         }
 
         .cls__card-spec {
           font-family: 'Noto Sans KR',sans-serif; font-size: 1.2rem; font-weight: 500;
           color: rgba(255,255,255,.4); line-height: 1.55;
-          margin: 0 0 auto; padding-bottom: 20px;
+          margin: 0 0 auto; padding-bottom: 16px;
         }
 
         .cls__card-link {
           display: inline-block; align-self: flex-start;
-          font-family: 'Oswald',sans-serif; font-size: .75rem; font-weight: 700;
+          font-family: 'Oswald',sans-serif; font-size: .72rem; font-weight: 700;
           letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
           color: rgba(255,255,255,.25); border: 1px solid rgba(255,255,255,.06);
-          padding: 8px 22px; transform: skewX(-15deg);
+          padding: 8px 20px; transform: skewX(-15deg);
           transition: all .25s;
         }
         .cls__card:hover .cls__card-link {
           color: #E60023; border-color: rgba(230,0,35,.3);
         }
 
-        /* Left bar */
-        .cls__card-bar {
-          position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-          background: #E60023; transform: scaleY(0); transform-origin: top;
-          transition: transform .35s ease; z-index: 2;
-        }
-        .cls__card:hover .cls__card-bar { transform: scaleY(1); }
-
         /* Mobile */
         @media (max-width: 992px) {
-          .cls__grid { grid-template-columns: 1fr 1fr; padding: 0 20px; }
+          .cls__grid { grid-template-columns: 1fr 1fr; padding: 0 20px; gap: 12px; }
           .cls__hd { padding: 0 20px; }
-          .cls__card-name { font-size: 2rem; }
+          .cls__card { height: 260px; }
+          .cls__card-name { font-size: 2.4rem; }
           .cls__card-spec { font-size: 1rem; }
         }
         @media (max-width: 600px) {
           .cls__grid { grid-template-columns: 1fr; }
+          .cls__card { height: 240px; }
         }
       `}</style>
     </section>

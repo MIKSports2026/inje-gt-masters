@@ -1,4 +1,4 @@
-// components/sections/SectionRound.tsx — Vertical accordion
+// components/sections/SectionRound.tsx — Horizontal accordion (like SectionSeason)
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
@@ -32,8 +32,11 @@ export default function SectionRound({ rounds }: Props) {
   return (
     <section className="rnd" id="rounds">
       <div className="rnd__hd">
-        <div className="rnd__kicker"><span className="rnd__kicker-line" />2026 SEASON</div>
-        <h2 className="rnd__title">ROUNDS</h2>
+        <div>
+          <div className="rnd__kicker"><span className="rnd__kicker-line" />2026 SEASON</div>
+          <h2 className="rnd__title">ROUNDS</h2>
+        </div>
+        <div className="rnd__badge">5 ROUNDS</div>
       </div>
 
       <div className="rnd__acc">
@@ -51,53 +54,42 @@ export default function SectionRound({ rounds }: Props) {
           return (
             <div
               key={r._id}
-              className={`rnd__panel ${on ? 'rnd__panel--on' : ''}`}
+              className={`rnd__p ${on ? 'rnd__p--on' : ''}`}
               onClick={() => setActive(i)}
               role="button"
               tabIndex={0}
               onKeyDown={e => { if (e.key === 'Enter') setActive(i) }}
             >
-              {/* ── 닫힌 상태: 한 줄 ── */}
-              <div className="rnd__closed">
-                <span className="rnd__closed-num">R{String(r.roundNumber).padStart(2, '0')}</span>
-                <span className="rnd__closed-date">{dateStr}</span>
-                {isOpen && <span className="rnd__closed-badge">OPEN</span>}
-                {isFin && <span className="rnd__closed-badge rnd__closed-badge--fin">END</span>}
+              {/* 배경 이미지 */}
+              {imgSrc && <div className="rnd__p-bg" style={{ backgroundImage: `url(${imgSrc})` }} />}
+              <div className="rnd__p-ov" />
+              <div className="rnd__p-bar" />
+
+              {/* 닫힌: 세로 라운드번호 + 날짜 */}
+              <div className="rnd__p-closed">
+                <span className="rnd__p-closed-num">R{String(r.roundNumber).padStart(2, '0')}</span>
+                <span className="rnd__p-closed-date">{dateStr}</span>
               </div>
 
-              {/* ── 열린 상태 ── */}
-              <div className="rnd__opened">
-                <div className="rnd__opened-left">
-                  {isOpen && <div className="rnd__tag">접수중</div>}
-                  {isFin && <div className="rnd__tag rnd__tag--fin">종료</div>}
+              {/* 열린: 콘텐츠 */}
+              <div className="rnd__p-open">
+                {isOpen && <div className="rnd__p-tag">접수중</div>}
+                {isFin && <div className="rnd__p-tag rnd__p-tag--fin">종료</div>}
 
-                  <div className="rnd__num">R{String(r.roundNumber).padStart(2, '0')}</div>
-                  <div className="rnd__date">{dateStr}</div>
-                  <div className="rnd__loc">INJE SPEEDIUM</div>
+                <div className="rnd__p-num">R{String(r.roundNumber).padStart(2, '0')}</div>
+                <div className="rnd__p-date">{dateStr}</div>
+                <div className="rnd__p-loc">INJE SPEEDIUM</div>
 
-                  {isOpen && (
-                    <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="rnd__cta" onClick={e => e.stopPropagation()}>
-                      참가 신청 →
-                    </Link>
-                  )}
-                  {isFin && resultUrl && (
-                    <Link href={resultUrl} className="rnd__cta rnd__cta--ghost" onClick={e => e.stopPropagation()}>
-                      결과 보기 →
-                    </Link>
-                  )}
-                </div>
-
-                <div className="rnd__opened-right">
-                  <div className="rnd__img-shadow" />
-                  <div className="rnd__img-wrap">
-                    {imgSrc ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={imgSrc} alt={`R${r.roundNumber}`} className="rnd__img" />
-                    ) : (
-                      <div className="rnd__img-fb" />
-                    )}
-                  </div>
-                </div>
+                {isOpen && (
+                  <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="rnd__p-cta" onClick={e => e.stopPropagation()}>
+                    참가 신청 →
+                  </Link>
+                )}
+                {isFin && resultUrl && (
+                  <Link href={resultUrl} className="rnd__p-cta rnd__p-cta--ghost" onClick={e => e.stopPropagation()}>
+                    결과 보기 →
+                  </Link>
+                )}
               </div>
             </div>
           )
@@ -106,7 +98,10 @@ export default function SectionRound({ rounds }: Props) {
 
       <style>{`
         .rnd { background: #0a0a0a; padding: 72px 0 64px; }
-        .rnd__hd { max-width: 1400px; margin: 0 auto 32px; padding: 0 40px; }
+        .rnd__hd {
+          max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
+          display: flex; align-items: flex-end; justify-content: space-between;
+        }
         .rnd__kicker {
           font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 600;
           letter-spacing: .2em; color: #E60023;
@@ -117,133 +112,132 @@ export default function SectionRound({ rounds }: Props) {
           font-family: 'Oswald',sans-serif; font-size: clamp(2rem,4vw,3.2rem);
           font-weight: 900; letter-spacing: -.03em; color: #fff; margin: 0;
         }
+        .rnd__badge {
+          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 600;
+          letter-spacing: .15em; color: rgba(255,255,255,.25);
+          border: 1px solid rgba(255,255,255,.08); padding: 5px 14px;
+        }
 
+        /* ── Accordion ── */
         .rnd__acc {
           max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: flex; flex-direction: column; gap: 2px;
+          display: flex; gap: 2px; height: 420px;
         }
-
-        /* Panel */
-        .rnd__panel {
-          position: relative; overflow: hidden; cursor: pointer;
-          background: #111; height: 80px;
-          transition: height .5s cubic-bezier(.25,1,.5,1);
+        .rnd__p {
+          flex: 1; position: relative; overflow: hidden; cursor: pointer;
+          background: #111;
+          transition: flex .6s cubic-bezier(.25,1,.5,1);
+          display: flex; align-items: flex-end;
         }
-        .rnd__panel--on { height: 400px; }
+        .rnd__p--on { flex: 6; }
 
-        /* Closed row */
-        .rnd__closed {
+        .rnd__p-bg {
+          position: absolute; inset: 0;
+          background-size: cover; background-position: center;
+          opacity: 0; transition: opacity .6s ease;
+        }
+        .rnd__p--on .rnd__p-bg { opacity: 1; }
+
+        .rnd__p-ov {
+          position: absolute; inset: 0;
+          background: linear-gradient(to right, rgba(10,10,10,.92) 0%, rgba(10,10,10,.25) 100%);
+          z-index: 1;
+        }
+        .rnd__p-bar {
+          position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+          background: #E60023; transform: scaleY(0); transform-origin: top;
+          transition: transform .4s ease .1s; z-index: 3;
+        }
+        .rnd__p--on .rnd__p-bar { transform: scaleY(1); }
+
+        /* Closed */
+        .rnd__p-closed {
           position: absolute; inset: 0; z-index: 2;
-          display: flex; align-items: center; gap: 20px;
-          padding: 0 32px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
           transition: opacity .25s;
         }
-        .rnd__panel--on .rnd__closed { opacity: 0; pointer-events: none; }
+        .rnd__p--on .rnd__p-closed { opacity: 0; pointer-events: none; }
 
-        .rnd__closed-num {
-          font-family: 'Oswald',sans-serif; font-size: 2rem; font-weight: 900;
-          letter-spacing: -.03em; color: rgba(255,255,255,.25);
-          transform: skewX(-10deg);
+        .rnd__p-closed-num {
+          font-family: 'Oswald',sans-serif; font-size: 1.8rem; font-weight: 900;
+          letter-spacing: -.03em; color: rgba(255,255,255,.2);
+          writing-mode: vertical-lr; text-orientation: mixed;
+          transform: skewY(-5deg);
         }
-        .rnd__panel:hover .rnd__closed-num { color: rgba(255,255,255,.45); }
-        .rnd__closed-date {
-          font-family: 'Oswald',sans-serif; font-size: 1.4rem; font-weight: 700;
-          letter-spacing: -.02em; color: rgba(255,255,255,.15);
+        .rnd__p:hover .rnd__p-closed-num { color: rgba(255,255,255,.4); }
+        .rnd__p-closed-date {
+          font-family: 'Oswald',sans-serif; font-size: .7rem; font-weight: 500;
+          letter-spacing: .1em; color: rgba(255,255,255,.12);
+          writing-mode: vertical-lr;
         }
-        .rnd__closed-badge {
-          font-family: 'Oswald',sans-serif; font-size: .6rem; font-weight: 700;
-          letter-spacing: .18em; color: #E60023;
-          border: 1px solid rgba(230,0,35,.3); padding: 2px 10px;
-          transform: skewX(-20deg);
-        }
-        .rnd__closed-badge--fin { color: rgba(255,255,255,.2); border-color: rgba(255,255,255,.08); }
 
-        /* Opened */
-        .rnd__opened {
-          position: absolute; inset: 0; z-index: 1;
-          display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px;
-          align-items: center; padding: 0 40px;
-          opacity: 0; transition: opacity .4s ease .15s;
+        /* Open */
+        .rnd__p-open {
+          position: relative; z-index: 2; padding: 36px 32px;
+          opacity: 0; transform: translateX(-12px);
+          transition: opacity .4s ease .2s, transform .4s ease .2s;
         }
-        .rnd__panel--on .rnd__opened { opacity: 1; }
+        .rnd__p--on .rnd__p-open { opacity: 1; transform: translateX(0); }
 
-        .rnd__tag {
+        .rnd__p-tag {
           display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: .7rem; font-weight: 700;
+          font-family: 'Oswald',sans-serif; font-size: .65rem; font-weight: 700;
           letter-spacing: .18em; text-transform: uppercase;
           color: #E60023; border-left: 2px solid #E60023;
-          padding: 3px 14px; margin-bottom: 16px;
+          padding: 3px 12px; margin-bottom: 16px;
           transform: skewX(-20deg);
         }
-        .rnd__tag--fin { color: rgba(255,255,255,.25); border-color: rgba(255,255,255,.12); }
+        .rnd__p-tag--fin { color: rgba(255,255,255,.2); border-color: rgba(255,255,255,.1); }
 
-        .rnd__num {
-          font-family: 'Oswald',sans-serif; font-size: 6rem; font-weight: 900;
-          letter-spacing: -.05em; color: #fff; line-height: .85;
-          transform: skewX(-10deg); margin-bottom: 8px;
+        .rnd__p-num {
+          font-family: 'Oswald',sans-serif;
+          font-size: clamp(4rem, 8vw, 7rem);
+          font-weight: 900; letter-spacing: -.05em;
+          color: #fff; line-height: .85;
+          transform: skewX(-8deg);
+          margin-bottom: 8px;
         }
-        .rnd__date {
+        .rnd__p-date {
           font-family: 'Oswald',sans-serif; font-size: 2.5rem; font-weight: 700;
           letter-spacing: -.03em; color: rgba(255,255,255,.5);
-          transform: skewX(-8deg); margin-bottom: 6px;
+          transform: skewX(-5deg);
+          margin-bottom: 6px;
         }
-        .rnd__loc {
+        .rnd__p-loc {
           font-family: 'Oswald',sans-serif; font-size: 1.2rem; font-weight: 600;
-          letter-spacing: .1em; color: rgba(255,255,255,.18);
+          letter-spacing: .1em; color: rgba(255,255,255,.15);
           margin-bottom: 24px;
         }
 
-        .rnd__cta {
+        .rnd__p-cta {
           display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: .85rem; font-weight: 700;
+          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 700;
           letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
-          padding: 12px 32px; transform: skewX(-15deg);
+          padding: 10px 28px; transform: skewX(-15deg);
           color: #fff; border: 1px solid #E60023;
           background: linear-gradient(135deg, rgba(230,0,35,.18), transparent);
           transition: all .25s;
         }
-        .rnd__cta:hover {
+        .rnd__p-cta:hover {
           background: linear-gradient(135deg, rgba(230,0,35,.35), rgba(230,0,35,.05));
           box-shadow: 4px 4px 0 rgba(230,0,35,.2);
         }
-        .rnd__cta--ghost {
-          color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.12);
-          background: none;
+        .rnd__p-cta--ghost {
+          color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.12); background: none;
         }
-        .rnd__cta--ghost:hover { color: #fff; border-color: rgba(255,255,255,.3); }
-
-        /* Image */
-        .rnd__opened-right { position: relative; height: 320px; }
-        .rnd__img-shadow {
-          position: absolute; inset: 6px -6px -6px 6px;
-          background: #E60023; opacity: .25;
-          clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-        }
-        .rnd__img-wrap {
-          position: relative; width: 100%; height: 100%;
-          clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-          overflow: hidden;
-        }
-        .rnd__img { width: 100%; height: 100%; object-fit: cover; }
-        .rnd__img-fb {
-          width: 100%; height: 100%;
-          background: linear-gradient(135deg, #111 0%, #1a0008 100%);
-        }
+        .rnd__p-cta--ghost:hover { color: #fff; border-color: rgba(255,255,255,.3); }
 
         /* Mobile */
-        @media (max-width: 992px) {
-          .rnd__acc { padding: 0 20px; }
+        @media (max-width: 900px) {
+          .rnd__acc { flex-direction: column; height: auto; padding: 0 20px; }
+          .rnd__p { height: 72px; flex: none !important; transition: height .5s cubic-bezier(.25,1,.5,1); }
+          .rnd__p--on { height: 360px; }
+          .rnd__p-closed { flex-direction: row; gap: 14px; }
+          .rnd__p-closed-num { writing-mode: horizontal-tb; transform: none; font-size: 1.4rem; }
+          .rnd__p-closed-date { writing-mode: horizontal-tb; font-size: .8rem; }
           .rnd__hd { padding: 0 20px; }
-          .rnd__panel { height: 70px; }
-          .rnd__panel--on { height: 520px; }
-          .rnd__opened { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
-          .rnd__opened-right { height: 200px; order: -1; }
-          .rnd__img-wrap { clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%); }
-          .rnd__img-shadow { clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%); }
-          .rnd__num { font-size: 3.5rem; }
-          .rnd__date { font-size: 1.6rem; }
-          .rnd__closed-num { font-size: 1.4rem; }
-          .rnd__closed-date { font-size: 1rem; }
+          .rnd__p-num { font-size: 3.5rem; }
+          .rnd__p-date { font-size: 1.6rem; }
         }
       `}</style>
     </section>
