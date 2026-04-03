@@ -7,18 +7,20 @@ import type { SiteSettings } from '@/types/sanity'
 const NAV_ITEMS = [
   {
     label: 'MASTERS',
-    href: '/#about',
+    href: '/masters/about',
     drop: [
-      { label: '대회 소개', href: '/#about' },
-      { label: '마스터즈 히스토리', href: '/history' },
+      { label: '대회 소개', href: '/masters/about' },
+      { label: '마스터즈 히스토리', href: '/masters/history' },
+      { label: '역대 챔피언', href: '/masters/champions' },
+      { label: '운영 조직도', href: '/masters/organization' },
     ],
   },
   {
     label: 'SEASON',
     href: '/season',
     drop: [
-      { label: '경기 일정', href: '/season' },
-      { label: '규정', href: '/entry?tab=regulations' },
+      { label: '경기 일정 / 클래스 소개', href: '/season' },
+      { label: '규정', href: '/season/rules' },
       { label: '인제스피디움', href: '/circuit' },
     ],
   },
@@ -26,8 +28,8 @@ const NAV_ITEMS = [
     label: 'ENTRY',
     href: '/entry',
     drop: [
-      { label: '온라인 참가 신청', href: '/entry' },
-      { label: '클래스 소개', href: '/season#classes' },
+      { label: '참가 신청', href: '/entry' },
+      { label: '클래스 소개', href: '/entry/classes' },
     ],
   },
   {
@@ -35,16 +37,17 @@ const NAV_ITEMS = [
     href: '/results',
     drop: [
       { label: '경기 결과', href: '/results' },
-      { label: '포인트 순위', href: '/results#standings' },
+      { label: '포인트 순위', href: '/results/standing' },
     ],
   },
   {
     label: 'MEDIA',
-    href: '/media',
+    href: '/media/notice',
     drop: [
-      { label: '공지사항', href: '/news' },
-      { label: '보도자료', href: '/news?category=press' },
-      { label: '미디어킷', href: '/media' },
+      { label: '공지사항', href: '/media/notice' },
+      { label: '보도자료', href: '/media/press' },
+      { label: '미디어킷', href: '/media/kit' },
+      { label: '영상', href: '/media/video' },
     ],
   },
 ] as const
@@ -220,20 +223,6 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
             </div>
           </div>
         ))}
-        <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-          <Link href="/entry" onClick={() => setMobileOpen(false)} style={{
-            flex: 1, textAlign: 'center' as const,
-            fontFamily: "'Oswald', sans-serif",
-            fontSize: '14px', fontWeight: 500, letterSpacing: '.08em',
-            textTransform: 'uppercase' as const,
-            textDecoration: 'none',
-            color: 'white',
-            background: '#c81921',
-            padding: '12px',
-          }}>
-            참가 신청
-          </Link>
-        </div>
       </div>
 
       <style>{`
