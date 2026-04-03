@@ -60,7 +60,7 @@ export default function SectionHero({ settings }: Props) {
           object-position: center center;
           transition: opacity 1s ease;
         }
-        @media (min-width: 3200px) {
+        @media (min-aspect-ratio: 16/9) and (min-width: 1600px) {
           .hero-section__img {
             object-fit: contain;
             background: #0a0a0a;
