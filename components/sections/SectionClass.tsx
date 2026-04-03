@@ -100,7 +100,7 @@ export default function SectionClass() {
               onClick={() => setActiveIndex(index)}
               style={{
                 position: 'relative',
-                flex: isActive ? '4' : '1',
+                flex: isActive ? '5' : '0.3',
                 transition: 'flex 0.6s cubic-bezier(0.8, 0, 0.2, 1)',
                 overflow: 'hidden',
                 cursor: 'pointer',
@@ -276,10 +276,7 @@ export default function SectionClass() {
                         position: 'absolute',
                         top: 0, left: 0,
                         width: '100%', height: '100%',
-                        backgroundColor: '#2a2a2a',
-                        backgroundImage: cls.image ? `url(${cls.image})` : 'none',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        backgroundColor: '#111111',
                         zIndex: 2,
                       }} />
                     </div>
