@@ -93,7 +93,6 @@ export default function SectionClass() {
                   {/* 우측 — image-slice-container (블랙) */}
                   <div className="cls-slide-right">
                     <div className="cls-image-slice-container">
-                      <div className="cls-image-slice-bg" />
                       <div className="cls-image-cut" />
                     </div>
                   </div>
@@ -245,7 +244,7 @@ export default function SectionClass() {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          padding: 40px;
+          padding: 40px 40px 40px 48px;
           z-index: 10;
         }
 
@@ -343,14 +342,6 @@ export default function SectionClass() {
           clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
         }
         /* 레드 그림자 레이어 */
-        .cls-image-slice-bg {
-          position: absolute;
-          top: 0; left: 0;
-          width: 100%; height: 100%;
-          background-color: #E60023;
-          transform: translateX(-15px);
-          z-index: 1;
-        }
         /* 메인 레이어 — 순수 블랙 */
         .cls-image-cut {
           position: absolute;
