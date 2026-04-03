@@ -80,7 +80,7 @@ export default function SectionClass() {
       </div>
 
       <style>{`
-        .cls { background: #0a0a0a; padding: 60px 0; }
+        .cls { background: #0a0a0a; padding: 60px 0; position: relative; z-index: 1; }
         .cls__hd {
           max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
           display: flex; align-items: flex-end; justify-content: space-between;
@@ -108,9 +108,9 @@ export default function SectionClass() {
         }
         .cls__p {
           flex: 0.35; position: relative; overflow: hidden; cursor: pointer;
-          background: #111; transition: flex .6s cubic-bezier(.8,0,.2,1);
+          background: #111111; transition: flex .6s cubic-bezier(.8,0,.2,1);
           display: flex; align-items: stretch;
-          border-right: 1px solid rgba(255,255,255,.05);
+          border: none; outline: none; box-shadow: none;
         }
         .cls__p--on { flex: 5; }
 
