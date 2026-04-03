@@ -162,7 +162,7 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         /* ── Logo ────────────────────────────── */
         .gnav__logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
         .gnav__logo {
-          height: 48px; width: auto;
+          height: 96px; width: auto;
           object-fit: contain;
           background: transparent;
           border: none;
@@ -297,7 +297,7 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         @media (max-width: 768px) {
           .gnav__inner { padding: 16px 18px !important; }
           .gnav--scrolled .gnav__inner { padding: 12px 18px !important; }
-          .gnav__logo { height: 44px !important; }
+          .gnav__logo { height: 64px !important; }
           .gnav__mobile { max-width: 100%; }
         }
       `}</style>

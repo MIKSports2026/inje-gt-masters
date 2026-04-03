@@ -34,6 +34,8 @@ export default function SectionHero({ settings }: Props) {
       style={{
         position: 'relative',
         width: '100%',
+        maxWidth: '4000px',
+        margin: '0 auto',
         height: '100vh',
         overflow: 'hidden',
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
