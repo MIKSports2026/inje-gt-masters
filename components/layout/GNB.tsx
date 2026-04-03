@@ -162,8 +162,10 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         /* ── Logo ────────────────────────────── */
         .gnav__logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
         .gnav__logo {
-          height: 56px; width: auto;
+          height: 48px; width: auto;
           object-fit: contain;
+          background: transparent;
+          filter: invert(1) hue-rotate(180deg);
           mix-blend-mode: screen;
           display: block;
         }

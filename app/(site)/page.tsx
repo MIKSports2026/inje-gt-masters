@@ -9,7 +9,7 @@ import type { SiteSettings, Round, ClassInfo, Post, Media, Partner } from '@/typ
 
 import SectionHero       from '@/components/sections/SectionHero'
 // import SectionStatsBar   from '@/components/sections/SectionStatsBar'
-import SectionTicker     from '@/components/sections/SectionTicker'
+// import SectionTicker     from '@/components/sections/SectionTicker'
 import SectionSeason     from '@/components/sections/SectionSeason'
 import SectionEntry      from '@/components/sections/SectionEntry'
 import SectionBrandStrip from '@/components/sections/SectionBrandStrip'
@@ -62,7 +62,6 @@ export default async function HomePage() {
   return (
     <>
       <SectionHero settings={s} nextRound={nr} rounds={rs} />
-      <SectionTicker />
       <SectionSeason   rounds={rs} />
       <SectionEntry    settings={s} classes={cl} />
       <SectionBrandStrip />

@@ -1,4 +1,4 @@
-// components/sections/SectionHero.tsx — v6 Fullscreen hero with center logo + fade rolling
+// components/sections/SectionHero.tsx — v7 Clean fullscreen hero
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
@@ -50,11 +50,7 @@ export default function SectionHero({ settings }: Props) {
           priority={current === 0}
           sizes="100vw"
           className="hero__bg"
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center',
-            opacity: fade ? 1 : 0,
-          }}
+          style={{ objectFit: 'cover', objectPosition: 'center', opacity: fade ? 1 : 0 }}
         />
       ) : (
         <div style={{
@@ -66,35 +62,22 @@ export default function SectionHero({ settings }: Props) {
       {/* 오버레이 */}
       <div className="hero__overlay" />
 
-      {/* 중앙 로고 */}
+      {/* 중앙 로고 — 흰 배경 JPG를 CSS로 투명 처리 */}
       <div className="hero__center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo-white.jpg"
-          alt="INJE GT MASTERS"
-          className="hero__logo"
-        />
+        <img src="/logo-white.jpg" alt="INJE GT MASTERS" className="hero__logo" />
       </div>
 
       <style>{`
         .hero {
           position: relative;
-          height: 100vh;
-          min-height: 760px;
-          overflow: hidden;
-          background: #070707;
+          height: 100vh; min-height: 700px;
+          overflow: hidden; background: #0a0a0a;
         }
-        .hero__bg {
-          transition: opacity 1s ease;
-        }
+        .hero__bg { transition: opacity 1s ease; }
         .hero__overlay {
           position: absolute; inset: 0; z-index: 1;
-          background: linear-gradient(
-            to top,
-            rgba(10,10,10,0.4) 0%,
-            rgba(10,10,10,0) 40%,
-            rgba(10,10,10,0.7) 100%
-          );
+          background: linear-gradient(to top, rgba(10,10,10,.4) 0%, rgba(10,10,10,0) 40%, rgba(10,10,10,.7) 100%);
           pointer-events: none;
         }
         .hero__center {
@@ -103,16 +86,15 @@ export default function SectionHero({ settings }: Props) {
           pointer-events: none;
         }
         .hero__logo {
-          max-width: 800px; width: 100%;
-          padding: 0 40px;
+          max-width: 600px; width: 80%;
           object-fit: contain;
+          filter: invert(1) hue-rotate(180deg) drop-shadow(0 0 40px rgba(230,0,35,.2));
           mix-blend-mode: screen;
-          opacity: 0.9;
-          filter: drop-shadow(0 0 50px rgba(230,0,35,0.2));
+          opacity: 0.92;
         }
         @media (max-width: 768px) {
-          .hero { min-height: 500px; }
-          .hero__logo { max-width: 90vw; padding: 0 20px; }
+          .hero { min-height: 480px; }
+          .hero__logo { max-width: 85vw; }
         }
       `}</style>
     </section>
