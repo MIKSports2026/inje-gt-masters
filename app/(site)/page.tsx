@@ -12,7 +12,6 @@ import SectionSeason     from '@/components/sections/SectionSeason'
 import SectionEntry      from '@/components/sections/SectionEntry'
 import SectionResults    from '@/components/sections/SectionResults'
 import SectionMedia      from '@/components/sections/SectionMedia'
-import SectionSEO        from '@/components/sections/SectionSEO'
 import SectionPartners   from '@/components/sections/SectionPartners'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -63,7 +62,6 @@ export default async function HomePage() {
       <SectionEntry    settings={s} classes={cl} />
       <SectionResults  rounds={rs} posts={ps} />
       <SectionMedia    media={md} />
-      <SectionSEO />
       <SectionPartners partners={pt} />
     </>
   )
