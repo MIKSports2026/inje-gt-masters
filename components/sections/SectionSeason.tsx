@@ -110,7 +110,7 @@ export default function SectionSeason({ rounds }: Props) {
           display: flex; align-items: flex-end; justify-content: space-between;
         }
         .ssn__kicker {
-          font-family: 'Oswald',sans-serif; font-size: 1.2rem; font-weight: 600;
+          font-family: 'Oswald',sans-serif; font-size: 1.8rem; font-weight: 600;
           letter-spacing: .2em; color: #E60023; display: flex; align-items: center; gap: 10px;
           margin-bottom: 8px;
         }
