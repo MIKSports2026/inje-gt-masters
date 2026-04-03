@@ -121,7 +121,7 @@ export default function SectionRound({ rounds }: Props) {
         /* ── Accordion ── */
         .rnd__acc {
           max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: flex; gap: 2px; height: 420px;
+          display: flex; gap: 2px; height: 210px;
         }
         .rnd__p {
           flex: 1; position: relative; overflow: hidden; cursor: pointer;
@@ -173,7 +173,7 @@ export default function SectionRound({ rounds }: Props) {
 
         /* Open */
         .rnd__p-open {
-          position: relative; z-index: 2; padding: 36px 32px;
+          position: relative; z-index: 2; padding: 20px 28px;
           opacity: 0; transform: translateX(-12px);
           transition: opacity .4s ease .2s, transform .4s ease .2s;
         }
@@ -181,32 +181,32 @@ export default function SectionRound({ rounds }: Props) {
 
         .rnd__p-tag {
           display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: .65rem; font-weight: 700;
+          font-family: 'Oswald',sans-serif; font-size: 1rem; font-weight: 700;
           letter-spacing: .18em; text-transform: uppercase;
-          color: #E60023; border-left: 2px solid #E60023;
-          padding: 3px 12px; margin-bottom: 16px;
+          color: #E60023; border-left: 3px solid #E60023;
+          padding: 4px 16px; margin-bottom: 12px;
           transform: skewX(-20deg);
         }
         .rnd__p-tag--fin { color: rgba(255,255,255,.2); border-color: rgba(255,255,255,.1); }
 
         .rnd__p-num {
           font-family: 'Oswald',sans-serif;
-          font-size: clamp(4rem, 8vw, 7rem);
+          font-size: clamp(2.5rem, 5vw, 4rem);
           font-weight: 900; letter-spacing: -.05em;
           color: #fff; line-height: .85;
           transform: skewX(-8deg);
-          margin-bottom: 8px;
+          margin-bottom: 4px;
         }
         .rnd__p-date {
-          font-family: 'Oswald',sans-serif; font-size: 2.5rem; font-weight: 700;
+          font-family: 'Oswald',sans-serif; font-size: 1.4rem; font-weight: 700;
           letter-spacing: -.03em; color: rgba(255,255,255,.5);
           transform: skewX(-5deg);
-          margin-bottom: 6px;
+          margin-bottom: 4px;
         }
         .rnd__p-loc {
-          font-family: 'Oswald',sans-serif; font-size: 1.2rem; font-weight: 600;
+          font-family: 'Oswald',sans-serif; font-size: .85rem; font-weight: 600;
           letter-spacing: .1em; color: rgba(255,255,255,.15);
-          margin-bottom: 24px;
+          margin-bottom: 12px;
         }
 
         .rnd__p-cta {
@@ -230,8 +230,8 @@ export default function SectionRound({ rounds }: Props) {
         /* Mobile */
         @media (max-width: 900px) {
           .rnd__acc { flex-direction: column; height: auto; padding: 0 20px; }
-          .rnd__p { height: 72px; flex: none !important; transition: height .5s cubic-bezier(.25,1,.5,1); }
-          .rnd__p--on { height: 360px; }
+          .rnd__p { height: 56px; flex: none !important; transition: height .5s cubic-bezier(.25,1,.5,1); }
+          .rnd__p--on { height: 240px; }
           .rnd__p-closed { flex-direction: row; gap: 14px; }
           .rnd__p-closed-num { writing-mode: horizontal-tb; transform: none; font-size: 1.4rem; }
           .rnd__p-closed-date { writing-mode: horizontal-tb; font-size: .8rem; }
