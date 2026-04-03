@@ -116,7 +116,7 @@ export default function SectionSeason({ rounds }: Props) {
         }
         .ssn__kicker-line { width: 28px; height: 2px; background: #E60023; }
         .ssn__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(1.8rem,3.5vw,2.8rem);
+          font-family: 'Oswald',sans-serif; font-size: clamp(2.7rem,5.25vw,4.2rem);
           font-weight: 700; letter-spacing: .04em; color: #fff; line-height: 1; margin: 0;
         }
         .ssn__badge {
