@@ -1,4 +1,4 @@
-// components/layout/GNB.tsx — v4 Cinematic GNB
+// components/layout/GNB.tsx — v5 Carbon GNB
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -53,8 +53,15 @@ const NAV_ITEMS = [
 ] as const
 
 export default function GNB({ settings }: { settings: SiteSettings | null }) {
+  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDrop, setOpenDrop] = useState<number | null>(null)
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
@@ -63,160 +70,66 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
 
   return (
     <>
-      <header
-        id="gnav"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          zIndex: 100,
-          height: '80px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 40px',
-          background: 'linear-gradient(to bottom, rgba(0,0,0,.70), rgba(0,0,0,.28))',
-          backdropFilter: 'blur(7px)',
-          WebkitBackdropFilter: 'blur(7px)',
-        }}
-      >
-        {/* 로고 */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }} aria-label="홈">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-white.jpg" alt="인제 GT 마스터즈" className="gnb-logo" style={{ height: '80px', width: 'auto', objectFit: 'contain', display: 'block' }} />
-        </Link>
+      <header id="gnav" className={`gnav ${scrolled ? 'gnav--scrolled' : ''}`}>
+        <div className="gnav__inner">
+          {/* 로고 */}
+          <Link href="/" className="gnav__logo-link" aria-label="홈">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-white.jpg"
+              alt="INJE GT MASTERS"
+              className="gnav__logo"
+            />
+          </Link>
 
-        {/* 데스크톱 메뉴 */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} aria-label="주 메뉴" className="gnb-desktop">
-          {NAV_ITEMS.map((item, i) => (
-            <div
-              key={i}
-              style={{ position: 'relative' }}
-              onMouseEnter={() => setOpenDrop(i)}
-              onMouseLeave={() => setOpenDrop(null)}
-            >
-              <Link href={item.href} className="gnb-link" style={{
-                fontFamily: "'Oswald', sans-serif",
-                fontSize: '14px',
-                fontWeight: 500,
-                letterSpacing: '.08em',
-                textTransform: 'uppercase' as const,
-                textDecoration: 'none',
-                color: 'rgba(255,255,255,.78)',
-                transition: 'color .2s',
-                position: 'relative',
-                paddingBottom: '7px',
-              }}>
-                {item.label}
-                <span className="gnb-link-bar" style={{
-                  position: 'absolute',
-                  left: 0,
-                  bottom: '-7px',
-                  height: '1px',
-                  background: '#c81921',
-                  width: openDrop === i ? '100%' : '0%',
-                  transition: 'width .28s ease',
-                }} />
-              </Link>
+          {/* 데스크톱 메뉴 */}
+          <nav className="gnav__nav gnb-desktop" aria-label="주 메뉴">
+            {NAV_ITEMS.map((item, i) => (
+              <div
+                key={i}
+                className="gnav__item"
+                onMouseEnter={() => setOpenDrop(i)}
+                onMouseLeave={() => setOpenDrop(null)}
+              >
+                <Link href={item.href} className="gnav__link">
+                  {item.label}
+                  <span className="gnav__link-bar" />
+                </Link>
 
-              {/* 서브메뉴 */}
-              <div style={{
-                position: 'absolute',
-                top: '27px',
-                left: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                opacity: openDrop === i ? 1 : 0,
-                transform: openDrop === i ? 'translateY(0)' : 'translateY(6px)',
-                pointerEvents: openDrop === i ? 'auto' : 'none',
-                transition: 'opacity .22s, transform .22s',
-                paddingTop: '7px',
-              }}>
-                {item.drop.map((d, j) => (
-                  <Link key={j} href={d.href} style={{
-                    fontFamily: "'Noto Sans KR', sans-serif",
-                    fontSize: '11px',
-                    fontWeight: 500,
-                    color: 'rgba(255,255,255,.34)',
-                    textDecoration: 'none',
-                    whiteSpace: 'nowrap',
-                    marginTop: j > 0 ? '7px' : 0,
-                    transition: 'color .18s',
-                  }}
-                    onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,.72)' }}
-                    onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.34)' }}
-                  >
-                    {d.label}
-                  </Link>
-                ))}
+                {/* 서브메뉴 패널 */}
+                <div className={`gnav__drop ${openDrop === i ? 'gnav__drop--open' : ''}`}>
+                  {item.drop.map((d, j) => (
+                    <Link key={j} href={d.href} className="gnav__drop-link">
+                      {d.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </nav>
+            ))}
+          </nav>
 
-        {/* 햄버거 */}
-        <button
-          onClick={() => setMobileOpen(v => !v)}
-          aria-expanded={mobileOpen}
-          aria-label="메뉴 열기"
-          style={{
-            display: 'none',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            flexDirection: 'column' as const,
-            gap: '5px',
-            padding: '4px',
-          }}
-          className="show-mobile"
-        >
-          {[0, 1, 2].map(k => (
-            <span key={k} style={{
-              display: 'block', width: '22px', height: '1.5px',
-              background: 'rgba(255,255,255,.85)',
-              transition: 'all 0.3s',
-              transform: mobileOpen
-                ? k === 0 ? 'rotate(45deg) translate(5px,5px)'
-                : k === 1 ? 'scaleX(0)'
-                : 'rotate(-45deg) translate(5px,-5px)'
-                : 'none',
-              opacity: mobileOpen && k === 1 ? 0 : 1,
-            }} />
-          ))}
-        </button>
+          {/* 햄버거 */}
+          <button
+            onClick={() => setMobileOpen(v => !v)}
+            aria-expanded={mobileOpen}
+            aria-label="메뉴 열기"
+            className={`gnav__burger show-mobile ${mobileOpen ? 'gnav__burger--open' : ''}`}
+          >
+            <span /><span /><span />
+          </button>
+        </div>
       </header>
 
-      {/* 모바일 메뉴 */}
-      <div style={{
-        display: mobileOpen ? 'flex' : 'none',
-        position: 'fixed',
-        top: '70px',
-        left: 0, right: 0, bottom: 0,
-        background: 'rgba(0,0,0,.95)',
-        backdropFilter: 'blur(12px)',
-        zIndex: 99,
-        padding: '24px 20px',
-        flexDirection: 'column' as const,
-        overflowY: 'auto',
-      }}>
+      {/* 모바일 풀스크린 메뉴 */}
+      <div className={`gnav__mobile ${mobileOpen ? 'gnav__mobile--open' : ''}`}>
         {NAV_ITEMS.map((item, i) => (
-          <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,.08)', padding: '16px 0' }}>
-            <Link href={item.href} onClick={() => setMobileOpen(false)} style={{
-              fontFamily: "'Oswald', sans-serif",
-              fontSize: '16px', fontWeight: 500, letterSpacing: '.08em',
-              textTransform: 'uppercase' as const,
-              color: 'rgba(255,255,255,.85)', textDecoration: 'none', display: 'block',
-              marginBottom: '8px',
-            }}>
+          <div key={i} className="gnav__mobile-group">
+            <Link href={item.href} onClick={() => setMobileOpen(false)} className="gnav__mobile-title">
               {item.label}
             </Link>
-            <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px', paddingLeft: '12px' }}>
+            <div className="gnav__mobile-subs">
               {item.drop.map((d, j) => (
-                <Link key={j} href={d.href} onClick={() => setMobileOpen(false)} style={{
-                  fontFamily: "'Noto Sans KR', sans-serif",
-                  fontSize: '12px', color: 'rgba(255,255,255,.4)', textDecoration: 'none',
-                }}>
+                <Link key={j} href={d.href} onClick={() => setMobileOpen(false)} className="gnav__mobile-sub">
                   {d.label}
                 </Link>
               ))}
@@ -226,11 +139,165 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          #gnav { height: 70px !important; padding: 0 18px !important; }
-          .gnb-logo { height: 68px !important; }
+        /* ── GNB Base ─────────────────────────── */
+        .gnav {
+          position: fixed; top: 0; left: 0; width: 100%;
+          z-index: 1000;
+          background: transparent;
+          transition: all .32s ease;
         }
-        .gnb-link:hover { color: #fff !important; }
+        .gnav--scrolled {
+          background: #0a0a0a;
+          border-bottom: 2px solid rgba(255,255,255,.05);
+          box-shadow: 0 5px 0 rgba(230,0,35,.1);
+        }
+        .gnav__inner {
+          max-width: 1400px; margin: 0 auto;
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 24px 40px;
+          transition: padding .32s ease;
+        }
+        .gnav--scrolled .gnav__inner { padding: 16px 40px; }
+
+        /* ── Logo ────────────────────────────── */
+        .gnav__logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+        .gnav__logo {
+          height: 56px; width: auto;
+          object-fit: contain;
+          mix-blend-mode: screen;
+          display: block;
+        }
+
+        /* ── Nav Links ───────────────────────── */
+        .gnav__nav { display: flex; align-items: center; gap: 36px; }
+        .gnav__item { position: relative; }
+        .gnav__link {
+          font-family: 'Oswald', sans-serif;
+          font-size: 1.2rem; font-weight: 700;
+          letter-spacing: .06em;
+          text-transform: uppercase;
+          text-decoration: none;
+          color: #CCCCCC;
+          transform: scaleY(1.1) skewX(-2deg);
+          display: inline-block;
+          position: relative;
+          padding-bottom: 6px;
+          transition: color .2s;
+        }
+        .gnav__link:hover { color: #FFFFFF; }
+        .gnav__link-bar {
+          position: absolute; left: 0; bottom: 0;
+          width: 100%; height: 2px;
+          background: #E60023;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform .25s ease;
+        }
+        .gnav__link:hover .gnav__link-bar { transform: scaleX(1); }
+
+        /* ── Dropdown ────────────────────────── */
+        .gnav__drop {
+          position: absolute; top: 100%; left: -12px;
+          min-width: 200px;
+          background: #0A0A0A;
+          border-top: 3px solid #E60023;
+          border-bottom: 1px solid rgba(255,255,255,.1);
+          box-shadow: 10px 10px 0 rgba(0,0,0,.8);
+          padding: 8px 0;
+          opacity: 0; visibility: hidden;
+          transform: translateY(8px);
+          transition: opacity .22s ease, transform .22s ease, visibility .22s;
+          z-index: 1100;
+        }
+        .gnav__drop--open {
+          opacity: 1; visibility: visible;
+          transform: translateY(0);
+        }
+        .gnav__drop-link {
+          display: block;
+          font-family: 'Noto Sans KR', sans-serif;
+          font-size: .82rem; font-weight: 500;
+          color: rgba(255,255,255,.55);
+          text-decoration: none;
+          padding: 12px 20px;
+          border-left: 2px solid transparent;
+          transition: all .18s ease;
+          white-space: nowrap;
+        }
+        .gnav__drop-link:hover {
+          color: #fff;
+          border-left-color: #E60023;
+          padding-left: 26px;
+          background: rgba(230,0,35,.06);
+        }
+
+        /* ── Hamburger ───────────────────────── */
+        .gnav__burger {
+          display: none; background: none; border: none;
+          cursor: pointer; padding: 6px;
+          flex-direction: column; gap: 5px;
+        }
+        .gnav__burger span {
+          display: block; width: 24px; height: 2px;
+          background: rgba(255,255,255,.85);
+          transition: all .3s ease;
+          transform-origin: center;
+        }
+        .gnav__burger--open span { background: #E60023; }
+        .gnav__burger--open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .gnav__burger--open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .gnav__burger--open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ── Mobile Menu ─────────────────────── */
+        .gnav__mobile {
+          position: fixed; top: 0; right: 0; bottom: 0;
+          width: 100%; max-width: 380px;
+          background: rgba(10,10,10,.98);
+          backdrop-filter: blur(16px);
+          z-index: 999;
+          padding: 100px 28px 40px;
+          overflow-y: auto;
+          transform: translateX(100%);
+          transition: transform .35s cubic-bezier(.4,0,.2,1);
+        }
+        .gnav__mobile--open { transform: translateX(0); }
+        .gnav__mobile-group {
+          padding: 18px 0;
+          border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+        .gnav__mobile-title {
+          font-family: 'Oswald', sans-serif;
+          font-size: 1.1rem; font-weight: 700;
+          letter-spacing: .08em; text-transform: uppercase;
+          color: rgba(255,255,255,.9);
+          text-decoration: none; display: block;
+          margin-bottom: 10px;
+        }
+        .gnav__mobile-subs { display: flex; flex-direction: column; gap: 8px; padding-left: 14px; }
+        .gnav__mobile-sub {
+          font-family: 'Noto Sans KR', sans-serif;
+          font-size: .8rem; font-weight: 500;
+          color: rgba(255,255,255,.38);
+          text-decoration: none;
+          transition: color .15s;
+        }
+        .gnav__mobile-sub:hover { color: rgba(255,255,255,.75); }
+
+        /* ── Responsive ──────────────────────── */
+        @media (max-width: 1100px) {
+          .gnb-desktop { display: none !important; }
+          .show-mobile { display: flex !important; }
+        }
+        @media (min-width: 1101px) {
+          .show-mobile { display: none !important; }
+          .gnav__mobile { display: none; }
+        }
+        @media (max-width: 768px) {
+          .gnav__inner { padding: 16px 18px !important; }
+          .gnav--scrolled .gnav__inner { padding: 12px 18px !important; }
+          .gnav__logo { height: 44px !important; }
+          .gnav__mobile { max-width: 100%; }
+        }
       `}</style>
     </>
   )

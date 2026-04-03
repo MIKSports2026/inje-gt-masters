@@ -1,4 +1,4 @@
-// components/sections/SectionHero.tsx — v5 Fullscreen image-only hero with fade rolling
+// components/sections/SectionHero.tsx — v6 Fullscreen hero with center logo + fade rolling
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
@@ -11,7 +11,6 @@ interface Props {
 }
 
 export default function SectionHero({ settings }: Props) {
-  // heroImages 배열 우선, 비어있으면 heroImage 단일 이미지를 [0]으로 호환
   const images = (() => {
     const arr = settings?.heroImages?.filter(img => img?.asset?.url) ?? []
     if (arr.length > 0) return arr
@@ -28,7 +27,7 @@ export default function SectionHero({ settings }: Props) {
     setTimeout(() => {
       setCurrent(prev => (prev + 1) % images.length)
       setFade(true)
-    }, 600)
+    }, 800)
   }, [images.length])
 
   useEffect(() => {
@@ -40,13 +39,8 @@ export default function SectionHero({ settings }: Props) {
   const currentImg = images[current]
 
   return (
-    <section aria-label="메인 히어로" style={{
-      position: 'relative',
-      height: '100vh',
-      minHeight: '760px',
-      overflow: 'hidden',
-      background: '#070707',
-    }}>
+    <section aria-label="메인 히어로" className="hero">
+      {/* 배경 이미지 */}
       {currentImg?.asset?.url ? (
         <Image
           key={current}
@@ -55,10 +49,10 @@ export default function SectionHero({ settings }: Props) {
           fill
           priority={current === 0}
           sizes="100vw"
+          className="hero__bg"
           style={{
             objectFit: 'cover',
             objectPosition: 'center',
-            transition: 'opacity .6s ease',
             opacity: fade ? 1 : 0,
           }}
         />
@@ -69,12 +63,58 @@ export default function SectionHero({ settings }: Props) {
         }} />
       )}
 
-      {/* 하단 비네팅 */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-        background: 'linear-gradient(to top, rgba(0,0,0,.3) 0%, transparent 30%)',
-        pointerEvents: 'none',
-      }} />
+      {/* 오버레이 */}
+      <div className="hero__overlay" />
+
+      {/* 중앙 로고 */}
+      <div className="hero__center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo-white.jpg"
+          alt="INJE GT MASTERS"
+          className="hero__logo"
+        />
+      </div>
+
+      <style>{`
+        .hero {
+          position: relative;
+          height: 100vh;
+          min-height: 760px;
+          overflow: hidden;
+          background: #070707;
+        }
+        .hero__bg {
+          transition: opacity 1s ease;
+        }
+        .hero__overlay {
+          position: absolute; inset: 0; z-index: 1;
+          background: linear-gradient(
+            to top,
+            rgba(10,10,10,0.4) 0%,
+            rgba(10,10,10,0) 40%,
+            rgba(10,10,10,0.7) 100%
+          );
+          pointer-events: none;
+        }
+        .hero__center {
+          position: absolute; inset: 0; z-index: 2;
+          display: flex; align-items: center; justify-content: center;
+          pointer-events: none;
+        }
+        .hero__logo {
+          max-width: 800px; width: 100%;
+          padding: 0 40px;
+          object-fit: contain;
+          mix-blend-mode: screen;
+          opacity: 0.9;
+          filter: drop-shadow(0 0 50px rgba(230,0,35,0.2));
+        }
+        @media (max-width: 768px) {
+          .hero { min-height: 500px; }
+          .hero__logo { max-width: 90vw; padding: 0 20px; }
+        }
+      `}</style>
     </section>
   )
 }

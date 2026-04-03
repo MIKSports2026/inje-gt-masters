@@ -1,89 +1,265 @@
-// components/sections/SectionSeason.tsx — v3 schedule list
+// components/sections/SectionSeason.tsx — v5 Accordion season panels
+'use client'
+import { useState } from 'react'
 import Link from 'next/link'
 import type { Round } from '@/types/sanity'
 
 interface Props { rounds: Round[] }
 
-function getStatusClass(status: Round['status']) {
-  if (status === 'entry_open') return 'is-open'
-  if (status === 'upcoming')   return 'is-soon'
-  return ''
-}
-
-function getStatusLabel(status: Round['status']) {
-  const map: Record<string, string> = {
-    entry_open: '접수 중', upcoming: '예정',
-    entry_closed: '접수 마감', ongoing: '진행중', finished: '종료',
-  }
-  return map[status] ?? '미개방'
-}
-
-function getStatusStyle(status: Round['status']): React.CSSProperties {
-  if (status === 'entry_open') return { background: 'var(--red)', color: 'white' }
-  if (status === 'upcoming')   return { background: 'var(--gold-pale)', color: 'var(--gold)', border: '1px solid rgba(192,152,40,0.35)' }
-  return { background: 'var(--bg-3)', color: 'var(--text-sub)', border: '1px solid var(--line)' }
-}
-
 export default function SectionSeason({ rounds }: Props) {
-  return (
-    <section className="sec sec-darker" id="schedule" aria-labelledby="sch-ttl">
-      <div className="inner">
-        <div className="sec-hd">
-          <div>
-            <div className="sec-ey">2026 SEASON CALENDAR</div>
-            <h2 className="sec-ttl" id="sch-ttl">Race Schedule</h2>
-          </div>
-          <Link href="/season" className="sec-more">전체 일정</Link>
-        </div>
+  const [active, setActive] = useState(0)
 
-        {rounds.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--text-sub)' }}>
-            <i className="fa-solid fa-calendar" style={{ fontSize: '2.5rem', opacity: .25, display: 'block', marginBottom: '14px' }} />
-            <p style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', letterSpacing: '2px' }}>
-              2026 시즌 일정을 준비중입니다.
-            </p>
+  return (
+    <section className="ssn" id="schedule" aria-labelledby="ssn-ttl">
+      {/* 헤더 */}
+      <div className="ssn__hd">
+        <div>
+          <div className="ssn__kicker">
+            <span className="ssn__kicker-line" />
+            SEASON 2026
           </div>
-        ) : (
-          <div role="list" style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            {rounds.map((r) => {
-              const dd  = r.dateStart ? new Date(r.dateStart) : null
-              const day = dd ? dd.getDate() : '—'
-              const mon = dd ? dd.toLocaleDateString('en', { month: 'short' }).toUpperCase() : '—'
-              const sc  = getStatusClass(r.status)
-              return (
-                <Link key={r._id} href={`/season/${r.slug.current}`} role="listitem"
-                  className={`sch-row ${sc}`}
-                  style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div className="sch-date">
-                    <div className="sch-dd">{day}</div>
-                    <div className="sch-mm">{mon}</div>
-                  </div>
-                  <div className="sch-body">
-                    <div className="sch-rnd">Round {String(r.roundNumber).padStart(2,'0')} · 2026</div>
-                    <div className="sch-venue">{r.title}</div>
-                    <div className="sch-tags">
-                      {r.badge && (
-                        <span className={`stag ${sc === 'is-open' ? 'stag-red' : sc === 'is-soon' ? 'stag-gold' : 'stag-gray'}`}>
-                          {r.badge}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="sch-meta">
-                    <div className="sch-rn">R.{String(r.roundNumber).padStart(2,'0')}</div>
-                    <div className="sch-rl">{r.badge ?? 'ROUND'}</div>
-                  </div>
-                  <div className="sch-status">
-                    <span className="stts" style={getStatusStyle(r.status)}>
-                      {getStatusLabel(r.status)}
-                    </span>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        )}
+          <h2 className="ssn__title" id="ssn-ttl">RACE CALENDAR</h2>
+        </div>
+        <div className="ssn__rounds-badge">
+          {rounds.length || 5} ROUNDS
+        </div>
       </div>
+
+      {/* 아코디언 */}
+      {rounds.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '80px 0', color: 'rgba(255,255,255,.3)' }}>
+          <p style={{ fontFamily: "'Oswald',sans-serif", fontSize: '1.1rem', letterSpacing: '.1em' }}>
+            2026 시즌 일정을 준비중입니다.
+          </p>
+        </div>
+      ) : (
+        <div className="ssn__accordion">
+          {rounds.map((r, i) => {
+            const isActive = active === i
+            const dd = r.dateStart ? new Date(r.dateStart) : null
+            const dateStr = dd
+              ? `${dd.getFullYear()}.${String(dd.getMonth() + 1).padStart(2, '0')}.${String(dd.getDate()).padStart(2, '0')}`
+              : '—'
+            const isOpen = r.status === 'entry_open'
+            const heroUrl = (r as any).heroImage?.asset?.url as string | undefined
+
+            return (
+              <div
+                key={r._id}
+                className={`ssn__panel ${isActive ? 'ssn__panel--active' : ''}`}
+                onClick={() => setActive(i)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => { if (e.key === 'Enter') setActive(i) }}
+              >
+                {/* 배경 이미지 */}
+                {heroUrl && (
+                  <div
+                    className="ssn__panel-bg"
+                    style={{ backgroundImage: `url(${heroUrl})` }}
+                  />
+                )}
+
+                {/* 오버레이 */}
+                <div className="ssn__panel-overlay" />
+
+                {/* 좌측 레드 바 */}
+                <div className="ssn__panel-bar" />
+
+                {/* 비활성: 라운드 번호만 */}
+                <div className="ssn__panel-num">
+                  R{String(r.roundNumber).padStart(2, '0')}
+                </div>
+
+                {/* 활성: 상세 정보 */}
+                <div className="ssn__panel-info">
+                  <div className="ssn__panel-date">{dateStr}</div>
+                  <div className={`ssn__panel-status ${isOpen ? 'ssn__panel-status--open' : ''}`}>
+                    {isOpen ? 'ENTRY OPEN' : 'UPCOMING'}
+                  </div>
+                  <div className="ssn__panel-round">
+                    ROUND {String(r.roundNumber).padStart(2, '0')}
+                  </div>
+                  <div className="ssn__panel-venue">{r.title}</div>
+                  <Link
+                    href={`/season/${r.slug.current}`}
+                    className="ssn__panel-link"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    자세히 보기 →
+                  </Link>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      <style>{`
+        .ssn {
+          background: #0a0a0a;
+          padding: 80px 0;
+          position: relative;
+        }
+        .ssn__hd {
+          max-width: 1400px; margin: 0 auto;
+          padding: 0 40px;
+          display: flex; align-items: flex-end; justify-content: space-between;
+          margin-bottom: 40px;
+        }
+        .ssn__kicker {
+          font-family: 'Oswald', sans-serif;
+          font-size: .85rem; font-weight: 600;
+          letter-spacing: .2em; text-transform: uppercase;
+          color: #E60023;
+          display: flex; align-items: center; gap: 10px;
+          margin-bottom: 10px;
+        }
+        .ssn__kicker-line {
+          display: inline-block; width: 32px; height: 2px;
+          background: #E60023;
+        }
+        .ssn__title {
+          font-family: 'Oswald', sans-serif;
+          font-size: clamp(2rem, 4vw, 3.2rem);
+          font-weight: 700; letter-spacing: .04em;
+          color: #fff; line-height: 1; margin: 0;
+        }
+        .ssn__rounds-badge {
+          font-family: 'Oswald', sans-serif;
+          font-size: .9rem; font-weight: 600;
+          letter-spacing: .15em;
+          color: rgba(255,255,255,.3);
+          border: 1px solid rgba(255,255,255,.1);
+          padding: 6px 16px;
+        }
+
+        /* ── Accordion ──────────────────────── */
+        .ssn__accordion {
+          max-width: 1400px; margin: 0 auto;
+          padding: 0 40px;
+          display: flex;
+          gap: 2px;
+          height: 500px;
+        }
+        .ssn__panel {
+          flex: 1;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+          background: #111;
+          transition: flex .6s cubic-bezier(.25,1,.5,1);
+          display: flex;
+          align-items: flex-end;
+        }
+        .ssn__panel--active { flex: 5; }
+
+        .ssn__panel-bg {
+          position: absolute; inset: 0;
+          background-size: cover; background-position: center;
+          opacity: 0;
+          transition: opacity .6s ease;
+        }
+        .ssn__panel--active .ssn__panel-bg { opacity: 1; }
+
+        .ssn__panel-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to right, rgba(10,10,10,.9) 0%, rgba(10,10,10,.2) 100%);
+          z-index: 1;
+        }
+
+        .ssn__panel-bar {
+          position: absolute; left: 0; top: 0; bottom: 0;
+          width: 4px; background: #E60023;
+          transform: scaleY(0);
+          transform-origin: top;
+          transition: transform .4s ease .1s;
+          z-index: 3;
+        }
+        .ssn__panel--active .ssn__panel-bar { transform: scaleY(1); }
+
+        /* 비활성 라운드 번호 */
+        .ssn__panel-num {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+          font-family: 'Oswald', sans-serif;
+          font-size: 1.4rem; font-weight: 700;
+          letter-spacing: .1em;
+          color: #333;
+          writing-mode: vertical-lr;
+          text-orientation: mixed;
+          z-index: 2;
+          transition: color .3s, opacity .3s;
+        }
+        .ssn__panel:hover .ssn__panel-num { color: #666; }
+        .ssn__panel--active .ssn__panel-num { opacity: 0; }
+
+        /* 활성 상세 */
+        .ssn__panel-info {
+          position: relative; z-index: 2;
+          padding: 32px 28px;
+          opacity: 0;
+          transform: translateX(-12px);
+          transition: opacity .4s ease .2s, transform .4s ease .2s;
+        }
+        .ssn__panel--active .ssn__panel-info {
+          opacity: 1; transform: translateX(0);
+        }
+        .ssn__panel-date {
+          font-family: 'Oswald', sans-serif;
+          font-size: .8rem; font-weight: 500;
+          letter-spacing: .15em;
+          color: rgba(255,255,255,.5);
+          margin-bottom: 8px;
+        }
+        .ssn__panel-status {
+          font-family: 'Oswald', sans-serif;
+          font-size: .72rem; font-weight: 700;
+          letter-spacing: .2em; text-transform: uppercase;
+          color: rgba(255,255,255,.4);
+          margin-bottom: 14px;
+        }
+        .ssn__panel-status--open { color: #E60023; }
+        .ssn__panel-round {
+          font-family: 'Oswald', sans-serif;
+          font-size: clamp(1.8rem, 3vw, 2.8rem);
+          font-weight: 700; letter-spacing: .05em;
+          color: #fff; line-height: 1;
+          margin-bottom: 6px;
+        }
+        .ssn__panel-venue {
+          font-family: 'Noto Sans KR', sans-serif;
+          font-size: .9rem; font-weight: 500;
+          color: rgba(255,255,255,.65);
+          margin-bottom: 18px;
+        }
+        .ssn__panel-link {
+          font-family: 'Oswald', sans-serif;
+          font-size: .78rem; font-weight: 600;
+          letter-spacing: .12em; text-transform: uppercase;
+          color: #E60023;
+          text-decoration: none;
+          transition: opacity .2s;
+        }
+        .ssn__panel-link:hover { opacity: .7; }
+
+        /* ── Mobile ──────────────────────────── */
+        @media (max-width: 900px) {
+          .ssn__accordion {
+            flex-direction: column;
+            height: auto;
+            padding: 0 20px;
+          }
+          .ssn__panel {
+            height: 80px;
+            flex: none !important;
+            transition: height .5s cubic-bezier(.25,1,.5,1);
+          }
+          .ssn__panel--active { height: 300px; }
+          .ssn__panel-num { writing-mode: horizontal-tb; }
+          .ssn__hd { padding: 0 20px; }
+        }
+      `}</style>
     </section>
   )
 }
