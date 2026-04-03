@@ -43,6 +43,7 @@ export interface SiteSettings {
   logoDark?:        SanityImage
   // 히어로 이미지
   heroImage?:       SanityImage
+  heroImages?:      SanityImage[]
   heroVideo?:       string
   heroAbout?:       SanityImage
   heroSeason?:      SanityImage

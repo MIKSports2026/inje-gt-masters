@@ -7,7 +7,6 @@ import {
 } from '@/lib/queries'
 import type { SiteSettings, Round, ClassInfo, Post, Media, Partner } from '@/types/sanity'
 
-import SectionDDayBanner from '@/components/sections/SectionDDayBanner'
 import SectionHero       from '@/components/sections/SectionHero'
 // import SectionStatsBar   from '@/components/sections/SectionStatsBar'
 import SectionTicker     from '@/components/sections/SectionTicker'
@@ -62,7 +61,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <SectionDDayBanner settings={s} />
       <SectionHero settings={s} nextRound={nr} rounds={rs} />
       <SectionTicker />
       <SectionSeason   rounds={rs} />

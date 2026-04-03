@@ -18,7 +18,7 @@ export const SITE_SETTINGS_QUERY = /* groq */`
     email, phone, kakaoChannelUrl, address,
     instagram, youtube, facebook, naverBlog,
     logoLight ${IMAGE}, logoDark ${IMAGE},
-    heroImage ${IMAGE}, heroVideo,
+    heroImage ${IMAGE}, heroImages[] ${IMAGE}, heroVideo,
     heroAbout ${IMAGE}, heroSeason ${IMAGE},
     heroEntry ${IMAGE}, heroResults ${IMAGE}, heroMedia ${IMAGE}, heroCircuit ${IMAGE},
     isEntryOpen, entryNotice, tossPaymentBaseUrl,

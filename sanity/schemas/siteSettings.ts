@@ -81,6 +81,27 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'heroImages',
+      title: '히어로 슬라이드 이미지 (최대 10장)',
+      type: 'array',
+      group: 'basic',
+      of: [
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: '대체 텍스트',
+              type: 'string',
+            }),
+          ],
+        },
+      ],
+      validation: R => R.max(10),
+      description: '5초 간격 자동 롤링. 비어 있으면 heroImage 단일 이미지를 사용합니다.',
+    }),
+    defineField({
       name: 'heroVideo',
       title: '메인 히어로 배경 영상 URL',
       type: 'url',
