@@ -30,30 +30,55 @@ export default function SectionHero({ settings }: Props) {
   const bgUrl = allUrls[current] ?? null
 
   return (
-    <section
-      style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: '4000px',
-        margin: '0 auto',
-        height: '100vh',
-        overflow: 'hidden',
-        backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-        backgroundColor: !bgUrl ? '#0a0a0a' : undefined,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(to top, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0) 40%, rgba(10,10,10,0.7) 100%)',
-          zIndex: 1,
-        }}
-      />
+    <section className="hero-section">
+      {bgUrl ? (
+        <img
+          key={current}
+          src={bgUrl}
+          alt="인제 GT 마스터즈"
+          className="hero-section__img"
+        />
+      ) : (
+        <div className="hero-section__fallback" />
+      )}
+      <div className="hero-section__overlay" />
+
+      <style>{`
+        .hero-section {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          overflow: hidden;
+          background: #0a0a0a;
+        }
+        .hero-section__img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+          transition: opacity 1s ease;
+        }
+        @media (min-width: 3200px) {
+          .hero-section__img {
+            object-fit: contain;
+            background: #0a0a0a;
+          }
+        }
+        .hero-section__fallback {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, #0b0b0b 0%, #181818 40%, #1a0008 100%);
+        }
+        .hero-section__overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0) 40%, rgba(10,10,10,0.7) 100%);
+          z-index: 1;
+          pointer-events: none;
+        }
+      `}</style>
     </section>
   )
 }
