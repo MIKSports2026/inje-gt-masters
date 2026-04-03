@@ -1,6 +1,6 @@
-// components/sections/SectionRound.tsx — Diagonal slider with status-driven display
+// components/sections/SectionRound.tsx — Vertical accordion
 'use client'
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import type { Round } from '@/types/sanity'
 
@@ -26,168 +26,197 @@ function fmtDate(d: string) {
 
 export default function SectionRound({ rounds }: Props) {
   const data = rounds.length > 0 ? rounds : FALLBACK as unknown as Round[]
-  const [idx, setIdx] = useState(0)
-
-  const next = useCallback(() => {
-    setIdx(prev => (prev + 1) % data.length)
-  }, [data.length])
-
-  useEffect(() => {
-    const id = setInterval(next, 5000)
-    return () => clearInterval(id)
-  }, [next])
-
-  const r = data[idx]
-  const st = (r.status ?? 'upcoming') as RoundStatus
-  const isOpen = st === 'entry_open'
-  const isFinished = st === 'finished'
-  const isUpcoming = !isOpen && !isFinished
-  const dateStr = r.dateStart ? fmtDate(r.dateStart) : '—'
-
-  // 이미지: finished → resultImage fallback heroImage, 나머지 → heroImage
-  const imgUrl = isFinished
-    ? ((r as any).resultImage?.asset?.url ?? (r as any).heroImage?.asset?.url ?? null)
-    : ((r as any).heroImage?.asset?.url ?? null)
-  const resultLink = (r as any).resultUrl as string | undefined
+  const openIdx = data.findIndex(r => r.status === 'entry_open')
+  const [active, setActive] = useState(openIdx >= 0 ? openIdx : 0)
 
   return (
     <section className="rnd" id="rounds">
-      <div className="rnd__inner">
-        {/* 좌측: 텍스트 */}
-        <div className="rnd__text" key={`t-${idx}`}>
-          {/* 뱃지 */}
-          {isOpen && <div className="rnd__tag rnd__tag--open">접수중</div>}
-          {isFinished && <div className="rnd__tag rnd__tag--fin">종료</div>}
-
-          <div className="rnd__num">R{String(r.roundNumber).padStart(2, '0')}</div>
-          <div className="rnd__date">{dateStr}</div>
-          <div className="rnd__loc">
-            <span className="rnd__slash">/</span>INJE SPEEDIUM
-          </div>
-
-          {/* CTA */}
-          {isOpen && (
-            <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="rnd__cta rnd__cta--on">
-              참가 신청 →
-            </Link>
-          )}
-          {isFinished && resultLink && (
-            <Link href={resultLink} className="rnd__cta rnd__cta--result">
-              결과 보기 →
-            </Link>
-          )}
-        </div>
-
-        {/* 우측: 이미지 */}
-        <div className="rnd__visual" key={`v-${idx}`}>
-          <div className="rnd__img-shadow" />
-          <div className={`rnd__img-wrap ${isUpcoming ? 'rnd__img-wrap--dim' : ''}`}>
-            {imgUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={imgUrl} alt={`Round ${r.roundNumber}`} className="rnd__img" />
-            ) : (
-              <div className="rnd__img-fallback" />
-            )}
-            {isUpcoming && <div className="rnd__img-overlay" />}
-          </div>
-        </div>
+      <div className="rnd__hd">
+        <div className="rnd__kicker"><span className="rnd__kicker-line" />2026 SEASON</div>
+        <h2 className="rnd__title">ROUNDS</h2>
       </div>
 
-      {/* 도트 네비 */}
-      <div className="rnd__dots">
-        {data.map((_, i) => (
-          <button
-            key={i}
-            className={`rnd__dot ${idx === i ? 'rnd__dot--on' : ''}`}
-            onClick={() => setIdx(i)}
-            aria-label={`Round ${i + 1}`}
-          />
-        ))}
+      <div className="rnd__acc">
+        {data.map((r, i) => {
+          const on = active === i
+          const st = (r.status ?? 'upcoming') as RoundStatus
+          const isOpen = st === 'entry_open'
+          const isFin = st === 'finished'
+          const dateStr = r.dateStart ? fmtDate(r.dateStart) : '—'
+          const heroUrl = (r as any).heroImage?.asset?.url as string | undefined
+          const resultUrl = (r as any).resultUrl as string | undefined
+          const resultImg = (r as any).resultImage?.asset?.url as string | undefined
+          const imgSrc = isFin ? (resultImg ?? heroUrl) : heroUrl
+
+          return (
+            <div
+              key={r._id}
+              className={`rnd__panel ${on ? 'rnd__panel--on' : ''}`}
+              onClick={() => setActive(i)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={e => { if (e.key === 'Enter') setActive(i) }}
+            >
+              {/* ── 닫힌 상태: 한 줄 ── */}
+              <div className="rnd__closed">
+                <span className="rnd__closed-num">R{String(r.roundNumber).padStart(2, '0')}</span>
+                <span className="rnd__closed-date">{dateStr}</span>
+                {isOpen && <span className="rnd__closed-badge">OPEN</span>}
+                {isFin && <span className="rnd__closed-badge rnd__closed-badge--fin">END</span>}
+              </div>
+
+              {/* ── 열린 상태 ── */}
+              <div className="rnd__opened">
+                <div className="rnd__opened-left">
+                  {isOpen && <div className="rnd__tag">접수중</div>}
+                  {isFin && <div className="rnd__tag rnd__tag--fin">종료</div>}
+
+                  <div className="rnd__num">R{String(r.roundNumber).padStart(2, '0')}</div>
+                  <div className="rnd__date">{dateStr}</div>
+                  <div className="rnd__loc">INJE SPEEDIUM</div>
+
+                  {isOpen && (
+                    <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="rnd__cta" onClick={e => e.stopPropagation()}>
+                      참가 신청 →
+                    </Link>
+                  )}
+                  {isFin && resultUrl && (
+                    <Link href={resultUrl} className="rnd__cta rnd__cta--ghost" onClick={e => e.stopPropagation()}>
+                      결과 보기 →
+                    </Link>
+                  )}
+                </div>
+
+                <div className="rnd__opened-right">
+                  <div className="rnd__img-shadow" />
+                  <div className="rnd__img-wrap">
+                    {imgSrc ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={imgSrc} alt={`R${r.roundNumber}`} className="rnd__img" />
+                    ) : (
+                      <div className="rnd__img-fb" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       <style>{`
-        .rnd { background: #0a0a0a; padding: 72px 0 48px; overflow: hidden; }
-        .rnd__inner {
-          max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center;
-          min-height: 400px;
+        .rnd { background: #0a0a0a; padding: 72px 0 64px; }
+        .rnd__hd { max-width: 1400px; margin: 0 auto 32px; padding: 0 40px; }
+        .rnd__kicker {
+          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 600;
+          letter-spacing: .2em; color: #E60023;
+          display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+        }
+        .rnd__kicker-line { width: 28px; height: 2px; background: #E60023; }
+        .rnd__title {
+          font-family: 'Oswald',sans-serif; font-size: clamp(2rem,4vw,3.2rem);
+          font-weight: 900; letter-spacing: -.03em; color: #fff; margin: 0;
         }
 
-        /* Text */
-        .rnd__text { animation: rndIn .5s ease forwards; }
-        @keyframes rndIn {
-          from { opacity: 0; transform: translateX(-16px); }
-          to { opacity: 1; transform: translateX(0); }
+        .rnd__acc {
+          max-width: 1400px; margin: 0 auto; padding: 0 40px;
+          display: flex; flex-direction: column; gap: 2px;
         }
+
+        /* Panel */
+        .rnd__panel {
+          position: relative; overflow: hidden; cursor: pointer;
+          background: #111; height: 80px;
+          transition: height .5s cubic-bezier(.25,1,.5,1);
+        }
+        .rnd__panel--on { height: 400px; }
+
+        /* Closed row */
+        .rnd__closed {
+          position: absolute; inset: 0; z-index: 2;
+          display: flex; align-items: center; gap: 20px;
+          padding: 0 32px;
+          transition: opacity .25s;
+        }
+        .rnd__panel--on .rnd__closed { opacity: 0; pointer-events: none; }
+
+        .rnd__closed-num {
+          font-family: 'Oswald',sans-serif; font-size: 2rem; font-weight: 900;
+          letter-spacing: -.03em; color: rgba(255,255,255,.25);
+          transform: skewX(-10deg);
+        }
+        .rnd__panel:hover .rnd__closed-num { color: rgba(255,255,255,.45); }
+        .rnd__closed-date {
+          font-family: 'Oswald',sans-serif; font-size: 1.4rem; font-weight: 700;
+          letter-spacing: -.02em; color: rgba(255,255,255,.15);
+        }
+        .rnd__closed-badge {
+          font-family: 'Oswald',sans-serif; font-size: .6rem; font-weight: 700;
+          letter-spacing: .18em; color: #E60023;
+          border: 1px solid rgba(230,0,35,.3); padding: 2px 10px;
+          transform: skewX(-20deg);
+        }
+        .rnd__closed-badge--fin { color: rgba(255,255,255,.2); border-color: rgba(255,255,255,.08); }
+
+        /* Opened */
+        .rnd__opened {
+          position: absolute; inset: 0; z-index: 1;
+          display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px;
+          align-items: center; padding: 0 40px;
+          opacity: 0; transition: opacity .4s ease .15s;
+        }
+        .rnd__panel--on .rnd__opened { opacity: 1; }
 
         .rnd__tag {
           display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: .68rem; font-weight: 700;
+          font-family: 'Oswald',sans-serif; font-size: .7rem; font-weight: 700;
           letter-spacing: .18em; text-transform: uppercase;
-          border-left: 2px solid rgba(255,255,255,.1);
-          padding: 4px 14px; margin-bottom: 18px;
-          transform: skewX(-20deg); color: rgba(255,255,255,.3);
+          color: #E60023; border-left: 2px solid #E60023;
+          padding: 3px 14px; margin-bottom: 16px;
+          transform: skewX(-20deg);
         }
-        .rnd__tag--open { color: #E60023; border-color: #E60023; }
-        .rnd__tag--fin { color: rgba(255,255,255,.2); border-color: rgba(255,255,255,.15); }
+        .rnd__tag--fin { color: rgba(255,255,255,.25); border-color: rgba(255,255,255,.12); }
 
         .rnd__num {
-          font-family: 'Oswald',sans-serif;
-          font-size: clamp(3.5rem, 7vw, 5.5rem);
-          font-weight: 700; letter-spacing: .04em;
-          color: #fff; line-height: .9;
-          transform: skewX(-12deg); margin-bottom: 14px;
+          font-family: 'Oswald',sans-serif; font-size: 6rem; font-weight: 900;
+          letter-spacing: -.05em; color: #fff; line-height: .85;
+          transform: skewX(-10deg); margin-bottom: 8px;
         }
         .rnd__date {
-          font-family: 'Oswald',sans-serif; font-size: 1rem; font-weight: 500;
-          letter-spacing: .14em; color: rgba(255,255,255,.5);
-          transform: skewX(-10deg); margin-bottom: 6px;
+          font-family: 'Oswald',sans-serif; font-size: 2.5rem; font-weight: 700;
+          letter-spacing: -.03em; color: rgba(255,255,255,.5);
+          transform: skewX(-8deg); margin-bottom: 6px;
         }
         .rnd__loc {
-          font-family: 'Oswald',sans-serif; font-size: .72rem; font-weight: 600;
-          letter-spacing: .18em; color: rgba(255,255,255,.2);
-          display: flex; align-items: center; gap: 8px; margin-bottom: 28px;
-        }
-        .rnd__slash {
-          font-size: 1.2rem; font-weight: 300; color: #E60023; opacity: .5;
-          transform: skewX(-30deg); display: inline-block;
+          font-family: 'Oswald',sans-serif; font-size: 1.2rem; font-weight: 600;
+          letter-spacing: .1em; color: rgba(255,255,255,.18);
+          margin-bottom: 24px;
         }
 
         .rnd__cta {
           display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: .78rem; font-weight: 600;
-          letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
-          padding: 10px 28px; transform: skewX(-15deg);
-          color: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.08);
-        }
-        .rnd__cta--on {
-          color: #fff; border-color: #E60023;
-          background: linear-gradient(135deg, rgba(230,0,35,.15), transparent);
+          font-family: 'Oswald',sans-serif; font-size: .85rem; font-weight: 700;
+          letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+          padding: 12px 32px; transform: skewX(-15deg);
+          color: #fff; border: 1px solid #E60023;
+          background: linear-gradient(135deg, rgba(230,0,35,.18), transparent);
           transition: all .25s;
         }
-        .rnd__cta--on:hover {
-          background: linear-gradient(135deg, rgba(230,0,35,.3), rgba(230,0,35,.05));
+        .rnd__cta:hover {
+          background: linear-gradient(135deg, rgba(230,0,35,.35), rgba(230,0,35,.05));
           box-shadow: 4px 4px 0 rgba(230,0,35,.2);
         }
-        .rnd__cta--result {
-          color: rgba(255,255,255,.6); border-color: rgba(255,255,255,.15);
-          transition: all .25s;
+        .rnd__cta--ghost {
+          color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.12);
+          background: none;
         }
-        .rnd__cta--result:hover { color: #fff; border-color: rgba(255,255,255,.3); }
+        .rnd__cta--ghost:hover { color: #fff; border-color: rgba(255,255,255,.3); }
 
-        /* Visual */
-        .rnd__visual {
-          position: relative; height: 400px;
-          animation: rndImgIn .6s ease forwards;
-        }
-        @keyframes rndImgIn {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
+        /* Image */
+        .rnd__opened-right { position: relative; height: 320px; }
         .rnd__img-shadow {
-          position: absolute; inset: 8px -8px -8px 8px;
-          background: #E60023; opacity: .3;
+          position: absolute; inset: 6px -6px -6px 6px;
+          background: #E60023; opacity: .25;
           clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
         }
         .rnd__img-wrap {
@@ -195,39 +224,26 @@ export default function SectionRound({ rounds }: Props) {
           clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
           overflow: hidden;
         }
-        .rnd__img {
-          width: 100%; height: 100%; object-fit: cover;
-          transition: transform .6s ease;
-        }
-        .rnd__img-wrap:hover .rnd__img { transform: scale(1.04); }
-        .rnd__img-fallback {
+        .rnd__img { width: 100%; height: 100%; object-fit: cover; }
+        .rnd__img-fb {
           width: 100%; height: 100%;
-          background: linear-gradient(135deg, #111 0%, #1a1a1a 50%, #0d0005 100%);
+          background: linear-gradient(135deg, #111 0%, #1a0008 100%);
         }
-        .rnd__img-overlay {
-          position: absolute; inset: 0;
-          background: rgba(10,10,10,.7);
-        }
-
-        /* Dots */
-        .rnd__dots {
-          display: flex; justify-content: center; gap: 6px; margin-top: 32px;
-        }
-        .rnd__dot {
-          width: 14px; height: 4px; border: none; cursor: pointer; padding: 0;
-          background: rgba(255,255,255,.12);
-          transform: skewX(-30deg); transition: all .25s;
-        }
-        .rnd__dot--on { width: 28px; background: #E60023; }
-        .rnd__dot:hover { background: rgba(255,255,255,.25); }
 
         /* Mobile */
         @media (max-width: 992px) {
-          .rnd__inner { grid-template-columns: 1fr; gap: 28px; padding: 0 20px; }
-          .rnd__visual { height: 300px; order: -1; }
-          .rnd__img-wrap { clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
-          .rnd__img-shadow { clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
-          .rnd__num { font-size: 3rem; }
+          .rnd__acc { padding: 0 20px; }
+          .rnd__hd { padding: 0 20px; }
+          .rnd__panel { height: 70px; }
+          .rnd__panel--on { height: 520px; }
+          .rnd__opened { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+          .rnd__opened-right { height: 200px; order: -1; }
+          .rnd__img-wrap { clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%); }
+          .rnd__img-shadow { clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%); }
+          .rnd__num { font-size: 3.5rem; }
+          .rnd__date { font-size: 1.6rem; }
+          .rnd__closed-num { font-size: 1.4rem; }
+          .rnd__closed-date { font-size: 1rem; }
         }
       `}</style>
     </section>
