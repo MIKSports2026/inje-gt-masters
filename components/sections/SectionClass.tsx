@@ -39,29 +39,20 @@ export default function SectionClass() {
               <div className="cls__p-ov" />
               <div className="cls__p-bar" />
 
-              {/* 닫힌 상태: 세로 클래스명 */}
               <div className="cls__p-collapsed">
                 <span className="cls__p-name">{cls.name}</span>
               </div>
 
-              {/* 열린 상태: 좌측 텍스트 + 우측 사선 블랙 */}
               <div className="cls__p-expanded">
                 <div className="cls__p-left">
-                  {/* slanted-tag */}
                   <div className="cls__p-tag">
                     <span className="cls__p-tag-inner">{cls.type}</span>
                   </div>
-
-                  {/* 클래스명 */}
                   <h3 className="cls__p-title">{cls.name}</h3>
-
-                  {/* 자격조건 */}
                   <div className="cls__p-meta">
                     <span className="cls__p-slash">/</span>
                     <span className="cls__p-elig">{cls.eligibility}</span>
                   </div>
-
-                  {/* 버튼 */}
                   <Link href="/entry" className="cls__p-btn" onClick={e => e.stopPropagation()}>
                     <span className="cls__p-btn-inner">VIEW CLASS</span>
                   </Link>
@@ -69,7 +60,6 @@ export default function SectionClass() {
 
                 <div className="cls__p-right">
                   <div className="cls__p-slice">
-                    <div className="cls__p-slice-red" />
                     <div className="cls__p-slice-cut" />
                   </div>
                 </div>
@@ -92,7 +82,7 @@ export default function SectionClass() {
         }
         .cls__kicker-line { width: 28px; height: 2px; background: #E60023; }
         .cls__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(1.8rem,3.5vw,2.8rem);
+          font-family: 'Oswald',sans-serif; font-size: clamp(2.7rem,5.25vw,4.2rem);
           font-weight: 700; letter-spacing: .04em; color: #fff; line-height: 1; margin: 0;
         }
         .cls__badge {
@@ -101,10 +91,9 @@ export default function SectionClass() {
           border: 1px solid rgba(255,255,255,.08); padding: 5px 14px;
         }
 
-        /* ── Accordion (ssn__acc 구조 클론) ── */
         .cls__acc {
           max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: flex; gap: 2px; height: 350px;
+          display: flex; gap: 2px; height: 400px;
         }
         .cls__p {
           flex: 0.35; position: relative; overflow: hidden; cursor: pointer;
@@ -116,7 +105,7 @@ export default function SectionClass() {
 
         .cls__p-ov {
           position: absolute; inset: 0;
-          background: linear-gradient(to right, rgba(10,10,10,.92) 0%, rgba(10,10,10,.3) 100%);
+          background: transparent;
           z-index: 1;
         }
         .cls__p-bar {
@@ -126,7 +115,6 @@ export default function SectionClass() {
         }
         .cls__p--on .cls__p-bar { transform: scaleY(1); }
 
-        /* ── Collapsed ── */
         .cls__p-collapsed {
           position: absolute; inset: 0; z-index: 2;
           display: flex; align-items: center; justify-content: center;
@@ -143,7 +131,6 @@ export default function SectionClass() {
         }
         .cls__p:hover .cls__p-name { color: rgba(255,255,255,.6); }
 
-        /* ── Expanded ── */
         .cls__p-expanded {
           position: absolute; inset: 0; z-index: 2;
           display: grid; grid-template-columns: 1fr 1.2fr;
@@ -153,7 +140,6 @@ export default function SectionClass() {
         }
         .cls__p--on .cls__p-expanded { opacity: 1; pointer-events: auto; }
 
-        /* 좌측 텍스트 */
         .cls__p-left {
           display: flex; flex-direction: column; align-items: flex-start;
           padding: 40px 40px 40px 48px;
@@ -174,7 +160,7 @@ export default function SectionClass() {
           font-family: 'Oswald',sans-serif; font-size: 4.5rem; font-weight: 900;
           line-height: 1.05; letter-spacing: -.04em; text-transform: uppercase;
           color: #fff; margin: 0 0 16px;
-          text-shadow: 4px 4px 0 #E60023;
+          text-shadow: none;
           transform: skewX(-10deg);
         }
 
@@ -191,44 +177,32 @@ export default function SectionClass() {
         }
 
         .cls__p-btn {
-          display: inline-block; background: #E60023; color: #fff;
-          padding: 14px 32px;
-          font-family: 'Oswald',sans-serif; font-weight: 900;
+          display: inline-block;
+          background: transparent;
+          border: 2px solid #E60023;
+          color: #ffffff;
+          padding: 12px 28px;
+          font-family: 'Oswald',sans-serif; font-weight: 700;
           font-size: .95rem; letter-spacing: 2px; text-transform: uppercase;
           text-decoration: none; transform: skewX(-15deg);
-          transition: opacity .2s;
+          transition: background .2s, box-shadow .2s;
         }
-        .cls__p-btn:hover { opacity: .85; }
+        .cls__p-btn:hover { background: rgba(230,0,35,.1); box-shadow: 4px 4px 0 rgba(230,0,35,.15); }
         .cls__p-btn-inner { display: block; transform: skewX(15deg); }
 
-        /* 우측 사선 이미지 영역 */
         .cls__p-right {
           position: relative; height: 100%;
           display: flex; align-items: center; justify-content: flex-end;
-          border: none !important; outline: none !important;
-          box-shadow: none !important;
         }
         .cls__p-slice {
           position: relative; width: 100%; height: 90%;
           clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
-          border: none !important; outline: none !important;
-          box-shadow: none !important;
-        }
-        .cls__p-slice-red {
-          position: absolute; inset: 0;
-          background: #E60023;
-          transform: translateX(-15px); z-index: 1;
-          border: none !important; outline: none !important;
-          box-shadow: none !important;
         }
         .cls__p-slice-cut {
           position: absolute; inset: 0;
-          background: #111111; z-index: 2;
-          border: none !important; outline: none !important;
-          box-shadow: none !important;
+          background: #111111;
         }
 
-        /* ── Mobile ── */
         @media (max-width: 900px) {
           .cls__acc { flex-direction: column; height: auto; padding: 0 20px; }
           .cls__p { height: 56px; flex: none !important; transition: height .4s cubic-bezier(.25,1,.5,1); }

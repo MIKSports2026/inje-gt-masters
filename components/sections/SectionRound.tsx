@@ -109,7 +109,7 @@ export default function SectionRound({ rounds }: Props) {
         }
         .rnd__kicker-line { width: 28px; height: 2px; background: #E60023; }
         .rnd__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(2rem,4vw,3.2rem);
+          font-family: 'Oswald',sans-serif; font-size: clamp(3rem,6vw,4.8rem);
           font-weight: 900; letter-spacing: -.03em; color: #fff; margin: 0;
         }
         .rnd__badge {
@@ -121,7 +121,7 @@ export default function SectionRound({ rounds }: Props) {
         /* ── Accordion ── */
         .rnd__acc {
           max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: flex; gap: 2px; height: 210px;
+          display: flex; gap: 2px; height: 400px;
         }
         .rnd__p {
           flex: 1; position: relative; overflow: hidden; cursor: pointer;
@@ -211,16 +211,16 @@ export default function SectionRound({ rounds }: Props) {
 
         .rnd__p-cta {
           display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 700;
-          letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
-          padding: 10px 28px; transform: skewX(-15deg);
-          color: #fff; border: 1px solid #E60023;
-          background: linear-gradient(135deg, rgba(230,0,35,.18), transparent);
-          transition: all .25s;
+          font-family: 'Oswald',sans-serif; font-size: .95rem; font-weight: 700;
+          letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+          padding: 12px 28px; transform: skewX(-15deg);
+          color: #ffffff; border: 2px solid #E60023;
+          background: transparent;
+          transition: background .2s, box-shadow .2s;
         }
         .rnd__p-cta:hover {
-          background: linear-gradient(135deg, rgba(230,0,35,.35), rgba(230,0,35,.05));
-          box-shadow: 4px 4px 0 rgba(230,0,35,.2);
+          background: rgba(230,0,35,.1);
+          box-shadow: 4px 4px 0 rgba(230,0,35,.15);
         }
         .rnd__p-cta--ghost {
           color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.12); background: none;
