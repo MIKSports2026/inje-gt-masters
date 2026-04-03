@@ -1,4 +1,4 @@
-/* app/globals.css — v3 LIGHT THEME */
+/* app/globals.css — v3 DARK THEME */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 @import url('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css');
 
@@ -7,36 +7,36 @@
 @tailwind utilities;
 
 /* ════════════════════════════════════════
-   CSS VARIABLES — LIGHT THEME
+   CSS VARIABLES — DARK THEME
 ════════════════════════════════════════ */
 :root {
-  --red:        #DC001A;
-  --red-dark:   #A8001A;
-  --red-glow:   rgba(220,0,26,0.22);
-  --red-pale:   #fdf0f2;
-  --bg:         #ffffff;
-  --bg-2:       #f6f5f3;
-  --bg-3:       #f0eeea;
-  --bg-4:       #e8e5e0;
-  --line:       #e2ddd8;
-  --line-mid:   #c8c3bc;
-  --text:       #141414;
-  --text-mid:   #3a3835;
-  --text-sub:   #8a8680;
-  --navy:       #0c1730;
-  --gold:       #b8921e;
-  --gold-pale:  #fdf8ee;
-  --surface:    #ffffff;
-  --surface-2:  #f6f5f3;
-  --muted:      #8a8680;
+  --red:        #E60023;
+  --red-dark:   #CC001F;
+  --red-glow:   rgba(230,0,35,0.30);
+  --red-pale:   rgba(230,0,35,0.10);
+  --bg:         #0a0a0a;
+  --bg-2:       #111111;
+  --bg-3:       #141414;
+  --bg-4:       #1a1a1a;
+  --line:       #222222;
+  --line-mid:   #333333;
+  --text:       #f2f2f2;
+  --text-mid:   #cccccc;
+  --text-sub:   #888888;
+  --navy:       #f2f2f2;
+  --gold:       #d4a82a;
+  --gold-pale:  rgba(212,168,42,0.12);
+  --surface:    #111111;
+  --surface-2:  #141414;
+  --muted:      #888888;
   --max-w:      1320px;
   --max:        1320px;
   --pad:        clamp(20px,5vw,80px);
   --radius:     4px;
   --header-h:   104px;   /* topbar 36px + gnav 68px */
-  --sh-md:      0 8px 32px rgba(0,0,0,0.10);
-  --sh-lg:      0 20px 56px rgba(0,0,0,0.14);
-  --shadow:     0 8px 32px rgba(0,0,0,0.10);
+  --sh-md:      0 8px 32px rgba(0,0,0,0.30);
+  --sh-lg:      0 20px 56px rgba(0,0,0,0.40);
+  --shadow:     0 8px 32px rgba(0,0,0,0.30);
 }
 
 /* ════════════════════════════════════════
@@ -267,9 +267,9 @@ h3 { font-size: clamp(1.02rem, 2vw, 1.36rem); line-height: 1.18; letter-spacing:
 }
 .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
 .btn-secondary {
-  background: white;
+  background: var(--bg-3);
   border-color: var(--line-mid);
-  color: var(--navy);
+  color: var(--text);
 }
 .btn-secondary:hover { border-color: var(--red); color: var(--red); }
 .btn-ghost {
@@ -307,7 +307,7 @@ textarea:focus-visible {
   display: grid;
   grid-template-columns: 88px 1fr 110px 130px;
   align-items: stretch;
-  background: #ffffff;
+  background: var(--bg-2);
   border: 1px solid var(--line);
   overflow: hidden;
   cursor: pointer;
@@ -374,7 +374,7 @@ textarea:focus-visible {
 .sch-venue {
   font-size: 19px;
   font-weight: 700;
-  color: #141414;
+  color: var(--text);
   margin-bottom: 10px;
   letter-spacing: -0.02em;
 }
@@ -479,11 +479,11 @@ textarea:focus-visible {
   text-align: left;
 }
 .res-tbl tbody tr { border-bottom: 1px solid var(--line); transition: background 0.15s; }
-.res-tbl tbody tr:hover { background: var(--red-pale); }
+.res-tbl tbody tr:hover { background: rgba(230,0,35,0.08); }
 .res-tbl td { padding: 13px 12px; vertical-align: middle; }
 .r-pos { font-family: 'Pretendard Variable', Pretendard, sans-serif; font-size: 22px; font-weight: 900; color: var(--text-sub); line-height: 1; }
 .r-pos.top { color: var(--red); }
-.r-drv { font-size: 15.5px; font-weight: 700; color: #141414; letter-spacing: -0.02em; }
+.r-drv { font-size: 15.5px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
 .r-tm  { font-size: 19px; color: var(--text-sub); margin-top: 2px; }
 .r-cls {
   font-family: 'Barlow Condensed', sans-serif;
@@ -516,7 +516,7 @@ textarea:focus-visible {
 .news-ttl {
   font-size: 19px;
   font-weight: 700;
-  color: #141414;
+  color: var(--text);
   line-height: 1.5;
   margin-bottom: 5px;
   transition: color 0.2s;
@@ -555,7 +555,7 @@ textarea:focus-visible {
 }
 .panel:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.25);
   border-color: var(--line-mid);
 }
 .panel::before {
@@ -571,7 +571,7 @@ textarea:focus-visible {
 .tab {
   min-height: 40px;
   padding: 0 14px;
-  background: #fff;
+  background: var(--bg-3);
   border: 1px solid var(--line);
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 15.5px;
@@ -583,7 +583,7 @@ textarea:focus-visible {
 }
 .tab.active { background: var(--red); border-color: var(--red); color: #fff; }
 .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
-.list li { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #24303a; }
+.list li { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); }
 .dot { width: 10px; height: 10px; background: var(--red); transform: skewX(-25deg); flex: 0 0 auto; }
 .post-row { transition: background .15s; }
 .post-row:hover { background: var(--bg-2) !important; }

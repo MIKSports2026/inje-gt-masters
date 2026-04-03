@@ -87,14 +87,14 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
 
               {/* 요약 */}
               {display.excerpt && (
-                <div style={{ padding: '16px 20px', background: 'rgba(230,0,35,.04)', border: '1px solid rgba(230,0,35,.14)', borderLeft: '3px solid var(--red)', marginBottom: '24px', fontSize: '1.02rem', color: '#3a434d', lineHeight: 1.7 }}>
+                <div style={{ padding: '16px 20px', background: 'rgba(230,0,35,.04)', border: '1px solid rgba(230,0,35,.14)', borderLeft: '3px solid var(--red)', marginBottom: '24px', fontSize: '1.02rem', color: 'var(--text-mid)', lineHeight: 1.7 }}>
                   {display.excerpt}
                 </div>
               )}
 
               {/* Portable Text 본문 */}
               {display.body && display.body.length > 0 ? (
-                <div className="prose" style={{ fontSize: '1rem', lineHeight: 1.8, color: '#2a353f' }}>
+                <div className="prose" style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--text)' }}>
                   <PortableText
                     value={display.body}
                     components={{
@@ -137,7 +137,7 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
 
               {/* 연관 라운드 */}
               {display.relatedRound && (
-                <div style={{ marginTop: '28px', padding: '16px 20px', background: '#fff', border: '1px solid var(--line)', clipPath: cut, position: 'relative' }}>
+                <div style={{ marginTop: '28px', padding: '16px 20px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, position: 'relative' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,var(--red),transparent 70%)' }} />
                   <span style={{ fontSize: '.8rem', color: 'var(--muted)', fontWeight: 700 }}>연관 라운드</span>
                   <Link href={`/season/${display.relatedRound.slug.current}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '6px', fontWeight: 800, color: 'var(--red)', fontSize: '.95rem' }}>
@@ -161,7 +161,7 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
             {/* 사이드바 */}
             <div style={{ display: 'grid', gap: '16px' }}>
               {/* 글 정보 */}
-              <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '18px', position: 'relative' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '18px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <h3 style={{ fontSize: '.9rem', marginBottom: '12px' }}>게시물 정보</h3>
                 <div style={{ display: 'grid', gap: '8px', fontSize: '.85rem' }}>
@@ -187,11 +187,11 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
               </div>
 
               {/* 카테고리별 이동 */}
-              <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px' }}>
                 <h3 style={{ fontSize: '.88rem', marginBottom: '10px', color: 'var(--muted)' }}>다른 소식 보기</h3>
                 <div style={{ display: 'grid', gap: '6px' }}>
                   {(['notice','news','entry','regulation'] as PostCategory[]).map(cat => (
-                    <Link key={cat} href={`/news?category=${cat}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', background: 'var(--surface-2)', borderRadius: '4px', fontSize: '.85rem', fontWeight: 700, textDecoration: 'none', color: '#3a434d' }}>
+                    <Link key={cat} href={`/news?category=${cat}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', background: 'var(--surface-2)', borderRadius: '4px', fontSize: '.85rem', fontWeight: 700, textDecoration: 'none', color: 'var(--text-mid)' }}>
                       <span style={{ width: '8px', height: '8px', background: CAT_COLORS[cat], transform: 'skewX(-20deg)', flexShrink: 0 }} />
                       {CAT_LABELS[cat]}
                     </Link>

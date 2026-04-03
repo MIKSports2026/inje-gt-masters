@@ -67,7 +67,7 @@ export default async function AboutPage() {
           {/* 핵심 가치 */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: '16px', marginBottom: '48px' }}>
             {values.map((v) => (
-              <div key={v.title} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '28px 24px', position: 'relative' }}>
+              <div key={v.title} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '28px 24px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <i className={`fa-solid ${v.icon}`} style={{ fontSize: '1.4rem', color: 'var(--red)', marginBottom: '14px', display: 'block' }} />
                 <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>{v.title}</h3>
@@ -79,7 +79,7 @@ export default async function AboutPage() {
           {/* 통계 */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '2px', background: 'var(--line)', marginBottom: '48px' }}>
             {stats.map((s) => (
-              <div key={s.label} style={{ background: '#fff', padding: '28px 20px', textAlign: 'center' }}>
+              <div key={s.label} style={{ background: 'var(--bg-2)', padding: '28px 20px', textAlign: 'center' }}>
                 <div style={{ fontFamily: "'Pretendard Variable',Pretendard,sans-serif", fontSize: 'clamp(1.8rem,3vw,2.6rem)', fontWeight: 900, color: 'var(--red)', lineHeight: 1, letterSpacing: '-1px' }}>
                   {s.num}
                 </div>
@@ -114,7 +114,7 @@ export default async function AboutPage() {
                   { label: '직선 구간', value: '650m' },
                   { label: '소재지', value: '강원도 인제군' },
                 ].map((item) => (
-                  <div key={item.label} style={{ padding: '14px 16px', background: '#fff', border: '1px solid var(--line)', clipPath: cut }}>
+                  <div key={item.label} style={{ padding: '14px 16px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut }}>
                     <div style={{ fontSize: '.78rem', fontWeight: 600, color: 'var(--text-sub)', letterSpacing: '1px', textTransform: 'uppercase' as const, marginBottom: '4px' }}>{item.label}</div>
                     <div style={{ fontSize: '1.05rem', fontWeight: 800 }}>{item.value}</div>
                   </div>
@@ -149,7 +149,7 @@ export default async function AboutPage() {
               return (
                 <Link key={c._id} href={`/classes/${c.slug.current}`} style={{
                   display: 'block', textDecoration: 'none', color: 'inherit',
-                  background: '#fff', border: '1px solid var(--line)', clipPath: cut,
+                  background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut,
                   padding: '18px 16px', position: 'relative', transition: 'box-shadow .2s',
                 }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: color }} />
@@ -178,7 +178,7 @@ export default async function AboutPage() {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
               {pt.map((p) => (
                 <div key={p._id} style={{
-                  padding: '20px 28px', background: '#fff', border: '1px solid var(--line)',
+                  padding: '20px 28px', background: 'var(--bg-2)', border: '1px solid var(--line)',
                   clipPath: cut, display: 'flex', alignItems: 'center', gap: '12px',
                 }}>
                   <span style={{ fontSize: '.82rem', fontWeight: 800, color: 'var(--text-sub)', letterSpacing: '1px', textTransform: 'uppercase' as const }}>

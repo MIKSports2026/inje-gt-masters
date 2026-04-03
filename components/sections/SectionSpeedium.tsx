@@ -7,7 +7,7 @@ export default function SectionSpeedium({ settings }: { settings: SiteSettings |
 
   return (
     <section className="section" id="speedium"
-      style={{background:'linear-gradient(180deg,var(--surface-2),var(--bg))'}}>
+      style={{background:'linear-gradient(180deg,var(--bg-2),var(--bg))'}}>
       <div className="container">
         <div className="section-head">
           <div>
@@ -36,7 +36,7 @@ export default function SectionSpeedium({ settings }: { settings: SiteSettings |
               ].map((item,i)=>(
                 <li key={i} style={{display:'flex',alignItems:'flex-start',gap:'12px',padding:'10px 0',borderBottom:'1px solid var(--line)'}}>
                   <i className={`${item.icon}`} style={{color:'var(--red)',marginTop:'2px',flexShrink:0,width:'18px',textAlign:'center'}} />
-                  <span style={{fontWeight:700,color:'#24303a',lineHeight:1.5}}>{item.text}</span>
+                  <span style={{fontWeight:700,color:'var(--text)',lineHeight:1.5}}>{item.text}</span>
                 </li>
               ))}
             </ul>

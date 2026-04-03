@@ -37,7 +37,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
       {/* ── 탭 바 ─────────────────────────────────────────── */}
       <div style={{
         position: 'sticky', top: '68px', zIndex: 100,
-        background: 'rgba(255,255,255,0.97)',
+        background: 'rgba(10,10,10,0.97)',
         borderBottom: '1px solid var(--line)',
         backdropFilter: 'blur(12px)',
       }}>
@@ -81,7 +81,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
               {/* 우측: 안내사항 */}
               <div style={{ display: 'grid', gap: '16px' }}>
                 {/* 참가 절차 */}
-                <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
+                <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                   <h3 style={{ marginBottom: '16px' }}>참가 신청 절차</h3>
                   <div style={{ display: 'grid', gap: '10px' }}>
@@ -125,7 +125,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
                       '결제 완료 후 취소 시 수수료 발생',
                       '부정확한 정보 기재 시 출전 자격 박탈',
                     ].map((item, i) => (
-                      <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '.86rem', color: '#3a434d' }}>
+                      <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '.86rem', color: 'var(--text-mid)' }}>
                         <span style={{ width: '8px', height: '8px', background: 'var(--red)', transform: 'skewX(-20deg)', flexShrink: 0, marginTop: '4px' }} />
                         {item}
                       </li>
@@ -134,7 +134,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
                 </div>
 
                 {/* 문의 */}
-                <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: '18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', borderRadius: '8px', padding: '18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <h3 style={{ fontSize: '.95rem' }}>
                     <i className="fa-solid fa-headset" style={{ color: 'var(--red)', marginRight: '8px' }} />
                     신청 문의
@@ -190,7 +190,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
                   : '/entry?tab=apply'
                 return (
                   <div key={c._id} style={{
-                    background: '#fff', border: '1px solid var(--line)',
+                    background: 'var(--bg-2)', border: '1px solid var(--line)',
                     clipPath: cut, position: 'relative', overflow: 'hidden',
                     padding: '22px', display: 'flex', flexDirection: 'column',
                   }}>
@@ -286,7 +286,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
                 { icon: 'fa-file-word', title: '참가 신청 서식',        desc: '수기 신청용 워드 서식',        badge: 'DOC' },
                 { icon: 'fa-file-pdf',  title: '안전장비 기준 가이드',  desc: '헬멧·슈트·HANS 규격 안내',    badge: 'PDF' },
               ].map((doc, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px 18px', background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', cursor: 'pointer', transition: 'box-shadow .2s' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px 18px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', cursor: 'pointer', transition: 'box-shadow .2s' }}>
                   <i className={`fa-regular ${doc.icon}`} style={{ fontSize: '1.6rem', color: 'var(--red)', flexShrink: 0 }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <strong style={{ display: 'block', fontSize: '.92rem' }}>{doc.title}</strong>
@@ -309,7 +309,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
             </div>
             <div style={{ display: 'grid', gap: '12px', maxWidth: '860px' }}>
               {faq.map((item, i) => (
-                <details key={i} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
+                <details key={i} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
                   <summary style={{ padding: '18px 22px', fontWeight: 800, fontSize: '1rem', cursor: 'pointer', listStyle: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
                     <span><span style={{ color: 'var(--red)', marginRight: '10px' }}>Q.</span>{item.q}</span>
                     <i className="fa-solid fa-chevron-down" style={{ fontSize: '.85rem', color: 'var(--muted)', flexShrink: 0 }} />

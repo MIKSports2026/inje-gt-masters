@@ -35,7 +35,7 @@ export default function SectionAbout() {
                   }}>
                     <div style={{
                       width:'54px',height:'54px',display:'grid',placeItems:'center',
-                      background:'#fff',border:'1px solid var(--line)',
+                      background:'var(--bg-3)',border:'1px solid var(--line)',
                       color:'var(--red)',fontWeight:900,fontSize:'.9rem',
                       clipPath:cut12,
                     }}>{p.n}</div>
