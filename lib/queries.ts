@@ -37,7 +37,7 @@ export const ROUNDS_QUERY = /* groq */`
   *[_type == "round" && season == $season] | order(roundNumber asc){
     _id, season, roundNumber, slug, title, titleEn, subtitle,
     badge, dateStart, dateEnd, status,
-    heroImage ${IMAGE},
+    heroImage ${IMAGE}, resultImage ${IMAGE}, resultUrl,
     entryOpenDate, entryCloseDate, tossPaymentUrl, maxEntries,
     hasResults
   }

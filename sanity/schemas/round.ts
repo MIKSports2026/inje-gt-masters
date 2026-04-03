@@ -218,6 +218,21 @@ export default defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: 'resultImage',
+      title: '경기 결과 이미지',
+      type: 'image',
+      group: 'media',
+      options: { hotspot: true },
+      description: '경기 완료 후 사진 (종료된 라운드에 표시)',
+    }),
+    defineField({
+      name: 'resultUrl',
+      title: '결과 보기 링크',
+      type: 'string',
+      group: 'media',
+      description: '예: /results?round=R1',
+    }),
+    defineField({
       name: 'gallery',
       title: '갤러리',
       type: 'array',

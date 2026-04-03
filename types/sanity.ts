@@ -115,9 +115,11 @@ export interface Round {
   notices?:     Array<{ title: string; content: string }>
   hasResults:   boolean
   // 미디어
-  heroImage?:   SanityImage
-  posterImage?: SanityImage
-  gallery?:     SanityImage[]
+  heroImage?:    SanityImage
+  resultImage?:  SanityImage
+  resultUrl?:    string
+  posterImage?:  SanityImage
+  gallery?:      SanityImage[]
 }
 
 // ── classInfo ─────────────────────────────────────────────────
