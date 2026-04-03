@@ -36,7 +36,7 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
     <>
       {/* ── 탭 바 ─────────────────────────────────────────── */}
       <div style={{
-        position: 'sticky', top: '68px', zIndex: 100,
+        position: 'sticky', top: 'var(--header-h)', zIndex: 100,
         background: 'rgba(10,10,10,0.97)',
         borderBottom: '1px solid var(--line)',
         backdropFilter: 'blur(12px)',

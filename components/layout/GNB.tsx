@@ -1,4 +1,4 @@
-// components/layout/GNB.tsx — v3 Dark Theme
+// components/layout/GNB.tsx — v4 Cinematic GNB
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -10,8 +10,7 @@ const NAV_ITEMS = [
     href: '/#about',
     drop: [
       { label: '대회 소개', href: '/#about' },
-      { label: '클래스 소개', href: '/season#classes' },
-      { label: '후원사 소개', href: '/#partners' },
+      { label: '마스터즈 히스토리', href: '/history' },
     ],
   },
   {
@@ -19,19 +18,16 @@ const NAV_ITEMS = [
     href: '/season',
     drop: [
       { label: '경기 일정', href: '/season' },
-      { label: 'R1 개막전', href: '/season/2026-r1' },
-      { label: 'R2 서머', href: '/season/2026-r2' },
-      { label: 'R3 나이트레이스', href: '/season/2026-r3' },
-      { label: 'R4 파이널', href: '/season/2026-r4' },
+      { label: '규정', href: '/entry?tab=regulations' },
+      { label: '인제스피디움', href: '/circuit' },
     ],
   },
   {
     label: 'ENTRY',
     href: '/entry',
     drop: [
-      { label: '참가 자격·규정', href: '/entry#eligibility' },
-      { label: '온라인 신청', href: '/entry' },
-      { label: '팀·드라이버 등록', href: '/entry#registration' },
+      { label: '온라인 참가 신청', href: '/entry' },
+      { label: '클래스 소개', href: '/season#classes' },
     ],
   },
   {
@@ -40,7 +36,6 @@ const NAV_ITEMS = [
     drop: [
       { label: '경기 결과', href: '/results' },
       { label: '포인트 순위', href: '/results#standings' },
-      { label: '드라이버 기록', href: '/results#records' },
     ],
   },
   {
@@ -48,175 +43,106 @@ const NAV_ITEMS = [
     href: '/media',
     drop: [
       { label: '공지사항', href: '/news' },
-      { label: '포토 갤러리', href: '/media' },
-      { label: '영상 하이라이트', href: '/media?type=video' },
+      { label: '보도자료', href: '/news?category=press' },
+      { label: '미디어킷', href: '/media' },
     ],
   },
 ] as const
 
 export default function GNB({ settings }: { settings: SiteSettings | null }) {
-  const [scrolled,    setScrolled]    = useState(false)
-  const [mobileOpen,  setMobileOpen]  = useState(false)
-  const [openDrop,    setOpenDrop]    = useState<number | null>(null)
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [openDrop, setOpenDrop] = useState<number | null>(null)
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  const siteName = settings?.siteName ?? '인제 GT 마스터즈'
-  const season   = settings?.currentSeason ?? 2026
-
   return (
     <>
-      {/* ── TOP BAR ─────────────────────────────────────────── */}
-      <div style={{
-        background: 'rgba(5,5,5,0.96)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        height: '36px',
-        position: 'relative',
-        zIndex: 200,
-      }}>
-        <div className="inner" style={{ height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: '16.5px',
-            fontWeight: 600,
-            letterSpacing: '2.5px',
-            textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.4)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-          }}>
-            <span style={{ color: 'var(--red)' }}>INJE GT MASTERS</span>
-            <span>|</span>
-            <span>강원도 인제스피디움 · 3.9KM</span>
-            <span>|</span>
-            <span>{season} 시즌 참가 접수 중</span>
-          </div>
-          <div style={{ display: 'flex' }}>
-            {[
-              { label: '공지사항', href: '/news' },
-              { label: '참가문의', href: '/entry' },
-            ].map((item) => (
-              <Link key={item.label} href={item.href} style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontSize: '16.5px',
-                fontWeight: 700,
-                letterSpacing: '2px',
-                textTransform: 'uppercase' as const,
-                color: 'rgba(255,255,255,0.35)',
-                padding: '0 14px',
-                height: '36px',
-                display: 'flex',
-                alignItems: 'center',
-                borderLeft: '1px solid rgba(255,255,255,0.06)',
-                transition: 'color 0.2s',
-              }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.85)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── GNB ─────────────────────────────────────────────── */}
-      <div
+      <header
         id="gnav"
         style={{
-          position: 'sticky',
+          position: 'fixed',
           top: 0,
           left: 0,
-          right: 0,
-          zIndex: 500,
-          height: '68px',
+          width: '100%',
+          zIndex: 100,
+          height: '80px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 var(--pad)',
-          background: scrolled ? 'rgba(10,10,10,0.98)' : 'rgba(10,10,10,0.92)',
-          borderBottom: '1px solid #222222',
-          backdropFilter: 'blur(16px)',
-          boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4)' : 'none',
-          transition: 'background 0.3s, box-shadow 0.3s',
+          padding: '0 40px',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,.70), rgba(0,0,0,.28))',
+          backdropFilter: 'blur(7px)',
+          WebkitBackdropFilter: 'blur(7px)',
         }}
       >
         {/* 로고 */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }} aria-label="인제 GT 마스터즈 홈">
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }} aria-label="홈">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="인제 GT 마스터즈" style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }} />
+          <img src="/logo.png" alt="인제 GT 마스터즈" className="gnb-logo" style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }} />
         </Link>
 
-        {/* 데스크톱 GNB */}
-        <nav style={{ display: 'flex', alignItems: 'center' }} aria-label="주 메뉴" className="gnb-desktop">
+        {/* 데스크톱 메뉴 */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} aria-label="주 메뉴" className="gnb-desktop">
           {NAV_ITEMS.map((item, i) => (
             <div
               key={i}
-              style={{ position: 'relative', height: '68px', display: 'flex', alignItems: 'center' }}
+              style={{ position: 'relative' }}
               onMouseEnter={() => setOpenDrop(i)}
               onMouseLeave={() => setOpenDrop(null)}
             >
-              <Link href={item.href} style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontSize: '19px',
-                fontWeight: 700,
-                letterSpacing: '2.5px',
+              <Link href={item.href} className="gnb-link" style={{
+                fontFamily: "'Oswald', sans-serif",
+                fontSize: '14px',
+                fontWeight: 500,
+                letterSpacing: '.08em',
                 textTransform: 'uppercase' as const,
                 textDecoration: 'none',
-                color: 'var(--text-sub)',
-                padding: '0 18px',
-                height: '68px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                borderBottom: openDrop === i ? '2px solid var(--red)' : '2px solid transparent',
-                marginBottom: '-1px',
-                transition: 'color 0.2s, border-color 0.2s',
+                color: 'rgba(255,255,255,.78)',
+                transition: 'color .2s',
+                position: 'relative',
+                paddingBottom: '7px',
               }}>
                 {item.label}
-                <span style={{ fontSize: '11px', opacity: 0.4 }}>▼</span>
+                <span className="gnb-link-bar" style={{
+                  position: 'absolute',
+                  left: 0,
+                  bottom: '-7px',
+                  height: '1px',
+                  background: '#c81921',
+                  width: openDrop === i ? '100%' : '0%',
+                  transition: 'width .28s ease',
+                }} />
               </Link>
 
-              {/* 드롭다운 */}
+              {/* 서브메뉴 */}
               <div style={{
                 position: 'absolute',
-                top: 'calc(100% + 1px)',
-                left: '50%',
-                transform: openDrop === i ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(-6px)',
-                background: '#141414',
-                border: '1px solid #222222',
-                borderTop: '2px solid var(--red)',
-                boxShadow: '0 20px 56px rgba(0,0,0,0.5)',
-                minWidth: '172px',
-                padding: '6px 0',
+                top: '27px',
+                left: 0,
+                display: 'flex',
+                flexDirection: 'column',
                 opacity: openDrop === i ? 1 : 0,
-                visibility: openDrop === i ? 'visible' : 'hidden',
+                transform: openDrop === i ? 'translateY(0)' : 'translateY(6px)',
                 pointerEvents: openDrop === i ? 'auto' : 'none',
-                transition: 'opacity 0.2s, transform 0.2s, visibility 0.2s',
-                zIndex: 600,
+                transition: 'opacity .22s, transform .22s',
+                paddingTop: '7px',
               }}>
                 {item.drop.map((d, j) => (
                   <Link key={j} href={d.href} style={{
-                    display: 'block',
-                    fontSize: '16.5px',
+                    fontFamily: "'Noto Sans KR', sans-serif",
+                    fontSize: '11px',
                     fontWeight: 500,
-                    color: 'var(--text-mid)',
+                    color: 'rgba(255,255,255,.34)',
                     textDecoration: 'none',
-                    padding: '11px 20px',
-                    transition: 'background 0.15s, color 0.15s',
+                    whiteSpace: 'nowrap',
+                    marginTop: j > 0 ? '7px' : 0,
+                    transition: 'color .18s',
                   }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'var(--red-pale)'; e.currentTarget.style.color = 'var(--red)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = 'var(--text-mid)'; }}
+                    onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,.72)' }}
+                    onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.34)' }}
                   >
                     {d.label}
                   </Link>
@@ -226,103 +152,67 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
           ))}
         </nav>
 
-        {/* 우측 액션 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Link href="/results" style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: '18px', fontWeight: 800, letterSpacing: '2.5px',
-            textTransform: 'uppercase' as const,
-            textDecoration: 'none',
-            color: 'var(--navy)',
-            border: '1.5px solid var(--navy)',
-            padding: '9px 22px',
-            transition: 'all 0.2s',
+        {/* 햄버거 */}
+        <button
+          onClick={() => setMobileOpen(v => !v)}
+          aria-expanded={mobileOpen}
+          aria-label="메뉴 열기"
+          style={{
+            display: 'none',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            flexDirection: 'column' as const,
+            gap: '5px',
+            padding: '4px',
           }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'var(--navy)'; e.currentTarget.style.color = 'white'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = 'var(--navy)'; }}
-            className="hidden-mobile"
-          >
-            경기 결과
-          </Link>
-          <Link href="/entry" style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: '18px', fontWeight: 800, letterSpacing: '2.5px',
-            textTransform: 'uppercase' as const,
-            textDecoration: 'none',
-            color: 'white',
-            background: 'var(--red)',
-            border: '1.5px solid var(--red)',
-            padding: '9px 22px',
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            transition: 'all 0.2s',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'var(--red-dark)'; e.currentTarget.style.borderColor = 'var(--red-dark)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'var(--red)'; e.currentTarget.style.borderColor = 'var(--red)'; }}
-            className="hidden-mobile"
-          >
-            <i className="fa fa-flag-checkered" style={{ fontSize: '15px' }} />
-            참가 신청
-          </Link>
+          className="show-mobile"
+        >
+          {[0, 1, 2].map(k => (
+            <span key={k} style={{
+              display: 'block', width: '22px', height: '1.5px',
+              background: 'rgba(255,255,255,.85)',
+              transition: 'all 0.3s',
+              transform: mobileOpen
+                ? k === 0 ? 'rotate(45deg) translate(5px,5px)'
+                : k === 1 ? 'scaleX(0)'
+                : 'rotate(-45deg) translate(5px,-5px)'
+                : 'none',
+              opacity: mobileOpen && k === 1 ? 0 : 1,
+            }} />
+          ))}
+        </button>
+      </header>
 
-          {/* 햄버거 */}
-          <button
-            onClick={() => setMobileOpen(v => !v)}
-            aria-expanded={mobileOpen}
-            aria-label="메뉴 열기"
-            style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              flexDirection: 'column' as const,
-              gap: '5px',
-              padding: '4px',
-            }}
-            className="show-mobile"
-          >
-            {[0,1,2].map(i => (
-              <span key={i} style={{
-                display: 'block', width: '24px', height: '2px',
-                background: 'var(--text)',
-                transition: 'all 0.3s',
-                transform: mobileOpen
-                  ? i === 0 ? 'rotate(45deg) translate(5px,5px)'
-                  : i === 1 ? 'scaleX(0)'
-                  : 'rotate(-45deg) translate(5px,-5px)'
-                  : 'none',
-                opacity: mobileOpen && i === 1 ? 0 : 1,
-              }} />
-            ))}
-          </button>
-        </div>
-      </div>
-
-      {/* ── 모바일 메뉴 ─────────────────────────────────────── */}
+      {/* 모바일 메뉴 */}
       <div style={{
         display: mobileOpen ? 'flex' : 'none',
         position: 'fixed',
-        top: '68px',
+        top: '70px',
         left: 0, right: 0, bottom: 0,
-        background: '#0a0a0a',
-        zIndex: 450,
-        padding: '24px var(--pad)',
+        background: 'rgba(0,0,0,.95)',
+        backdropFilter: 'blur(12px)',
+        zIndex: 99,
+        padding: '24px 20px',
         flexDirection: 'column' as const,
         overflowY: 'auto',
       }}>
         {NAV_ITEMS.map((item, i) => (
-          <div key={i} style={{ borderBottom: '1px solid var(--line)', padding: '16px 0' }}>
+          <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,.08)', padding: '16px 0' }}>
             <Link href={item.href} onClick={() => setMobileOpen(false)} style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '22px', letterSpacing: '3px', textTransform: 'uppercase' as const,
-              color: 'var(--text)', textDecoration: 'none', display: 'block',
-              marginBottom: '10px',
+              fontFamily: "'Oswald', sans-serif",
+              fontSize: '16px', fontWeight: 500, letterSpacing: '.08em',
+              textTransform: 'uppercase' as const,
+              color: 'rgba(255,255,255,.85)', textDecoration: 'none', display: 'block',
+              marginBottom: '8px',
             }}>
               {item.label}
             </Link>
-            <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '8px', paddingLeft: '12px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px', paddingLeft: '12px' }}>
               {item.drop.map((d, j) => (
                 <Link key={j} href={d.href} onClick={() => setMobileOpen(false)} style={{
-                  fontSize: '19px', color: 'var(--text-sub)', textDecoration: 'none', transition: 'color 0.2s',
+                  fontFamily: "'Noto Sans KR', sans-serif",
+                  fontSize: '12px', color: 'rgba(255,255,255,.4)', textDecoration: 'none',
                 }}>
                   {d.label}
                 </Link>
@@ -331,26 +221,14 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
           </div>
         ))}
         <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-          <Link href="/results" onClick={() => setMobileOpen(false)} style={{
-            flex: 1, textAlign: 'center' as const,
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: '18px', fontWeight: 800, letterSpacing: '2.5px',
-            textTransform: 'uppercase' as const,
-            textDecoration: 'none',
-            color: 'var(--navy)',
-            border: '1.5px solid var(--navy)',
-            padding: '12px',
-          }}>
-            경기 결과
-          </Link>
           <Link href="/entry" onClick={() => setMobileOpen(false)} style={{
             flex: 1, textAlign: 'center' as const,
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: '18px', fontWeight: 800, letterSpacing: '2.5px',
+            fontFamily: "'Oswald', sans-serif",
+            fontSize: '14px', fontWeight: 500, letterSpacing: '.08em',
             textTransform: 'uppercase' as const,
             textDecoration: 'none',
             color: 'white',
-            background: 'var(--red)',
+            background: '#c81921',
             padding: '12px',
           }}>
             참가 신청
@@ -358,6 +236,13 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         </div>
       </div>
 
+      <style>{`
+        @media (max-width: 768px) {
+          #gnav { height: 70px !important; padding: 0 18px !important; }
+          .gnb-logo { height: 34px !important; }
+        }
+        .gnb-link:hover { color: #fff !important; }
+      `}</style>
     </>
   )
 }
