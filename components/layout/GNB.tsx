@@ -7,10 +7,10 @@ import type { SiteSettings } from '@/types/sanity'
 const NAV_ITEMS = [
   {
     label: 'MASTERS',
-    href: '/masters/about',
+    href: '/about',
     drop: [
-      { label: '대회 소개', href: '/masters/about' },
-      { label: '마스터즈 히스토리', href: '/masters/history' },
+      { label: '대회 소개', href: '/about' },
+      { label: '마스터즈 히스토리', href: '/history' },
       { label: '역대 챔피언', href: '/masters/champions' },
       { label: '운영 조직도', href: '/masters/organization' },
     ],
@@ -42,9 +42,9 @@ const NAV_ITEMS = [
   },
   {
     label: 'MEDIA',
-    href: '/media/notice',
+    href: '/media',
     drop: [
-      { label: '공지사항', href: '/media/notice' },
+      { label: '공지사항', href: '/media' },
       { label: '보도자료', href: '/media/press' },
       { label: '미디어킷', href: '/media/kit' },
       { label: '영상', href: '/media/video' },
