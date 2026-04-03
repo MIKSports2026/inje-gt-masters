@@ -82,7 +82,7 @@ export default function SectionClass() {
         }
         .cls__kicker-line { width: 28px; height: 2px; background: #E60023; }
         .cls__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(4.05rem,7.875vw,6.3rem);
+          font-family: 'Oswald',sans-serif; font-size: clamp(2.7rem,5.25vw,4.2rem);
           font-weight: 700; letter-spacing: .04em; color: #fff; line-height: 1; margin: 0;
         }
         .cls__badge {
