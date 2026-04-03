@@ -65,7 +65,7 @@ export default function SectionHero({ settings }: Props) {
       {/* 중앙 로고 — 흰 배경 JPG를 CSS로 투명 처리 */}
       <div className="hero__center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo-white.jpg" alt="INJE GT MASTERS" className="hero__logo" />
+        <img src="/logo-white.png" alt="INJE GT MASTERS" className="hero__logo" />
       </div>
 
       <style>{`
@@ -88,9 +88,8 @@ export default function SectionHero({ settings }: Props) {
         .hero__logo {
           max-width: 600px; width: 80%;
           object-fit: contain;
-          filter: invert(1) hue-rotate(180deg) drop-shadow(0 0 40px rgba(230,0,35,.2));
-          mix-blend-mode: screen;
-          opacity: 0.92;
+          opacity: 0.95;
+          filter: drop-shadow(0 0 40px rgba(230,0,35,0.25));
         }
         @media (max-width: 768px) {
           .hero { min-height: 480px; }

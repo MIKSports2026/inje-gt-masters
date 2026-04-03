@@ -76,7 +76,7 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
           <Link href="/" className="gnav__logo-link" aria-label="홈">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/logo-white.jpg"
+              src="/logo-white.png"
               alt="INJE GT MASTERS"
               className="gnav__logo"
             />
@@ -162,11 +162,10 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         /* ── Logo ────────────────────────────── */
         .gnav__logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
         .gnav__logo {
-          height: 48px; width: auto;
+          height: 56px; width: auto;
           object-fit: contain;
           background: transparent;
-          filter: invert(1) hue-rotate(180deg);
-          mix-blend-mode: screen;
+          border: none;
           display: block;
         }
 
