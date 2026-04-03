@@ -41,7 +41,13 @@ export default function SectionHero({ settings }: Props) {
       ) : (
         <div className="hero-section__fallback" />
       )}
+      {/* 상하 그라디언트 */}
       <div className="hero-section__overlay" />
+      {/* 좌우 그라디언트 — contain 전환 시 경계 자연스럽게 */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+        background: 'linear-gradient(to right, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 12%, rgba(10,10,10,0) 88%, rgba(10,10,10,0.95) 100%)',
+      }} />
 
       <style>{`
         .hero-section {
