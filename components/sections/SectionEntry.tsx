@@ -38,8 +38,30 @@ export default function SectionEntry({ settings, classes }: Props) {
             }}>
               참가<br /><span style={{ color: 'var(--red)' }}>신청</span>
             </h2>
-            <p style={{ fontSize: '18px', lineHeight: 2, color: 'var(--text-mid)', marginBottom: '32px', wordBreak: 'keep-all' }}>
-              대한민국에서 가장 오래 달리고, 가장 저렴하게 참여하며, 가장 자유롭게 개조할 수 있는 GT 내구레이스. 아마추어부터 프로까지 — 당신의 한계를 시험하세요.
+            <p style={{ fontSize: '18px', lineHeight: 2, color: 'var(--text-mid)', marginBottom: '16px', wordBreak: 'keep-all' }}>
+              대한민국에서 가장 오래 달리고, 부담 없이 진짜답게 참여하며, 가장 자유롭게 개조할 수 있는 GT 내구레이스. 아마추어부터 프로까지 — 당신의 한계를 시험하세요.
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '16px' }}>
+              {['끝까지 달린다', '누구나 도전한다', '한계를 넘는다'].map((txt, i) => (
+                <span key={i} style={{
+                  fontFamily: "'Barlow Condensed',sans-serif",
+                  fontSize: '13px', fontWeight: 800, letterSpacing: '2px',
+                  textTransform: 'uppercase' as const,
+                  color: 'var(--red)',
+                  padding: '4px 12px',
+                  border: '1px solid rgba(220,0,26,0.3)',
+                  background: 'rgba(220,0,26,0.06)',
+                  clipPath: 'polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,0 100%)',
+                }}>{txt}</span>
+              ))}
+            </div>
+            <p style={{
+              fontFamily: "'Pretendard Variable', Pretendard, sans-serif",
+              fontSize: '17px', fontWeight: 800,
+              color: 'var(--red)', letterSpacing: '0.5px',
+              marginBottom: '32px',
+            }}>
+              끝까지 달린다 · 누구나 도전한다 · 한계를 넘는다
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '36px' }}>
@@ -54,7 +76,7 @@ export default function SectionEntry({ settings, classes }: Props) {
                     color: 'var(--red)', lineHeight: 1, minWidth: '36px',
                   }}>{s.n}</div>
                   <div>
-                    <div style={{ fontSize: '18px', fontWeight: 700, color: '#141414', marginBottom: '4px' }}>{s.t}</div>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text)', marginBottom: '4px' }}>{s.t}</div>
                     <div style={{ fontSize: '18px', color: 'var(--text-sub)', lineHeight: 1.7, wordBreak: 'keep-all' }}>{s.s}</div>
                   </div>
                 </div>

@@ -53,7 +53,7 @@ export default async function MediaPage({
       />
 
       {/* ── 탭 전환 ────────────────────────────────────────── */}
-      <section style={{ borderBottom: '1px solid var(--line)', background: '#fff', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
+      <section style={{ borderBottom: '1px solid var(--line)', background: 'var(--bg)', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
         <div className="container" style={{ display: 'flex', gap: '0' }}>
           {[
             { key: 'photo', label: '포토 갤러리', icon: 'fa-images' },
@@ -156,7 +156,7 @@ export default async function MediaPage({
                   : video.coverImage?.asset?.url
 
                 return (
-                  <div key={video._id} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden' }}>
+                  <div key={video._id} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden' }}>
                     {/* 썸네일 */}
                     <a
                       href={video.youtubeUrl ?? '#'}

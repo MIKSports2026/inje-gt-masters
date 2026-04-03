@@ -37,7 +37,7 @@ export default async function HistoryPage() {
           )}
           <div style={{ display: 'grid', gap: '28px' }}>
             {display.map((h, idx) => (
-              <div key={h._id} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden', position: 'relative' }}>
+              <div key={h._id} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '4px', background: idx === 0 ? 'var(--red)' : 'var(--line-2)' }} />
                 <div style={{ display: 'grid', gridTemplateColumns: h.heroImage?.asset?.url ? '1fr 260px' : '1fr', gap: '0' }}>
                   <div style={{ padding: '28px 28px 28px 36px' }}>

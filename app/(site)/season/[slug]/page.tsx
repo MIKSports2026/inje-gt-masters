@@ -110,7 +110,7 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
 
               {/* 세션 스케줄 */}
               {r.schedule && r.schedule.length > 0 && (
-                <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
+                <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                   <h2 style={{ fontSize: '1.2rem', marginBottom: '18px' }}>
                     <i className="fa-solid fa-stopwatch" style={{ color: 'var(--red)', marginRight: '10px' }} />
@@ -149,13 +149,13 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
 
               {/* 대회 설명 */}
               {r.description && r.description.length > 0 ? (
-                <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative', fontSize: '1rem', lineHeight: 1.8, color: '#2a353f' }}>
+                <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative', fontSize: '1rem', lineHeight: 1.8, color: 'var(--text)' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                   <h2 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>대회 안내</h2>
                   <PortableText value={r.description} />
                 </div>
               ) : (
-                <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
+                <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                   <h2 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>라운드 개요</h2>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '12px' }}>
@@ -183,7 +183,7 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
                   </h2>
                   <div style={{ display: 'grid', gap: '8px' }}>
                     {r.notices.map((n, i) => (
-                      <div key={i} style={{ padding: '12px 16px', background: '#fff', border: '1px solid rgba(230,0,35,.14)', borderRadius: '6px' }}>
+                      <div key={i} style={{ padding: '12px 16px', background: 'var(--bg-2)', border: '1px solid rgba(230,0,35,.14)', borderRadius: '6px' }}>
                         <strong style={{ display: 'block', marginBottom: '4px', fontSize: '.95rem' }}>{n.title}</strong>
                         <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.6, margin: 0 }}>{n.content}</p>
                       </div>
@@ -211,7 +211,7 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
             {/* ── 사이드바 ─────────────────────────────────── */}
             <div style={{ display: 'grid', gap: '16px' }}>
               {/* 참가신청 CTA */}
-              <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <h3 style={{ fontSize: '1rem', marginBottom: '14px' }}>참가 신청</h3>
 
@@ -221,7 +221,7 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
                       <i className="fa-solid fa-circle-check" style={{ marginRight: '6px' }} />현재 접수 중
                     </div>
                     {r.entryCloseDate && <p style={{ fontSize: '.84rem', color: 'var(--muted)', marginBottom: '12px' }}>마감: {r.entryCloseDate}</p>}
-                    {r.entryFeeNote && <p style={{ fontSize: '.84rem', color: '#3a434d', marginBottom: '14px', lineHeight: 1.6 }}>{r.entryFeeNote}</p>}
+                    {r.entryFeeNote && <p style={{ fontSize: '.84rem', color: 'var(--text-mid)', marginBottom: '14px', lineHeight: 1.6 }}>{r.entryFeeNote}</p>}
                     {r.maxEntries && <p style={{ fontSize: '.82rem', color: 'var(--muted)', marginBottom: '14px' }}>최대 {r.maxEntries}대 선착순</p>}
                     <Link href="/entry" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
                       <i className="fa-solid fa-flag-checkered" />지금 신청하기
@@ -244,7 +244,7 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
               </div>
 
               {/* 라운드 목록 */}
-              <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '18px', position: 'relative' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '18px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <h3 style={{ fontSize: '.9rem', marginBottom: '12px' }}>2026 시즌 전체 일정</h3>
                 <Link href="/season" style={{

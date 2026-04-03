@@ -7,7 +7,7 @@ export default function SectionClasses({ classes }: { classes: ClassInfo[] }) {
 
   return (
     <section className="section" id="classes"
-      style={{background:'linear-gradient(180deg,var(--surface-2),var(--bg))'}}>
+      style={{background:'linear-gradient(180deg,var(--bg-2),var(--bg))'}}>
       <div className="container">
         <div className="section-head">
           <div>

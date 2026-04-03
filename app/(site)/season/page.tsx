@@ -77,7 +77,7 @@ export default async function SeasonPage() {
             {displayRounds.map((r) => {
               const st = STATUS_MAP[resolveRoundStatus(r)] ?? STATUS_MAP.upcoming
               return (
-                <div key={r._id} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden', position: 'relative' }}>
+                <div key={r._id} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden', position: 'relative' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '4px', background: 'var(--red)' }} />
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '20px', padding: '24px 28px' }}>
@@ -158,7 +158,7 @@ export default async function SeasonPage() {
             {displayClasses.map((c) => {
               const color = c.accentColor ?? '#e60023'
               return (
-                <div key={c._id} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative', overflow: 'hidden' }}>
+                <div key={c._id} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: `linear-gradient(90deg,${color},${color}44 60%,transparent)` }} />
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
                     <span style={{ padding: '4px 12px', fontSize: '.8rem', fontWeight: 900, background: `${color}14`, color, border: `1px solid ${color}38`, clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)' }}>
@@ -219,7 +219,7 @@ export default async function SeasonPage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '24px' }}>
             {/* 포인트 테이블 */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative', gridColumn: 'span 1' }}>
+            <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative', gridColumn: 'span 1' }}>
               <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
               <h3 style={{ marginBottom: '14px' }}>결승 레이스 포인트</h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
@@ -238,7 +238,7 @@ export default async function SeasonPage() {
             </div>
 
             {/* 추가 포인트 */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
+            <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
               <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
               <h3 style={{ marginBottom: '14px' }}>추가 포인트</h3>
               <div style={{ display: 'grid', gap: '8px' }}>
@@ -289,13 +289,13 @@ export default async function SeasonPage() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '12px' }}>
                   {docs.map((doc, i) => (
                     doc.url ? (
-                      <a key={i} href={doc.url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', textDecoration: 'none', color: 'inherit' }}>
+                      <a key={i} href={doc.url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', textDecoration: 'none', color: 'inherit' }}>
                         <i className="fa-regular fa-file-pdf" style={{ fontSize: '1.4rem', color: 'var(--red)', flexShrink: 0 }} />
                         <span style={{ fontSize: '.9rem', fontWeight: 700 }}>{doc.title}</span>
                         <i className="fa-solid fa-download" style={{ marginLeft: 'auto', color: 'var(--muted)', fontSize: '.85rem' }} />
                       </a>
                     ) : (
-                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', opacity: .6 }}>
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', opacity: .6 }}>
                         <i className="fa-regular fa-file-pdf" style={{ fontSize: '1.4rem', color: 'var(--red)', flexShrink: 0 }} />
                         <span style={{ fontSize: '.9rem', fontWeight: 700 }}>{doc.title}</span>
                         <span style={{ marginLeft: 'auto', fontSize: '.75rem', color: 'var(--muted)' }}>준비중</span>

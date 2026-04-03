@@ -82,7 +82,7 @@ export default async function NewsPage({
       </section>
 
       {/* ── 카테고리 필터 ──────────────────────────────────── */}
-      <section style={{ borderBottom: '1px solid var(--line)', background: '#fff', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
+      <section style={{ borderBottom: '1px solid var(--line)', background: 'var(--bg)', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
         <div className="container" style={{ display: 'flex', gap: '8px', padding: '12px 0', overflowX: 'auto', scrollbarWidth: 'none' }}>
           {CATEGORIES.map(cat => (
             <Link
@@ -90,8 +90,8 @@ export default async function NewsPage({
               href={buildHref(cat.key ? { category: cat.key, page: '1' } : { page: '1' })}
               style={{
                 padding: '7px 16px', fontSize: '.85rem', fontWeight: 800, whiteSpace: 'nowrap',
-                background: category === cat.key ? 'var(--red)' : '#fff',
-                color:      category === cat.key ? '#fff' : '#3a434d',
+                background: category === cat.key ? 'var(--red)' : 'var(--bg-2)',
+                color:      category === cat.key ? '#fff' : 'var(--text-mid)',
                 border:     `1px solid ${category === cat.key ? 'var(--red)' : 'var(--line)'}`,
                 clipPath:   'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
                 textDecoration: 'none', display: 'inline-block',
@@ -132,8 +132,8 @@ export default async function NewsPage({
                   style={{
                     width: '40px', height: '40px', display: 'grid', placeItems: 'center',
                     fontWeight: 800, fontSize: '.9rem',
-                    background: p === page ? 'var(--red)' : '#fff',
-                    color:      p === page ? '#fff' : '#3a434d',
+                    background: p === page ? 'var(--red)' : 'var(--bg-2)',
+                    color:      p === page ? '#fff' : 'var(--text-mid)',
                     border:     `1px solid ${p === page ? 'var(--red)' : 'var(--line)'}`,
                     clipPath:   'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
                     textDecoration: 'none',

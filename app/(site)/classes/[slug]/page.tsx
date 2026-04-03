@@ -69,7 +69,7 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
                   { v: c.driverCount, l: '드라이버', s: '남녀 통합' },
                   { v: c.carCount ?? (c.teamCount ? Math.round(c.teamCount * 1.05) : undefined), l: '출전 차량', s: '엔트리 기준' },
                 ].filter(s => s.v).map(s => (
-                  <div key={s.l} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '20px', position: 'relative', textAlign: 'center' }}>
+                  <div key={s.l} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '20px', position: 'relative', textAlign: 'center' }}>
                     <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: `linear-gradient(90deg,${color},${color}44 60%,transparent)` }} />
                     <strong style={{ display: 'block', fontSize: 'clamp(1.6rem,3vw,2.4rem)', color, lineHeight: 1, letterSpacing: '-.04em', fontWeight: 950 }}>{s.v}</strong>
                     <span style={{ display: 'block', fontSize: '.85rem', color: 'var(--muted)', marginTop: '6px' }}>{s.l}</span>
@@ -80,7 +80,7 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
 
               {/* 클래스 특성 */}
               {c.features && c.features.length > 0 && (
-                <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
+                <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
                   <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: `linear-gradient(90deg,${color},${color}44 60%,transparent)` }} />
                   <h2 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>클래스 규격</h2>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: '10px' }}>
@@ -95,7 +95,7 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
               )}
 
               {/* 참가 자격 */}
-              <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: `linear-gradient(90deg,${color},${color}44 60%,transparent)` }} />
                 <h2 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>참가 자격</h2>
                 {c.eligibility && c.eligibility.length > 0 ? (
@@ -128,7 +128,7 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
             {/* ── 사이드바 ──────────────────────────────────── */}
             <div style={{ display: 'grid', gap: '16px' }}>
               {/* 참가비 & CTA */}
-              <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: `linear-gradient(90deg,${color},${color}44 60%,transparent)` }} />
                 <h3 style={{ fontSize: '.9rem', marginBottom: '14px' }}>참가비</h3>
                 {c.isFeePublic !== false && c.entryFeePerRound ? (
@@ -160,7 +160,7 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
               </div>
 
               {/* 다른 클래스 */}
-              <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '18px', position: 'relative' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '18px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <h3 style={{ fontSize: '.88rem', marginBottom: '12px', color: 'var(--muted)' }}>다른 클래스</h3>
                 <div style={{ display: 'grid', gap: '6px' }}>

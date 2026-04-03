@@ -1,4 +1,4 @@
-// components/layout/GNB.tsx — v3 Light Theme
+// components/layout/GNB.tsx — v3 Dark Theme
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -144,10 +144,10 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 var(--pad)',
-          background: scrolled ? 'rgba(15,16,18,0.98)' : 'rgba(15,16,18,0.92)',
-          borderBottom: '1px solid var(--line)',
+          background: scrolled ? 'rgba(10,10,10,0.98)' : 'rgba(10,10,10,0.92)',
+          borderBottom: '1px solid #222222',
           backdropFilter: 'blur(16px)',
-          boxShadow: scrolled ? 'var(--sh-md)' : 'none',
+          boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4)' : 'none',
           transition: 'background 0.3s, box-shadow 0.3s',
         }}
       >
@@ -193,10 +193,10 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
                 top: 'calc(100% + 1px)',
                 left: '50%',
                 transform: openDrop === i ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(-6px)',
-                background: 'var(--surface)',
-                border: '1px solid var(--line)',
+                background: '#141414',
+                border: '1px solid #222222',
                 borderTop: '2px solid var(--red)',
-                boxShadow: 'var(--sh-lg)',
+                boxShadow: '0 20px 56px rgba(0,0,0,0.5)',
                 minWidth: '172px',
                 padding: '6px 0',
                 opacity: openDrop === i ? 1 : 0,
@@ -303,7 +303,7 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         position: 'fixed',
         top: '68px',
         left: 0, right: 0, bottom: 0,
-        background: 'var(--surface)',
+        background: '#0a0a0a',
         zIndex: 450,
         padding: '24px var(--pad)',
         flexDirection: 'column' as const,

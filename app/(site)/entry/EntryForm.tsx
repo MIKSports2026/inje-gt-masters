@@ -180,7 +180,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
 
   if (!isOpen) {
     return (
-      <div style={{ padding: '40px', textAlign: 'center', background: '#fff', border: '1px solid var(--line)', clipPath: cut }}>
+      <div style={{ padding: '40px', textAlign: 'center', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut }}>
         <i className="fa-solid fa-clock" style={{ fontSize: '2rem', color: 'var(--red)', marginBottom: '12px', display: 'block' }} />
         <p style={{ fontSize: '1rem', fontWeight: 700 }}>현재 참가 신청 접수 기간이 아닙니다.</p>
       </div>
@@ -190,7 +190,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   // ── 완료 화면 ──────────────────────────────────────────
   if (done) {
     return (
-      <div style={{ padding: '40px', background: '#fff', border: '1px solid var(--line)', clipPath: cut, textAlign: 'center' }}>
+      <div style={{ padding: '40px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, textAlign: 'center' }}>
         <div style={{ width: '64px', height: '64px', margin: '0 auto 16px', borderRadius: '50%', background: 'rgba(34,197,94,.1)', display: 'grid', placeItems: 'center' }}>
           <i className="fa-solid fa-circle-check" style={{ fontSize: '2rem', color: '#16a34a' }} />
         </div>
@@ -220,7 +220,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 14px', fontSize: '.95rem',
-    border: '1px solid var(--line)', background: '#fff',
+    border: '1px solid var(--line)', background: 'var(--bg-2)',
     clipPath: cut, transition: 'border-color .2s',
   }
   const labelStyle: React.CSSProperties = {
@@ -285,7 +285,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
                 return (
                   <button key={c._id} type="button" onClick={() => set('classId', c._id)} style={{
                     padding: '12px', border: sel ? `2px solid ${color}` : '1px solid var(--line)',
-                    background: sel ? `${color}0a` : '#fff', clipPath: cut, cursor: 'pointer',
+                    background: sel ? `${color}0a` : 'var(--bg-2)', clipPath: cut, cursor: 'pointer',
                     textAlign: 'left', transition: 'all .15s',
                   }}>
                     <div style={{ fontSize: '.78rem', fontWeight: 900, color, marginBottom: '4px' }}>{c.classCode}</div>
@@ -312,7 +312,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
                     style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px',
                       padding: '14px 16px', border: sel ? '2px solid var(--red)' : '1px solid var(--line)',
-                      background: sel ? 'rgba(230,0,35,.04)' : '#fff', clipPath: cut, cursor: isEntryOpen ? 'pointer' : 'not-allowed',
+                      background: sel ? 'rgba(230,0,35,.04)' : 'var(--bg-2)', clipPath: cut, cursor: isEntryOpen ? 'pointer' : 'not-allowed',
                       opacity: isEntryOpen ? 1 : 0.55, textAlign: 'left', transition: 'all .15s',
                     }}>
                     <div>
@@ -442,7 +442,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           <div style={{ display: 'flex', gap: '10px' }}>
             <button type="button" onClick={() => { saveDraft(form, 1); setStep(1) }} style={{
               flex: 1, padding: '14px', fontWeight: 700, fontSize: '.95rem',
-              background: '#fff', color: 'var(--text-sub)', border: '1px solid var(--line)',
+              background: 'var(--bg-2)', color: 'var(--text-sub)', border: '1px solid var(--line)',
               clipPath: cut, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
             }}>
               <i className="fa-solid fa-arrow-left" /> 이전
@@ -491,7 +491,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           </div>
 
           {/* 개인정보 동의 */}
-          <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '14px', background: '#fff', border: '1px solid var(--line)', clipPath: cut, cursor: 'pointer' }}>
+          <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '14px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, cursor: 'pointer' }}>
             <input type="checkbox" checked={form.agree} onChange={e => set('agree', e.target.checked)}
               style={{ marginTop: '2px', width: '18px', height: '18px', accentColor: 'var(--red)' }}
             />
@@ -509,7 +509,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           <div style={{ display: 'flex', gap: '10px' }}>
             <button type="button" onClick={() => { saveDraft(form, 2); setStep(2) }} style={{
               flex: 1, padding: '14px', fontWeight: 700, fontSize: '.95rem',
-              background: '#fff', color: 'var(--text-sub)', border: '1px solid var(--line)',
+              background: 'var(--bg-2)', color: 'var(--text-sub)', border: '1px solid var(--line)',
               clipPath: cut, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
             }}>
               <i className="fa-solid fa-arrow-left" /> 이전
