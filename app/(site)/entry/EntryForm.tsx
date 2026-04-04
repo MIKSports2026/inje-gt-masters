@@ -59,7 +59,6 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
   const [done, setDone] = useState(false)
   const [error, setError] = useState('')
 
-  // localStorage 임시저장
   useEffect(() => {
     try {
       const saved = localStorage.getItem(DRAFT_KEY)
@@ -114,17 +113,15 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
   }
 
   if (!isOpen) return (
-    <div style={cardStyle}>
+    <div className="ef-summary" style={{ textAlign: 'center', padding: 40 }}>
       <p style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>현재 참가 신청 접수 기간이 아닙니다.</p>
     </div>
   )
 
   if (done) return (
-    <div style={cardStyle}>
+    <div className="ef-summary" style={{ textAlign: 'center', padding: 40 }}>
       <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: 12 }}>신청이 접수되었습니다</h3>
-      <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-        담당자 검토 후 결제 링크를 이메일로 발송합니다.
-      </p>
+      <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>담당자 검토 후 결제 링크를 이메일로 발송합니다.</p>
     </div>
   )
 
@@ -132,190 +129,156 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
 
   return (
     <div className="ef-card">
-      {/* Card header */}
       <div className="ef-card__head">
         <h3 className="ef-card__head-title">OFFICIAL APPLICATION</h3>
         <span className="ef-card__head-step">{stepLabel}</span>
       </div>
-      {/* Progress bar */}
       <div className="ef-card__progress">
         <div className="ef-card__progress-fill" style={{ width: step === 1 ? '50%' : '100%' }} />
       </div>
-      <div className="ef-card__body">
+      <div className="ef-card__body" key={step}>
 
       {step === 1 && (
-        <div style={{ display: 'grid', gap: 16 }}>
+        <div className="ef-step">
           {/* 참가 정보 */}
-          <fieldset style={fieldsetStyle}><legend style={legendStyle}>참가 정보</legend>
-            <label style={labelStyle}>참가 유형 *</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8 }}>
+          <div className="form-group">
+            <label>ENTRY TYPE *</label>
+            <div className="form-row">
               {([
                 { value: 'round' as const, label: 'ROUND ENTRY', desc: '원하는 라운드 선택 참가' },
                 { value: 'season' as const, label: 'SEASON ENTRY', desc: '2026 시즌 전체 참가' },
               ]).map(opt => (
                 <button key={opt.value} type="button" onClick={() => { set('entryType', opt.value); if (opt.value === 'season') { set('roundId', ''); set('roundLabel', '2026 시즌 전체') } }}
-                  style={{ ...chipStyle, padding: '14px 16px', textAlign: 'left' as const, display: 'flex', flexDirection: 'column' as const, gap: 4, ...(form.entryType === opt.value ? chipActiveStyle : {}) }}>
-                  <span style={{ fontFamily: "'Oswald',sans-serif", fontSize: '.95rem', fontWeight: 700, letterSpacing: '.08em' }}>{opt.label}</span>
-                  <span style={{ fontSize: '.75rem', opacity: .6 }}>{opt.desc}</span>
+                  className={`ef-chip ef-chip--lg ${form.entryType === opt.value ? 'ef-chip--active' : ''}`}>
+                  <strong>{opt.label}</strong>
+                  <span>{opt.desc}</span>
                 </button>
               ))}
             </div>
+          </div>
 
-            {form.entryType === 'round' && (<>
-              <label style={labelStyle}>라운드 선택 *</label>
+          {form.entryType === 'round' && (
+            <div className="form-group">
+              <label>ROUND *</label>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {openRounds.length === 0 && <span style={{ color: 'var(--text-secondary)', fontSize: '.9rem' }}>접수 중인 라운드가 없습니다</span>}
+                {openRounds.length === 0 && <span style={{ color: '#888', fontSize: '.9rem' }}>접수 중인 라운드가 없습니다</span>}
                 {openRounds.map(r => (
                   <button key={r._id} type="button" onClick={() => { set('roundId', r._id); set('roundLabel', `R${r.roundNumber} ${r.title}`) }}
-                    style={{ ...chipStyle, ...(form.roundId === r._id ? chipActiveStyle : {}) }}>
+                    className={`ef-chip ${form.roundId === r._id ? 'ef-chip--active' : ''}`}>
                     R{r.roundNumber} — {r.title}
-                </button>
-              ))}
+                  </button>
+                ))}
               </div>
-            </>)}
+            </div>
+          )}
 
-            <label style={labelStyle}>클래스 *</label>
+          <div className="form-group">
+            <label>RACING CLASS *</label>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               {CLASSES.map(c => (
                 <button key={c} type="button" onClick={() => set('className', c)}
-                  style={{ ...chipStyle, ...(form.className === c ? chipActiveStyle : {}) }}>
+                  className={`ef-chip ${form.className === c ? 'ef-chip--active' : ''}`}>
                   {c}
                 </button>
               ))}
             </div>
+          </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <div>
-                <label style={labelStyle}>팀명 *</label>
-                <input style={inputStyle} placeholder="팀명 (없으면 '없음')" value={form.teamName} onChange={e => set('teamName', e.target.value)} />
-              </div>
-              <div>
-                <label style={labelStyle}>차량 *</label>
-                <input style={inputStyle} placeholder="제조사 / 모델" value={form.carModel} onChange={e => set('carModel', e.target.value)} />
-              </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>TEAM NAME *</label>
+              <input type="text" placeholder="팀이 없는 경우 '없음' 기재" value={form.teamName} onChange={e => set('teamName', e.target.value)} />
             </div>
-          </fieldset>
+            <div className="form-group">
+              <label>VEHICLE *</label>
+              <input type="text" placeholder="제조사 / 모델" value={form.carModel} onChange={e => set('carModel', e.target.value)} />
+            </div>
+          </div>
 
           {/* 드라이버 1 */}
-          <fieldset style={fieldsetStyle}><legend style={legendStyle}>드라이버 1 — 대표</legend>
-            <DriverFields driver={form.drivers[0]} idx={0} setDriver={setDriver} showContact />
-          </fieldset>
+          <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
+            <label>DRIVER 1 — 대표</label>
+          </div>
+          <DriverFields driver={form.drivers[0]} idx={0} setDriver={setDriver} showContact />
 
           {/* 드라이버 2 */}
-          {form.showDriver2 ? (
-            <fieldset style={fieldsetStyle}><legend style={legendStyle}>드라이버 2</legend>
-              <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver} />
-              <button type="button" onClick={() => { set('showDriver2', false); set('showDriver3', false) }} style={{ ...chipStyle, marginTop: 8, color: '#E60023' }}>- 드라이버 2 제거</button>
-            </fieldset>
-          ) : (
-            <button type="button" onClick={() => set('showDriver2', true)} style={{ ...chipStyle, color: 'var(--primary-red)' }}>+ 드라이버 2 추가</button>
+          {form.showDriver2 ? (<>
+            <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
+              <label>DRIVER 2</label>
+            </div>
+            <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver} />
+            <button type="button" onClick={() => { set('showDriver2', false); set('showDriver3', false) }} className="ef-chip" style={{ color: '#E60023', alignSelf: 'flex-start' }}>- 드라이버 2 제거</button>
+          </>) : (
+            <button type="button" onClick={() => set('showDriver2', true)} className="ef-chip" style={{ color: 'var(--primary-red)', alignSelf: 'flex-start' }}>+ 드라이버 2 추가</button>
           )}
 
           {/* 드라이버 3 */}
           {form.showDriver2 && (
-            form.showDriver3 ? (
-              <fieldset style={fieldsetStyle}><legend style={legendStyle}>드라이버 3</legend>
-                <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver} />
-                <button type="button" onClick={() => set('showDriver3', false)} style={{ ...chipStyle, marginTop: 8, color: '#E60023' }}>- 드라이버 3 제거</button>
-              </fieldset>
-            ) : (
-              <button type="button" onClick={() => set('showDriver3', true)} style={{ ...chipStyle, color: 'var(--primary-red)' }}>+ 드라이버 3 추가</button>
+            form.showDriver3 ? (<>
+              <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
+                <label>DRIVER 3</label>
+              </div>
+              <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver} />
+              <button type="button" onClick={() => set('showDriver3', false)} className="ef-chip" style={{ color: '#E60023', alignSelf: 'flex-start' }}>- 드라이버 3 제거</button>
+            </>) : (
+              <button type="button" onClick={() => set('showDriver3', true)} className="ef-chip" style={{ color: 'var(--primary-red)', alignSelf: 'flex-start' }}>+ 드라이버 3 추가</button>
             )
           )}
 
           {/* 동의 */}
-          <fieldset style={fieldsetStyle}><legend style={legendStyle}>동의</legend>
-            <label style={{ display: 'flex', gap: 8, alignItems: 'flex-start', cursor: 'pointer', fontSize: '.88rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              <input type="checkbox" checked={form.agreedRules} onChange={e => set('agreedRules', e.target.checked)} style={{ marginTop: 3, accentColor: '#E60023' }} />
-              <span>대회 규정 및 참가 조건에 동의합니다. <Link href="/entry/rules" style={{ color: '#E60023' }}>규정 보기</Link></span>
+          <div className="form-agreements">
+            <label className="ef-checkbox">
+              <input type="checkbox" checked={form.agreedRules} onChange={e => set('agreedRules', e.target.checked)} />
+              <span className="ef-checkmark" />
+              대회 규정 및 참가 조건에 동의합니다. <Link href="/entry/rules" style={{ color: '#E60023', marginLeft: 4 }}>규정 보기</Link>
             </label>
-            <label style={{ display: 'flex', gap: 8, alignItems: 'flex-start', cursor: 'pointer', fontSize: '.88rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginTop: 8 }}>
-              <input type="checkbox" checked={form.agreedPrivacy} onChange={e => set('agreedPrivacy', e.target.checked)} style={{ marginTop: 3, accentColor: '#E60023' }} />
-              <span>개인정보 수집 및 이용에 동의합니다.</span>
+            <label className="ef-checkbox">
+              <input type="checkbox" checked={form.agreedPrivacy} onChange={e => set('agreedPrivacy', e.target.checked)} />
+              <span className="ef-checkmark" />
+              개인정보 수집 및 이용에 동의합니다.
             </label>
-          </fieldset>
+          </div>
 
-          <button type="button" disabled={!step1Valid} onClick={() => setStep(2)}
-            style={{ ...btnStyle, background: step1Valid ? '#E60023' : '#333', cursor: step1Valid ? 'pointer' : 'not-allowed' }}>
-            다음: 확인 및 제출 →
+          <button type="button" disabled={!step1Valid} onClick={() => setStep(2)} className="ef-btn-submit">
+            NEXT STEP
           </button>
         </div>
       )}
 
       {step === 2 && (
-        <div style={{ display: 'grid', gap: 16 }}>
-          <div style={cardStyle}>
-            <h3 style={{ fontSize: '1rem', color: 'var(--text-primary)', marginBottom: 16 }}>신청 내용 확인</h3>
+        <div className="ef-step">
+          <div className="ef-summary">
+            <h4 className="ef-summary__title">APPLICATION SUMMARY</h4>
             {[
-              ['참가유형', form.entryType === 'season' ? '시즌 전체' : '라운드'],
-              ['라운드', form.entryType === 'season' ? '2026 시즌 전체' : form.roundLabel],
-              ['클래스', form.className],
-              ['팀명', form.teamName],
-              ['차량', form.carModel],
-              ['드라이버 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType} / ${d1.phone} / ${d1.email}`],
-              ...(form.showDriver2 && form.drivers[1].name ? [['드라이버 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`]] : []),
-              ...(form.showDriver3 && form.drivers[2].name ? [['드라이버 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
-              ...(form.className ? [['참가비', FEE[form.className]?.[form.entryType] ?? '—']] : []),
+              ['ENTRY TYPE', form.entryType === 'season' ? '시즌 전체' : '라운드'],
+              ['ROUND', form.entryType === 'season' ? '2026 시즌 전체' : form.roundLabel],
+              ['CLASS', form.className],
+              ['TEAM', form.teamName],
+              ['VEHICLE', form.carModel],
+              ['DRIVER 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType}`],
+              ...(form.showDriver2 && form.drivers[1].name ? [['DRIVER 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`]] : []),
+              ...(form.showDriver3 && form.drivers[2].name ? [['DRIVER 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
+              ...(form.className ? [['ENTRY FEE', FEE[form.className]?.[form.entryType] ?? '—']] : []),
             ].map(([l, v], i) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,.06)', gap: 12 }}>
-                <span style={{ fontSize: '.82rem', color: 'var(--text-secondary)', minWidth: 80 }}>{l}</span>
-                <span style={{ fontSize: '.88rem', color: 'var(--text-primary)', textAlign: 'right' }}>{v}</span>
+              <div key={i} className="ef-summary__row">
+                <span className="ef-summary__label">{l}</span>
+                <span className="ef-summary__value">{v}</span>
               </div>
             ))}
           </div>
 
           {error && <div style={{ padding: '12px 16px', background: 'rgba(230,0,35,.08)', border: '1px solid rgba(230,0,35,.2)', fontSize: '.88rem', color: '#E60023' }}>{error}</div>}
 
-          <div style={{ display: 'flex', gap: 10 }}>
-            <button type="button" onClick={() => setStep(1)} style={{ ...btnStyle, flex: 1, background: 'transparent', border: '2px solid rgba(255,255,255,.15)', color: '#fff' }}>← BACK</button>
-            <button type="button" disabled={submitting} onClick={handleSubmit} style={{ ...btnStyle, flex: 2, background: submitting ? '#333' : '#E60023' }}>
-              {submitting ? '제출 중...' : '참가 신청 제출'}
+          <div className="ef-step2-actions">
+            <button type="button" onClick={() => setStep(1)} className="ef-btn-back">← BACK</button>
+            <button type="button" disabled={submitting} onClick={handleSubmit} className="ef-btn-submit">
+              {submitting ? 'PROCESSING...' : 'SUBMIT APPLICATION'}
             </button>
           </div>
         </div>
       )}
-      </div>{/* ef-card__body */}
 
-      <style>{`
-        .ef-card {
-          background: #0b0b0b;
-          border-top: 1px solid rgba(255,255,255,.1);
-          box-shadow: 0 20px 50px rgba(0,0,0,.5);
-          position: relative;
-          clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
-        }
-        .ef-card::before {
-          content: ''; position: absolute; top: 0; left: 0;
-          width: 100%; height: 3px;
-          background: linear-gradient(90deg, var(--primary-red, #E60023), transparent);
-        }
-        .ef-card__head {
-          padding: 30px 40px; border-bottom: 1px solid rgba(255,255,255,.05);
-          display: flex; justify-content: space-between; align-items: center;
-          background: #111;
-        }
-        .ef-card__head-title {
-          font-family: var(--font-heading, 'Oswald'); font-size: 1.5rem;
-          letter-spacing: 2px; color: #fff; margin: 0;
-        }
-        .ef-card__head-step {
-          font-family: var(--font-heading, 'Oswald');
-          color: var(--primary-red); font-weight: 700; letter-spacing: 2px;
-        }
-        .ef-card__progress { width: 100%; height: 2px; background: rgba(255,255,255,.1); }
-        .ef-card__progress-fill {
-          height: 100%; background: var(--primary-red);
-          transition: width .4s cubic-bezier(.25,1,.5,1);
-        }
-        .ef-card__body { padding: 40px; display: flex; flex-direction: column; gap: 24px; }
-
-        @media (max-width: 768px) {
-          .ef-card { clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
-          .ef-card__head { padding: 20px 24px; }
-          .ef-card__head-title { font-size: 1.1rem; }
-          .ef-card__body { padding: 24px; }
-        }
-      `}</style>
+      </div>
     </div>
   )
 }
@@ -325,35 +288,39 @@ function DriverFields({ driver, idx, setDriver, showContact }: {
   setDriver: (idx: number, field: keyof Driver, val: string) => void;
   showContact?: boolean;
 }) {
-  return (
-    <div style={{ display: 'grid', gap: 10 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
-        <div><label style={labelStyle}>이름 *</label><input style={inputStyle} value={driver.name} onChange={e => setDriver(idx, 'name', e.target.value)} /></div>
-        <div><label style={labelStyle}>생년월일</label><input style={inputStyle} type="date" value={driver.birthDate} onChange={e => setDriver(idx, 'birthDate', e.target.value)} /></div>
-        <div>
-          <label style={labelStyle}>혈액형</label>
-          <select style={inputStyle} value={driver.bloodType} onChange={e => setDriver(idx, 'bloodType', e.target.value)}>
-            <option value="">선택</option>
-            {BLOOD.map(b => <option key={b} value={b}>{b}형</option>)}
-          </select>
+  return (<>
+    <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+      <div className="form-group">
+        <label>NAME *</label>
+        <input type="text" value={driver.name} onChange={e => setDriver(idx, 'name', e.target.value)} />
+      </div>
+      <div className="form-group">
+        <label>DATE OF BIRTH</label>
+        <input type="date" value={driver.birthDate} onChange={e => setDriver(idx, 'birthDate', e.target.value)} />
+      </div>
+      <div className="form-group">
+        <label>BLOOD TYPE</label>
+        <select value={driver.bloodType} onChange={e => setDriver(idx, 'bloodType', e.target.value)}>
+          <option value="">선택</option>
+          {BLOOD.map(b => <option key={b} value={b}>{b}형</option>)}
+        </select>
+      </div>
+    </div>
+    {showContact && (
+      <div className="form-row">
+        <div className="form-group">
+          <label>CONTACT *</label>
+          <input type="text" placeholder="010-0000-0000" value={driver.phone} onChange={e => setDriver(idx, 'phone', e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label>EMAIL *</label>
+          <input type="email" placeholder="driver@example.com" value={driver.email} onChange={e => setDriver(idx, 'email', e.target.value)} />
         </div>
       </div>
-      {showContact && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          <div><label style={labelStyle}>연락처 *</label><input style={inputStyle} placeholder="010-0000-0000" value={driver.phone} onChange={e => setDriver(idx, 'phone', e.target.value)} /></div>
-          <div><label style={labelStyle}>이메일 *</label><input style={inputStyle} type="email" value={driver.email} onChange={e => setDriver(idx, 'email', e.target.value)} /></div>
-        </div>
-      )}
-      <div><label style={labelStyle}>KARA 라이선스</label><input style={inputStyle} placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} /></div>
+    )}
+    <div className="form-group">
+      <label>KARA LICENSE</label>
+      <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} />
     </div>
-  )
+  </>)
 }
-
-const cardStyle: React.CSSProperties = { padding: 25, background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.1)' }
-const fieldsetStyle: React.CSSProperties = { border: 'none', padding: 0, margin: 0 }
-const legendStyle: React.CSSProperties = { fontFamily: "var(--font-heading, 'Oswald')", fontSize: '.85rem', fontWeight: 700, letterSpacing: '1px', color: '#888', textTransform: 'uppercase', padding: 0, marginBottom: 16 }
-const labelStyle: React.CSSProperties = { display: 'block', fontFamily: "var(--font-heading, 'Oswald')", fontSize: '.85rem', color: '#888', letterSpacing: '1px', marginBottom: 8, marginTop: 16 }
-const inputStyle: React.CSSProperties = { width: '100%', padding: '16px 20px', fontSize: '1rem', border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)', color: '#fff', borderRadius: 0, transition: 'all .3s ease', outline: 'none' }
-const chipStyle: React.CSSProperties = { padding: '12px 20px', fontSize: '.85rem', fontWeight: 600, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)', color: '#aaa', cursor: 'pointer', fontFamily: "var(--font-heading, 'Oswald')", letterSpacing: '1px', transition: 'all .3s ease' }
-const chipActiveStyle: React.CSSProperties = { borderColor: '#E60023', color: '#fff', background: 'rgba(230,0,35,.1)' }
-const btnStyle: React.CSSProperties = { padding: '25px 0', fontFamily: "var(--font-heading, 'Oswald')", fontSize: '1.3rem', fontWeight: 700, letterSpacing: '4px', textTransform: 'uppercase', color: '#fff', border: 'none', cursor: 'pointer', clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)', transition: 'all .3s ease' }
