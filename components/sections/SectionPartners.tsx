@@ -70,7 +70,7 @@ export default function SectionPartners({ partners }: Props) {
         }
         .ptn__logo-img {
           filter: grayscale(100%); opacity: .5;
-          transition: filter .3s, opacity .3s;
+          transition: filter .3s ease, opacity .3s ease;
         }
         .ptn__card:hover .ptn__logo-img {
           filter: grayscale(0%); opacity: 1;
@@ -93,7 +93,6 @@ export default function SectionPartners({ partners }: Props) {
           min-width: 160px; transition: background .2s;
         }
         .ptn__card:hover { background: #1a1a1a; }
-        .ptn__card:hover img { opacity: 0.9 !important; }
         .ptn__tier {
           font-family: 'Oswald', sans-serif; font-size: .6rem; font-weight: 600;
           letter-spacing: .15em; text-transform: uppercase;
