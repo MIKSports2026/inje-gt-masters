@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { Round } from '@/types/sanity'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 type RoundStatus = 'upcoming' | 'entry_open' | 'entry_closed' | 'ongoing' | 'finished'
 
@@ -32,11 +33,7 @@ export default function SectionRound({ rounds }: Props) {
   return (
     <section className="rnd" id="rounds">
       <div className="rnd__hd">
-        <div>
-          <div className="rnd__kicker"><span className="rnd__kicker-line" />2026 SEASON</div>
-          <h2 className="rnd__title">ROUNDS</h2>
-        </div>
-        <div className="rnd__badge">5 ROUNDS</div>
+        <SectionHeader subtitle="2026 SEASON" title="RACE ROUNDS" />
       </div>
 
       <div className="rnd__acc">
@@ -101,21 +98,6 @@ export default function SectionRound({ rounds }: Props) {
         .rnd__hd {
           max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
           display: flex; align-items: flex-end; justify-content: space-between;
-        }
-        .rnd__kicker {
-          font-family: 'Oswald',sans-serif; font-size: 1.2rem; font-weight: 600;
-          letter-spacing: .2em; color: #E60023;
-          display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
-        }
-        .rnd__kicker-line { width: 28px; height: 2px; background: #E60023; }
-        .rnd__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(1.62rem,3.15vw,2.52rem);
-          font-weight: 900; letter-spacing: -.03em; color: #fff; margin: 0;
-        }
-        .rnd__badge {
-          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 600;
-          letter-spacing: .15em; color: rgba(255,255,255,.25);
-          border: 1px solid rgba(255,255,255,.08); padding: 5px 14px;
         }
 
         /* ── Accordion ── */

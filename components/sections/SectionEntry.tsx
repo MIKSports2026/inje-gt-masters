@@ -2,6 +2,7 @@
 // components/sections/SectionEntry.tsx — v3 2-col with class image grid
 import Link from 'next/link'
 import type { SiteSettings, ClassInfo } from '@/types/sanity'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 interface Props {
   settings: SiteSettings | null
@@ -29,15 +30,7 @@ export default function SectionEntry({ settings, classes }: Props) {
 
           {/* 좌측 */}
           <div>
-            <div className="sec-ey">ENTRY INFORMATION</div>
-            <h2 id="entry-ttl" style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(40px, 5vw, 64px)',
-              letterSpacing: '3px', color: 'var(--navy)',
-              lineHeight: 0.9, marginBottom: '18px',
-            }}>
-              참가<br /><span style={{ color: 'var(--red)' }}>신청</span>
-            </h2>
+            <SectionHeader subtitle="JOIN THE RACE" title="ENTRY" />
             <p style={{ fontSize: '18px', lineHeight: 2, color: 'var(--text-mid)', marginBottom: '16px', wordBreak: 'keep-all' }}>
               대한민국에서 가장 오래 달리고, 부담 없이 진짜답게 참여하며, 가장 자유롭게 개조할 수 있는 GT 내구레이스. 아마추어부터 프로까지 — 당신의 한계를 시험하세요.
             </p>

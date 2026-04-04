@@ -2,6 +2,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 const classes = [
   { id: 1, name: 'MASTER 1', type: 'GT1', eligibility: '2,000cc 이하 터보 / 3,800cc 이하 NA' },
@@ -16,11 +17,7 @@ export default function SectionClass() {
   return (
     <section className="cls" id="classes">
       <div className="cls__hd">
-        <div>
-          <div className="cls__kicker"><span className="cls__kicker-line" />RACE CLASSES</div>
-          <h2 className="cls__title">CLASS INFO</h2>
-        </div>
-        <div className="cls__badge">4 CLASSES</div>
+        <SectionHeader subtitle="PARTICIPATE" title="CLASSES" />
       </div>
 
       <div className="cls__acc">
@@ -86,21 +83,6 @@ export default function SectionClass() {
         .cls__hd {
           max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
           display: flex; align-items: flex-end; justify-content: space-between;
-        }
-        .cls__kicker {
-          font-family: 'Oswald',sans-serif; font-size: 1.2rem; font-weight: 600;
-          letter-spacing: .2em; color: #E60023; display: flex; align-items: center; gap: 10px;
-          margin-bottom: 8px;
-        }
-        .cls__kicker-line { width: 28px; height: 2px; background: #E60023; }
-        .cls__title {
-          font-family: 'Oswald',sans-serif; font-size: clamp(1.62rem,3.15vw,2.52rem);
-          font-weight: 700; letter-spacing: .04em; color: #fff; line-height: 1; margin: 0;
-        }
-        .cls__badge {
-          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 600;
-          letter-spacing: .15em; color: rgba(255,255,255,.25);
-          border: 1px solid rgba(255,255,255,.08); padding: 5px 14px;
         }
 
         .cls__acc {

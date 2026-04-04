@@ -2,6 +2,7 @@
 'use client'
 import Image from 'next/image'
 import type { Partner } from '@/types/sanity'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 interface Props { partners: Partner[] }
 
@@ -27,10 +28,7 @@ export default function SectionPartners({ partners }: Props) {
   return (
     <section className="ptn" id="partners">
       <div className="ptn__inner">
-        <div className="ptn__kicker">
-          <span className="ptn__kicker-line" />
-          PARTNERS &amp; SPONSORS
-        </div>
+        <SectionHeader subtitle="SUPPORTED BY" title="PARTNERS" />
 
         <div className="ptn__grid">
           {list.map((p) => {
@@ -76,13 +74,6 @@ export default function SectionPartners({ partners }: Props) {
           filter: grayscale(0%); opacity: 1;
         }
         .ptn__inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-        .ptn__kicker {
-          font-family: 'Oswald', sans-serif; font-size: .85rem; font-weight: 600;
-          letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.3);
-          display: flex; align-items: center; gap: 10px;
-          margin-bottom: 36px; text-align: center; justify-content: center;
-        }
-        .ptn__kicker-line { display: inline-block; width: 24px; height: 1px; background: rgba(255,255,255,.15); }
         .ptn__grid {
           display: flex; flex-wrap: wrap; justify-content: center; gap: 2px;
         }

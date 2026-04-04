@@ -2,6 +2,7 @@
 // components/sections/SectionMedia.tsx — v3 mosaic grid
 import Link from 'next/link'
 import type { Media, Post } from '@/types/sanity'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 interface Props {
   media: Media[]
@@ -22,13 +23,7 @@ export default function SectionMedia({ media }: Props) {
   return (
     <section className="sec sec-dark" id="media" aria-labelledby="med-ttl">
       <div className="inner">
-        <div className="sec-hd">
-          <div>
-            <div className="sec-ey">PHOTO &amp; VIDEO</div>
-            <h2 className="sec-ttl" id="med-ttl">Media Gallery</h2>
-          </div>
-          <Link href="/media" className="sec-more">전체 갤러리</Link>
-        </div>
+        <SectionHeader subtitle="LATEST" title="MEDIA" />
 
         {items.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--text-sub)' }}>

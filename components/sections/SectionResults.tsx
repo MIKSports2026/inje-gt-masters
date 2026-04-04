@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { Round, Post } from '@/types/sanity'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 interface Props {
   rounds: Round[]
@@ -22,13 +23,7 @@ export default function SectionResults({ rounds, posts = [] }: Props) {
   return (
     <section className="sec" id="results" aria-labelledby="res-ttl" style={{ background: 'var(--bg-carbon-light, #1a1a1a)' }}>
       <div className="inner">
-        <div className="sec-hd">
-          <div>
-            <div className="sec-ey">2025 FINAL STANDINGS</div>
-            <h2 className="sec-ttl" id="res-ttl" style={{ color: 'var(--text-primary, #fff)' }}>Race Results</h2>
-          </div>
-          <Link href="/results" className="sec-more">전체 결과</Link>
-        </div>
+        <SectionHeader subtitle="2026 SEASON" title="RESULTS" />
 
         <div className="results-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 288px', gap: '48px' }}>
 
