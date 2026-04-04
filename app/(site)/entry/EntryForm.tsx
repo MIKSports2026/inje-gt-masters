@@ -32,6 +32,7 @@ interface FormState {
   roundId: string; roundLabel: string; className: string;
   teamName: string; carModel: string;
   drivers: Driver[];
+  showDriver2: boolean;
   showDriver3: boolean;
   agreedRules: boolean; agreedPrivacy: boolean;
 }
@@ -41,7 +42,7 @@ const init = (): FormState => ({
   roundId: '', roundLabel: '', className: '',
   teamName: '', carModel: '',
   drivers: [emptyDriver(), emptyDriver(), emptyDriver()],
-  showDriver3: false, agreedRules: false, agreedPrivacy: false,
+  showDriver2: false, showDriver3: false, agreedRules: false, agreedPrivacy: false,
 })
 
 export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props) {
@@ -84,13 +85,13 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
   const roundOk = form.entryType === 'season' || form.roundId
   const step1Valid = roundOk && form.className && form.teamName.length >= 1 && form.carModel.length >= 1
     && d1.name.length >= 2 && d1.birthDate && d1.bloodType && d1.phone && d1.email
-    && form.drivers[1].name.length >= 2
     && form.agreedRules && form.agreedPrivacy
 
   async function handleSubmit() {
     setSubmitting(true); setError('')
     try {
-      const driversToSend = form.drivers.slice(0, form.showDriver3 ? 3 : 2).filter(d => d.name)
+      const maxDrivers = form.showDriver3 ? 3 : form.showDriver2 ? 2 : 1
+      const driversToSend = form.drivers.slice(0, maxDrivers).filter(d => d.name)
       const res = await fetch('/api/entry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -201,18 +202,25 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
           </fieldset>
 
           {/* 드라이버 2 */}
-          <fieldset style={fieldsetStyle}><legend style={legendStyle}>드라이버 2</legend>
-            <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver} />
-          </fieldset>
-
-          {/* 드라이버 3 */}
-          {form.showDriver3 ? (
-            <fieldset style={fieldsetStyle}><legend style={legendStyle}>드라이버 3</legend>
-              <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver} />
-              <button type="button" onClick={() => set('showDriver3', false)} style={{ ...chipStyle, marginTop: 8, color: '#E60023' }}>- 드라이버 3 제거</button>
+          {form.showDriver2 ? (
+            <fieldset style={fieldsetStyle}><legend style={legendStyle}>드라이버 2</legend>
+              <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver} />
+              <button type="button" onClick={() => { set('showDriver2', false); set('showDriver3', false) }} style={{ ...chipStyle, marginTop: 8, color: '#E60023' }}>- 드라이버 2 제거</button>
             </fieldset>
           ) : (
-            <button type="button" onClick={() => set('showDriver3', true)} style={{ ...chipStyle, color: 'var(--primary-red)' }}>+ 드라이버 3 추가</button>
+            <button type="button" onClick={() => set('showDriver2', true)} style={{ ...chipStyle, color: 'var(--primary-red)' }}>+ 드라이버 2 추가</button>
+          )}
+
+          {/* 드라이버 3 */}
+          {form.showDriver2 && (
+            form.showDriver3 ? (
+              <fieldset style={fieldsetStyle}><legend style={legendStyle}>드라이버 3</legend>
+                <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver} />
+                <button type="button" onClick={() => set('showDriver3', false)} style={{ ...chipStyle, marginTop: 8, color: '#E60023' }}>- 드라이버 3 제거</button>
+              </fieldset>
+            ) : (
+              <button type="button" onClick={() => set('showDriver3', true)} style={{ ...chipStyle, color: 'var(--primary-red)' }}>+ 드라이버 3 추가</button>
+            )
           )}
 
           {/* 동의 */}
@@ -245,7 +253,7 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
               ['팀명', form.teamName],
               ['차량', form.carModel],
               ['드라이버 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType} / ${d1.phone} / ${d1.email}`],
-              ['드라이버 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`],
+              ...(form.showDriver2 && form.drivers[1].name ? [['드라이버 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`]] : []),
               ...(form.showDriver3 && form.drivers[2].name ? [['드라이버 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
               ...(form.className ? [['참가비', FEE[form.className]?.[form.entryType] ?? '—']] : []),
             ].map(([l, v], i) => (
