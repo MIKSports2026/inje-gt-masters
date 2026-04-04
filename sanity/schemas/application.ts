@@ -6,6 +6,13 @@ export default defineType({
   title: '참가신청',
   type: 'document',
   fields: [
+    defineField({
+      name: 'entryType',
+      title: '참가 유형',
+      type: 'string',
+      options: { list: [{ title: '라운드', value: 'round' }, { title: '시즌', value: 'season' }] },
+      initialValue: 'round',
+    }),
     defineField({ name: 'roundId', title: '라운드', type: 'reference', to: [{ type: 'round' }] }),
     defineField({ name: 'roundLabel', title: '라운드명', type: 'string' }),
     defineField({ name: 'className', title: '클래스', type: 'string' }),

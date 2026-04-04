@@ -19,15 +19,16 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
     const {
-      roundId, roundLabel, className, teamName, carModel,
+      entryType, roundId, roundLabel, className, teamName, carModel,
       drivers, contactPhone, contactEmail,
-      agreedRules, agreedPrivacy,
+      agreedRules, agreedPrivacy, entryFee,
     } = body as {
-      roundId?: string; roundLabel: string; className: string;
+      entryType: 'round' | 'season'; roundId?: string; roundLabel: string; className: string;
       teamName: string; carModel: string;
       drivers: Driver[]; contactPhone: string; contactEmail: string;
-      agreedRules: boolean; agreedPrivacy: boolean;
+      agreedRules: boolean; agreedPrivacy: boolean; entryFee?: string;
     }
+    const entryTypeLabel = entryType === 'season' ? '시즌 전체' : '라운드'
 
     const d1 = drivers[0] ?? {} as Driver
     const d2 = drivers[1] ?? {} as Driver
@@ -48,6 +49,7 @@ export async function POST(req: Request) {
           mutations: [{
             create: {
               _type: 'application',
+              entryType,
               ...(roundId ? { roundId: { _type: 'reference', _ref: roundId } } : {}),
               roundLabel,
               className,
@@ -88,11 +90,11 @@ export async function POST(req: Request) {
         const sheets = google.sheets({ version: 'v4', auth })
         await sheets.spreadsheets.values.append({
           spreadsheetId: sheetId,
-          range: 'Sheet1!A:R',
+          range: 'Sheet1!A:T',
           valueInputOption: 'USER_ENTERED',
           requestBody: {
             values: [[
-              roundLabel, className, teamName, carModel,
+              entryTypeLabel, roundLabel, className, teamName, carModel,
               d1.name ?? '', d1.birthDate ?? '', d1.bloodType ?? '', d1.phone ?? contactPhone, d1.email ?? contactEmail, d1.karaLicense ?? '',
               d2.name ?? '', d2.birthDate ?? '', d2.bloodType ?? '', d2.karaLicense ?? '',
               d3.name ?? '', d3.birthDate ?? '', d3.bloodType ?? '', d3.karaLicense ?? '',
@@ -129,6 +131,7 @@ export async function POST(req: Request) {
         <tr><td style="padding:24px 40px;">
           <table width="100%" cellpadding="0" cellspacing="0">
             ${[
+              ['참가유형', entryTypeLabel],
               ['라운드', roundLabel],
               ['클래스', className],
               ['팀명', teamName],
@@ -164,6 +167,7 @@ export async function POST(req: Request) {
           <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border:1px solid #eee;">
             <tr><td colspan="2" style="padding:10px 16px;background:#E60023;font-size:12px;font-weight:800;color:#fff;letter-spacing:2px;">신청 내용</td></tr>
             ${[
+              ['참가유형', entryTypeLabel],
               ['라운드', roundLabel],
               ['클래스', className],
               ['팀명', teamName],

@@ -20,7 +20,15 @@ interface Driver {
 }
 const emptyDriver = (): Driver => ({ name: '', birthDate: '', bloodType: '', phone: '', email: '', karaLicense: '' })
 
+const FEE: Record<string, { round: string; season: string }> = {
+  'Master 1': { round: '700,000원', season: '3,000,000원' },
+  'Master 2': { round: '600,000원', season: '2,500,000원' },
+  'Master N': { round: '600,000원', season: '2,500,000원' },
+  'Master 3': { round: '500,000원', season: '2,000,000원' },
+}
+
 interface FormState {
+  entryType: 'round' | 'season';
   roundId: string; roundLabel: string; className: string;
   teamName: string; carModel: string;
   drivers: Driver[];
@@ -29,6 +37,7 @@ interface FormState {
 }
 
 const init = (): FormState => ({
+  entryType: 'round',
   roundId: '', roundLabel: '', className: '',
   teamName: '', carModel: '',
   drivers: [emptyDriver(), emptyDriver(), emptyDriver()],
@@ -72,7 +81,8 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
   const openRounds = rounds.filter(r => r.status === 'entry_open')
   const d1 = form.drivers[0]
 
-  const step1Valid = form.roundId && form.className && form.teamName.length >= 1 && form.carModel.length >= 1
+  const roundOk = form.entryType === 'season' || form.roundId
+  const step1Valid = roundOk && form.className && form.teamName.length >= 1 && form.carModel.length >= 1
     && d1.name.length >= 2 && d1.birthDate && d1.bloodType && d1.phone && d1.email
     && form.drivers[1].name.length >= 2
     && form.agreedRules && form.agreedPrivacy
@@ -85,11 +95,14 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          roundId: form.roundId, roundLabel: form.roundLabel,
+          entryType: form.entryType,
+          roundId: form.entryType === 'round' ? form.roundId : undefined,
+          roundLabel: form.entryType === 'season' ? '2026 시즌 전체' : form.roundLabel,
           className: form.className, teamName: form.teamName, carModel: form.carModel,
           drivers: driversToSend,
           contactPhone: d1.phone, contactEmail: d1.email,
           agreedRules: form.agreedRules, agreedPrivacy: form.agreedPrivacy,
+          entryFee: form.className ? FEE[form.className]?.[form.entryType] : undefined,
         }),
       })
       if (!res.ok) throw new Error('서버 오류')
@@ -124,16 +137,32 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
         <div style={{ display: 'grid', gap: 16 }}>
           {/* 참가 정보 */}
           <fieldset style={fieldsetStyle}><legend style={legendStyle}>참가 정보</legend>
-            <label style={labelStyle}>라운드 *</label>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {openRounds.length === 0 && <span style={{ color: 'var(--text-secondary)', fontSize: '.9rem' }}>접수 중인 라운드가 없습니다</span>}
-              {openRounds.map(r => (
-                <button key={r._id} type="button" onClick={() => { set('roundId', r._id); set('roundLabel', `R${r.roundNumber} ${r.title}`) }}
-                  style={{ ...chipStyle, ...(form.roundId === r._id ? chipActiveStyle : {}) }}>
-                  R{r.roundNumber} — {r.title}
+            <label style={labelStyle}>참가 유형 *</label>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8 }}>
+              {([
+                { value: 'round' as const, label: 'ROUND ENTRY', desc: '원하는 라운드 선택 참가' },
+                { value: 'season' as const, label: 'SEASON ENTRY', desc: '2026 시즌 전체 참가' },
+              ]).map(opt => (
+                <button key={opt.value} type="button" onClick={() => { set('entryType', opt.value); if (opt.value === 'season') { set('roundId', ''); set('roundLabel', '2026 시즌 전체') } }}
+                  style={{ ...chipStyle, padding: '14px 16px', textAlign: 'left' as const, display: 'flex', flexDirection: 'column' as const, gap: 4, ...(form.entryType === opt.value ? chipActiveStyle : {}) }}>
+                  <span style={{ fontFamily: "'Oswald',sans-serif", fontSize: '.95rem', fontWeight: 700, letterSpacing: '.08em' }}>{opt.label}</span>
+                  <span style={{ fontSize: '.75rem', opacity: .6 }}>{opt.desc}</span>
                 </button>
               ))}
             </div>
+
+            {form.entryType === 'round' && (<>
+              <label style={labelStyle}>라운드 선택 *</label>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {openRounds.length === 0 && <span style={{ color: 'var(--text-secondary)', fontSize: '.9rem' }}>접수 중인 라운드가 없습니다</span>}
+                {openRounds.map(r => (
+                  <button key={r._id} type="button" onClick={() => { set('roundId', r._id); set('roundLabel', `R${r.roundNumber} ${r.title}`) }}
+                    style={{ ...chipStyle, ...(form.roundId === r._id ? chipActiveStyle : {}) }}>
+                    R{r.roundNumber} — {r.title}
+                </button>
+              ))}
+              </div>
+            </>)}
 
             <label style={labelStyle}>클래스 *</label>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -201,13 +230,15 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
           <div style={cardStyle}>
             <h3 style={{ fontSize: '1rem', color: 'var(--text-primary)', marginBottom: 16 }}>신청 내용 확인</h3>
             {[
-              ['라운드', form.roundLabel],
+              ['참가유형', form.entryType === 'season' ? '시즌 전체' : '라운드'],
+              ['라운드', form.entryType === 'season' ? '2026 시즌 전체' : form.roundLabel],
               ['클래스', form.className],
               ['팀명', form.teamName],
               ['차량', form.carModel],
               ['드라이버 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType} / ${d1.phone} / ${d1.email}`],
               ['드라이버 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`],
               ...(form.showDriver3 && form.drivers[2].name ? [['드라이버 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
+              ...(form.className ? [['참가비', FEE[form.className]?.[form.entryType] ?? '—']] : []),
             ].map(([l, v], i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,.06)', gap: 12 }}>
                 <span style={{ fontSize: '.82rem', color: 'var(--text-secondary)', minWidth: 80 }}>{l}</span>
