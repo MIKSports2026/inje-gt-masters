@@ -40,7 +40,7 @@
   --max:        1440px;
   --pad:        clamp(20px,5vw,80px);
   --radius:     0;
-  --header-h:   80px;
+  --header-h:   96px;
   --sh-md:      0 8px 32px rgba(0,0,0,0.30);
   --sh-lg:      0 20px 56px rgba(0,0,0,0.40);
   --shadow:     0 8px 32px rgba(0,0,0,0.30);
@@ -670,7 +670,7 @@ textarea:focus-visible {
   .sch-meta, .sch-status { display: none; }
 }
 @media (max-width: 768px) {
-  :root { --header-h: 70px; }
+  :root { --header-h: 96px; }
   .sec { padding: 56px 0; }
   .sch-row { grid-template-columns: 76px 1fr; }
   .sch-date { padding: 20px 12px 20px 18px; }

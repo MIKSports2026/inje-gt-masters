@@ -21,7 +21,7 @@ export default async function SiteLayout({
   return (
     <>
       <GNB settings={settings} />
-      <main id="top">{children}</main>
+      <main id="top" style={{ paddingTop: 'var(--header-h)' }}>{children}</main>
       <Footer settings={settings} />
     </>
   )
