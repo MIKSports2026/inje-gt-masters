@@ -33,13 +33,13 @@ export default function SectionRound({ rounds }: Props) {
   const season = rounds[0]?.season ?? 2026
 
   return (
-    <section className="hs-section" id="rounds">
-      <div className="hs-wrap">
+    <section className="ac-section" id="rounds">
+      <div className="ac-container">
         <SectionHeader subtitle={`${season} SEASON`} title="RACE SCHEDULE" />
 
-        <div className="hs-panels">
+        <div className="ac-list">
           {rounds.map((r) => {
-            const st      = (r.status ?? 'upcoming') as RoundStatus
+            const st       = (r.status ?? 'upcoming') as RoundStatus
             const isActive = activeId === r._id
             const isOpen   = st === 'entry_open'
             const isFin    = st === 'finished'
@@ -54,60 +54,64 @@ export default function SectionRound({ rounds }: Props) {
               <div
                 key={r._id}
                 className={[
-                  'hs-panel',
-                  isActive        ? 'hs-panel--active' : '',
-                  st === 'finished' ? 'hs-panel--done'   : '',
+                  'ac-item',
+                  isActive          ? 'ac-item--active'   : '',
+                  isOpen            ? 'ac-item--open'     : '',
+                  st === 'finished' ? 'ac-item--done'     : '',
                 ].filter(Boolean).join(' ')}
                 onMouseEnter={() => setActiveId(r._id)}
               >
                 {/* 배경 이미지 레이어 */}
                 <div
-                  className="hs-bg"
+                  className="ac-bg"
                   style={bgUrl ? { backgroundImage: `url(${bgUrl})` } : undefined}
                 >
-                  <div className="hs-overlay" />
+                  <div className="ac-overlay" />
                 </div>
 
                 {/* 레드 바 */}
-                <div className={`hs-redbar${isActive ? ' hs-redbar--on' : ''}`} />
+                <div className={`ac-redbar${isActive ? ' ac-redbar--on' : ''}`} />
 
                 {/* 접힌 상태: 라운드 번호만 */}
-                <div className="hs-collapsed">
-                  <span className="hs-collapsed__num">
+                <div className="ac-collapsed">
+                  <span className="ac-collapsed__num">
                     {String(r.roundNumber).padStart(2, '0')}
                   </span>
                 </div>
 
                 {/* 펼쳐진 상태 */}
-                <div className="hs-expanded">
-                  <div className="hs-exp-top">
-                    <span className="hs-exp-date">{dateStr}</span>
-                    <div className={`hs-exp-status${status.isRed ? ' hs-exp-status--red' : ''}`}>
-                      <span className="hs-status-dot" style={{ background: status.isRed ? 'var(--primary-red, #E60023)' : '#444' }} />
+                <div className="ac-expanded">
+                  <div className="ac-exp-top">
+                    <span className="ac-exp-date">{dateStr}</span>
+                    <div className={`ac-exp-status${status.isRed ? ' ac-exp-status--red' : ''}`}>
+                      <span
+                        className="ac-status-dot"
+                        style={{ background: status.isRed ? 'var(--primary-red, #E60023)' : '#444' }}
+                      />
                       {status.text}
                     </div>
                   </div>
 
-                  <div className="hs-exp-bottom">
+                  <div className="ac-exp-bottom">
                     <div>
-                      <h3 className="hs-exp-round">ROUND {String(r.roundNumber).padStart(2, '0')}</h3>
-                      {r.title && <p className="hs-exp-title">{r.title}</p>}
-                      <span className="hs-exp-loc">INJE SPEEDIUM</span>
+                      <h3 className="ac-exp-round">ROUND {String(r.roundNumber).padStart(2, '0')}</h3>
+                      {r.title && <p className="ac-exp-title">{r.title}</p>}
+                      <span className="ac-exp-loc">INJE SPEEDIUM</span>
                     </div>
 
-                    <div className="hs-exp-cta">
+                    <div className="ac-exp-cta">
                       {isOpen && (
-                        <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="hs-btn hs-btn--red">
+                        <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="ac-btn ac-btn--red">
                           APPLY NOW →
                         </Link>
                       )}
                       {isFin && (
-                        <Link href={`/results?round=${r.slug.current}`} className="hs-btn hs-btn--outline">
+                        <Link href={`/results?round=${r.slug.current}`} className="ac-btn ac-btn--outline">
                           RESULTS →
                         </Link>
                       )}
                       {(isClosed || st === 'upcoming' || st === 'ongoing') && (
-                        <Link href="/season" className="hs-btn hs-btn--ghost">
+                        <Link href="/season" className="ac-btn ac-btn--ghost">
                           SCHEDULE →
                         </Link>
                       )}
@@ -120,65 +124,67 @@ export default function SectionRound({ rounds }: Props) {
           })}
         </div>
 
-        <div className="hs-footer">
-          <Link href="/season" className="hs-all">FULL SCHEDULE →</Link>
+        <div className="ac-footer">
+          <Link href="/season" className="ac-all">FULL SCHEDULE →</Link>
         </div>
       </div>
 
       <style>{`
         /* ── 섹션 ── */
-        .hs-section {
+        .ac-section {
           background: var(--bg-carbon, #0a0a0a);
           padding: 80px 0;
         }
-        .hs-wrap {
+        .ac-container {
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 24px;
         }
 
         /* ── 패널 컨테이너 ── */
-        .hs-panels {
+        .ac-list {
           display: flex !important;
           flex-direction: row !important;
           flex-wrap: nowrap !important;
           width: 100%;
-          height: 520px;
+          height: 500px;
           gap: 2px;
           margin-top: 48px;
         }
 
         /* ── 개별 패널 ── */
-        .hs-panel {
+        .ac-item {
           position: relative;
           flex: 1 !important;
           min-width: 60px;
+          width: auto !important;
           background-color: #0d0d0d;
           cursor: pointer;
           overflow: hidden;
           transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
         }
-        .hs-panel:hover {
+        .ac-item:hover {
           background-color: #1a1a1a;
         }
-        .hs-panel--active {
+
+        /* ── 활성 패널 (세 가지 클래스 모두 커버) ── */
+        .ac-item--open,
+        .ac-item--expanded,
+        .ac-item--active {
           flex: 5 !important;
           background-color: #000;
           cursor: default;
         }
-        .hs-panel--done {
+        .ac-item--done {
           opacity: .6;
         }
-        .hs-panel--done:hover,
-        .hs-panel--done.hs-panel--active {
+        .ac-item--done:hover,
+        .ac-item--done.ac-item--active {
           opacity: .8;
         }
 
         /* ── 배경 이미지 ── */
-        .hs-bg {
+        .ac-bg {
           position: absolute;
           inset: 0;
           background-size: cover;
@@ -187,17 +193,18 @@ export default function SectionRound({ rounds }: Props) {
           opacity: 0;
           transition: opacity 0.6s ease;
         }
-        .hs-panel--active .hs-bg {
+        .ac-item--active .ac-bg,
+        .ac-item--open .ac-bg {
           opacity: 1;
         }
-        .hs-overlay {
+        .ac-overlay {
           position: absolute;
           inset: 0;
           background: linear-gradient(to right, rgba(10,10,10,.92) 0%, rgba(10,10,10,.25) 100%);
         }
 
         /* ── 레드 바 ── */
-        .hs-redbar {
+        .ac-redbar {
           position: absolute;
           left: 0; top: 0;
           height: 100%;
@@ -208,34 +215,39 @@ export default function SectionRound({ rounds }: Props) {
           transition: transform 0.4s cubic-bezier(0.8, 0, 0.2, 1);
           z-index: 5;
         }
-        .hs-redbar--on {
+        .ac-redbar--on {
           transform: scaleY(1);
         }
 
         /* ── 접힌 상태: 번호 ── */
-        .hs-collapsed {
+        .ac-collapsed {
           position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           z-index: 4;
           opacity: 1;
           transition: opacity 0.3s ease;
         }
-        .hs-collapsed__num {
+        .ac-collapsed__num {
           font-family: var(--font-heading, 'Oswald'), sans-serif;
           font-size: 2.5rem;
           font-weight: 800;
           color: #333;
           transition: color 0.3s ease;
+          white-space: nowrap;
         }
-        .hs-panel:hover .hs-collapsed__num {
+        .ac-item:hover .ac-collapsed__num {
           color: #666;
         }
-        .hs-panel--active .hs-collapsed {
+        .ac-item--active .ac-collapsed,
+        .ac-item--open .ac-collapsed {
           opacity: 0;
           pointer-events: none;
         }
 
         /* ── 펼쳐진 콘텐츠 ── */
-        .hs-expanded {
+        .ac-expanded {
           position: absolute;
           inset: 0;
           padding: 36px 40px;
@@ -248,7 +260,8 @@ export default function SectionRound({ rounds }: Props) {
           transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
           pointer-events: none;
         }
-        .hs-panel--active .hs-expanded {
+        .ac-item--active .ac-expanded,
+        .ac-item--open .ac-expanded {
           opacity: 1;
           transform: translateX(0);
           pointer-events: auto;
@@ -256,19 +269,19 @@ export default function SectionRound({ rounds }: Props) {
         }
 
         /* 상단: 날짜 + 상태 */
-        .hs-exp-top {
+        .ac-exp-top {
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-        .hs-exp-date {
+        .ac-exp-date {
           font-family: var(--font-heading, 'Oswald'), sans-serif;
           font-size: 1.5rem;
           font-weight: 700;
           letter-spacing: 2px;
           color: var(--text-primary, #fff);
         }
-        .hs-exp-status {
+        .ac-exp-status {
           display: flex;
           align-items: center;
           gap: 8px;
@@ -279,10 +292,10 @@ export default function SectionRound({ rounds }: Props) {
           color: #777;
           text-transform: uppercase;
         }
-        .hs-exp-status--red {
+        .ac-exp-status--red {
           color: var(--text-primary, #fff);
         }
-        .hs-status-dot {
+        .ac-status-dot {
           width: 9px;
           height: 9px;
           border-radius: 50%;
@@ -290,12 +303,12 @@ export default function SectionRound({ rounds }: Props) {
         }
 
         /* 하단: 라운드명 + CTA */
-        .hs-exp-bottom {
+        .ac-exp-bottom {
           display: flex;
           flex-direction: column;
           gap: 16px;
         }
-        .hs-exp-round {
+        .ac-exp-round {
           font-family: var(--font-heading, 'Oswald'), sans-serif;
           font-size: 3.8rem;
           font-weight: 900;
@@ -304,13 +317,13 @@ export default function SectionRound({ rounds }: Props) {
           color: var(--text-primary, #fff);
           margin: 0;
         }
-        .hs-exp-title {
+        .ac-exp-title {
           font-family: var(--font-body, 'Noto Sans KR'), sans-serif;
           font-size: .9rem;
           color: rgba(255,255,255,.5);
           margin: 6px 0 4px;
         }
-        .hs-exp-loc {
+        .ac-exp-loc {
           font-family: var(--font-heading, 'Oswald'), sans-serif;
           font-size: .85rem;
           font-weight: 600;
@@ -320,10 +333,10 @@ export default function SectionRound({ rounds }: Props) {
         }
 
         /* CTA 버튼 */
-        .hs-exp-cta {
+        .ac-exp-cta {
           display: flex;
         }
-        .hs-btn {
+        .ac-btn {
           font-family: var(--font-heading, 'Oswald'), sans-serif;
           font-size: .82rem;
           font-weight: 700;
@@ -334,29 +347,20 @@ export default function SectionRound({ rounds }: Props) {
           transition: all .2s ease;
           white-space: nowrap;
         }
-        .hs-btn--red {
-          background: var(--primary-red, #E60023);
-          color: #fff;
-        }
-        .hs-btn--red:hover { background: #C0001D; }
-        .hs-btn--outline {
-          color: #fff;
-          border: 1px solid #555;
-        }
-        .hs-btn--outline:hover { background: #fff; color: #0a0a0a; }
-        .hs-btn--ghost {
-          color: #555;
-          border: 1px solid #2a2a2a;
-        }
-        .hs-btn--ghost:hover { color: #aaa; border-color: #555; }
+        .ac-btn--red { background: var(--primary-red, #E60023); color: #fff; }
+        .ac-btn--red:hover { background: #C0001D; }
+        .ac-btn--outline { color: #fff; border: 1px solid #555; }
+        .ac-btn--outline:hover { background: #fff; color: #0a0a0a; }
+        .ac-btn--ghost { color: #555; border: 1px solid #2a2a2a; }
+        .ac-btn--ghost:hover { color: #aaa; border-color: #555; }
 
         /* ── 푸터 ── */
-        .hs-footer {
+        .ac-footer {
           display: flex;
           justify-content: flex-end;
           margin-top: 20px;
         }
-        .hs-all {
+        .ac-all {
           font-family: var(--font-heading, 'Oswald'), sans-serif;
           font-size: .85rem;
           font-weight: 700;
@@ -365,48 +369,43 @@ export default function SectionRound({ rounds }: Props) {
           text-decoration: none;
           transition: color .2s ease;
         }
-        .hs-all:hover { color: var(--primary-red, #E60023); }
+        .ac-all:hover { color: var(--primary-red, #E60023); }
 
         /* ── 모바일: 세로 아코디언 ── */
         @media (max-width: 900px) {
-          .hs-panels {
+          .ac-list {
             flex-direction: column !important;
             height: auto !important;
           }
-          .hs-panel {
-            height: 72px;
+          .ac-item {
             flex: 0 0 72px !important;
             min-width: unset !important;
-            justify-content: flex-start;
-            padding-left: 20px;
+            width: 100% !important;
           }
-          .hs-panel--active {
+          .ac-item--active,
+          .ac-item--open,
+          .ac-item--expanded {
             flex: 0 0 280px !important;
-            height: 280px;
           }
-          .hs-overlay {
+          .ac-overlay {
             background: linear-gradient(to top, rgba(10,10,10,.92) 0%, rgba(10,10,10,.25) 100%);
           }
-          .hs-redbar {
+          .ac-redbar {
             width: 100%;
             height: 4px;
             top: 0; left: 0;
             transform: scaleX(0);
             transform-origin: left;
           }
-          .hs-redbar--on {
-            transform: scaleX(1);
-          }
-          .hs-collapsed {
-            position: relative;
-          }
-          .hs-exp-round { font-size: 2.5rem; }
-          .hs-expanded { padding: 20px 24px; }
+          .ac-redbar--on { transform: scaleX(1); }
+          .ac-collapsed { top: 50%; left: 24px; transform: translateY(-50%); }
+          .ac-exp-round { font-size: 2.5rem; }
+          .ac-expanded { padding: 20px 24px; }
         }
         @media (max-width: 640px) {
-          .hs-section { padding: 60px 0; }
-          .hs-exp-date { font-size: 1.1rem; }
-          .hs-exp-round { font-size: 2rem; }
+          .ac-section { padding: 60px 0; }
+          .ac-exp-date { font-size: 1.1rem; }
+          .ac-exp-round { font-size: 2rem; }
         }
       `}</style>
     </section>
