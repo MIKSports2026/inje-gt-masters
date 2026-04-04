@@ -768,3 +768,209 @@ textarea:focus-visible {
 @media (max-width: 768px) {
   .seo-grid { grid-template-columns: 1fr !important; }
 }
+
+/* ── SectionRound 가로 아코디언 ── */
+.ac-section {
+  background-color: var(--bg-carbon);
+  padding: 80px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.ac-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.ac-list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  height: 500px;
+  gap: 2px;
+}
+.ac-item {
+  position: relative;
+  flex: 1 !important;
+  min-width: 60px;
+  width: auto !important;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #0d0d0d;
+  transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.4s ease;
+}
+.ac-item:hover {
+  background-color: #1a1a1a;
+}
+.ac-item--active {
+  flex: 5 !important;
+  cursor: default;
+  background-color: #000;
+}
+.ac-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.ac-item--active .ac-bg {
+  opacity: 1;
+}
+.ac-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10,10,10,0.9) 0%,
+    rgba(10,10,10,0.2) 100%
+  );
+}
+.ac-redbar {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%; width: 4px;
+  background-color: var(--primary-red);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.8,0,0.2,1);
+  z-index: 5;
+}
+.ac-item--active .ac-redbar {
+  transform: scaleY(1);
+}
+.ac-collapsed {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  transition: opacity 0.3s ease;
+}
+.ac-collapsed-num {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #333;
+  transition: color 0.3s ease;
+}
+.ac-item:hover .ac-collapsed-num { color: #666; }
+.ac-item--active .ac-collapsed {
+  opacity: 0;
+  pointer-events: none;
+}
+.ac-detail {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 4;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.4s ease,
+              transform 0.5s cubic-bezier(0.25,1,0.5,1);
+  pointer-events: none;
+}
+.ac-item--active .ac-detail {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  transition-delay: 0.2s;
+}
+.ac-detail__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ac-detail__date {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.ac-detail__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  color: #aaa;
+  text-transform: uppercase;
+}
+.ac-detail__status--red { color: #fff; }
+.ac-detail__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ac-detail__round {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+}
+.ac-detail__location {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--primary-red);
+  text-transform: uppercase;
+}
+.ac-btn--red {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 20px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  background-color: var(--primary-red);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.ac-btn--ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 20px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+@media (max-width: 900px) {
+  .ac-list {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .ac-item {
+    height: 80px;
+    flex: none !important;
+  }
+  .ac-item--active {
+    height: 300px;
+    flex: none !important;
+  }
+}
