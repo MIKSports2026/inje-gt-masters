@@ -1,17 +1,16 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import type { Round } from '@/types/sanity'
+import type { ClassInfo, Round } from '@/types/sanity'
 
 interface Props {
   isOpen: boolean
-  classes: any[]
+  classes: ClassInfo[]
   rounds: Round[]
   initialRoundNumber?: number
   tossBaseUrl?: string
 }
 
-const CLASSES = ['Master 1', 'Master 2', 'Master N', 'Master N-evo', 'Master 3']
 const BLOOD = ['A', 'B', 'O', 'AB']
 const DRAFT_KEY = 'inje-entry-draft-v2'
 
@@ -21,12 +20,9 @@ interface Driver {
 }
 const emptyDriver = (): Driver => ({ name: '', birthDate: '', bloodType: '', phone: '', email: '', karaLicense: '' })
 
-const FEE: Record<string, { round: string; season: string }> = {
-  'Master 1': { round: '700,000원', season: '3,000,000원' },
-  'Master 2': { round: '600,000원', season: '2,500,000원' },
-  'Master N': { round: '600,000원', season: '2,500,000원' },
-  'Master N-evo': { round: '600,000원', season: '2,500,000원' },
-  'Master 3': { round: '500,000원', season: '2,000,000원' },
+function formatFee(amount?: number): string {
+  if (!amount) return '—'
+  return amount.toLocaleString('ko-KR') + '원'
 }
 
 interface FormState {
@@ -47,7 +43,7 @@ const init = (): FormState => ({
   showDriver2: false, showDriver3: false, agreedRules: false, agreedPrivacy: false,
 })
 
-export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props) {
+export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber }: Props) {
   const [step, setStep] = useState(1)
   const [form, setForm] = useState<FormState>(() => {
     const f = init()
@@ -108,7 +104,11 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
           drivers: driversToSend,
           contactPhone: d1.phone, contactEmail: d1.email,
           agreedRules: form.agreedRules, agreedPrivacy: form.agreedPrivacy,
-          entryFee: form.className ? FEE[form.className]?.[form.entryType] : undefined,
+          entryFee: (() => {
+            if (!form.className) return undefined
+            const cls = classes.find(c => c.name === form.className)
+            return form.entryType === 'season' ? formatFee(cls?.entryFeeSeason) : formatFee(cls?.entryFeePerRound)
+          })(),
         }),
       })
       if (!res.ok) throw new Error('서버 오류')
@@ -182,10 +182,10 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
           <div className="form-group">
             <label>RACING CLASS *</label>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {CLASSES.map(c => (
-                <button key={c} type="button" onClick={() => set('className', c)}
-                  className={`ef-chip ${form.className === c ? 'ef-chip--active' : ''}`}>
-                  {c}
+              {classes.map(c => (
+                <button key={c._id} type="button" onClick={() => set('className', c.name)}
+                  className={`ef-chip ${form.className === c.name ? 'ef-chip--active' : ''}`}>
+                  {c.name}
                 </button>
               ))}
             </div>
@@ -339,7 +339,11 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
               ['DRIVER 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType}`],
               ...(form.showDriver2 && form.drivers[1].name ? [['DRIVER 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`]] : []),
               ...(form.showDriver3 && form.drivers[2].name ? [['DRIVER 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
-              ...(form.className ? [['ENTRY FEE', FEE[form.className]?.[form.entryType] ?? '—']] : []),
+              ...(form.className ? (() => {
+                const cls = classes.find(c => c.name === form.className)
+                const fee = form.entryType === 'season' ? formatFee(cls?.entryFeeSeason) : formatFee(cls?.entryFeePerRound)
+                return [['ENTRY FEE', fee]]
+              })() : []),
             ].map(([l, v], i) => (
               <div key={i} className="ef-summary__row">
                 <span className="ef-summary__label">{l}</span>
