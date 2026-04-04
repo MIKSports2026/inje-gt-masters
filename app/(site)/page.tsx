@@ -11,6 +11,7 @@ import SectionHero       from '@/components/sections/SectionHero'
 import SectionRound      from '@/components/sections/SectionRound'
 import SectionClass      from '@/components/sections/SectionClass'
 import SectionEntry      from '@/components/sections/SectionEntry'
+import SectionNews       from '@/components/sections/SectionNews'
 import SectionResults    from '@/components/sections/SectionResults'
 import SectionMedia      from '@/components/sections/SectionMedia'
 import SectionPartners   from '@/components/sections/SectionPartners'
@@ -62,6 +63,7 @@ export default async function HomePage() {
       <SectionRound    rounds={rs} />
       <SectionClass />
       <SectionEntry    settings={s} classes={cl} />
+      <SectionNews     posts={ps} />
       <SectionResults  rounds={rs} posts={ps} />
       <SectionMedia    media={md} />
       <SectionPartners partners={pt} />
