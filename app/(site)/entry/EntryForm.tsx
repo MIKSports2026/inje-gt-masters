@@ -12,7 +12,7 @@ interface Props {
 }
 
 const BLOOD = ['A', 'B', 'O', 'AB']
-const DRAFT_KEY = 'inje-entry-draft-v2'
+const DRAFT_KEY = 'inje-entry-draft-v3'
 
 interface Driver {
   name: string; birthDate: string; bloodType: string;
@@ -62,7 +62,16 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(DRAFT_KEY)
-      if (saved) { const d = JSON.parse(saved); if (d.teamName) setForm(d) }
+      if (saved) {
+        const d = JSON.parse(saved)
+        if (d.teamName) {
+          // className이 현재 Sanity 클래스 목록에 없으면 초기화
+          if (d.className && !classes.find((c: ClassInfo) => c.name === d.className)) {
+            d.className = ''
+          }
+          setForm(d)
+        }
+      }
     } catch {}
     setHasMounted(true)
   }, [])
