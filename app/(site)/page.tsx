@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import { sanityFetch } from '@/lib/sanity.client'
 import {
   SITE_SETTINGS_QUERY, ROUNDS_QUERY,
-  RECENT_POSTS_QUERY, PARTNERS_QUERY, NEXT_ROUND_QUERY,
+  RECENT_POSTS_QUERY, PARTNERS_QUERY, NEXT_ROUND_QUERY, CLASSES_QUERY,
 } from '@/lib/queries'
-import type { SiteSettings, Round, Post, Partner } from '@/types/sanity'
+import type { SiteSettings, Round, Post, Partner, ClassInfo } from '@/types/sanity'
 
 import SectionHero       from '@/components/sections/SectionHero'
 import SectionRound      from '@/components/sections/SectionRound'
@@ -35,26 +35,28 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const today = new Date().toISOString().slice(0, 10)
 
-  const [settings, rounds, nextRound, posts, partners] =
+  const [settings, rounds, nextRound, posts, partners, classes] =
     await Promise.all([
       sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY,  revalidate: 60, useCdn: false }),
       sanityFetch<Round[]>      ({ query: ROUNDS_QUERY,         params: { season: 2026 }, revalidate: 300 }),
       sanityFetch<Round | null> ({ query: NEXT_ROUND_QUERY,     params: { today },        revalidate: 300 }),
       sanityFetch<Post[]>       ({ query: RECENT_POSTS_QUERY,   params: { limit: 3 },     revalidate: 300 }),
       sanityFetch<Partner[]>    ({ query: PARTNERS_QUERY,       params: { currentSeason: 2026 }, revalidate: 3600 }),
-    ]).catch(() => [null, [], null, [], []] as const)
+      sanityFetch<ClassInfo[]>  ({ query: CLASSES_QUERY, useCdn: false, revalidate: false }),
+    ]).catch(() => [null, [], null, [], [], []] as const)
 
   const s  = settings as SiteSettings | null
   const rs = rounds   as Round[]
   const nr = nextRound as Round | null
   const ps = posts    as Post[]
   const pt = partners as Partner[]
+  const cs = (classes ?? []) as ClassInfo[]
 
   return (
     <>
       <SectionHero settings={s} nextRound={nr} rounds={rs} />
       <SectionRound    rounds={rs} />
-      <SectionClass />
+      <SectionClass classes={cs} />
       <SectionNews     posts={ps} />
       <SectionPartners partners={pt} />
     </>

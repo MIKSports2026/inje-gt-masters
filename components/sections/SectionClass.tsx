@@ -1,18 +1,18 @@
-// components/sections/SectionClass.tsx — Horizontal accordion (cloned from SectionSeason)
+// components/sections/SectionClass.tsx — Horizontal accordion (Sanity classInfo 기반)
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import type { ClassInfo } from '@/types/sanity'
 import SectionHeader from '@/components/ui/SectionHeader'
 
-const classes = [
-  { id: 1, name: 'MASTER 1', type: 'GT1', eligibility: '2,000cc 이하 터보 / 3,800cc 이하 NA' },
-  { id: 2, name: 'MASTER 2', type: 'GT2', eligibility: '1,600cc 이하 터보 / 2,000cc 이하 NA' },
-  { id: 3, name: 'MASTER N', type: 'GTN', eligibility: '2,000cc 이하 터보 (현대 N 차량)' },
-  { id: 4, name: 'MASTER 3', type: 'GT3', eligibility: '1,600cc 이하 NA' },
-]
+interface Props {
+  classes: ClassInfo[]
+}
 
-export default function SectionClass() {
+export default function SectionClass({ classes }: Props) {
   const [active, setActive] = useState(0)
+
+  if (classes.length === 0) return null
 
   return (
     <section className="cls" id="classes">
@@ -23,10 +23,11 @@ export default function SectionClass() {
       <div className="cls__acc">
         {classes.map((cls, i) => {
           const isActive = active === i
+          const color = cls.accentColor ?? '#E60023'
 
           return (
             <div
-              key={cls.id}
+              key={cls._id}
               className={`cls__p ${isActive ? 'cls__p--on' : ''}`}
               onClick={() => setActive(i)}
               role="button"
@@ -34,7 +35,7 @@ export default function SectionClass() {
               onKeyDown={e => { if (e.key === 'Enter') setActive(i) }}
             >
               <div className="cls__p-ov" />
-              <div className="cls__p-bar" />
+              <div className="cls__p-bar" style={{ background: color }} />
 
               <div className="cls__p-collapsed">
                 <span className="cls__p-name">{cls.name}</span>
@@ -43,14 +44,17 @@ export default function SectionClass() {
               <div className="cls__p-expanded">
                 <div className="cls__p-left">
                   <div className="cls__p-tag">
-                    <span className="cls__p-tag-inner">{cls.type}</span>
+                    <span className="cls__p-tag-inner" style={{ color }}>
+                      {cls.classCode}
+                    </span>
                   </div>
                   <h3 className="cls__p-title">{cls.name}</h3>
                   <div className="cls__p-meta">
-                    <span className="cls__p-slash">/</span>
-                    <span className="cls__p-elig">{cls.eligibility}</span>
+                    <span className="cls__p-slash" style={{ color }}>/</span>
+                    <span className="cls__p-elig">{cls.tagline ?? ''}</span>
                   </div>
-                  <Link href="/entry" className="cls__p-btn" onClick={e => e.stopPropagation()}>
+                  <Link href="/entry" className="cls__p-btn" onClick={e => e.stopPropagation()}
+                    style={{ borderColor: color, color: '#fff' }}>
                     <span className="cls__p-btn-inner">VIEW CLASS</span>
                   </Link>
                 </div>
@@ -154,7 +158,7 @@ export default function SectionClass() {
         .cls__p-tag-inner {
           display: block; transform: skewX(20deg);
           font-family: 'Oswald',sans-serif; font-weight: 700;
-          font-size: .9rem; letter-spacing: 2px; color: #fff;
+          font-size: .9rem; letter-spacing: 2px;
         }
 
         .cls__p-title {
