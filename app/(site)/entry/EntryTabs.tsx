@@ -1,5 +1,5 @@
 'use client'
-// app/(site)/entry/EntryTabs.tsx — 신청 폼만 표시 (탭 제거)
+// app/(site)/entry/EntryTabs.tsx — 소스 디자인 적용 (2컬럼 레이아웃)
 import type { SiteSettings, ClassInfo, Round } from '@/types/sanity'
 import EntryForm from './EntryForm'
 
@@ -15,52 +15,141 @@ interface Props {
 
 export default function EntryTabs({ isOpen, classes, rounds, settings, initialRoundNumber }: Props) {
   return (
-    <section className="section">
-      <div className="container">
-        <div className="entry-form-grid">
-          <EntryForm isOpen={isOpen} classes={classes} rounds={rounds} initialRoundNumber={initialRoundNumber} />
+    <>
+      <section className="app-section">
+        <div className="app-wrap">
+          {/* 좌측: 안내 */}
+          <div className="app-info">
+            <div className="app-info__header">
+              <h2 className="app-info__title">2026 SEASON <span style={{ color: 'var(--primary-red)' }}>ENTRY</span></h2>
+              <div className="app-info__slash" />
+            </div>
+            <h3 className="app-info__slogan">당신의 도전이 시작되는 곳,<br/>INJE GT MASTERS.</h3>
+            <p className="app-info__desc">
+              강원도 인제스피디움을 배경으로 펼쳐지는 아마추어 레이서들의 열정의 무대. 2026 시즌도 더욱 뜨겁게 달립니다.
+            </p>
 
-          {/* 우측: 안내사항 */}
-          <div style={{ display: 'grid', gap: '16px' }}>
-            {/* 참가 절차 */}
-            <div style={{ background: 'var(--bg-carbon-light, #1a1a1a)', border: '1px solid rgba(255,255,255,.06)', padding: '22px', position: 'relative' }}>
-              <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--primary-red, #E60023),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-              <h3 style={{ marginBottom: '16px', fontFamily: "'Oswald',sans-serif", fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>참가 신청 절차</h3>
-              <div style={{ display: 'grid', gap: '10px' }}>
+            <div className="app-info__guide">
+              <h4 className="app-info__guide-title">신청 전 필수 확인사항</h4>
+              <ul className="app-info__guide-list">
                 {[
-                  { n: '01', title: '신청서 작성', desc: '클래스·라운드·드라이버 정보 입력' },
-                  { n: '02', title: '결제 링크 수신', desc: '이메일로 토스페이먼츠 링크 발송 (1~2 영업일)' },
-                  { n: '03', title: '결제 완료', desc: '카드·계좌이체·토스 결제' },
-                  { n: '04', title: '접수 확정', desc: '확정 메일 수신 후 출전 준비' },
-                ].map((s, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'start', padding: '10px', background: 'rgba(255,255,255,.02)', border: '1px solid rgba(255,255,255,.04)' }}>
-                    <span style={{ fontSize: '.7rem', color: 'var(--primary-red)', fontWeight: 900, fontFamily: "'Oswald',sans-serif" }}>STEP {s.n}</span>
-                    <div>
-                      <strong style={{ fontSize: '.88rem', color: 'var(--text-primary)' }}>{s.title}</strong>
-                      <span style={{ display: 'block', fontSize: '.78rem', color: 'var(--text-secondary)', marginTop: 2 }}>{s.desc}</span>
-                    </div>
-                  </div>
+                  ['선착순 마감', '정원 초과 시 대기 처리됩니다.'],
+                  ['차량 기술 규정', '클래스별 사전 확인 필수.'],
+                  ['라이선스 사본', '드라이버 접수 시 첨부 필요.'],
+                  ['취소 시 수수료', '결제 완료 후 취소 시 수수료 발생.'],
+                  ['정보 기재 주의', '부정확한 정보 기재 시 출전 자격 박탈.'],
+                ].map(([title, desc], i) => (
+                  <li key={i}>
+                    <span className="app-info__guide-icon">✓</span>
+                    <span><strong>{title}</strong> — {desc}</span>
+                  </li>
                 ))}
+              </ul>
+            </div>
+
+            <div className="app-info__security">
+              <span style={{ color: 'var(--primary-red)', fontSize: '1.2rem' }}>🛡</span>
+              <div>
+                <strong>SECURE REGISTRATION</strong>
+                <span>제출하신 정보는 2026 시즌 운영 목적으로만 안전하게 보관됩니다.</span>
               </div>
             </div>
 
             {/* 문의 */}
-            <div style={{ background: 'var(--bg-carbon-light, #1a1a1a)', border: '1px solid rgba(255,255,255,.06)', padding: '18px' }}>
-              <h3 style={{ fontSize: '.9rem', fontFamily: "'Oswald',sans-serif", fontWeight: 700, color: 'var(--text-primary)', marginBottom: 10 }}>신청 문의</h3>
-              {settings?.phone && (
-                <a href={`tel:${settings.phone}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '.88rem', fontWeight: 700, color: 'var(--text-primary)', textDecoration: 'none', marginBottom: 6 }}>
-                  <i className="fa-solid fa-phone" style={{ color: 'var(--primary-red)' }} /> {settings.phone}
-                </a>
-              )}
-              {settings?.email && (
-                <a href={`mailto:${settings.email}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '.88rem', fontWeight: 700, color: 'var(--text-primary)', textDecoration: 'none' }}>
-                  <i className="fa-solid fa-envelope" style={{ color: 'var(--primary-red)' }} /> {settings.email}
-                </a>
-              )}
-            </div>
+            {(settings?.phone || settings?.email) && (
+              <div className="app-info__contact">
+                {settings.phone && <a href={`tel:${settings.phone}`}>{settings.phone}</a>}
+                {settings.email && <a href={`mailto:${settings.email}`}>{settings.email}</a>}
+              </div>
+            )}
+          </div>
+
+          {/* 우측: 폼 */}
+          <div className="app-form-col">
+            <EntryForm isOpen={isOpen} classes={classes} rounds={rounds} initialRoundNumber={initialRoundNumber} />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <style>{`
+        .app-section {
+          background: radial-gradient(circle at 10% 20%, #111 0%, var(--bg-carbon, #0a0a0a) 100%);
+          min-height: calc(100vh - 80px);
+          padding: 60px 0 100px;
+          border-top: 1px solid rgba(255,255,255,.05);
+        }
+        .app-wrap {
+          max-width: 1300px; margin: 0 auto; padding: 0 24px;
+          display: flex; gap: 60px; align-items: flex-start;
+        }
+
+        /* Left */
+        .app-info { flex: 1; position: sticky; top: 100px; }
+        .app-info__header { margin-bottom: 30px; }
+        .app-info__title {
+          font-family: var(--font-heading, 'Oswald'); font-size: 3.5rem; font-weight: 900;
+          color: var(--text-primary, #fff); line-height: 1; margin: 0 0 8px;
+        }
+        .app-info__slash { width: 80px; height: 4px; background: var(--primary-red, #E60023); }
+        .app-info__slogan {
+          font-family: 'Noto Sans KR', sans-serif; font-size: 1.8rem; font-weight: 700;
+          color: #ddd; line-height: 1.4; margin-bottom: 20px;
+        }
+        .app-info__desc {
+          font-size: 1rem; color: var(--text-secondary, #aaa);
+          line-height: 1.6; margin-bottom: 40px; max-width: 80%;
+        }
+
+        .app-info__guide {
+          background: rgba(26,26,26,.5);
+          border: 1px solid rgba(255,255,255,.05);
+          border-left: 3px solid var(--primary-red);
+          padding: 30px; margin-bottom: 30px;
+        }
+        .app-info__guide-title {
+          font-family: 'Noto Sans KR', sans-serif; font-size: 1.2rem; font-weight: 700;
+          color: #fff; margin: 0 0 20px;
+        }
+        .app-info__guide-list {
+          list-style: none; padding: 0; margin: 0;
+          display: flex; flex-direction: column; gap: 15px;
+        }
+        .app-info__guide-list li {
+          display: flex; align-items: flex-start; gap: 12px;
+          color: #ccc; font-size: .95rem; line-height: 1.5;
+        }
+        .app-info__guide-list li strong { color: #fff; }
+        .app-info__guide-icon { color: var(--primary-red); flex-shrink: 0; margin-top: 2px; }
+
+        .app-info__security {
+          display: flex; align-items: center; gap: 15px;
+          padding: 20px; background: rgba(0,0,0,.3);
+          border: 1px dashed rgba(255,255,255,.1); margin-bottom: 20px;
+        }
+        .app-info__security strong {
+          font-family: var(--font-heading); letter-spacing: 1px; color: #fff;
+          display: block; margin-bottom: 4px;
+        }
+        .app-info__security span { font-size: .85rem; color: #888; }
+
+        .app-info__contact {
+          display: flex; flex-direction: column; gap: 6px;
+        }
+        .app-info__contact a {
+          font-size: .88rem; font-weight: 700; color: var(--text-primary); text-decoration: none;
+        }
+
+        /* Right */
+        .app-form-col { flex: 1.2; }
+
+        @media (max-width: 992px) {
+          .app-wrap { flex-direction: column; gap: 40px; }
+          .app-info { position: static; }
+          .app-info__title { font-size: 2.5rem; }
+          .app-info__slogan { font-size: 1.3rem; }
+          .app-info__desc { max-width: 100%; }
+        }
+      `}</style>
+    </>
   )
 }

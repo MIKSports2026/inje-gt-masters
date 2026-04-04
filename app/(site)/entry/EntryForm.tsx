@@ -130,8 +130,17 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
   const stepLabel = `STEP ${String(step).padStart(2, '0')} / 02`
 
   return (
-    <div>
-      <div style={{ fontFamily: "'Oswald',sans-serif", fontSize: '.85rem', fontWeight: 700, letterSpacing: '.15em', color: 'var(--primary-red)', marginBottom: 24 }}>{stepLabel}</div>
+    <div className="ef-card">
+      {/* Card header */}
+      <div className="ef-card__head">
+        <h3 className="ef-card__head-title">OFFICIAL APPLICATION</h3>
+        <span className="ef-card__head-step">{stepLabel}</span>
+      </div>
+      {/* Progress bar */}
+      <div className="ef-card__progress">
+        <div className="ef-card__progress-fill" style={{ width: step === 1 ? '50%' : '100%' }} />
+      </div>
+      <div className="ef-card__body">
 
       {step === 1 && (
         <div style={{ display: 'grid', gap: 16 }}>
@@ -257,6 +266,48 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
           </div>
         </div>
       )}
+      </div>{/* ef-card__body */}
+
+      <style>{`
+        .ef-card {
+          background: #0b0b0b;
+          border-top: 1px solid rgba(255,255,255,.1);
+          box-shadow: 0 20px 50px rgba(0,0,0,.5);
+          position: relative;
+          clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+        }
+        .ef-card::before {
+          content: ''; position: absolute; top: 0; left: 0;
+          width: 100%; height: 3px;
+          background: linear-gradient(90deg, var(--primary-red, #E60023), transparent);
+        }
+        .ef-card__head {
+          padding: 30px 40px; border-bottom: 1px solid rgba(255,255,255,.05);
+          display: flex; justify-content: space-between; align-items: center;
+          background: #111;
+        }
+        .ef-card__head-title {
+          font-family: var(--font-heading, 'Oswald'); font-size: 1.5rem;
+          letter-spacing: 2px; color: #fff; margin: 0;
+        }
+        .ef-card__head-step {
+          font-family: var(--font-heading, 'Oswald');
+          color: var(--primary-red); font-weight: 700; letter-spacing: 2px;
+        }
+        .ef-card__progress { width: 100%; height: 2px; background: rgba(255,255,255,.1); }
+        .ef-card__progress-fill {
+          height: 100%; background: var(--primary-red);
+          transition: width .4s cubic-bezier(.25,1,.5,1);
+        }
+        .ef-card__body { padding: 40px; display: flex; flex-direction: column; gap: 24px; }
+
+        @media (max-width: 768px) {
+          .ef-card { clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
+          .ef-card__head { padding: 20px 24px; }
+          .ef-card__head-title { font-size: 1.1rem; }
+          .ef-card__body { padding: 24px; }
+        }
+      `}</style>
     </div>
   )
 }
@@ -290,11 +341,11 @@ function DriverFields({ driver, idx, setDriver, showContact }: {
   )
 }
 
-const cardStyle: React.CSSProperties = { padding: 24, background: 'var(--bg-carbon-light, #1a1a1a)', border: '1px solid rgba(255,255,255,.06)' }
-const fieldsetStyle: React.CSSProperties = { border: '1px solid rgba(255,255,255,.06)', padding: '20px 24px', background: 'var(--bg-carbon-light, #1a1a1a)', margin: 0 }
-const legendStyle: React.CSSProperties = { fontFamily: "'Oswald',sans-serif", fontSize: '.85rem', fontWeight: 700, letterSpacing: '.1em', color: 'var(--text-primary)', textTransform: 'uppercase', padding: '0 8px' }
-const labelStyle: React.CSSProperties = { display: 'block', fontSize: '.78rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 4, marginTop: 10 }
-const inputStyle: React.CSSProperties = { width: '100%', padding: '10px 12px', fontSize: '.9rem', border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.04)', color: '#fff', borderRadius: 0 }
-const chipStyle: React.CSSProperties = { padding: '8px 16px', fontSize: '.82rem', fontWeight: 600, border: '1px solid rgba(255,255,255,.1)', background: 'transparent', color: 'var(--text-secondary)', cursor: 'pointer', fontFamily: "'Oswald',sans-serif", letterSpacing: '.05em' }
-const chipActiveStyle: React.CSSProperties = { borderColor: '#E60023', color: '#E60023', background: 'rgba(230,0,35,.08)' }
-const btnStyle: React.CSSProperties = { padding: '14px 28px', fontFamily: "'Oswald',sans-serif", fontSize: '.95rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#fff', border: 'none', cursor: 'pointer' }
+const cardStyle: React.CSSProperties = { padding: 25, background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.1)' }
+const fieldsetStyle: React.CSSProperties = { border: 'none', padding: 0, margin: 0 }
+const legendStyle: React.CSSProperties = { fontFamily: "var(--font-heading, 'Oswald')", fontSize: '.85rem', fontWeight: 700, letterSpacing: '1px', color: '#888', textTransform: 'uppercase', padding: 0, marginBottom: 16 }
+const labelStyle: React.CSSProperties = { display: 'block', fontFamily: "var(--font-heading, 'Oswald')", fontSize: '.85rem', color: '#888', letterSpacing: '1px', marginBottom: 8, marginTop: 16 }
+const inputStyle: React.CSSProperties = { width: '100%', padding: '16px 20px', fontSize: '1rem', border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)', color: '#fff', borderRadius: 0, transition: 'all .3s ease', outline: 'none' }
+const chipStyle: React.CSSProperties = { padding: '12px 20px', fontSize: '.85rem', fontWeight: 600, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)', color: '#aaa', cursor: 'pointer', fontFamily: "var(--font-heading, 'Oswald')", letterSpacing: '1px', transition: 'all .3s ease' }
+const chipActiveStyle: React.CSSProperties = { borderColor: '#E60023', color: '#fff', background: 'rgba(230,0,35,.1)' }
+const btnStyle: React.CSSProperties = { padding: '25px 0', fontFamily: "var(--font-heading, 'Oswald')", fontSize: '1.3rem', fontWeight: 700, letterSpacing: '4px', textTransform: 'uppercase', color: '#fff', border: 'none', cursor: 'pointer', clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)', transition: 'all .3s ease' }
