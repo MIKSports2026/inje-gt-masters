@@ -191,6 +191,9 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           <div className="form-group">
             <label>RACING CLASS *</label>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {classes.length === 0 && (
+                <span style={{ color: '#888', fontSize: '.9rem' }}>클래스 정보를 불러오는 중입니다...</span>
+              )}
               {classes.map(c => (
                 <button key={c._id} type="button" onClick={() => set('className', c.name)}
                   className={`ef-chip ${form.className === c.name ? 'ef-chip--active' : ''}`}>

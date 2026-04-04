@@ -35,9 +35,9 @@ export default async function EntryPage({
   const initialRoundNumber = roundParam ? parseInt(roundParam.replace(/^R/i, ''), 10) || undefined : undefined
 
   const [settings, classes, rounds] = await Promise.all([
-    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }),
-    sanityFetch<ClassInfo[]>({ query: CLASSES_QUERY }),
-    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 } }),
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, useCdn: false }),
+    sanityFetch<ClassInfo[]>({ query: CLASSES_QUERY, useCdn: false, revalidate: false }),
+    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, useCdn: false }),
   ]).catch(() => [null, [], []] as [SiteSettings | null, ClassInfo[], Round[]])
 
   const s = settings as SiteSettings | null
