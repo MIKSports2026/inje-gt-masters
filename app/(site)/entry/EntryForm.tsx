@@ -147,29 +147,6 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
       {step === 1 && (
         <div className="ef-step">
 
-          {/* 신청 전 필수 확인 사항 */}
-          <div style={{ marginBottom: '20px', padding: '16px 18px', background: 'rgba(230,0,35,.06)', border: '1px solid rgba(230,0,35,.2)', borderLeft: '3px solid #E60023' }}>
-            <p style={{ fontFamily: "var(--font-heading, 'Oswald')", fontSize: '0.75rem', color: '#E60023', letterSpacing: '2.5px', marginBottom: '12px', textTransform: 'uppercase' as const }}>
-              ⚠ 신청 전 필수 확인 사항
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              {[
-                { icon: '①', title: '접수 안내', desc: '선착순 마감. 정원 초과 시 대기 처리됩니다.' },
-                { icon: '②', title: '차량 확인', desc: '클래스별 기술 규정을 사전에 반드시 확인하세요.' },
-                { icon: '③', title: '취소 안내', desc: '결제 완료 후 취소 시 취소 수수료가 발생합니다.' },
-                { icon: '④', title: '정보 확인', desc: '부정확한 정보 기재 시 출전 자격이 박탈됩니다.' },
-              ].map((item, i) => (
-                <div key={i} style={{ padding: '10px 12px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                    <span style={{ color: '#E60023', fontSize: '.8rem', fontWeight: 900 }}>{item.icon}</span>
-                    <strong style={{ fontSize: '.78rem', color: '#fff', fontFamily: "var(--font-heading, 'Oswald')", letterSpacing: '1px' }}>{item.title}</strong>
-                  </div>
-                  <p style={{ fontSize: '.75rem', color: 'rgba(255,255,255,.45)', lineHeight: 1.5, margin: 0 }}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* 참가 정보 */}
           <div className="form-group">
             <label>ENTRY TYPE *</label>
