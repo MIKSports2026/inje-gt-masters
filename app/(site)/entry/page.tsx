@@ -10,7 +10,7 @@ import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
   title: '참가 신청',
-  description: '인제 GT 마스터즈 2026 시즌 온라인 참가 신청. GT1·GT2·GT3·드리프트·바이크·슈퍼카 클래스 선착순 접수.',
+  description: '인제 GT 마스터즈 2026 시즌 온라인 참가 신청. Masters 1·Masters 2·Masters N·Masters 3·Masters N-evo 클래스 선착순 접수.',
   openGraph: {
     title: '참가 신청 | 인제 GT 마스터즈 2026',
     description: '2026 시즌 온라인 참가 신청 — 신청 후 담당자 검토 및 결제 링크 발송',
