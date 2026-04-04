@@ -23,20 +23,28 @@ export default function PledgeModal({ onAgree, onClose }: Props) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const div = document.createElement('div');
+    div.id = 'pledge-portal';
+    document.body.appendChild(div);
     document.body.style.overflow = 'hidden';
+    setMounted(true);
+
     return () => {
+      document.body.removeChild(div);
       document.body.style.overflow = '';
     };
   }, []);
 
   if (!mounted) return null;
 
+  const portalEl = document.getElementById('pledge-portal');
+  if (!portalEl) return null;
+
   return createPortal(
     <div
       style={{
         position: 'fixed',
-        inset: 0,
+        top: 0, left: 0, right: 0, bottom: 0,
         background: 'rgba(0,0,0,0.88)',
         zIndex: 9999,
         display: 'flex',
@@ -140,6 +148,6 @@ export default function PledgeModal({ onAgree, onClose }: Props) {
         </div>
       </div>
     </div>,
-    document.body
+    portalEl
   );
 }
