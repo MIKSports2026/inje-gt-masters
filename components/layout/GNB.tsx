@@ -38,10 +38,10 @@ const NAV_ITEMS = [
   },
   {
     label: 'MEDIA',
-    href: '/media',
+    href: '/news',
     drop: [
-      { label: '공지사항', href: '/news' },
-      { label: '미디어킷', href: '/media' },
+      { label: '공지사항 & 소식', href: '/news' },
+      { label: '미디어킷', href: '/media/kit' },
     ],
   },
 ] as const

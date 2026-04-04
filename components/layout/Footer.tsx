@@ -11,7 +11,7 @@ export default function Footer({ settings }: { settings: SiteSettings | null }) 
     { title: 'SEASON',  links: [{ label: '경기 일정', href: '/season' }, { label: '관람 안내', href: '/season#info' }, { label: '경기 규정', href: '/season#regulations' }, { label: '오시는 길', href: '/#speedium' }] },
     { title: 'ENTRY',   links: [{ label: '참가 자격', href: '/entry#eligibility' }, { label: '온라인 신청', href: '/entry' }, { label: '팀·드라이버 등록', href: '/entry#registration' }, { label: 'FAQ', href: '/entry#faq' }] },
     { title: 'RESULTS', links: [{ label: '경기 결과', href: '/results' }, { label: '포인트 순위', href: '/results#standings' }, { label: '드라이버 기록', href: '/results#records' }] },
-    { title: 'MEDIA',   links: [{ label: '공지사항', href: '/news' }, { label: '포토 갤러리', href: '/media' }, { label: '영상 하이라이트', href: '/media?type=video' }, { label: '보도자료', href: '/news?category=press' }] },
+    { title: 'MEDIA',   links: [{ label: '공지사항 & 소식', href: '/news' }, { label: '미디어킷', href: '/media/kit' }] },
   ]
 
   const season = settings?.currentSeason ?? 2026

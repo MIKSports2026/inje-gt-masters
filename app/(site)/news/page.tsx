@@ -5,27 +5,27 @@ import Image from 'next/image'
 import { sanityFetch } from '@/lib/sanity.client'
 import { POSTS_QUERY, POSTS_COUNT_QUERY } from '@/lib/queries'
 import type { Post, PostCategory } from '@/types/sanity'
+import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
-  title: '소식 & 공지',
+  title: '공지사항 & 소식',
   description: '인제 GT 마스터즈 공지사항, 대회 소식, 보도자료, 이벤트 등 최신 정보를 확인하세요.',
 }
 
 const PAGE_SIZE = 12
 
 const CATEGORIES: { key: PostCategory | ''; label: string }[] = [
-  { key: '',            label: '전체' },
-  { key: 'notice',     label: '공지사항' },
-  { key: 'news',       label: '대회소식' },
-  { key: 'press',      label: '보도자료' },
-  { key: 'entry',      label: '참가안내' },
-  { key: 'regulation', label: '기술규정' },
-  { key: 'event',      label: '이벤트' },
+  { key: '', label: '공지사항 & 소식' },
 ]
 
 const CATEGORY_COLORS: Record<string, string> = {
   notice: '#2563eb', news: '#e60023', press: '#7c3aed',
   entry: '#16a34a', regulation: '#b8921e', event: '#f97316',
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  notice: '공지사항', news: '대회소식', press: '보도자료',
+  entry: '참가안내', regulation: '기술규정', event: '이벤트',
 }
 
 
@@ -67,21 +67,13 @@ export default async function NewsPage({
   return (
     <>
       {/* ── 히어로 ──────────────────────────────────────────── */}
-      <section style={{
-        background: 'linear-gradient(135deg,#111,#1a0008 55%,#0d0d0d)',
-        padding: '56px 0 48px', position: 'relative', overflow: 'hidden',
-      }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(135deg,rgba(230,0,35,.04) 0 1px,transparent 1px 60px)', pointerEvents: 'none' }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <span className="pill">News & Notice</span>
-          <h1 style={{ color: '#fff', marginTop: '10px', fontSize: 'clamp(2rem,5vw,4.2rem)' }}>소식 & 공지</h1>
-          <p style={{ color: 'rgba(255,255,255,.65)', marginTop: '10px', fontSize: 'clamp(.9rem,1.4vw,1.06rem)' }}>
-            인제 GT 마스터즈의 최신 소식과 공지사항을 확인하세요.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        badge="News & Notice"
+        title="공지사항 & 소식"
+        subtitle="인제 GT 마스터즈의 최신 소식과 공지사항을 확인하세요."
+      />
 
-      {/* ── 카테고리 필터 ──────────────────────────────────── */}
+      {/* ── 카테고리 탭 ──────────────────────────────────── */}
       <section style={{ borderBottom: '1px solid var(--line)', background: 'var(--bg)', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
         <div className="container" style={{ display: 'flex', gap: '8px', padding: '12px 0', overflowX: 'auto', scrollbarWidth: 'none' }}>
           {CATEGORIES.map(cat => (
@@ -98,6 +90,16 @@ export default async function NewsPage({
               }}
             >{cat.label}</Link>
           ))}
+          <Link
+            href="/media/kit"
+            style={{
+              padding: '7px 16px', fontSize: '.85rem', fontWeight: 800, whiteSpace: 'nowrap',
+              background: 'var(--bg-2)', color: 'var(--text-mid)',
+              border: '1px solid var(--line)',
+              clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
+              textDecoration: 'none', display: 'inline-block',
+            }}
+          >미디어킷</Link>
         </div>
       </section>
 
@@ -150,7 +152,7 @@ export default async function NewsPage({
 
 function PostRow({ post, cut, pinned = false }: { post: Post; cut: string; pinned?: boolean }) {
   const catColor = CATEGORY_COLORS[post.category] ?? 'var(--muted)'
-  const catLabel = CATEGORIES.find(c => c.key === post.category)?.label ?? post.category
+  const catLabel = CATEGORY_LABELS[post.category] ?? post.category
 
   return (
     <Link href={`/news/${post.slug.current}`} style={{ textDecoration: 'none', color: 'inherit' }}>
