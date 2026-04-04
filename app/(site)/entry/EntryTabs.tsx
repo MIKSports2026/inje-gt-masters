@@ -270,35 +270,90 @@ export default function EntryTabs({ isOpen, classes, rounds, settings, faq, init
         <section className="section">
           <div className="container">
 
-            {/* 규정 자료실 */}
+            {/* 참가 서약서 */}
             <div className="section-head">
               <div>
-                <span className="eyebrow">Regulations</span>
-                <h2>규정 & 서식 자료실</h2>
+                <span className="eyebrow">Declaration</span>
+                <h2>참가 서약서</h2>
               </div>
+              <p className="lead">아래 서약 내용을 숙지하시고 참가 신청을 진행해 주십시오.</p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '12px', marginBottom: '64px' }}>
+
+            <div style={{ display: 'grid', gap: '10px', marginBottom: '64px', maxWidth: '900px' }}>
               {[
-                { icon: 'fa-file-pdf',  title: '2026 공통 기술 규정',  desc: '전 클래스 공통 차량·안전 기준', badge: 'PDF' },
-                { icon: 'fa-file-pdf',  title: 'GT1/GT2 클래스 규정',  desc: 'Pro-Am / 아마추어 세부 규정',  badge: 'PDF' },
-                { icon: 'fa-file-pdf',  title: 'GT3 입문 클래스 규정', desc: '입문 클래스 특별 규정',        badge: 'PDF' },
-                { icon: 'fa-file-pdf',  title: '드리프트 KDGP 규정',   desc: '드리프트 클래스 기술 기준',    badge: 'PDF' },
-                { icon: 'fa-file-word', title: '참가 신청 서식',        desc: '수기 신청용 워드 서식',        badge: 'DOC' },
-                { icon: 'fa-file-pdf',  title: '안전장비 기준 가이드',  desc: '헬멧·슈트·HANS 규격 안내',    badge: 'PDF' },
-              ].map((doc, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px 18px', background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)', cursor: 'pointer', transition: 'box-shadow .2s' }}>
-                  <i className={`fa-regular ${doc.icon}`} style={{ fontSize: '1.6rem', color: 'var(--red)', flexShrink: 0 }} />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <strong style={{ display: 'block', fontSize: '.92rem' }}>{doc.title}</strong>
-                    <span style={{ fontSize: '.8rem', color: 'var(--muted)' }}>{doc.desc}</span>
+                {
+                  title: '제1조 (규정의 숙지 및 동의)',
+                  items: [
+                    '[규정 준수] 대회의 특별 규정, 기술 규정, 경기 운영 지침 및 KARA 국내규정을 준수할 것에 동의합니다.',
+                    '[변경 사항 수용] 경기 기간 중 조직위 공식 공지사항(Official Bulletins)은 본 규정과 동일한 효력을 가지며, 규정 미숙지로 인한 불이익은 참가자 책임입니다.',
+                    '[판정 승복] 심사위원회의 최종 판정에 동의하며, 공식 항의(Protest) 및 항소(Appeal) 절차를 제외한 이의 제기를 하지 않습니다.',
+                  ],
+                },
+                {
+                  title: '제2조 (위험의 인수 및 면책)',
+                  items: [
+                    '[자발적 참여] 모터스포츠가 고위험 스포츠임을 인지하며 자유 의지에 따라 참여합니다.',
+                    '[주최자 면책] 경기 중 발생한 사고로 인한 부상, 사망, 기타 손해에 대해 조직위·경기 임원·경기장 소유자 및 타 참가자에게 책임을 묻지 않습니다. (주최 측 고의 또는 중대한 과실이 입증된 경우 제외)',
+                    '[라이선스 보증] 유효한 KARA 선수 라이선스를 보유하고 있으며, 건강 상태가 경기 참여에 적합함을 확인합니다.',
+                  ],
+                },
+                {
+                  title: '제3조 (보험 보장 및 배상 책임)',
+                  items: [
+                    '[보험 범위 인정] 조직위가 가입한 대회 배상책임보험의 보장 범위 내에서만 사고 처리가 가능함을 인정합니다.',
+                    '[초과 손해 책임] 보험 보장 범위 초과 손해, 차량 간 충돌로 인한 차량 파손 등에 대해 참가자가 전적으로 책임집니다.',
+                    '[시설물 배상] 참가자 과실로 인한 경기장 시설물(가드레일, 피트 시설 등) 파손 시 복구 비용을 배상합니다.',
+                  ],
+                },
+                {
+                  title: '제4조 (기술 검차 및 안전)',
+                  items: [
+                    '[차량 적합성] 참가 차량이 기술 규정 및 안전 규정을 충족함을 보증하며, 검차 결과에 따른 실격·출전 거부 처분을 수용합니다.',
+                    '[오피셜 지시 복종] 경기 중 포스트 오피셜의 깃발 신호 및 경기 임원의 안전 지시에 즉각 복종합니다.',
+                  ],
+                },
+                {
+                  title: '제5조 (미디어 권리 및 데이터 활용)',
+                  items: [
+                    '[콘텐츠 사용권] 조직위 및 공식 미디어 파트너가 홍보·중계 목적으로 참가자의 성명, 초상, 음성, 주행 데이터 및 영상을 전 세계적으로 영구히 사용하는 것에 동의합니다.',
+                    '[홍보 협조] 드라이버 브리핑, 기자회견, 팬 이벤트 등 주최 측 공식 홍보 활동에 성실히 참여합니다.',
+                  ],
+                },
+                {
+                  title: '제6조 (도핑 방지 및 스포츠맨십)',
+                  items: [
+                    '[반도핑] KADA 및 KARA의 도핑 검사 규정을 준수하며, 위반 시 징계를 수용합니다.',
+                    '[품위 유지] 비신사적 행위, 폭언, SNS를 통한 대회 비방 등 모터스포츠의 품격을 저해하는 행위를 하지 않습니다.',
+                  ],
+                },
+              ].map((article, ai) => (
+                <details key={ai} style={{ background: '#fff', border: '1px solid var(--line)', clipPath: 'polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)', overflow: 'hidden' }}>
+                  <summary style={{
+                    padding: '16px 22px', fontWeight: 800, fontSize: '.97rem', cursor: 'pointer',
+                    listStyle: 'none', display: 'flex', alignItems: 'center',
+                    justifyContent: 'space-between', gap: '12px',
+                    borderLeft: '3px solid var(--red)',
+                  }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span style={{ fontSize: '.72rem', fontWeight: 900, color: 'var(--red)', fontFamily: "'Barlow Condensed',sans-serif", letterSpacing: '1px' }}>
+                        {String(ai + 1).padStart(2, '0')}
+                      </span>
+                      {article.title}
+                    </span>
+                    <i className="fa-solid fa-chevron-down" style={{ fontSize: '.8rem', color: 'var(--muted)', flexShrink: 0 }} />
+                  </summary>
+                  <div style={{ padding: '4px 22px 18px 22px', borderTop: '1px solid var(--line)' }}>
+                    <ol style={{ margin: '14px 0 0', padding: '0 0 0 18px', display: 'grid', gap: '10px' }}>
+                      {article.items.map((item, ii) => (
+                        <li key={ii} style={{ fontSize: '.9rem', color: 'var(--text-sub)', lineHeight: 1.7 }}>
+                          {item}
+                        </li>
+                      ))}
+                    </ol>
                   </div>
-                  <span style={{ fontSize: '.72rem', fontWeight: 900, padding: '2px 7px', background: 'rgba(230,0,35,.08)', color: 'var(--red)', border: '1px solid rgba(230,0,35,.2)', borderRadius: '3px' }}>{doc.badge}</span>
-                </div>
+                </details>
               ))}
             </div>
-            <p style={{ marginTop: '-48px', marginBottom: '64px', fontSize: '.85rem', color: 'var(--muted)' }}>
-              * 규정 PDF는 추후 업로드 예정입니다. 문의는 이메일 또는 카카오 채널을 이용해 주세요.
-            </p>
 
             {/* FAQ */}
             <div className="section-head">

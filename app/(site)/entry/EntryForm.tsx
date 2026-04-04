@@ -8,6 +8,7 @@ interface Props {
   classes: ClassInfo[]
   rounds: Round[]
   initialRoundNumber?: number
+  tossBaseUrl?: string
 }
 
 interface FormData {
@@ -73,6 +74,21 @@ const cut = 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)'
 
 const DRAFT_KEY = 'inje-gt-entry-draft'
 
+// 임시 정적 클래스 — Sanity CMS에 추가 전까지 프론트에서 보완
+const NEVO_CLASS = {
+  _id: 'static-masters-n-evo',
+  classCode: 'NEVO',
+  slug: { current: 'masters-n-evo' },
+  order: 99,
+  name: 'Masters N-evo',
+  accentColor: '#e60023',
+  entryFeePerRound: 600000,
+  entryFeeSeason: 2500000,
+  isFeePublic: true,
+  isActive: true,
+  isEntryOpen: true,
+} as unknown as ClassInfo
+
 function saveDraft(form: FormData, step: number) {
   try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ form, step, ts: Date.now() })) } catch {}
 }
@@ -90,7 +106,7 @@ function clearDraft() {
 }
 
 // ── 컴포넌트 ────────────────────────────────────────────────
-export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber }: Props) {
+export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber, tossBaseUrl: _tossBaseUrl }: Props) {
   const [step, setStep] = useState(1)
   const [form, setForm] = useState<FormData>(() => {
     const init = { ...EMPTY }
@@ -129,7 +145,13 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
 
   const set = (k: keyof FormData, v: string | boolean) => setForm(p => ({ ...p, [k]: v }))
 
-  const selectedClass = classes.find(c => c._id === form.classId)
+  // Masters N 바로 뒤에 NEVO 삽입, 없으면 마지막에 추가
+  const nEvoIdx = classes.findIndex(c => c.name === 'Masters N')
+  const augClasses: ClassInfo[] = nEvoIdx >= 0
+    ? [...classes.slice(0, nEvoIdx + 1), NEVO_CLASS, ...classes.slice(nEvoIdx + 1)]
+    : [...classes, NEVO_CLASS]
+
+  const selectedClass = augClasses.find(c => c._id === form.classId)
   const selectedRound = rounds.find(r => r._id === form.roundId)
 
   // ── Step 유효성 ────────────────────────────────────────
@@ -268,6 +290,45 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
       {/* ── Step 1: 팀 & 차량 ──────────────────────────── */}
       {step === 1 && (
         <div style={{ display: 'grid', gap: '16px' }}>
+
+          {/* 신청 전 필수 확인 사항 */}
+          <div style={{
+            background: '#0d0d0d',
+            border: '1px solid rgba(230,0,35,.3)',
+            clipPath: cut,
+            padding: '18px 20px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <i className="fa-solid fa-triangle-exclamation" style={{ color: '#e60023', fontSize: '1rem' }} />
+              <span style={{
+                fontFamily: "'Barlow Condensed',sans-serif",
+                fontSize: '15px', fontWeight: 800, letterSpacing: '2.5px',
+                textTransform: 'uppercase' as const, color: '#fff',
+              }}>신청 전 필수 확인 사항</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              {[
+                { icon: 'fa-circle-info',    title: '접수 안내', desc: '선착순 마감이며 정원 초과 시 대기 처리됩니다.' },
+                { icon: 'fa-car',            title: '차량 확인', desc: '클래스별 기술 규정을 사전에 반드시 확인하세요.' },
+                { icon: 'fa-rotate-left',    title: '취소 안내', desc: '결제 완료 후 취소 시 취소 수수료가 발생합니다.' },
+                { icon: 'fa-id-card',        title: '정보 확인', desc: '부정확한 정보 기재 시 출전 자격이 박탈됩니다.' },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  padding: '12px 14px',
+                  background: '#1a1a1a',
+                  border: '1px solid rgba(255,255,255,.07)',
+                  clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '5px' }}>
+                    <i className={`fa-solid ${item.icon}`} style={{ color: '#e60023', fontSize: '.85rem' }} />
+                    <strong style={{ fontSize: '.83rem', color: '#fff', fontWeight: 800 }}>{item.title}</strong>
+                  </div>
+                  <p style={{ fontSize: '.78rem', color: 'rgba(255,255,255,.45)', lineHeight: 1.5, margin: 0 }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div>
             <label style={labelStyle}>팀명<span style={reqDot}>*</span></label>
             <input style={inputStyle} placeholder="한글/영문/숫자, 2~20자"
@@ -279,7 +340,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           <div>
             <label style={labelStyle}>클래스 선택<span style={reqDot}>*</span></label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(140px,1fr))', gap: '8px' }}>
-              {classes.map(c => {
+              {augClasses.map(c => {
                 const color = c.accentColor ?? '#e60023'
                 const sel = form.classId === c._id
                 return (
