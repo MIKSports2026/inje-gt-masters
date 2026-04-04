@@ -156,10 +156,19 @@ export default defineConfig({
   },
 
   document: {
-    // 싱글턴에서 복제·삭제 액션 제거
-    actions: (input, context) =>
-      SINGLETONS.has(context.schemaType)
-        ? input.filter(({ action }) => action !== 'duplicate' && action !== 'delete')
-        : input,
+    // 싱글턴: 복제·삭제 제거 / 일반 문서: Delete를 3번째 위치에 노출
+    actions: (input, context) => {
+      if (SINGLETONS.has(context.schemaType)) {
+        return input.filter(({ action }) => action !== 'duplicate' && action !== 'delete')
+      }
+      // Delete를 앞쪽(index 2)으로 이동해 메뉴 밖에 항상 노출
+      const arr = [...input]
+      const deleteIdx = arr.findIndex(a => a.action === 'delete')
+      if (deleteIdx > 2) {
+        const [del] = arr.splice(deleteIdx, 1)
+        arr.splice(2, 0, del)
+      }
+      return arr
+    },
   },
 })

@@ -34,7 +34,7 @@ export const SITE_SETTINGS_QUERY = /* groq */`
 
 /** 특정 시즌의 전체 라운드 (목록) */
 export const ROUNDS_QUERY = /* groq */`
-  *[_type == "round" && season == $season] | order(roundNumber asc){
+  *[_type == "round" && season == $season && isHidden != true] | order(roundNumber asc){
     _id, season, roundNumber, slug, title, titleEn, subtitle,
     badge, dateStart, dateEnd, status,
     heroImage ${IMAGE}, resultImage ${IMAGE}, resultUrl,
@@ -45,7 +45,7 @@ export const ROUNDS_QUERY = /* groq */`
 
 /** 단건 라운드 (상세 페이지) */
 export const ROUND_DETAIL_QUERY = /* groq */`
-  *[_type == "round" && slug.current == $slug][0]{
+  *[_type == "round" && slug.current == $slug && isHidden != true][0]{
     _id, season, roundNumber, slug, title, titleEn, subtitle,
     campaignCopy, badge, dateStart, dateEnd, schedule, status,
     entryOpenDate, entryCloseDate, tossPaymentUrl, entryFeeNote, maxEntries,
@@ -57,7 +57,7 @@ export const ROUND_DETAIL_QUERY = /* groq */`
 
 /** 가장 가까운 예정 라운드 1개 (Hero용) */
 export const NEXT_ROUND_QUERY = /* groq */`
-  *[_type == "round" && dateStart > $today] | order(dateStart asc)[0]{
+  *[_type == "round" && dateStart > $today && isHidden != true] | order(dateStart asc)[0]{
     _id, season, roundNumber, slug, title, badge,
     dateStart, dateEnd, status,
     heroImage ${IMAGE}
@@ -102,7 +102,7 @@ export const CLASS_DETAIL_QUERY = /* groq */`
 
 /** 특정 시즌의 규정 문서 목록 */
 export const REGULATIONS_QUERY = /* groq */`
-  *[_type == "regulation" && season == $season] | order(order asc){
+  *[_type == "regulation" && season == $season && isHidden != true] | order(order asc){
     _id, title, version,
     file { asset->{ url } }
   }
@@ -147,7 +147,7 @@ export const CHAMPIONSHIP_QUERY = /* groq */`
 
 /** 메인용 최신 소식 N개 */
 export const RECENT_POSTS_QUERY = /* groq */`
-  *[_type == "post"] | order(isPinned desc, publishedAt desc)[0...$limit]{
+  *[_type == "post" && isHidden != true] | order(isPinned desc, publishedAt desc)[0...$limit]{
     _id, title, slug, category, publishedAt, excerpt, isPinned,
     coverImage ${IMAGE}
   }
@@ -155,7 +155,7 @@ export const RECENT_POSTS_QUERY = /* groq */`
 
 /** 목록 (페이지네이션) */
 export const POSTS_QUERY = /* groq */`
-  *[_type == "post" && ($category == "" || category == $category)]
+  *[_type == "post" && isHidden != true && ($category == "" || category == $category)]
   | order(isPinned desc, publishedAt desc)
   [$start...$end]{
     _id, title, slug, category, publishedAt, excerpt, isPinned,
@@ -163,12 +163,12 @@ export const POSTS_QUERY = /* groq */`
   }
 `
 export const POSTS_COUNT_QUERY = /* groq */`
-  count(*[_type == "post" && ($category == "" || category == $category)])
+  count(*[_type == "post" && isHidden != true && ($category == "" || category == $category)])
 `
 
 /** 단건 소식 */
 export const POST_DETAIL_QUERY = /* groq */`
-  *[_type == "post" && slug.current == $slug][0]{
+  *[_type == "post" && slug.current == $slug && isHidden != true][0]{
     _id, title, slug, category, publishedAt, author, excerpt,
     coverImage ${IMAGE},
     relatedRound->{ roundNumber, title, slug },

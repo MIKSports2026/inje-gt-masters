@@ -40,6 +40,13 @@ export default defineType({
       type: 'number',
       initialValue: 0,
     }),
+    defineField({
+      name: 'isHidden',
+      title: '비노출 (숨김)',
+      type: 'boolean',
+      description: '체크 시 프론트엔드에서 노출되지 않습니다.',
+      initialValue: false,
+    }),
   ],
 
   orderings: [
@@ -47,9 +54,12 @@ export default defineType({
   ],
 
   preview: {
-    select: { title: 'title', version: 'version' },
-    prepare({ title, version }) {
-      return { title, subtitle: version ?? '' }
+    select: { title: 'title', version: 'version', hidden: 'isHidden' },
+    prepare({ title, version, hidden }: any) {
+      return {
+        title: `${hidden ? '🙈 [숨김] ' : ''}${title}`,
+        subtitle: version ?? '',
+      }
     },
   },
 })

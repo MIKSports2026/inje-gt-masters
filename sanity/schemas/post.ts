@@ -42,6 +42,14 @@ export default defineType({
       group: 'basic',
       initialValue: false,
     }),
+    defineField({
+      name: 'isHidden',
+      title: '비노출 (숨김)',
+      type: 'boolean',
+      group: 'basic',
+      description: '체크 시 프론트엔드에서 노출되지 않습니다.',
+      initialValue: false,
+    }),
 
     /* ── 제목 / 슬러그 ─────────────────────────────────────── */
     defineField({
@@ -176,14 +184,15 @@ export default defineType({
       date:     'publishedAt',
       media:    'coverImage',
       pinned:   'isPinned',
+      hidden:   'isHidden',
     },
-    prepare({ title, category, date, media, pinned }: any) {
+    prepare({ title, category, date, media, pinned, hidden }: any) {
       const catLabel: Record<string, string> = {
         notice: '공지', news: '소식', press: '보도',
         entry: '참가', regulation: '규정', event: '이벤트',
       }
       return {
-        title:    `${pinned ? '📌 ' : ''}${title}`,
+        title:    `${hidden ? '🙈 [숨김] ' : ''}${pinned ? '📌 ' : ''}${title}`,
         subtitle: `[${catLabel[category] ?? category}] ${date ? String(date).slice(0, 10) : ''}`,
         media,
       }

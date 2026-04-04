@@ -269,6 +269,14 @@ export default defineType({
       group: 'content',
       initialValue: false,
     }),
+    defineField({
+      name: 'isHidden',
+      title: '비노출 (숨김)',
+      type: 'boolean',
+      group: 'basic',
+      description: '체크 시 프론트엔드에서 노출되지 않습니다.',
+      initialValue: false,
+    }),
   ],
 
   orderings: [
@@ -290,13 +298,14 @@ export default defineType({
       dateStart:   'dateStart',
       media:       'heroImage',
       status:      'status',
+      hidden:      'isHidden',
     },
-    prepare({ season, roundNumber, title, dateStart, media, status }) {
+    prepare({ season, roundNumber, title, dateStart, media, status, hidden }) {
       const statusIcon: Record<string, string> = {
         upcoming: '🔵', entry_open: '🟢', entry_closed: '🟡', ongoing: '🔴', finished: '⚫',
       }
       return {
-        title: `${season} R${roundNumber} — ${title}`,
+        title: `${hidden ? '🙈 [숨김] ' : ''}${season} R${roundNumber} — ${title}`,
         subtitle: `${statusIcon[status] ?? ''} ${dateStart ?? ''}`,
         media,
       }
