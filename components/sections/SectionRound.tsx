@@ -1,6 +1,5 @@
-// components/sections/SectionRound.tsx — Horizontal accordion (like SectionSeason)
+// components/sections/SectionRound.tsx — Card grid (source design)
 'use client'
-import { useState } from 'react'
 import Link from 'next/link'
 import type { Round } from '@/types/sanity'
 import SectionHeader from '@/components/ui/SectionHeader'
@@ -20,210 +19,148 @@ const FALLBACK: Array<{
   { _id: 'fb5', roundNumber: 5, dateStart: '2026-10-11', status: 'upcoming', slug: { current: '2026-r5' }, season: 2026, title: 'R5 파이널', hasResults: false },
 ]
 
-function fmtDate(d: string) {
+function fmtDateGiant(d: string) {
   const dt = new Date(d)
-  return `${dt.getFullYear()}.${String(dt.getMonth() + 1).padStart(2, '0')}.${String(dt.getDate()).padStart(2, '0')}`
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+  return `${months[dt.getMonth()]} ${String(dt.getDate()).padStart(2, '0')}`
+}
+
+function statusBadge(s: RoundStatus) {
+  if (s === 'entry_open') return { text: 'ENTRY OPEN', cls: 'sc-badge--open' }
+  if (s === 'finished') return { text: 'COMPLETED', cls: 'sc-badge--done' }
+  if (s === 'entry_closed') return { text: 'CLOSED', cls: 'sc-badge--done' }
+  return { text: 'UPCOMING', cls: 'sc-badge--soon' }
 }
 
 export default function SectionRound({ rounds }: Props) {
   const data = rounds.length > 0 ? rounds : FALLBACK as unknown as Round[]
-  const openIdx = data.findIndex(r => r.status === 'entry_open')
-  const [active, setActive] = useState(openIdx >= 0 ? openIdx : 0)
 
   return (
-    <section className="rnd" id="rounds">
-      <div className="rnd__hd">
-        <SectionHeader subtitle="2026 SEASON" title="RACE ROUNDS" />
-      </div>
+    <section className="sc-section" id="rounds">
+      <div className="sc-container">
+        <SectionHeader subtitle="2026 SEASON" title="RACE SCHEDULE" />
 
-      <div className="rnd__acc">
-        {data.map((r, i) => {
-          const on = active === i
-          const st = (r.status ?? 'upcoming') as RoundStatus
-          const isOpen = st === 'entry_open'
-          const isFin = st === 'finished'
-          const dateStr = r.dateStart ? fmtDate(r.dateStart) : '—'
-          const heroUrl = (r as any).heroImage?.asset?.url as string | undefined
-          const resultUrl = (r as any).resultUrl as string | undefined
-          const resultImg = (r as any).resultImage?.asset?.url as string | undefined
-          const imgSrc = isFin ? (resultImg ?? heroUrl) : heroUrl
+        <div className="sc-grid">
+          {data.map((r) => {
+            const st = (r.status ?? 'upcoming') as RoundStatus
+            const isOpen = st === 'entry_open'
+            const isFin = st === 'finished'
+            const badge = statusBadge(st)
+            const heroUrl = (r as any).heroImage?.asset?.url as string | undefined
+            const dateStr = r.dateStart ? fmtDateGiant(r.dateStart) : '—'
 
-          return (
-            <div
-              key={r._id}
-              className={`rnd__p ${on ? 'rnd__p--on' : ''}`}
-              onClick={() => setActive(i)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={e => { if (e.key === 'Enter') setActive(i) }}
-            >
-              {/* 배경 이미지 */}
-              {imgSrc && <div className="rnd__p-bg" style={{ backgroundImage: `url(${imgSrc})` }} />}
-              <div className="rnd__p-ov" />
-              <div className="rnd__p-bar" />
-
-              {/* 닫힌: 세로 라운드번호 + 날짜 */}
-              <div className="rnd__p-closed">
-                <span className="rnd__p-closed-num">R{String(r.roundNumber).padStart(2, '0')}</span>
-                <span className="rnd__p-closed-date">{dateStr}</span>
-              </div>
-
-              {/* 열린: 콘텐츠 */}
-              <div className="rnd__p-open">
-                {isOpen && <div className="rnd__p-tag">접수중</div>}
-                {isFin && <div className="rnd__p-tag rnd__p-tag--fin">종료</div>}
-
-                <div className="rnd__p-num">R{String(r.roundNumber).padStart(2, '0')}</div>
-                <div className="rnd__p-date">{dateStr}</div>
-                <div className="rnd__p-loc">INJE SPEEDIUM</div>
-
-                {isOpen && (
-                  <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="rnd__p-cta" onClick={e => e.stopPropagation()}>
-                    참가 신청 →
-                  </Link>
+            return (
+              <div key={r._id} className={`sc-card ${isOpen ? 'sc-card--feature sc-card--highlight' : ''} ${isFin ? 'sc-card--done' : ''}`}>
+                {/* Background */}
+                {heroUrl ? (
+                  <div className="sc-card__bg sc-card__bg--img" style={{ backgroundImage: `url(${heroUrl})` }}>
+                    <div className="sc-card__overlay" />
+                  </div>
+                ) : (
+                  <div className="sc-card__bg sc-card__bg--carbon" />
                 )}
-                {isFin && resultUrl && (
-                  <Link href={resultUrl} className="rnd__p-cta rnd__p-cta--ghost" onClick={e => e.stopPropagation()}>
-                    결과 보기 →
-                  </Link>
-                )}
+
+                {isOpen && <div className="sc-card__edge" />}
+
+                {/* Content */}
+                <div className="sc-card__content">
+                  <div className="sc-card__top">
+                    <span className="sc-card__round">ROUND {String(r.roundNumber).padStart(2, '0')}</span>
+                    <span className={`sc-card__status ${badge.cls}`}>{badge.text}</span>
+                  </div>
+
+                  <div className="sc-card__mid">
+                    <h3 className="sc-card__date">{dateStr}</h3>
+                    <div className="sc-card__loc">INJE SPEEDIUM</div>
+                  </div>
+
+                  <div className="sc-card__bot">
+                    {isFin && (
+                      <Link href={`/results?round=${r.slug.current}`} className="sc-btn sc-btn--outline">
+                        VIEW RESULTS →
+                      </Link>
+                    )}
+                    {isOpen && (
+                      <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="sc-btn sc-btn--red">
+                        APPLY NOW →
+                      </Link>
+                    )}
+                    {!isFin && !isOpen && (
+                      <div className="sc-card__placeholder">OPENS LATER</div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
 
       <style>{`
-        .rnd { background: #0a0a0a; padding: 72px 0 64px; }
-        .rnd__hd {
-          max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
-          display: flex; align-items: flex-end; justify-content: space-between;
-        }
+        .sc-section { background: var(--bg-carbon, #0a0a0a); min-height: 80vh; padding: 80px 0; }
+        .sc-container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 
-        /* ── Accordion ── */
-        .rnd__acc {
-          max-width: 1400px; margin: 0 auto; padding: 0 40px;
-          display: flex; gap: 2px; height: 400px;
-        }
-        .rnd__p {
-          flex: 1; position: relative; overflow: hidden; cursor: pointer;
-          background: var(--bg-carbon-light, #1a1a1a);
-          transition: flex .6s cubic-bezier(.25,1,.5,1);
-          display: flex; align-items: flex-end;
-        }
-        .rnd__p--on { flex: 6; }
+        .sc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; grid-auto-flow: dense; }
 
-        .rnd__p-bg {
-          position: absolute; inset: 0;
-          background-size: cover; background-position: center;
-          opacity: 0; transition: opacity .6s ease;
+        .sc-card {
+          position: relative; background: #0b0b0b; min-height: 400px;
+          overflow: hidden; display: flex; flex-direction: column;
+          transition: transform .4s cubic-bezier(.25,1,.5,1), box-shadow .4s ease;
+          clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
         }
-        .rnd__p--on .rnd__p-bg { opacity: 1; }
+        .sc-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,.9); }
+        .sc-card--feature { grid-column: span 2; }
+        .sc-card--done { opacity: .9; }
+        .sc-card--done:hover { opacity: 1; }
+        .sc-card--highlight { border-bottom: 2px solid var(--primary-red, #E60023); }
 
-        .rnd__p-ov {
-          position: absolute; inset: 0;
-          background: linear-gradient(to right, rgba(10,10,10,.92) 0%, rgba(10,10,10,.25) 100%);
-          z-index: 1;
-        }
-        .rnd__p-bar {
-          position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-          background: #E60023; transform: scaleY(0); transform-origin: top;
-          transition: transform .4s ease .1s; z-index: 3;
-        }
-        .rnd__p--on .rnd__p-bar { transform: scaleY(1); }
+        .sc-card__edge { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary-red); z-index: 5; }
 
-        /* Closed */
-        .rnd__p-closed {
-          position: absolute; inset: 0; z-index: 2;
-          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-          transition: opacity .25s;
-        }
-        .rnd__p--on .rnd__p-closed { opacity: 0; pointer-events: none; }
+        /* Background */
+        .sc-card__bg { position: absolute; inset: 0; z-index: 1; transition: transform .6s ease; }
+        .sc-card:hover .sc-card__bg { transform: scale(1.05); }
+        .sc-card__bg--img { background-size: cover; background-position: center; filter: grayscale(80%) sepia(20%) hue-rotate(300deg); }
+        .sc-card__overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,10,10,.9) 0%, rgba(10,10,10,.4) 40%, rgba(10,10,10,.95) 100%); }
+        .sc-card__bg--carbon { background: linear-gradient(135deg, #111 0%, #050505 100%); }
 
-        .rnd__p-closed-num {
-          font-family: 'Oswald',sans-serif; font-size: 1.8rem; font-weight: 900;
-          letter-spacing: -.03em; color: rgba(255,255,255,.2);
-          writing-mode: vertical-lr; text-orientation: mixed;
-          transform: skewY(-5deg);
-        }
-        .rnd__p:hover .rnd__p-closed-num { color: rgba(255,255,255,.4); }
-        .rnd__p-closed-date {
-          font-family: 'Oswald',sans-serif; font-size: .7rem; font-weight: 500;
-          letter-spacing: .1em; color: rgba(255,255,255,.12);
-          writing-mode: vertical-lr;
-        }
+        /* Content */
+        .sc-card__content { position: relative; z-index: 10; display: flex; flex-direction: column; height: 100%; padding: 40px; }
+        .sc-card__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: auto; }
+        .sc-card__round { font-family: var(--font-heading, 'Oswald'); font-size: 1.2rem; font-weight: 700; color: #aaa; letter-spacing: 2px; }
+        .sc-card__status { font-family: var(--font-heading, 'Oswald'); font-size: .9rem; font-weight: 600; padding: 6px 12px; letter-spacing: 1px; }
+        .sc-badge--open { background: var(--primary-red); color: #fff; }
+        .sc-badge--done { color: #666; border: 1px solid #333; }
+        .sc-badge--soon { color: #888; background: #1a1a1a; }
 
-        /* Open */
-        .rnd__p-open {
-          position: relative; z-index: 2; padding: 20px 28px;
-          opacity: 0; transform: translateX(-12px);
-          transition: opacity .4s ease .2s, transform .4s ease .2s;
-        }
-        .rnd__p--on .rnd__p-open { opacity: 1; transform: translateX(0); }
+        .sc-card__mid { margin: 40px 0; }
+        .sc-card__date { font-family: var(--font-heading, 'Oswald'); font-size: 5rem; font-weight: 900; line-height: .9; letter-spacing: -1px; color: var(--text-primary, #fff); margin: 0 0 16px; text-transform: uppercase; }
+        .sc-card--feature .sc-card__date { font-size: 7rem; }
+        .sc-card__loc { font-family: var(--font-heading, 'Oswald'); font-size: 1.1rem; font-weight: 600; color: #777; letter-spacing: 2px; }
 
-        .rnd__p-tag {
-          display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: 1rem; font-weight: 700;
-          letter-spacing: .18em; text-transform: uppercase;
-          color: #E60023; border-left: 3px solid #E60023;
-          padding: 4px 16px; margin-bottom: 12px;
-          transform: skewX(-20deg);
+        .sc-card__bot { display: flex; align-items: center; }
+        .sc-btn {
+          display: flex; align-items: center; justify-content: center; gap: 12px;
+          width: 100%; padding: 16px 0;
+          font-family: var(--font-heading, 'Oswald'); font-size: 1.1rem; font-weight: 700;
+          letter-spacing: 1px; text-decoration: none;
+          transition: all .3s ease;
+          clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
         }
-        .rnd__p-tag--fin { color: rgba(255,255,255,.2); border-color: rgba(255,255,255,.1); }
+        .sc-btn--outline { background: transparent; color: #fff; border: 1px solid #444; }
+        .sc-btn--outline:hover { background: #fff; color: #0a0a0a; }
+        .sc-btn--red { background: var(--primary-red); color: #fff; border: none; }
+        .sc-btn--red:hover { background: #C0001D; transform: translateY(-2px); }
+        .sc-card__placeholder { font-family: var(--font-heading, 'Oswald'); font-size: 1rem; font-weight: 600; color: #444; letter-spacing: 2px; }
 
-        .rnd__p-num {
-          font-family: 'Oswald',sans-serif;
-          font-size: clamp(2.5rem, 5vw, 4rem);
-          font-weight: 900; letter-spacing: -.05em;
-          color: #fff; line-height: .85;
-          transform: skewX(-8deg);
-          margin-bottom: 4px;
+        @media (max-width: 1200px) {
+          .sc-grid { grid-template-columns: repeat(2, 1fr); }
+          .sc-card--feature { grid-column: span 2; }
         }
-        .rnd__p-date {
-          font-family: 'Oswald',sans-serif; font-size: 1.4rem; font-weight: 700;
-          letter-spacing: -.03em; color: rgba(255,255,255,.5);
-          transform: skewX(-5deg);
-          margin-bottom: 4px;
-        }
-        .rnd__p-loc {
-          font-family: 'Oswald',sans-serif; font-size: .85rem; font-weight: 600;
-          letter-spacing: .1em; color: rgba(255,255,255,.15);
-          margin-bottom: 12px;
-        }
-
-        .rnd__p-cta {
-          display: inline-block;
-          font-family: 'Oswald',sans-serif; font-size: .95rem; font-weight: 700;
-          letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
-          padding: 12px 28px; transform: skewX(-15deg);
-          color: #fff; background: var(--primary-red, #E60023); border: none;
-          transition: transform .2s, box-shadow .2s;
-        }
-        .rnd__p-cta:hover {
-          transform: skewX(-15deg) scale(1.03);
-          box-shadow: 0 0 15px rgba(230,0,35,.4);
-        }
-        .rnd__p-cta--ghost {
-          background: transparent; color: #fff;
-          border: 2px solid #fff;
-        }
-        .rnd__p-cta--ghost:hover {
-          background: #fff; color: var(--bg-carbon, #0a0a0a);
-          transform: skewX(-15deg) scale(1.03);
-          box-shadow: none;
-        }
-
-        /* Mobile */
-        @media (max-width: 900px) {
-          .rnd__acc { flex-direction: column; height: auto; padding: 0 20px; }
-          .rnd__p { height: 56px; flex: none !important; transition: height .5s cubic-bezier(.25,1,.5,1); }
-          .rnd__p--on { height: 240px; }
-          .rnd__p-closed { flex-direction: row; gap: 14px; }
-          .rnd__p-closed-num { writing-mode: horizontal-tb; transform: none; font-size: 1.4rem; }
-          .rnd__p-closed-date { writing-mode: horizontal-tb; font-size: .8rem; }
-          .rnd__hd { padding: 0 20px; }
-          .rnd__p-num { font-size: 3.5rem; }
-          .rnd__p-date { font-size: 1.6rem; }
+        @media (max-width: 768px) {
+          .sc-grid { grid-template-columns: 1fr; }
+          .sc-card--feature { grid-column: span 1; }
+          .sc-card__content { padding: 30px; }
+          .sc-card__date, .sc-card--feature .sc-card__date { font-size: 3.5rem; }
         }
       `}</style>
     </section>
