@@ -9,18 +9,17 @@ const NAV_ITEMS = [
     label: 'MASTERS',
     href: '/about',
     drop: [
-      { label: '대회 소개', href: '/about' },
       { label: '마스터즈 히스토리', href: '/history' },
-      { label: '역대 챔피언', href: '/masters/champions' },
-      { label: '운영 조직도', href: '/masters/organization' },
+      { label: '역대 챔피언', href: '/coming-soon' },
+      { label: '조직도', href: '/coming-soon' },
     ],
   },
   {
     label: 'SEASON',
     href: '/season',
     drop: [
-      { label: '경기 일정 / 클래스 소개', href: '/season' },
-      { label: '규정', href: '/season/rules' },
+      { label: '경기 일정', href: '/season' },
+      { label: '클래스 소개', href: '/classes' },
       { label: '인제스피디움', href: '/circuit' },
     ],
   },
@@ -29,25 +28,20 @@ const NAV_ITEMS = [
     href: '/entry',
     drop: [
       { label: '참가 신청', href: '/entry' },
-      { label: '클래스 소개', href: '/entry/classes' },
+      { label: '규정', href: '/entry/rules' },
     ],
   },
   {
     label: 'RESULTS',
     href: '/results',
-    drop: [
-      { label: '경기 결과', href: '/results' },
-      { label: '포인트 순위', href: '/results/standing' },
-    ],
+    drop: [],
   },
   {
     label: 'MEDIA',
     href: '/media',
     drop: [
-      { label: '공지사항', href: '/media' },
-      { label: '보도자료', href: '/media/press' },
-      { label: '미디어킷', href: '/media/kit' },
-      { label: '영상', href: '/media/video' },
+      { label: '공지사항', href: '/news' },
+      { label: '미디어킷', href: '/media' },
     ],
   },
 ] as const
