@@ -6,6 +6,7 @@ import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, CLASSES_QUERY, REGULATIONS_QUERY } f
 import type { SiteSettings, Round, ClassInfo } from '@/types/sanity'
 import { resolveRoundStatus } from '@/lib/roundStatus'
 import PageHero from '@/components/ui/PageHero'
+import SectionRound from '@/components/sections/SectionRound'
 
 export const metadata: Metadata = {
   title: '2026 시즌 안내',
@@ -57,85 +58,8 @@ export default async function SeasonPage() {
         </div>
       </PageHero>
 
-      {/* ── 라운드 일정 ──────────────────────────────────────── */}
-      <section className="section" id="schedule">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <span className="eyebrow">2026 Schedule</span>
-              <h2>라운드 일정</h2>
-            </div>
-          </div>
-
-          {displayRounds.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--muted)' }}>
-              <i className="fa-solid fa-calendar-xmark" style={{ fontSize: '3rem', marginBottom: '16px', display: 'block', opacity: .3 }} />
-              <p>라운드 일정을 준비중입니다.</p>
-            </div>
-          )}
-          <div style={{ display: 'grid', gap: '20px' }}>
-            {displayRounds.map((r) => {
-              const st = STATUS_MAP[resolveRoundStatus(r)] ?? STATUS_MAP.upcoming
-              return (
-                <div key={r._id} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden', position: 'relative' }}>
-                  <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '4px', background: 'var(--red)' }} />
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '20px', padding: '24px 28px' }}>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '.9rem', fontWeight: 900, padding: '3px 12px', background: 'rgba(230,0,35,.08)', color: 'var(--red)', border: '1px solid rgba(230,0,35,.22)', clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)' }}>
-                          R{r.roundNumber}
-                        </span>
-                        {r.badge && (
-                          <span style={{ fontSize: '.76rem', fontWeight: 900, padding: '2px 8px', background: '#111', color: '#fff', letterSpacing: '.08em' }}>{r.badge}</span>
-                        )}
-                        <span style={{ fontSize: '.8rem', fontWeight: 900, padding: '3px 10px', background: st.bg, color: st.color, borderRadius: '4px' }}>
-                          {st.text}
-                        </span>
-                      </div>
-
-                      <h3 style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', marginBottom: '6px' }}>{r.title}</h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', color: 'var(--muted)', fontSize: '.88rem', flexWrap: 'wrap' }}>
-                        <span><i className="fa-solid fa-calendar" style={{ marginRight: '6px', color: 'var(--red)' }} />{r.dateStart}{r.dateEnd && r.dateEnd !== r.dateStart && ` — ${r.dateEnd}`}</span>
-                        <span><i className="fa-solid fa-location-dot" style={{ marginRight: '6px', color: 'var(--red)' }} />인제스피디움</span>
-                      </div>
-
-                      {/* 세션 스케줄 */}
-                      {r.schedule && r.schedule.length > 0 && (
-                        <div style={{ marginTop: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '12px' }}>
-                          {r.schedule.map((day, di) => (
-                            <div key={di} style={{ background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px' }}>
-                              <strong style={{ display: 'block', fontSize: '.82rem', marginBottom: '8px', color: 'var(--muted)', letterSpacing: '.06em', textTransform: 'uppercase' }}>{day.dayLabel}</strong>
-                              {day.items.map((item, ii) => (
-                                <div key={ii} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '5px 0', borderBottom: ii < day.items.length - 1 ? '1px solid var(--line)' : 'none' }}>
-                                  <span style={{ fontSize: '.8rem', fontFamily: 'monospace', fontWeight: 700, color: 'var(--red)', minWidth: '46px' }}>{item.time}</span>
-                                  <span style={{ fontSize: '.85rem' }}>{item.label}</span>
-                                </div>
-                              ))}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* CTA */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'space-between', gap: '10px' }}>
-                      {resolveRoundStatus(r) === 'entry_open' && (
-                        <Link href="/entry" className="btn btn-primary" style={{ whiteSpace: 'nowrap' }}>
-                          <i className="fa-solid fa-flag-checkered" />참가 신청
-                        </Link>
-                      )}
-                      {r.hasResults && (
-                        <Link href={`/results?round=${r.slug.current}`} className="btn btn-secondary" style={{ whiteSpace: 'nowrap' }}>결과 보기</Link>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ── 라운드 일정 (카드 그리드) ───────────────────────── */}
+      <SectionRound rounds={displayRounds} />
 
       {/* ── 클래스 소개 ─────────────────────────────────────── */}
       <section className="section" id="classes" style={{ background: 'var(--surface-2)' }}>
