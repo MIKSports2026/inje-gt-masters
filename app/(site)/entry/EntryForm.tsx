@@ -233,7 +233,7 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
               <input type="checkbox" checked={form.agreedRules} onChange={e => set('agreedRules', e.target.checked)} />
               <span className="ef-checkmark" />
               대회 규정 및 참가 조건에 동의합니다.
-              <button type="button" onClick={(e) => { e.preventDefault(); setShowPledge(true) }} style={{ background: 'none', border: '1px solid var(--primary-red, #E60023)', color: 'var(--primary-red, #E60023)', padding: '2px 10px', fontSize: '.75rem', fontFamily: "var(--font-heading, 'Oswald')", letterSpacing: '1px', cursor: 'pointer', marginLeft: 8 }}>규정 보기</button>
+              <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowPledge(true) }} style={{ background: 'none', border: '1px solid var(--primary-red, #E60023)', color: 'var(--primary-red, #E60023)', padding: '2px 10px', fontSize: '.75rem', fontFamily: "var(--font-heading, 'Oswald')", letterSpacing: '1px', cursor: 'pointer', marginLeft: 8 }}>규정 보기</button>
             </label>
             <label className="ef-checkbox">
               <input type="checkbox" checked={form.agreedPrivacy} onChange={e => set('agreedPrivacy', e.target.checked)} />
