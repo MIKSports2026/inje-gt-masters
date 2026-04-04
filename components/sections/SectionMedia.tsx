@@ -15,6 +15,8 @@ export default function SectionMedia({ media }: Props) {
   const cellBase: React.CSSProperties = {
     position: 'relative', overflow: 'hidden',
     background: 'var(--bg-4)', cursor: 'pointer',
+    borderRadius: 0,
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
   }
 
   return (
@@ -54,8 +56,8 @@ export default function SectionMedia({ media }: Props) {
               return (
                 <Link key={m._id} href={href}
                   style={{ ...cellBase, gridRow: isTall ? 'span 2' : 'auto', display: 'block', textDecoration: 'none' }}
-                  onMouseEnter={e => { const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.05)'; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(220,0,26,0.72) 0%, rgba(0,0,0,0.28) 55%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'rgba(255,255,255,0.75)'; }}
-                  onMouseLeave={e => { const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = ''; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'var(--red)'; }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,.6)'; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.05)'; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(220,0,26,0.72) 0%, rgba(0,0,0,0.28) 55%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'rgba(255,255,255,0.75)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = ''; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'var(--red)'; }}
                 >
                   <div className="m-bg" style={{
                     position: 'absolute', inset: 0,
@@ -91,7 +93,7 @@ export default function SectionMedia({ media }: Props) {
                       color: 'var(--red)', marginBottom: '5px',
                       transition: 'color 0.25s',
                     }}>{tagLabel}</div>
-                    <div style={{ fontSize: '16.5px', fontWeight: 700, color: 'white', lineHeight: 1.4, wordBreak: 'keep-all' }}>
+                    <div style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-primary, #fff)', lineHeight: 1.4, wordBreak: 'keep-all' }}>
                       {m.title}
                     </div>
                   </div>
