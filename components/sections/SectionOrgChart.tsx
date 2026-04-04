@@ -5,14 +5,6 @@ export default function SectionOrgChart() {
     <section id="organization" className={`section ${styles.orgSection}`}>
       <div className="container">
 
-        <div className="section-header" style={{ marginBottom: '80px' }}>
-          <h2 className="section-title">ORGANIZATION</h2>
-          <div className="arrow-line-container">
-            <div className="arrow-line"></div>
-          </div>
-          <span className="header-subtitle">COMMITTEE STRUCTURE</span>
-        </div>
-
         <div className={styles.orgTreeWrapper}>
 
           {/* Top Leaders */}
