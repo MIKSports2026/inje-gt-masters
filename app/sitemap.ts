@@ -1,7 +1,7 @@
 // app/sitemap.ts — 자동 생성 sitemap.xml
 import type { MetadataRoute } from 'next'
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.masters-series.kr'
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.injegtmasters.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()

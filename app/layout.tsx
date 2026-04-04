@@ -8,7 +8,7 @@ import type { SiteSettings }   from '@/types/sanity'
 // ── 기본 메타데이터 (Sanity 값으로 덮어씌워짐) ────────────────
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.masters-series.kr'
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.injegtmasters.com'
   ),
   title: {
     default:  '인제 GT 마스터즈 2026 — 공식 홈페이지 | Inje GT Masters',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     type:   'website',
     locale: 'ko_KR',
-    url:    'https://www.masters-series.kr',
+    url:    'https://www.injegtmasters.com',
     siteName: '인제 GT 마스터즈',
   },
   twitter: {
