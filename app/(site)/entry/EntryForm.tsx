@@ -227,21 +227,21 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
             )
           )}
 
-          {/* 동의 — 규정 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '16px 0', borderTop: '1px dashed rgba(255,255,255,.1)', cursor: 'pointer' }} onClick={() => setShowPledge(true)}>
+          {/* 동의 — 개인정보 (단순 체크) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '16px 0', borderTop: '1px dashed rgba(255,255,255,.1)', cursor: 'pointer' }} onClick={() => set('agreedPrivacy', !form.agreedPrivacy)}>
+            <span style={{ width: 20, height: 20, border: form.agreedPrivacy ? 'none' : '1px solid #555', background: form.agreedPrivacy ? 'var(--primary-red, #E60023)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 12, color: '#fff' }}>
+              {form.agreedPrivacy && '✓'}
+            </span>
+            <span style={{ fontSize: '.95rem', color: '#aaa' }}>개인정보 수집 및 이용에 동의합니다.</span>
+          </div>
+
+          {/* 동의 — 규정 (모달 오픈) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingBottom: 16, cursor: 'pointer' }} onClick={() => setShowPledge(true)}>
             <span style={{ width: 20, height: 20, border: form.agreedRules ? 'none' : '1px solid #555', background: form.agreedRules ? 'var(--primary-red, #E60023)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 12, color: '#fff' }}>
               {form.agreedRules && '✓'}
             </span>
             <span style={{ fontSize: '.95rem', color: '#aaa' }}>대회 규정 및 참가 조건에 동의합니다.</span>
             <button type="button" onClick={(e) => { e.stopPropagation(); setShowPledge(true) }} style={{ background: 'none', border: '1px solid var(--primary-red, #E60023)', color: 'var(--primary-red, #E60023)', padding: '2px 10px', fontSize: '.75rem', fontFamily: "var(--font-heading, 'Oswald')", letterSpacing: '1px', cursor: 'pointer', marginLeft: 'auto', flexShrink: 0 }}>규정 보기</button>
-          </div>
-
-          {/* 동의 — 개인정보 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingBottom: 16, cursor: 'pointer' }} onClick={() => set('agreedPrivacy', !form.agreedPrivacy)}>
-            <span style={{ width: 20, height: 20, border: form.agreedPrivacy ? 'none' : '1px solid #555', background: form.agreedPrivacy ? 'var(--primary-red, #E60023)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 12, color: '#fff' }}>
-              {form.agreedPrivacy && '✓'}
-            </span>
-            <span style={{ fontSize: '.95rem', color: '#aaa' }}>개인정보 수집 및 이용에 동의합니다.</span>
           </div>
 
           <button type="button" disabled={!step1Valid} onClick={() => setStep(2)} className="ef-btn-submit">
