@@ -5,7 +5,6 @@ import Link from 'next/link'
 import type { Round } from '@/types/sanity'
 import { urlFor } from '@/lib/sanity.client'
 import SectionHeader from '@/components/ui/SectionHeader'
-import styles from './SectionRound.module.css'
 
 type RoundStatus = 'upcoming' | 'entry_open' | 'entry_closed' | 'ongoing' | 'finished'
 
@@ -34,11 +33,11 @@ export default function SectionRound({ rounds }: Props) {
   const season = rounds[0]?.season ?? 2026
 
   return (
-    <section className={styles.acSection} id="rounds">
-      <div className={styles.acContainer}>
+    <section className="ac-section" id="rounds">
+      <div className="ac-container">
         <SectionHeader subtitle={`${season} SEASON`} title="RACE SCHEDULE" />
 
-        <div className={styles.acList}>
+        <div className="ac-list">
           {rounds.map((r) => {
             const st       = (r.status ?? 'upcoming') as RoundStatus
             const isActive = activeId === r._id
@@ -54,78 +53,61 @@ export default function SectionRound({ rounds }: Props) {
             return (
               <div
                 key={r._id}
-                className={[
-                  styles.acItem,
-                  isActive ? styles.acItemActive : '',
-                ].filter(Boolean).join(' ')}
+                className={`ac-item${isActive ? ' ac-item--active' : ''}`}
                 onMouseEnter={() => setActiveId(r._id)}
               >
                 {/* 배경 이미지 */}
                 <div
-                  className={styles.acBg}
+                  className="ac-bg"
                   style={bgUrl ? { backgroundImage: `url(${bgUrl})` } : undefined}
                 >
-                  <div className={styles.acOverlay} />
+                  <div className="ac-overlay" />
                 </div>
 
                 {/* 레드 바 */}
-                <div className={styles.acRedbar} />
+                <div className="ac-redbar" />
 
                 {/* 접힌 상태: 라운드 번호 */}
-                <div className={styles.acCollapsed}>
-                  <span className={styles.acCollapsedNum}>
+                <div className="ac-collapsed">
+                  <span className="ac-collapsed-num">
                     {String(r.roundNumber).padStart(2, '0')}
                   </span>
                 </div>
 
                 {/* 펼쳐진 상태 */}
-                <div className={styles.acDetail}>
-                  <div className={styles.acDetailTop}>
-                    <span className={styles.acDetailDate}>{dateStr}</span>
-                    <div className={[
-                      styles.acDetailStatus,
-                      status.isRed ? styles.acDetailStatusRed : '',
-                    ].filter(Boolean).join(' ')}>
-                      <span
-                        style={{
-                          width: 9, height: 9,
-                          borderRadius: '50%',
-                          flexShrink: 0,
-                          display: 'inline-block',
-                          background: status.isRed ? 'var(--primary-red, #E60023)' : '#444',
-                        }}
-                      />
+                <div className="ac-detail">
+                  <div className="ac-detail__top">
+                    <span className="ac-detail__date">{dateStr}</span>
+                    <div className={`ac-detail__status${status.isRed ? ' ac-detail__status--red' : ''}`}>
+                      <span style={{
+                        width: 9, height: 9,
+                        borderRadius: '50%',
+                        flexShrink: 0,
+                        display: 'inline-block',
+                        background: status.isRed ? 'var(--primary-red, #E60023)' : '#444',
+                      }} />
                       {status.text}
                     </div>
                   </div>
 
-                  <div className={styles.acDetailBottom}>
-                    <h3 className={styles.acDetailRound}>
+                  <div className="ac-detail__bottom">
+                    <h3 className="ac-detail__round">
                       ROUND {String(r.roundNumber).padStart(2, '0')}
                     </h3>
-                    <span className={styles.acDetailLocation}>INJE SPEEDIUM</span>
+                    <span className="ac-detail__location">INJE SPEEDIUM</span>
 
                     {isOpen && (
-                      <Link
-                        href={`/entry?tab=apply&round=R${r.roundNumber}`}
-                        className={styles.acDetailBtnRed}
-                      >
+                      <Link href={`/entry?tab=apply&round=R${r.roundNumber}`} className="ac-btn--red">
                         APPLY NOW →
                       </Link>
                     )}
                     {isFin && (
-                      <Link
-                        href={`/results?round=${r.slug.current}`}
-                        className={styles.acDetailBtnOutline}
-                      >
+                      <Link href={`/results?round=${r.slug.current}`} className="ac-btn--ghost">
                         VIEW RESULTS →
                       </Link>
                     )}
                     {(isClosed || st === 'upcoming' || st === 'ongoing') && (
-                      <Link
-                        href="/season"
-                        className={styles.acDetailBtnOutline}
-                      >
+                      <Link href="/season" className="ac-btn--ghost">
                         FULL SCHEDULE →
                       </Link>
                     )}
