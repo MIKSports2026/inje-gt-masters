@@ -3,12 +3,14 @@ import type { Metadata } from 'next'
 import { sanityFetch } from '@/lib/sanity.client'
 import {
   SITE_SETTINGS_QUERY, ROUNDS_QUERY,
-  PARTNERS_QUERY, NEXT_ROUND_QUERY,
+  RECENT_POSTS_QUERY, PARTNERS_QUERY, NEXT_ROUND_QUERY,
 } from '@/lib/queries'
-import type { SiteSettings, Round, Partner } from '@/types/sanity'
+import type { SiteSettings, Round, Post, Partner } from '@/types/sanity'
 
 import SectionHero       from '@/components/sections/SectionHero'
 import SectionRound      from '@/components/sections/SectionRound'
+import SectionClass      from '@/components/sections/SectionClass'
+import SectionNews       from '@/components/sections/SectionNews'
 import SectionPartners   from '@/components/sections/SectionPartners'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,23 +35,27 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const today = new Date().toISOString().slice(0, 10)
 
-  const [settings, rounds, nextRound, partners] =
+  const [settings, rounds, nextRound, posts, partners] =
     await Promise.all([
       sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY,  revalidate: 60, useCdn: false }),
       sanityFetch<Round[]>      ({ query: ROUNDS_QUERY,         params: { season: 2026 }, revalidate: 300 }),
       sanityFetch<Round | null> ({ query: NEXT_ROUND_QUERY,     params: { today },        revalidate: 300 }),
+      sanityFetch<Post[]>       ({ query: RECENT_POSTS_QUERY,   params: { limit: 3 },     revalidate: 300 }),
       sanityFetch<Partner[]>    ({ query: PARTNERS_QUERY,       params: { currentSeason: 2026 }, revalidate: 3600 }),
-    ]).catch(() => [null, [], null, []] as const)
+    ]).catch(() => [null, [], null, [], []] as const)
 
   const s  = settings as SiteSettings | null
   const rs = rounds   as Round[]
   const nr = nextRound as Round | null
+  const ps = posts    as Post[]
   const pt = partners as Partner[]
 
   return (
     <>
       <SectionHero settings={s} nextRound={nr} rounds={rs} />
       <SectionRound    rounds={rs} />
+      <SectionClass />
+      <SectionNews     posts={ps} />
       <SectionPartners partners={pt} />
     </>
   )
