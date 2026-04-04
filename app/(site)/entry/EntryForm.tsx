@@ -227,22 +227,20 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
             )
           )}
 
-          {/* 동의 — 개인정보 (단순 체크) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '16px 0', borderTop: '1px dashed rgba(255,255,255,.1)', cursor: 'pointer' }} onClick={() => set('agreedPrivacy', !form.agreedPrivacy)}>
-            <span style={{ width: 20, height: 20, border: form.agreedPrivacy ? 'none' : '1px solid #555', background: form.agreedPrivacy ? 'var(--primary-red, #E60023)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 12, color: '#fff' }}>
-              {form.agreedPrivacy && '✓'}
-            </span>
-            <span style={{ fontSize: '.95rem', color: '#aaa' }}>개인정보 수집 및 이용에 동의합니다.</span>
-          </div>
-
-          {/* 동의 — 규정 (모달 오픈) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingBottom: 16, cursor: 'pointer' }} onClick={() => setShowPledge(true)}>
-            <span style={{ width: 20, height: 20, border: form.agreedRules ? 'none' : '1px solid #555', background: form.agreedRules ? 'var(--primary-red, #E60023)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 12, color: '#fff' }}>
-              {form.agreedRules && '✓'}
-            </span>
-            <span style={{ fontSize: '.95rem', color: '#aaa' }}>대회 규정 및 참가 조건에 동의합니다.</span>
-            <button type="button" onClick={(e) => { e.stopPropagation(); setShowPledge(true) }} style={{ background: 'none', border: '1px solid var(--primary-red, #E60023)', color: 'var(--primary-red, #E60023)', padding: '2px 10px', fontSize: '.75rem', fontFamily: "var(--font-heading, 'Oswald')", letterSpacing: '1px', cursor: 'pointer', marginLeft: 'auto', flexShrink: 0 }}>규정 보기</button>
-          </div>
+          {/* 동의 영역 */}
+          <AgreementCheckbox
+            checked={form.agreedPrivacy}
+            onChange={() => set('agreedPrivacy', !form.agreedPrivacy)}
+            label="개인정보 수집 및 이용에 동의합니다."
+            first
+          />
+          <AgreementCheckbox
+            checked={form.agreedRules}
+            onChange={() => setShowPledge(true)}
+            label="대회 규정 및 참가 조건에 동의합니다."
+            showButton
+            onButtonClick={() => setShowPledge(true)}
+          />
 
           <button type="button" disabled={!step1Valid} onClick={() => setStep(2)} className="ef-btn-submit">
             NEXT STEP
@@ -336,4 +334,50 @@ function DriverFields({ driver, idx, setDriver, showContact }: {
       <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} />
     </div>
   </>)
+}
+
+function AgreementCheckbox({ checked, onChange, label, first, showButton, onButtonClick }: {
+  checked: boolean; onChange: () => void; label: string;
+  first?: boolean; showButton?: boolean; onButtonClick?: () => void;
+}) {
+  return (
+    <div
+      role="checkbox"
+      aria-checked={checked}
+      tabIndex={0}
+      onClick={onChange}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onChange() } }}
+      style={{
+        display: 'flex', alignItems: 'center', gap: 10,
+        padding: '14px 0',
+        borderTop: first ? '1px dashed rgba(255,255,255,.1)' : 'none',
+        cursor: 'pointer', position: 'relative', zIndex: 1, isolation: 'isolate',
+      }}
+    >
+      <span style={{
+        width: 20, height: 20, flexShrink: 0,
+        border: checked ? 'none' : '1px solid #555',
+        background: checked ? 'var(--primary-red, #E60023)' : 'transparent',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 12, color: '#fff',
+      }}>
+        {checked && '✓'}
+      </span>
+      <span style={{ fontSize: '.95rem', color: '#aaa', flex: 1 }}>{label}</span>
+      {showButton && (
+        <button
+          type="button"
+          onClick={e => { e.stopPropagation(); onButtonClick?.() }}
+          style={{
+            background: 'none', border: '1px solid var(--primary-red, #E60023)',
+            color: 'var(--primary-red, #E60023)', padding: '2px 10px',
+            fontSize: '.75rem', fontFamily: "var(--font-heading, 'Oswald')",
+            letterSpacing: '1px', cursor: 'pointer', flexShrink: 0,
+          }}
+        >
+          규정 보기
+        </button>
+      )}
+    </div>
+  )
 }
