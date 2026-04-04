@@ -79,7 +79,7 @@ export async function POST(req: Request) {
     // ── ② Google Sheets 저장 ───────────────────────────
     const sheetId = process.env.GOOGLE_SHEET_ID
     const saEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
-    const saKey   = process.env.GOOGLE_SERVICE_ACCOUNT_KEY
+    const saKey   = process.env.GOOGLE_PRIVATE_KEY
     if (sheetId && saEmail && saKey) {
       try {
         const auth = new google.auth.JWT({
