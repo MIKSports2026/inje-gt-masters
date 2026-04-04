@@ -103,7 +103,7 @@ export default function SectionRound({ rounds }: Props) {
           display: flex; align-items: flex-end; justify-content: space-between;
         }
         .rnd__kicker {
-          font-family: 'Oswald',sans-serif; font-size: .8rem; font-weight: 600;
+          font-family: 'Oswald',sans-serif; font-size: 2.7rem; font-weight: 600;
           letter-spacing: .2em; color: #E60023;
           display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
         }
