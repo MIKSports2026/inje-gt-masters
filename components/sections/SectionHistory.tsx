@@ -9,7 +9,7 @@ export default function SectionHistory({ history }: { history: History[] }) {
 
   return (
     <section className="section" id="history"
-      style={{background:'linear-gradient(180deg,var(--surface-2),var(--bg))'}}>
+      style={{background:'linear-gradient(180deg,var(--bg-2),var(--bg))'}}>
       <div className="container">
         <div style={{display:'grid',gridTemplateColumns:'1.05fr .95fr',gap:'20px',alignItems:'start'}}>
 
@@ -31,7 +31,7 @@ export default function SectionHistory({ history }: { history: History[] }) {
                 {items.slice(0,6).map((h,i)=>(
                   <RevealOnScroll key={h._id} delay={(i%3) as 0|1|2|3}
                     style={{
-                      padding:'18px',background:'var(--surface)',border:'1px solid var(--line)',
+                      padding:'18px',background:'var(--bg-3)',border:'1px solid var(--line)',
                       display:'grid',gridTemplateColumns:'auto 1fr',gap:'14px',alignItems:'start',
                       clipPath:cut12,
                     } as any}

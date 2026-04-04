@@ -18,7 +18,7 @@ export const SITE_SETTINGS_QUERY = /* groq */`
     email, phone, kakaoChannelUrl, address,
     instagram, youtube, facebook, naverBlog,
     logoLight ${IMAGE}, logoDark ${IMAGE},
-    heroImage ${IMAGE}, heroVideo,
+    heroImage ${IMAGE}, heroImages[] ${IMAGE}, heroVideo,
     heroAbout ${IMAGE}, heroSeason ${IMAGE},
     heroEntry ${IMAGE}, heroResults ${IMAGE}, heroMedia ${IMAGE}, heroCircuit ${IMAGE},
     isEntryOpen, entryNotice, tossPaymentBaseUrl,
@@ -37,7 +37,7 @@ export const ROUNDS_QUERY = /* groq */`
   *[_type == "round" && season == $season] | order(roundNumber asc){
     _id, season, roundNumber, slug, title, titleEn, subtitle,
     badge, dateStart, dateEnd, status,
-    heroImage ${IMAGE},
+    heroImage ${IMAGE}, resultImage ${IMAGE}, resultUrl,
     entryOpenDate, entryCloseDate, tossPaymentUrl, maxEntries,
     hasResults
   }

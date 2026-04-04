@@ -63,23 +63,6 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        {/* 공지 배너 */}
-        {settings?.bannerVisible && settings.bannerMessage && (
-          <div
-            style={{ background: settings.bannerBgColor ?? '#e60023' }}
-            className="py-2 px-4 text-white text-center text-sm font-bold"
-          >
-            {settings.bannerMessage}
-            {settings.bannerLinkText && settings.bannerLinkUrl && (
-              <a
-                href={settings.bannerLinkUrl}
-                className="underline ml-2 font-black"
-              >
-                {settings.bannerLinkText} →
-              </a>
-            )}
-          </div>
-        )}
         {children}
       </body>
     </html>

@@ -55,7 +55,7 @@ export default function ResultsClient({ classCode, classColor, standings }: Prop
               minHeight: '68px', padding: '0 16px',
               display: 'grid', gridTemplateColumns: '52px 1fr auto',
               gap: '12px', alignItems: 'center',
-              background: '#fff', border: '1px solid var(--line)',
+              background: 'var(--bg-2)', border: '1px solid var(--line)',
               clipPath: cut12, position: 'relative',
             }}>
               {/* 순위 메달 */}
@@ -106,7 +106,7 @@ export default function ResultsClient({ classCode, classColor, standings }: Prop
               minHeight: '60px', padding: '0 16px',
               display: 'grid', gridTemplateColumns: '52px 1fr auto',
               gap: '12px', alignItems: 'center',
-              background: '#fff', border: '1px solid var(--line)', clipPath: cut12,
+              background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut12,
             }}>
               <div style={{ width: '40px', height: '40px', display: 'grid', placeItems: 'center', fontWeight: 900, background: `${classColor}0d`, color: classColor, border: `1px solid ${classColor}22`, clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)' }}>{s.pos}</div>
               <strong style={{ fontSize: '.95rem' }}>{s.team}</strong>

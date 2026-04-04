@@ -68,7 +68,7 @@ export default function SectionSEO() {
                     fontSize: '16.5px', fontWeight: 700,
                     letterSpacing: '1.5px', textTransform: 'uppercase' as const,
                     padding: '4px 10px',
-                    background: 'rgba(255,255,255,0.6)',
+                    background: 'rgba(255,255,255,0.06)',
                     border: '1px solid var(--line)',
                     color: 'var(--text-sub)',
                   }}>

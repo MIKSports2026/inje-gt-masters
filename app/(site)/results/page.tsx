@@ -60,8 +60,8 @@ export default async function ResultsPage({
                 style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
                   padding: '10px 16px', fontWeight: 800, fontSize: '.9rem',
-                  background: selectedRound === r.slug.current ? 'var(--red)' : '#fff',
-                  color:      selectedRound === r.slug.current ? '#fff' : '#3a434d',
+                  background: selectedRound === r.slug.current ? 'var(--red)' : 'var(--bg-2)',
+                  color:      selectedRound === r.slug.current ? '#fff' : 'var(--text-mid)',
                   border:     `1px solid ${selectedRound === r.slug.current ? 'var(--red)' : 'var(--line)'}`,
                   clipPath:   'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)',
                   textDecoration: 'none',
@@ -118,7 +118,7 @@ export default async function ResultsPage({
 
             {/* ── 사이드: 라운드 카드 ──────────────────────── */}
             <div style={{ display: 'grid', gap: '12px' }}>
-              <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
+              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <h3 style={{ marginBottom: '14px' }}>2026 시즌 일정</h3>
                 <div style={{ display: 'grid', gap: '8px' }}>
@@ -142,7 +142,7 @@ export default async function ResultsPage({
               </div>
 
               {/* 서킷 레코드 */}
-              <div id="records" style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
+              <div id="records" style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
                 <h3 style={{ marginBottom: '14px' }}>서킷 랩레코드</h3>
                 <div style={{ textAlign: 'center', padding: '20px 0', color: 'var(--muted)' }}>

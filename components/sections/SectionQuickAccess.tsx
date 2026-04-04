@@ -23,7 +23,7 @@ export default function SectionQuickAccess({ settings }: { settings: SiteSetting
           {CARDS.map((c,i)=>(
             <Link key={i} href={c.href} style={{
               minHeight:'158px',padding:'20px',
-              background:'var(--surface)',border:'1px solid var(--line)',
+              background:'var(--bg-2)',border:'1px solid var(--line)',
               boxShadow:'var(--shadow)',position:'relative',
               clipPath:cut,
               display:'block',

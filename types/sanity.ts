@@ -43,6 +43,7 @@ export interface SiteSettings {
   logoDark?:        SanityImage
   // 히어로 이미지
   heroImage?:       SanityImage
+  heroImages?:      SanityImage[]
   heroVideo?:       string
   heroAbout?:       SanityImage
   heroSeason?:      SanityImage
@@ -114,9 +115,11 @@ export interface Round {
   notices?:     Array<{ title: string; content: string }>
   hasResults:   boolean
   // 미디어
-  heroImage?:   SanityImage
-  posterImage?: SanityImage
-  gallery?:     SanityImage[]
+  heroImage?:    SanityImage
+  resultImage?:  SanityImage
+  resultUrl?:    string
+  posterImage?:  SanityImage
+  gallery?:      SanityImage[]
 }
 
 // ── classInfo ─────────────────────────────────────────────────

@@ -61,7 +61,7 @@ export default async function CircuitPage() {
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(180px,1fr))', gap: '2px', background: 'var(--line)' }}>
             {specs.map((s) => (
-              <div key={s.label} style={{ background: '#fff', padding: '28px 20px', textAlign: 'center' }}>
+              <div key={s.label} style={{ background: 'var(--bg-2)', padding: '28px 20px', textAlign: 'center' }}>
                 <i className={`fa-solid ${s.icon}`} style={{ fontSize: '1.2rem', color: 'var(--red)', display: 'block', marginBottom: '12px' }} />
                 <div style={{ fontFamily: "'Pretendard Variable',Pretendard,sans-serif", fontSize: 'clamp(1.4rem,2.5vw,1.8rem)', fontWeight: 900, lineHeight: 1, letterSpacing: '-1px' }}>
                   {s.value}
@@ -104,7 +104,7 @@ export default async function CircuitPage() {
             </div>
 
             {/* 우측: 기본 정보 리스트 (v2 이식) */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
+            <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
               <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
               <h3 style={{ fontSize: '1rem', marginBottom: '16px' }}>서킷 기본 정보</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -151,7 +151,7 @@ export default async function CircuitPage() {
 
             {/* 교통 안내 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ padding: '20px 24px', background: '#fff', border: '1px solid var(--line)', clipPath: cut }}>
+              <div style={{ padding: '20px 24px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut }}>
                 <div style={{ fontSize: '.78rem', fontWeight: 700, color: 'var(--text-sub)', letterSpacing: '1.5px', textTransform: 'uppercase' as const, marginBottom: '8px' }}>주소</div>
                 <p style={{ fontSize: '1rem', fontWeight: 700, lineHeight: 1.6 }}>
                   강원도 인제군 기린면 상하답로 130<br />
@@ -159,7 +159,7 @@ export default async function CircuitPage() {
                 </p>
               </div>
 
-              <div style={{ padding: '20px 24px', background: '#fff', border: '1px solid var(--line)', clipPath: cut }}>
+              <div style={{ padding: '20px 24px', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut }}>
                 <div style={{ fontSize: '.78rem', fontWeight: 700, color: 'var(--text-sub)', letterSpacing: '1.5px', textTransform: 'uppercase' as const, marginBottom: '12px' }}>
                   <i className="fa-solid fa-car" style={{ color: 'var(--red)', marginRight: '6px' }} />
                   자가용
@@ -205,7 +205,7 @@ export default async function CircuitPage() {
               <div key={item.title} style={{
                 display: 'flex', alignItems: 'flex-start', gap: '14px',
                 padding: '20px',
-                background: '#fff', border: '1px solid var(--line)',
+                background: 'var(--bg-2)', border: '1px solid var(--line)',
                 clipPath: cut, position: 'relative',
               }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,var(--red),transparent 60%)' }} />

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { Round, Post } from '@/types/sanity'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 interface Props {
   rounds: Round[]
@@ -20,15 +21,9 @@ export default function SectionResults({ rounds, posts = [] }: Props) {
   }
 
   return (
-    <section className="sec sec-darker" id="results" aria-labelledby="res-ttl">
+    <section className="sec" id="results" aria-labelledby="res-ttl" style={{ background: 'var(--bg-carbon-light, #1a1a1a)' }}>
       <div className="inner">
-        <div className="sec-hd">
-          <div>
-            <div className="sec-ey">2025 FINAL STANDINGS</div>
-            <h2 className="sec-ttl" id="res-ttl">Race Results</h2>
-          </div>
-          <Link href="/results" className="sec-more">전체 결과</Link>
-        </div>
+        <SectionHeader subtitle="2026 SEASON" title="RESULTS" />
 
         <div className="results-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 288px', gap: '48px' }}>
 
@@ -45,7 +40,7 @@ export default function SectionResults({ rounds, posts = [] }: Props) {
             </div>
 
             {/* 빈 상태 */}
-            <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--text-sub)' }}>
+            <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--text-secondary, #aaa)' }}>
               <i className="fa-solid fa-chart-bar" style={{ fontSize: '2.5rem', opacity: .2, display: 'block', marginBottom: '14px' }} />
               <p style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '18px', letterSpacing: '2px' }}>
                 {activeTab === 0 ? '드라이버' : activeTab === 1 ? '팀' : '클래스'} 순위 데이터를 준비중입니다.
@@ -60,7 +55,7 @@ export default function SectionResults({ rounds, posts = [] }: Props) {
           <div>
             <div className="sec-ey" style={{ marginBottom: '16px' }}>LATEST NEWS</div>
             {posts.length === 0 ? (
-              <div style={{ padding: '24px 0', color: 'var(--text-sub)', textAlign: 'center' }}>
+              <div style={{ padding: '24px 0', color: 'var(--text-secondary, #aaa)', textAlign: 'center' }}>
                 <p style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: '16px', letterSpacing: '2px' }}>
                   소식을 준비중입니다.
                 </p>

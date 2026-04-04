@@ -23,7 +23,8 @@ export default function PageHero({ image, badge, title, subtitle, breadcrumb, ch
   return (
     <section style={{
       background: 'linear-gradient(135deg,#111,#1a0008 55%,#0d0d0d)',
-      padding: '56px 0 48px',
+      paddingTop: '192px',
+      paddingBottom: '48px',
       position: 'relative',
       overflow: 'hidden',
       minHeight: imgUrl ? '320px' : undefined,

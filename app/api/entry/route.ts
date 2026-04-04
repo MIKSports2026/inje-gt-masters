@@ -1,200 +1,211 @@
-// app/api/entry/route.ts — 참가신청 이메일 발송
+// app/api/entry/route.ts — 참가신청 API (Sanity + Sheets + Email)
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { google } from 'googleapis'
 
 const ADMIN = process.env.ADMIN_EMAIL ?? 'miksports2026@gmail.com'
 const FROM  = 'onboarding@resend.dev'
 
+interface Driver {
+  name: string
+  birthDate?: string
+  bloodType?: string
+  phone?: string
+  email?: string
+  karaLicense?: string
+}
+
 export async function POST(req: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
     const body = await req.json()
     const {
-      teamName, driver1, driver2, phone, email,
-      className, rounds, carModel, carNumber, licenseNum,
-      totalFee,
-    } = body
+      entryType, roundId, roundLabel, className, teamName, carModel,
+      drivers, contactPhone, contactEmail,
+      agreedRules, agreedPrivacy, entryFee,
+    } = body as {
+      entryType: 'round' | 'season'; roundId?: string; roundLabel: string; className: string;
+      teamName: string; carModel: string;
+      drivers: Driver[]; contactPhone: string; contactEmail: string;
+      agreedRules: boolean; agreedPrivacy: boolean; entryFee?: string;
+    }
+    const entryTypeLabel = entryType === 'season' ? '시즌 전체' : '라운드'
 
-    const roundList  = (rounds as string[]).join(', ')
-    const driver2str = driver2 ? driver2 : '—'
-    const carNumStr  = carNumber ? carNumber : '—'
-    const licenseStr = licenseNum ? licenseNum : '—'
-    const feeStr     = totalFee ? `${Number(totalFee).toLocaleString()}원` : '결제 페이지에서 확인'
+    const d1 = drivers[0] ?? {} as Driver
+    const d2 = drivers[1] ?? {} as Driver
+    const d3 = drivers[2] ?? {} as Driver
+    const now = new Date().toISOString()
 
-    // ── 1. 관리자 수신 이메일 ────────────────────────────
+    // ── ① Sanity 저장 ─────────────────────────────────
+    const sanityToken = process.env.SANITY_API_WRITE_TOKEN
+    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+    if (sanityToken && projectId) {
+      await fetch(`https://${projectId}.api.sanity.io/v2024-01-01/data/mutate/production`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sanityToken}`,
+        },
+        body: JSON.stringify({
+          mutations: [{
+            create: {
+              _type: 'application',
+              entryType,
+              ...(roundId ? { roundId: { _type: 'reference', _ref: roundId } } : {}),
+              roundLabel,
+              className,
+              teamName,
+              carModel,
+              drivers: drivers.map((d, i) => ({
+                _key: `driver-${i}`,
+                name: d.name,
+                birthDate: d.birthDate ?? '',
+                bloodType: d.bloodType ?? '',
+                phone: d.phone ?? '',
+                email: d.email ?? '',
+                karaLicense: d.karaLicense ?? '',
+              })),
+              contactPhone,
+              contactEmail,
+              agreedRules,
+              agreedPrivacy,
+              submittedAt: now,
+              status: 'pending',
+            },
+          }],
+        }),
+      })
+    }
+
+    // ── ② Google Sheets 저장 ───────────────────────────
+    const sheetId = process.env.GOOGLE_SHEET_ID
+    const saEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+    const saKey   = process.env.GOOGLE_PRIVATE_KEY
+    if (sheetId && saEmail && saKey) {
+      try {
+        const auth = new google.auth.JWT({
+          email: saEmail,
+          key: saKey.replace(/\\n/g, '\n'),
+          scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+        })
+        const sheets = google.sheets({ version: 'v4', auth })
+        await sheets.spreadsheets.values.append({
+          spreadsheetId: sheetId,
+          range: 'Sheet1!A:T',
+          valueInputOption: 'USER_ENTERED',
+          requestBody: {
+            values: [[
+              entryTypeLabel, roundLabel, className, teamName, carModel,
+              d1.name ?? '', d1.birthDate ?? '', d1.bloodType ?? '', d1.phone ?? contactPhone, d1.email ?? contactEmail, d1.karaLicense ?? '',
+              d2.name ?? '', d2.birthDate ?? '', d2.bloodType ?? '', d2.karaLicense ?? '',
+              d3.name ?? '', d3.birthDate ?? '', d3.bloodType ?? '', d3.karaLicense ?? '',
+              now,
+            ]],
+          },
+        })
+      } catch (e) {
+        console.error('Sheets error:', e)
+      }
+    }
+
+    // ── ③④ 이메일 발송 ────────────────────────────────
+    const resend = new Resend(process.env.RESEND_API_KEY)
+
+    const driverRows = drivers.map((d, i) => `
+      <tr style="background:${i % 2 === 0 ? '#fff' : '#fafafa'}">
+        <td style="padding:10px 16px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#666;font-weight:700;">드라이버 ${i + 1}</td>
+        <td style="padding:10px 16px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#111;font-weight:600;">
+          ${d.name} / ${d.birthDate ?? '—'} / ${d.bloodType ?? '—'}${d.karaLicense ? ` / ${d.karaLicense}` : ''}
+        </td>
+      </tr>`).join('')
+
     const adminHtml = `
-<!DOCTYPE html>
-<html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#f4f6f8;font-family:'Apple SD Gothic Neo',Pretendard,sans-serif;">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f4f6f8;font-family:sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f8;padding:40px 20px;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-top:4px solid #DC001A;max-width:600px;width:100%;">
-        <tr>
-          <td style="padding:32px 40px 20px;border-bottom:1px solid #eee;">
-            <p style="margin:0 0 4px;font-size:12px;color:#DC001A;font-weight:800;letter-spacing:2px;text-transform:uppercase;">NEW ENTRY</p>
-            <h1 style="margin:0;font-size:22px;color:#0c1730;">새 참가신청이 접수되었습니다</h1>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:24px 40px;">
-            <table width="100%" cellpadding="0" cellspacing="0">
-              ${[
-                ['팀명',       teamName],
-                ['드라이버 1', driver1],
-                ['드라이버 2', driver2str],
-                ['연락처',     phone],
-                ['이메일',     email],
-                ['클래스',     className],
-                ['라운드',     roundList],
-                ['차종',       carModel],
-                ['차량 번호',  carNumStr],
-                ['라이선스',   licenseStr],
-                ['결제 예정',  feeStr],
-              ].map(([label, value]) => `
-              <tr>
-                <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;width:120px;">
-                  <span style="font-size:13px;color:#666;font-weight:700;">${label}</span>
-                </td>
-                <td style="padding:10px 0 10px 16px;border-bottom:1px solid #f0f0f0;">
-                  <span style="font-size:14px;color:#111;font-weight:600;">${value}</span>
-                </td>
-              </tr>`).join('')}
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:20px 40px 32px;background:#fafafa;border-top:1px solid #eee;">
-            <p style="margin:0;font-size:12px;color:#999;line-height:1.7;">
-              본 메일은 인제 GT 마스터즈 홈페이지 참가신청 폼에서 자동 발송되었습니다.
-            </p>
-          </td>
-        </tr>
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-top:4px solid #E60023;max-width:600px;">
+        <tr><td style="padding:32px 40px 20px;border-bottom:1px solid #eee;">
+          <p style="margin:0 0 4px;font-size:12px;color:#E60023;font-weight:800;letter-spacing:2px;">NEW ENTRY</p>
+          <h1 style="margin:0;font-size:20px;color:#111;">새 참가신청 접수</h1>
+        </td></tr>
+        <tr><td style="padding:24px 40px;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            ${[
+              ['참가유형', entryTypeLabel],
+              ['라운드', roundLabel],
+              ['클래스', className],
+              ['팀명', teamName],
+              ['차량', carModel],
+              ['대표 연락처', contactPhone],
+              ['대표 이메일', contactEmail],
+            ].map(([l, v]) => `
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f0f0f0;width:100px;font-size:13px;color:#666;font-weight:700;">${l}</td>
+            <td style="padding:8px 0 8px 16px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#111;font-weight:600;">${v}</td></tr>`).join('')}
+            ${driverRows}
+          </table>
+        </td></tr>
+        <tr><td style="padding:16px 40px;background:#fafafa;font-size:11px;color:#999;">자동 발송 메일</td></tr>
       </table>
     </td></tr>
   </table>
-</body>
-</html>`
+</body></html>`
 
-    // ── 2. 신청자 확인 이메일 ────────────────────────────
     const userHtml = `
-<!DOCTYPE html>
-<html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#f4f6f8;font-family:'Apple SD Gothic Neo',Pretendard,sans-serif;">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f4f6f8;font-family:sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f8;padding:40px 20px;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-top:4px solid #DC001A;max-width:600px;width:100%;">
-
-        <!-- 헤더 -->
-        <tr>
-          <td style="padding:32px 40px 24px;background:#0c1730;">
-            <p style="margin:0 0 6px;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:3px;text-transform:uppercase;">INJE GT MASTERS 2026</p>
-            <h1 style="margin:0;font-size:24px;color:#fff;letter-spacing:1px;">참가신청 접수 완료</h1>
-          </td>
-        </tr>
-
-        <!-- 인사말 -->
-        <tr>
-          <td style="padding:28px 40px 16px;">
-            <p style="margin:0;font-size:15px;line-height:1.8;color:#333;">
-              안녕하세요, <strong>${driver1}</strong>님.<br>
-              <strong>${teamName}</strong> 팀의 참가신청이 정상 접수되었습니다.
-            </p>
-          </td>
-        </tr>
-
-        <!-- 신청 내용 -->
-        <tr>
-          <td style="padding:0 40px 24px;">
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border:1px solid #eee;">
-              <tr>
-                <td colspan="2" style="padding:12px 16px;background:#DC001A;">
-                  <span style="font-size:12px;font-weight:800;color:#fff;letter-spacing:2px;text-transform:uppercase;">신청 내용</span>
-                </td>
-              </tr>
-              ${[
-                ['클래스',     className],
-                ['라운드',     roundList],
-                ['팀명',       teamName],
-                ['드라이버 1', driver1],
-                ['드라이버 2', driver2str],
-                ['차종',       carModel],
-              ].map(([label, value], i) => `
-              <tr style="background:${i % 2 === 0 ? '#fff' : '#fafafa'};">
-                <td style="padding:11px 16px;width:110px;font-size:13px;color:#666;font-weight:700;border-bottom:1px solid #f0f0f0;">${label}</td>
-                <td style="padding:11px 16px;font-size:13px;color:#111;font-weight:600;border-bottom:1px solid #f0f0f0;">${value}</td>
-              </tr>`).join('')}
-            </table>
-          </td>
-        </tr>
-
-        <!-- 결제 안내 -->
-        <tr>
-          <td style="padding:0 40px 28px;">
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff8f8;border:1px solid rgba(220,0,26,0.2);padding:20px;">
-              <tr>
-                <td>
-                  <p style="margin:0 0 8px;font-size:13px;font-weight:800;color:#DC001A;">💳 결제 안내</p>
-                  <p style="margin:0 0 6px;font-size:13px;color:#333;line-height:1.7;">
-                    결제 예정 금액: <strong style="font-size:16px;color:#DC001A;">${feeStr}</strong>
-                  </p>
-                  <p style="margin:0;font-size:12px;color:#666;line-height:1.7;">
-                    운영팀에서 토스페이먼츠 결제 링크를 <strong>${email}</strong> 및 카카오톡으로 별도 발송드립니다.<br>
-                    결제 완료 시 최종 접수가 확정됩니다. 라운드별 선착순 마감이 적용되오니 빠른 결제를 권장합니다.
-                  </p>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- 문의 -->
-        <tr>
-          <td style="padding:0 40px 32px;">
-            <p style="margin:0;font-size:13px;color:#666;line-height:1.8;">
-              문의사항이 있으시면 아래로 연락해 주세요.<br>
-              📧 <a href="mailto:${ADMIN}" style="color:#DC001A;">${ADMIN}</a>
-            </p>
-          </td>
-        </tr>
-
-        <!-- 푸터 -->
-        <tr>
-          <td style="padding:20px 40px;background:#0c1730;border-top:1px solid rgba(255,255,255,0.1);">
-            <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.7;">
-              © 2026 INJE GT MASTERS. All rights reserved.<br>
-              강원도 인제군 기린면 상하답로 130 · 인제스피디움
-            </p>
-          </td>
-        </tr>
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-top:4px solid #E60023;max-width:600px;">
+        <tr><td style="padding:32px 40px 24px;background:#0c1730;">
+          <p style="margin:0 0 6px;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:3px;">INJE GT MASTERS 2026</p>
+          <h1 style="margin:0;font-size:22px;color:#fff;">참가신청 접수 완료</h1>
+        </td></tr>
+        <tr><td style="padding:24px 40px;">
+          <p style="margin:0 0 16px;font-size:14px;color:#333;line-height:1.8;">
+            <strong>${d1.name}</strong>님, <strong>${teamName}</strong> 팀 참가신청이 접수되었습니다.
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border:1px solid #eee;">
+            <tr><td colspan="2" style="padding:10px 16px;background:#E60023;font-size:12px;font-weight:800;color:#fff;letter-spacing:2px;">신청 내용</td></tr>
+            ${[
+              ['참가유형', entryTypeLabel],
+              ['라운드', roundLabel],
+              ['클래스', className],
+              ['팀명', teamName],
+              ['차량', carModel],
+            ].map(([l, v], i) => `
+            <tr style="background:${i % 2 === 0 ? '#fff' : '#fafafa'}">
+              <td style="padding:10px 16px;width:100px;font-size:13px;color:#666;font-weight:700;border-bottom:1px solid #f0f0f0;">${l}</td>
+              <td style="padding:10px 16px;font-size:13px;color:#111;font-weight:600;border-bottom:1px solid #f0f0f0;">${v}</td>
+            </tr>`).join('')}
+            ${driverRows}
+          </table>
+        </td></tr>
+        <tr><td style="padding:16px 40px 28px;">
+          <p style="margin:0;font-size:12px;color:#666;line-height:1.7;">
+            담당자 검토 후 결제 링크를 <strong>${contactEmail}</strong>로 발송합니다. (1~2 영업일)<br>
+            문의: <a href="mailto:${ADMIN}" style="color:#E60023;">${ADMIN}</a>
+          </p>
+        </td></tr>
+        <tr><td style="padding:16px 40px;background:#0c1730;font-size:11px;color:rgba(255,255,255,0.4);">
+          © 2026 INJE GT MASTERS
+        </td></tr>
       </table>
     </td></tr>
   </table>
-</body>
-</html>`
+</body></html>`
 
-    // ── 발송 ────────────────────────────────────────────
-    const [adminResult, userResult] = await Promise.all([
+    await Promise.all([
       resend.emails.send({
-        from:    FROM,
-        to:      ADMIN,
-        subject: `[참가신청] ${teamName} - ${className}`,
-        html:    adminHtml,
-        replyTo: email,
+        from: FROM, to: ADMIN,
+        subject: `[참가신청] ${teamName} - ${className} - ${roundLabel}`,
+        html: adminHtml, replyTo: contactEmail,
       }),
       resend.emails.send({
-        from:    FROM,
-        to:      email,
+        from: FROM, to: contactEmail,
         subject: '[인제 GT 마스터즈] 참가신청 접수 완료',
-        html:    userHtml,
+        html: userHtml,
       }),
     ])
-
-    if (adminResult.error || userResult.error) {
-      console.error('Resend error:', adminResult.error ?? userResult.error)
-      return NextResponse.json({ ok: false, error: 'email_failed' }, { status: 500 })
-    }
 
     return NextResponse.json({ ok: true })
   } catch (err) {
