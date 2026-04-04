@@ -1,4 +1,4 @@
-// schemas/classInfo.ts — 경기 클래스 (GT1 ~ 슈퍼카챌린지)
+// schemas/classInfo.ts — 경기 클래스
 import { defineField, defineType } from 'sanity'
 import { TagIcon } from '@sanity/icons'
 
@@ -25,13 +25,13 @@ export default defineType({
       group: 'basic',
       options: {
         list: [
-          { title: 'GT1 (Pro-Am)',     value: 'GT1' },
-          { title: 'GT2 (아마추어)',   value: 'GT2' },
-          { title: 'GT3 (입문)',       value: 'GT3' },
-          { title: '드리프트 KDGP',   value: 'DRIFT' },
-          { title: '바이크 (두카티·스즈키)', value: 'BIKE' },
-          { title: '슈퍼카 챌린지',   value: 'SUPERCAR' },
+          { title: 'Masters 1',     value: 'masters-1' },
+          { title: 'Masters 2',     value: 'masters-2' },
+          { title: 'Masters N',     value: 'masters-n' },
+          { title: 'Masters N-evo', value: 'masters-n-evo' },
+          { title: 'Masters 3',     value: 'masters-3' },
         ],
+        layout: 'radio',
       },
       validation: R => R.required(),
     }),
@@ -48,7 +48,7 @@ export default defineType({
       title: '정렬 순서',
       type: 'number',
       group: 'basic',
-      description: '낮을수록 앞에 표시. GT1=1, GT2=2, GT3=3, DRIFT=4, BIKE=5, SUPERCAR=6',
+      description: '낮을수록 앞에 표시. Masters1=1, Masters2=2, MastersN=3, MastersN-evo=4, Masters3=5',
       validation: R => R.required().integer().min(1),
     }),
 

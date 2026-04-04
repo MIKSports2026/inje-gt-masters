@@ -78,12 +78,11 @@ export default defineType({
             type: 'string',
             options: {
               list: [
-                { title: 'GT1',     value: 'GT1' },
-                { title: 'GT2',     value: 'GT2' },
-                { title: 'GT3',     value: 'GT3' },
-                { title: 'DRIFT',   value: 'DRIFT' },
-                { title: 'BIKE',    value: 'BIKE' },
-                { title: 'SUPERCAR',value: 'SUPERCAR' },
+                { title: 'Masters 1',     value: 'masters-1' },
+                { title: 'Masters 2',     value: 'masters-2' },
+                { title: 'Masters N',     value: 'masters-n' },
+                { title: 'Masters N-evo', value: 'masters-n-evo' },
+                { title: 'Masters 3',     value: 'masters-3' },
               ],
             },
           }),
