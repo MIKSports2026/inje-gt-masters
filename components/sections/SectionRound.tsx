@@ -214,18 +214,22 @@ export default function SectionRound({ rounds }: Props) {
           font-family: 'Oswald',sans-serif; font-size: .95rem; font-weight: 700;
           letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
           padding: 12px 28px; transform: skewX(-15deg);
-          color: #ffffff; border: 2px solid #E60023;
-          background: transparent;
-          transition: background .2s, box-shadow .2s;
+          color: #fff; background: var(--primary-red, #E60023); border: none;
+          transition: transform .2s, box-shadow .2s;
         }
         .rnd__p-cta:hover {
-          background: rgba(230,0,35,.1);
-          box-shadow: 4px 4px 0 rgba(230,0,35,.15);
+          transform: skewX(-15deg) scale(1.03);
+          box-shadow: 0 0 15px rgba(230,0,35,.4);
         }
         .rnd__p-cta--ghost {
-          color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.12); background: none;
+          background: transparent; color: #fff;
+          border: 2px solid #fff;
         }
-        .rnd__p-cta--ghost:hover { color: #fff; border-color: rgba(255,255,255,.3); }
+        .rnd__p-cta--ghost:hover {
+          background: #fff; color: var(--bg-carbon, #0a0a0a);
+          transform: skewX(-15deg) scale(1.03);
+          box-shadow: none;
+        }
 
         /* Mobile */
         @media (max-width: 900px) {
