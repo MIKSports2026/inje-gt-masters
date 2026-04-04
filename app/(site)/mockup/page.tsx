@@ -40,12 +40,11 @@ const ROUNDS: Round[] = [
 ]
 
 const CLASSES: ClassInfo[] = [
-  { _id:'1', classCode:'GT1',      slug:{current:'gt1'},      order:1, name:'GT 1',          nameEn:'GT1 Pro-Am',         tagline:'Pro-Am 내구레이스.',        accentColor:'#DC001A', teamCount:18, driverCount:36, isActive:true, isEntryOpen:true,  entryFeePerRound:1200000, isFeePublic:true },
-  { _id:'2', classCode:'GT2',      slug:{current:'gt2'},      order:2, name:'GT 2',          nameEn:'GT2 Amateur',        tagline:'아마추어 내구레이스.',       accentColor:'#3b82f6', teamCount:24, driverCount:48, isActive:true, isEntryOpen:true,  entryFeePerRound:900000,  isFeePublic:true },
-  { _id:'3', classCode:'GT3',      slug:{current:'gt3'},      order:3, name:'GT 3',          nameEn:'GT3 Beginner',       tagline:'입문 내구레이스.',           accentColor:'#b8921e', teamCount:22, driverCount:26, isActive:true, isEntryOpen:false, entryFeePerRound:650000,  isFeePublic:true },
-  { _id:'4', classCode:'DRIFT',    slug:{current:'drift'},    order:4, name:'드리프트 KDGP', nameEn:'Drift KDGP',         tagline:'KDGP 공인 드리프트.',        accentColor:'#22c55e', teamCount:16, driverCount:16, isActive:true, isEntryOpen:false, entryFeePerRound:500000,  isFeePublic:true },
-  { _id:'5', classCode:'BIKE',     slug:{current:'bike'},     order:5, name:'바이크',         nameEn:'Bike Race',          tagline:'두카티 · 스즈키 바이크.',    accentColor:'#a855f7', teamCount:15, driverCount:15, isActive:true, isEntryOpen:false, entryFeePerRound:350000,  isFeePublic:true },
-  { _id:'6', classCode:'SUPERCAR', slug:{current:'supercar'}, order:6, name:'슈퍼카 챌린지', nameEn:'Supercar Challenge', tagline:'고성능 슈퍼카 오픈 챌린지.', accentColor:'#f97316', teamCount:12, driverCount:12, isActive:true, isEntryOpen:true,  entryFeePerRound:800000,  isFeePublic:true },
+  { _id:'1', classCode:'masters-1',   slug:{current:'masters-1'},   order:1, name:'Masters 1',    nameEn:'Masters 1',     tagline:'2,000cc 이하 터보 / 3,800cc 이하 자연흡기', accentColor:'#DC001A', teamCount:0, driverCount:0, isActive:true, isEntryOpen:false, entryFeePerRound:700000, isFeePublic:true },
+  { _id:'2', classCode:'masters-2',   slug:{current:'masters-2'},   order:2, name:'Masters 2',    nameEn:'Masters 2',     tagline:'1,600cc 이하 터보 / 2,000cc 이하 자연흡기', accentColor:'#3b82f6', teamCount:0, driverCount:0, isActive:true, isEntryOpen:false, entryFeePerRound:600000, isFeePublic:true },
+  { _id:'3', classCode:'masters-n',   slug:{current:'masters-n'},   order:3, name:'Masters N',    nameEn:'Masters N',     tagline:'2,000cc 이하 터보 (현대 N 차량)',           accentColor:'#b8921e', teamCount:0, driverCount:0, isActive:true, isEntryOpen:false, entryFeePerRound:600000, isFeePublic:true },
+  { _id:'4', classCode:'masters-3',   slug:{current:'masters-3'},   order:4, name:'Masters 3',    nameEn:'Masters 3',     tagline:'1,600cc 이하 자연흡기',                     accentColor:'#22c55e', teamCount:0, driverCount:0, isActive:true, isEntryOpen:false, entryFeePerRound:500000, isFeePublic:true },
+  { _id:'5', classCode:'masters-n-evo',slug:{current:'masters-n-evo'},order:5,name:'Masters N-evo',nameEn:'Masters N-evo', tagline:'1,600cc 이하 자연흡기',                     accentColor:'#a855f7', teamCount:0, driverCount:0, isActive:true, isEntryOpen:false, entryFeePerRound:500000, isFeePublic:true },
 ]
 
 const POSTS: Post[] = [

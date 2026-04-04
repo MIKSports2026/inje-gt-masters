@@ -123,7 +123,7 @@ export interface Round {
 }
 
 // ── classInfo ─────────────────────────────────────────────────
-export type ClassCode = 'GT1' | 'GT2' | 'GT3' | 'DRIFT' | 'BIKE' | 'SUPERCAR'
+export type ClassCode = 'masters-1' | 'masters-2' | 'masters-n' | 'masters-3' | 'masters-n-evo'
 
 export interface ClassFeature {
   icon?:  string

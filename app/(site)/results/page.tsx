@@ -13,22 +13,21 @@ export const metadata: Metadata = {
 }
 
 const CLASSES: { code: ClassCode; label: string; color: string }[] = [
-  { code: 'GT1',      label: 'GT1 Pro-Am',     color: '#e60023' },
-  { code: 'GT2',      label: 'GT2 아마추어',   color: '#2563eb' },
-  { code: 'GT3',      label: 'GT3 입문',       color: '#b8921e' },
-  { code: 'DRIFT',    label: '드리프트 KDGP',  color: '#16a34a' },
-  { code: 'BIKE',     label: '바이크',         color: '#a855f7' },
-  { code: 'SUPERCAR', label: '슈퍼카 챌린지',  color: '#f97316' },
+  { code: 'masters-1',   label: 'Masters 1',    color: '#e60023' },
+  { code: 'masters-2',   label: 'Masters 2',    color: '#2563eb' },
+  { code: 'masters-n',   label: 'Masters N',    color: '#b8921e' },
+  { code: 'masters-3',   label: 'Masters 3',    color: '#16a34a' },
+  { code: 'masters-n-evo', label: 'Masters N-evo', color: '#a855f7' },
 ]
 
 
 export default async function ResultsPage({
   searchParams,
 }: {
-  searchParams: { round?: string; class?: string }
+  searchParams: Promise<{ round?: string; class?: string }>
 }) {
-  const selectedRound = searchParams.round
-  const selectedClass = (searchParams.class ?? 'GT1') as ClassCode
+  const { round: selectedRound, class: classParam } = await searchParams
+  const selectedClass = (classParam ?? 'masters-1') as ClassCode
 
   const [siteSettings, rounds] = await Promise.all([
     sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }),

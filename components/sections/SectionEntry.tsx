@@ -10,8 +10,8 @@ interface Props {
 }
 
 const CLASS_COLORS: Record<string, string> = {
-  GT1: 'var(--red)', GT2: '#3b82f6', GT3: 'var(--gold)',
-  DRIFT: '#22c55e', BIKE: '#a855f7', SUPERCAR: '#f97316',
+  'masters-1': 'var(--red)', 'masters-2': '#3b82f6', 'masters-n': 'var(--gold)',
+  'masters-3': '#22c55e', 'masters-n-evo': '#a855f7',
 }
 
 export default function SectionEntry({ settings, classes }: Props) {
