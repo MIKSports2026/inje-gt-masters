@@ -11,7 +11,7 @@ const NAV_ITEMS = [
     drop: [
       { label: '마스터즈 히스토리', href: '/history' },
       { label: '역대 챔피언', href: '/coming-soon' },
-      { label: '조직도', href: '/coming-soon' },
+      { label: '조직도', href: '/masters/organization' },
     ],
   },
   {
