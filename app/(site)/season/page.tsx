@@ -6,7 +6,7 @@ import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, CLASSES_QUERY, REGULATIONS_QUERY } f
 import type { SiteSettings, Round, ClassInfo } from '@/types/sanity'
 import { resolveRoundStatus } from '@/lib/roundStatus'
 import PageHero from '@/components/ui/PageHero'
-import SectionRound from '@/components/sections/SectionRound'
+import SectionSeasonCards from '@/components/sections/SectionSeasonCards'
 
 export const metadata: Metadata = {
   title: '2026 시즌 안내',
@@ -59,7 +59,7 @@ export default async function SeasonPage() {
       </PageHero>
 
       {/* ── 라운드 일정 (카드 그리드) ───────────────────────── */}
-      <SectionRound rounds={displayRounds} />
+      <SectionSeasonCards rounds={displayRounds} />
 
 
       {/* ── 규정 ─────────────────────────────────────────────── */}

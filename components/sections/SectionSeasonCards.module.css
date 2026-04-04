@@ -1,0 +1,289 @@
+.seasonSection {
+  background-color: var(--bg-carbon);
+  min-height: 80vh;
+  padding: 80px 0;
+}
+
+/* ── Section Header ───────────────────────────────────── */
+.sectionHeader {
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.redSlash {
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-red);
+  margin-top: 10px;
+}
+
+/* ── Grid Layout ──────────────────────────────────────── */
+.seasonGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  grid-auto-flow: dense;
+}
+
+/* ── Base Card ────────────────────────────────────────── */
+.seasonCard {
+  position: relative;
+  background-color: #0b0b0b;
+  min-height: 400px;
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+  clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+}
+
+.seasonCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+}
+
+/* Feature card (entry_open) spans 2 columns */
+.featureCard {
+  grid-column: span 2;
+}
+
+.isCompleted {
+  opacity: 0.9;
+}
+.isCompleted:hover {
+  opacity: 1;
+}
+
+.isHighlighted {
+  border-bottom: 2px solid var(--primary-red);
+}
+
+.cardEntryEdge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--primary-red);
+  z-index: 5;
+}
+
+/* ── Background Layers ────────────────────────────────── */
+.cardBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: transform 0.6s ease;
+}
+
+.seasonCard:hover .cardBg {
+  transform: scale(1.05);
+}
+
+.imageBg {
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(80%) sepia(20%) hue-rotate(300deg);
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.9) 0%,
+    rgba(10, 10, 10, 0.4) 40%,
+    rgba(10, 10, 10, 0.95) 100%
+  );
+}
+
+.carbonBg {
+  background: linear-gradient(135deg, #111 0%, #050505 100%);
+}
+
+/* ── Card Content ─────────────────────────────────────── */
+.cardContent {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 40px;
+}
+
+/* Top Row */
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: auto;
+}
+
+.cardRoundBadge {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #aaa;
+  letter-spacing: 2px;
+}
+
+.cardStatusBadge {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  letter-spacing: 1px;
+}
+
+.badgeCompleted {
+  color: #666;
+  border: 1px solid #333;
+}
+.badgeEntryOpen {
+  background-color: var(--primary-red);
+  color: #fff;
+}
+.badgeEntryClosed {
+  color: #888;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+}
+.badgeUpcoming {
+  color: #888;
+  background-color: #1a1a1a;
+}
+.badgeOngoing {
+  background-color: rgba(230, 0, 35, 0.15);
+  color: var(--primary-red);
+  border: 1px solid rgba(230, 0, 35, 0.3);
+}
+
+/* Middle Row */
+.cardMiddle {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.cardDateGiant {
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -1px;
+  color: #fff;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+}
+
+.featureCard .cardDateGiant {
+  font-size: 7rem;
+}
+
+.cardLocation {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #777;
+  letter-spacing: 2px;
+}
+
+.locIcon {
+  color: var(--primary-red);
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+/* Bottom Row */
+.cardBottom {
+  display: flex;
+  align-items: center;
+}
+
+.cardBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 0;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+}
+
+.btnOutlineWhite {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #444;
+}
+.btnOutlineWhite:hover {
+  background-color: #fff;
+  color: #0a0a0a;
+}
+
+.btnSolidRed {
+  background-color: var(--primary-red);
+  color: #fff;
+}
+.btnSolidRed:hover {
+  background-color: #c0001d;
+  transform: translateY(-2px);
+}
+
+.cardPlaceholder {
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 2px;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .seasonGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .featureCard {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .seasonGrid {
+    grid-template-columns: 1fr;
+  }
+  .featureCard {
+    grid-column: span 1;
+  }
+  .cardContent {
+    padding: 30px;
+  }
+  .cardDateGiant,
+  .featureCard .cardDateGiant {
+    font-size: 3.5rem;
+  }
+}
