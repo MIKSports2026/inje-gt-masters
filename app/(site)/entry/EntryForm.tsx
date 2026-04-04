@@ -230,15 +230,15 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
           {/* 동의 영역 */}
           <AgreementCheckbox
             checked={form.agreedRules}
-            onChange={() => setShowPledge(true)}
+            onChange={() => set('agreedPrivacy', !form.agreedPrivacy)}
             label="대회 규정 및 참가 조건에 동의합니다."
             first
             showButton
-            onButtonClick={() => setShowPledge(true)}
+            onButtonClick={() => set('agreedPrivacy', !form.agreedPrivacy)}
           />
           <AgreementCheckbox
             checked={form.agreedPrivacy}
-            onChange={() => set('agreedPrivacy', !form.agreedPrivacy)}
+            onChange={() => setShowPledge(true)}
             label="개인정보 수집 및 이용에 동의합니다."
           />
 
