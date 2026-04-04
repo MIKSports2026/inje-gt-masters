@@ -15,7 +15,9 @@ export const metadata: Metadata = {
 const PAGE_SIZE = 12
 
 const CATEGORIES: { key: PostCategory | ''; label: string }[] = [
-  { key: '', label: '공지사항 & 소식' },
+  { key: '',       label: '전체' },
+  { key: 'notice', label: '공지사항' },
+  { key: 'news',   label: '대회소식' },
 ]
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -90,16 +92,6 @@ export default async function NewsPage({
               }}
             >{cat.label}</Link>
           ))}
-          <Link
-            href="/media/kit"
-            style={{
-              padding: '7px 16px', fontSize: '.85rem', fontWeight: 800, whiteSpace: 'nowrap',
-              background: 'var(--bg-2)', color: 'var(--text-mid)',
-              border: '1px solid var(--line)',
-              clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-              textDecoration: 'none', display: 'inline-block',
-            }}
-          >미디어킷</Link>
         </div>
       </section>
 

@@ -41,7 +41,7 @@ const NAV_ITEMS = [
     href: '/news',
     drop: [
       { label: '공지사항 & 소식', href: '/news' },
-      { label: '미디어킷', href: '/media/kit' },
+      { label: '미디어 갤러리', href: '/media' },
     ],
   },
 ] as const

@@ -9,6 +9,7 @@ import partner      from './partner'
 import history      from './history'
 import regulation   from './regulation'
 import application  from './application'
+import mediaKit     from './mediaKit'
 
 export const schemaTypes = [
   siteSettings,
@@ -21,4 +22,5 @@ export const schemaTypes = [
   history,
   regulation,
   application,
+  mediaKit,
 ]
