@@ -59,16 +59,19 @@ export default function EntryForm({ isOpen, rounds, initialRoundNumber }: Props)
   const [done, setDone] = useState(false)
   const [error, setError] = useState('')
   const [showPledge, setShowPledge] = useState(false)
+  const [hasMounted, setHasMounted] = useState(false)
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(DRAFT_KEY)
       if (saved) { const d = JSON.parse(saved); if (d.teamName) setForm(d) }
     } catch {}
+    setHasMounted(true)
   }, [])
   useEffect(() => {
+    if (!hasMounted) return
     try { localStorage.setItem(DRAFT_KEY, JSON.stringify(form)) } catch {}
-  }, [form])
+  }, [form, hasMounted])
 
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) => setForm(p => ({ ...p, [k]: v }))
   const setDriver = (idx: number, field: keyof Driver, val: string) => {
