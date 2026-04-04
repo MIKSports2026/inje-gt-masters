@@ -110,8 +110,12 @@ export default function SectionSeason({ rounds }: Props) {
           display: flex; align-items: flex-end; justify-content: space-between;
         }
         .ssn__kicker {
-          font-family: 'Oswald',sans-serif; font-size: 2.7rem; font-weight: 600;
-          letter-spacing: .2em; color: #E60023; display: flex; align-items: center; gap: 10px;
+          font-family: 'Oswald',sans-serif !important;
+          font-size: 2.7rem !important;
+          font-weight: 600 !important;
+          letter-spacing: .2em !important;
+          color: #E60023 !important;
+          display: flex; align-items: center; gap: 10px;
           margin-bottom: 8px;
         }
         .ssn__kicker-line { width: 28px; height: 2px; background: #E60023; }
