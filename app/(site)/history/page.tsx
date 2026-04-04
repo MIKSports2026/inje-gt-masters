@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { sanityFetch } from '@/lib/sanity.client'
 import { HISTORY_QUERY } from '@/lib/queries'
 import type { History } from '@/types/sanity'
+import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
   title: '대회 역사',
@@ -18,14 +19,11 @@ export default async function HistoryPage() {
 
   return (
     <>
-      <section style={{ background: 'linear-gradient(135deg,#111,#1a0008 55%,#0d0d0d)', padding: '56px 0 48px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(135deg,rgba(230,0,35,.04) 0 1px,transparent 1px 60px)', pointerEvents: 'none' }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <span className="pill">History</span>
-          <h1 style={{ color: '#fff', marginTop: '10px', fontSize: 'clamp(2rem,5vw,4.2rem)' }}>대회 역사</h1>
-          <p style={{ color: 'rgba(255,255,255,.65)', marginTop: '10px', fontSize: 'clamp(.9rem,1.4vw,1.06rem)' }}>Where Legends Begin — 매 시즌 새로운 전설이 탄생합니다</p>
-        </div>
-      </section>
+      <PageHero
+        badge="History"
+        title="대회 역사"
+        subtitle="Where Legends Begin — 매 시즌 새로운 전설이 탄생합니다"
+      />
 
       <section className="section">
         <div className="container">
