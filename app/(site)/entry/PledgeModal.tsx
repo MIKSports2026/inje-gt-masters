@@ -1,10 +1,10 @@
-'use client'
-import { useEffect, useRef } from 'react'
-import { createPortal } from 'react-dom'
+'use client';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 interface Props {
-  onAgree: () => void
-  onClose: () => void
+  onAgree: () => void;
+  onClose: () => void;
 }
 
 const PLEDGE_ITEMS = [
@@ -17,45 +17,129 @@ const PLEDGE_ITEMS = [
   '본 대회에 참가하는 참가 대표자, 선수, 미케닉, PIT 요원 및 참가 차량의 소리, 사진 영상 등의 보도, 방송, 출판 등에 관한 권한이 주최자에 있음을 승낙합니다.',
   '주최측이 준비한 대회 홍보를 위해 실시하는 행사에 대해 적극 협조할 것을 약속합니다.',
   '본인의 과실로 경기장의 시설, 기재, 차량 등에 손해를 끼쳤을 경우에는 이에 대한 손해를 배상할 것을 서약합니다.',
-]
+];
 
 export default function PledgeModal({ onAgree, onClose }: Props) {
-  const el = useRef<HTMLDivElement | null>(null)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    el.current = document.createElement('div')
-    document.body.appendChild(el.current)
-    document.body.style.overflow = 'hidden'
+    setMounted(true);
+    document.body.style.overflow = 'hidden';
     return () => {
-      if (el.current) document.body.removeChild(el.current)
-      document.body.style.overflow = ''
-    }
-  }, [])
+      document.body.style.overflow = '';
+    };
+  }, []);
 
-  if (!el.current) return null
+  if (!mounted) return null;
 
   return createPortal(
-    <div className="pledge-overlay" onClick={onClose}>
-      <div className="pledge-modal" onClick={e => e.stopPropagation()}>
-        <div className="pledge-modal__head">
-          <h3 className="pledge-modal__title">참가 서약서</h3>
-          <button type="button" onClick={onClose} className="pledge-modal__close">✕</button>
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.88)',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          position: 'relative',
+          width: '90%',
+          maxWidth: '580px',
+          maxHeight: '80vh',
+          background: '#1A1A1A',
+          border: '1px solid rgba(255,255,255,0.1)',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div style={{
+          padding: '24px 32px',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexShrink: 0,
+        }}>
+          <span style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '1rem',
+            letterSpacing: '2px',
+            color: '#fff',
+            textTransform: 'uppercase',
+          }}>참가 서약서</span>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#aaa',
+              fontSize: '1.2rem',
+              cursor: 'pointer',
+            }}
+          >✕</button>
         </div>
-        <div className="pledge-modal__body">
-          {PLEDGE_ITEMS.map((text, i) => (
-            <div key={i} className="pledge-modal__item">
-              <span className="pledge-modal__num">{String(i + 1).padStart(2, '0')}</span>
-              <p className="pledge-modal__text">{text}</p>
+
+        <div style={{
+          padding: '24px 32px',
+          overflowY: 'auto',
+          flex: 1,
+        }}>
+          {PLEDGE_ITEMS.map((item, i) => (
+            <div key={i} style={{
+              display: 'flex',
+              gap: '12px',
+              marginBottom: '16px',
+            }}>
+              <span style={{
+                fontFamily: 'var(--font-heading)',
+                color: '#E60023',
+                fontSize: '0.85rem',
+                flexShrink: 0,
+                marginTop: '2px',
+              }}>{i + 1}.</span>
+              <p style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.85rem',
+                color: '#AAA',
+                lineHeight: 1.8,
+                margin: 0,
+                wordBreak: 'keep-all',
+              }}>{item}</p>
             </div>
           ))}
         </div>
-        <div className="pledge-modal__foot">
-          <button type="button" onClick={onAgree} className="ef-btn-submit" style={{ width: '100%' }}>
-            동의합니다
-          </button>
+
+        <div style={{
+          padding: '20px 32px',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+          flexShrink: 0,
+        }}>
+          <button
+            onClick={onAgree}
+            style={{
+              width: '100%',
+              background: '#E60023',
+              color: '#fff',
+              fontFamily: 'var(--font-heading)',
+              fontSize: '1rem',
+              fontWeight: 700,
+              letterSpacing: '3px',
+              padding: '16px',
+              border: 'none',
+              cursor: 'pointer',
+              textTransform: 'uppercase',
+            }}
+          >동의합니다</button>
         </div>
       </div>
     </div>,
-    el.current
-  )
+    document.body
+  );
 }
