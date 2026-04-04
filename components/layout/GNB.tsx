@@ -4,13 +4,16 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { SiteSettings } from '@/types/sanity'
 
-const NAV_ITEMS = [
+type DropItem = { label: string; href?: string; toast?: true }
+type NavItem = { label: string; href: string; drop: DropItem[] }
+
+const NAV_ITEMS: NavItem[] = [
   {
     label: 'MASTERS',
-    href: '/about',
+    href: '/history',
     drop: [
       { label: '마스터즈 히스토리', href: '/history' },
-      { label: '역대 챔피언', href: '/coming-soon' },
+      { label: '역대 챔피언', toast: true },
       { label: '조직도', href: '/masters/organization' },
     ],
   },
@@ -19,7 +22,7 @@ const NAV_ITEMS = [
     href: '/season',
     drop: [
       { label: '경기 일정', href: '/season' },
-      { label: '클래스 소개', href: '/classes' },
+      { label: '클래스 소개', toast: true },
       { label: '인제스피디움', href: '/circuit' },
     ],
   },
@@ -28,7 +31,7 @@ const NAV_ITEMS = [
     href: '/entry',
     drop: [
       { label: '참가 신청', href: '/entry' },
-      { label: '규정', href: '/entry/rules' },
+      { label: '규정', toast: true },
     ],
   },
   {
@@ -41,15 +44,21 @@ const NAV_ITEMS = [
     href: '/news',
     drop: [
       { label: '공지사항 & 소식', href: '/news' },
-      { label: '미디어 갤러리', href: '/media' },
+      { label: '미디어 갤러리', toast: true },
     ],
   },
-] as const
+]
 
 export default function GNB({ settings }: { settings: SiteSettings | null }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDrop, setOpenDrop] = useState<number | null>(null)
+  const [toastVisible, setToastVisible] = useState(false)
+
+  function showToast() {
+    setToastVisible(true)
+    setTimeout(() => setToastVisible(false), 2500)
+  }
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 80)
@@ -64,6 +73,20 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
 
   return (
     <>
+      {/* 준비중 토스트 */}
+      {toastVisible && (
+        <div style={{
+          position: 'fixed', top: '80px', left: '50%', transform: 'translateX(-50%)',
+          background: '#111', borderLeft: '4px solid #E60023',
+          color: '#fff', padding: '14px 24px',
+          fontFamily: "'Noto Sans KR', sans-serif", fontSize: '0.9rem', fontWeight: 600,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+          zIndex: 9999, whiteSpace: 'nowrap',
+        }}>
+          준비중입니다.
+        </div>
+      )}
+
       <header id="gnav" className={`gnav ${scrolled ? 'gnav--scrolled' : ''}`}>
         <div className="gnav__inner">
           {/* 로고 */}
@@ -93,9 +116,15 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
                 {/* 서브메뉴 패널 */}
                 <div className={`gnav__drop ${openDrop === i ? 'gnav__drop--open' : ''}`}>
                   {item.drop.map((d, j) => (
-                    <Link key={j} href={d.href} className="gnav__drop-link">
-                      {d.label}
-                    </Link>
+                    d.toast ? (
+                      <button key={j} onClick={showToast} className="gnav__drop-link gnav__drop-btn">
+                        {d.label}
+                      </button>
+                    ) : (
+                      <Link key={j} href={d.href!} className="gnav__drop-link">
+                        {d.label}
+                      </Link>
+                    )
                   ))}
                 </div>
               </div>
@@ -123,9 +152,15 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
             </Link>
             <div className="gnav__mobile-subs">
               {item.drop.map((d, j) => (
-                <Link key={j} href={d.href} onClick={() => setMobileOpen(false)} className="gnav__mobile-sub">
-                  {d.label}
-                </Link>
+                d.toast ? (
+                  <button key={j} onClick={() => { setMobileOpen(false); showToast() }} className="gnav__mobile-sub gnav__mobile-btn">
+                    {d.label}
+                  </button>
+                ) : (
+                  <Link key={j} href={d.href!} onClick={() => setMobileOpen(false)} className="gnav__mobile-sub">
+                    {d.label}
+                  </Link>
+                )
               ))}
             </div>
           </div>
@@ -278,6 +313,10 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
           transition: color .15s;
         }
         .gnav__mobile-sub:hover { color: rgba(255,255,255,.75); }
+        .gnav__drop-btn, .gnav__mobile-btn {
+          background: none; border: none; cursor: pointer;
+          text-align: left; width: 100%;
+        }
 
         /* ── Responsive ──────────────────────── */
         @media (max-width: 1100px) {
