@@ -23,7 +23,6 @@ async function main() {
     .patch('siteSettings')
     .set({
       announcementBar: {
-        _type: 'announcementBar',
         isVisible: true,
         text: '🏁 2026 인제 GT 마스터즈 R1 개막전 참가신청 마감 임박! 지금 바로 신청하세요',
         link: '/entry?tab=apply&round=R1',
