@@ -96,12 +96,19 @@ export default function SectionClass() {
           display: flex; gap: 2px; height: 400px;
         }
         .cls__p {
-          flex: 0.35; position: relative; overflow: hidden; cursor: pointer;
-          background: #111111; transition: flex .6s cubic-bezier(.8,0,.2,1);
+          flex: 0.35; position: relative; overflow: visible; cursor: pointer;
+          background: #1a1a1a;
+          clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+          transition: flex .6s cubic-bezier(.8,0,.2,1), transform .4s cubic-bezier(.25,1,.5,1), box-shadow .4s ease;
           display: flex; align-items: stretch;
           border: none; outline: none; box-shadow: none;
         }
+        .cls__p:hover {
+          transform: translateY(-15px);
+          box-shadow: 0 20px 40px rgba(0,0,0,.8);
+        }
         .cls__p--on { flex: 5; }
+        .cls__p--on:hover .cls__p-title { color: #E60023; }
 
         .cls__p-ov {
           position: absolute; inset: 0;
@@ -162,6 +169,7 @@ export default function SectionClass() {
           color: #fff; margin: 0 0 16px;
           text-shadow: none;
           transform: skewX(-10deg);
+          transition: color .3s ease;
         }
 
         .cls__p-meta {
