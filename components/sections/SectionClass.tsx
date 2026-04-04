@@ -69,8 +69,20 @@ export default function SectionClass() {
         })}
       </div>
 
+      {/* 도트 네비 */}
+      <div className="cls__dots">
+        {classes.map((_, i) => (
+          <button
+            key={i}
+            className={`cls__dot ${active === i ? 'cls__dot--on' : ''}`}
+            onClick={() => setActive(i)}
+            aria-label={`Class ${i + 1}`}
+          />
+        ))}
+      </div>
+
       <style>{`
-        .cls { background: #0a0a0a; padding: 60px 0; position: relative; z-index: 1; }
+        .cls { background: var(--bg-carbon, #0a0a0a); padding: 60px 0; position: relative; z-index: 1; }
         .cls__hd {
           max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
           display: flex; align-items: flex-end; justify-content: space-between;
@@ -210,6 +222,18 @@ export default function SectionClass() {
           position: absolute; inset: 0;
           background: #111111;
         }
+
+        /* Dots */
+        .cls__dots {
+          display: flex; justify-content: center; gap: 6px; margin-top: 28px;
+        }
+        .cls__dot {
+          width: 14px; height: 4px; border: none; cursor: pointer; padding: 0;
+          background: rgba(255,255,255,.12); transform: skewX(-30deg);
+          transition: all .25s;
+        }
+        .cls__dot--on { width: 28px; background: #E60023; }
+        .cls__dot:hover { background: rgba(255,255,255,.25); }
 
         @media (max-width: 900px) {
           .cls__acc { flex-direction: column; height: auto; padding: 0 20px; }

@@ -176,10 +176,10 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
         .gnav__link {
           font-family: 'Oswald', sans-serif;
           font-size: 1.2rem; font-weight: 700;
-          letter-spacing: .01em;
+          letter-spacing: 0;
           text-transform: uppercase;
           text-decoration: none;
-          color: #b0b0b0;
+          color: #AAAAAA;
           transform: scaleY(1.1) skewX(-2deg);
           display: inline-block;
           position: relative;

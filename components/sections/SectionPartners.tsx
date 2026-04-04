@@ -44,7 +44,8 @@ export default function SectionPartners({ partners }: Props) {
                     alt={p.name}
                     width={140}
                     height={56}
-                    style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.6, transition: 'opacity .2s' }}
+                    className="ptn__logo-img"
+                    style={{ objectFit: 'contain' }}
                     onError={(e) => {
                       const img = e.currentTarget as HTMLImageElement
                       img.style.display = 'none'
@@ -63,9 +64,16 @@ export default function SectionPartners({ partners }: Props) {
 
       <style>{`
         .ptn {
-          background: #0a0a0a;
+          background: var(--bg-carbon, #0a0a0a);
           padding: 64px 0;
           border-top: 1px solid rgba(255,255,255,.06);
+        }
+        .ptn__logo-img {
+          filter: grayscale(100%); opacity: .5;
+          transition: filter .3s, opacity .3s;
+        }
+        .ptn__card:hover .ptn__logo-img {
+          filter: grayscale(0%); opacity: 1;
         }
         .ptn__inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .ptn__kicker {

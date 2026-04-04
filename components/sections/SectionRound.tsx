@@ -125,7 +125,7 @@ export default function SectionRound({ rounds }: Props) {
         }
         .rnd__p {
           flex: 1; position: relative; overflow: hidden; cursor: pointer;
-          background: #111;
+          background: var(--bg-carbon-light, #1a1a1a);
           transition: flex .6s cubic-bezier(.25,1,.5,1);
           display: flex; align-items: flex-end;
         }
