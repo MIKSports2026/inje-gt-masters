@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /studio
+Disallow: /api/
+Disallow: /admin/
 
 Host: https://www.injegtmasters.com
 Sitemap: https://www.injegtmasters.com/sitemap.xml
