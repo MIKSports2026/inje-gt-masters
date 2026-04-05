@@ -61,7 +61,18 @@ export default function SectionClass({ classes }: Props) {
 
                 <div className="cls__p-right">
                   <div className="cls__p-slice">
-                    <div className="cls__p-slice-cut" />
+                    <div
+                      className="cls__p-slice-cut"
+                      style={
+                        (cls.heroImage?.asset?.url || cls.cardImage?.asset?.url)
+                          ? {
+                              backgroundImage: `url(${cls.heroImage?.asset?.url ?? cls.cardImage?.asset?.url})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                            }
+                          : undefined
+                      }
+                    />
                   </div>
                 </div>
               </div>
