@@ -1,0 +1,145 @@
+/* ── Wrapper ─────────────────────────────────────────── */
+.wrapper {
+  background-color: var(--bg-carbon);
+  min-height: 100vh;
+}
+
+/* ── Hero ───────────────────────────────────────────── */
+.hero {
+  background-color: #111;
+  padding: 140px 0 60px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.breadcrumb {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: #777;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.breadcrumb span   { margin: 0 8px; color: var(--primary-red); }
+.breadcrumb strong { color: #fff; }
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.redSlash {
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-red);
+  transform: skewX(-30deg);
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #999;
+}
+
+/* ── Filter Bar ─────────────────────────────────────── */
+.filterBar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.filterBar::-webkit-scrollbar       { height: 4px; }
+.filterBar::-webkit-scrollbar-thumb { background: var(--primary-red); }
+
+.filterBtn {
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  color: #ccc;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: all 0.2s ease;
+}
+.filterBtn:hover { border-color: #555; color: #fff; }
+.active {
+  background-color: var(--primary-red);
+  border-color: var(--primary-red) !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* ── Pinned Section ─────────────────────────────────── */
+.pinnedSection { margin-bottom: 48px; }
+
+.pinnedLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary-red);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+/* ── Grid (3열) ─────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+/* ── Empty State ─────────────────────────────────────── */
+.empty {
+  grid-column: 1 / -1;
+  padding: 80px 0;
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* ── Load More ───────────────────────────────────────── */
+.loadMore {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 100px;
+}
+.btnLoadMore {
+  background: transparent;
+  border: 1px solid var(--primary-red);
+  color: var(--primary-red);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 16px 48px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.btnLoadMore:hover {
+  background-color: var(--primary-red);
+  color: #fff;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 992px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid  { grid-template-columns: 1fr; }
+  .title { font-size: 2.5rem; }
+}

@@ -1,195 +1,124 @@
-// app/(site)/news/page.tsx — 소식 / 공지사항 목록
+// app/(site)/news/page.tsx — 뉴스 카드 그리드 목록 (/news 라우트)
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import { sanityFetch } from '@/lib/sanity.client'
 import { POSTS_QUERY, POSTS_COUNT_QUERY } from '@/lib/queries'
 import type { Post, PostCategory } from '@/types/sanity'
-import PageHero from '@/components/ui/PageHero'
+import NewsCard from '@/components/ui/NewsCard'
+import styles from './NewsListPage.module.css'
 
 export const metadata: Metadata = {
-  title: '공지사항 & 소식',
-  description: '인제 GT 마스터즈 공지사항, 대회 소식, 보도자료, 이벤트 등 최신 정보를 확인하세요.',
+  title: 'NEWS',
+  description: '인제GT마스터즈의 공식 공지사항, 보도자료, 대회 소식을 확인하세요.',
 }
 
-const PAGE_SIZE = 12
+const PAGE_SIZE = 6
 
-const CATEGORIES: { key: PostCategory | ''; label: string }[] = [
-  { key: '',       label: '전체' },
-  { key: 'notice', label: '공지사항' },
-  { key: 'news',   label: '대회소식' },
+const TABS = [
+  { label: '전체',     value: '' },
+  { label: '공지사항', value: 'notice' },
+  { label: '보도자료', value: 'press' },
+  { label: '대회소식', value: 'news' },
 ]
-
-const CATEGORY_COLORS: Record<string, string> = {
-  notice: '#2563eb', news: '#e60023', press: '#7c3aed',
-  entry: '#16a34a', regulation: '#b8921e', event: '#f97316',
-}
-
-const CATEGORY_LABELS: Record<string, string> = {
-  notice: '공지사항', news: '대회소식', press: '보도자료',
-  entry: '참가안내', regulation: '기술규정', event: '이벤트',
-}
-
 
 export default async function NewsPage({
   searchParams,
 }: {
-  searchParams: { category?: string; page?: string }
+  searchParams: { category?: string; limit?: string }
 }) {
   const category = (searchParams.category ?? '') as PostCategory | ''
-  const page     = Math.max(1, parseInt(searchParams.page ?? '1', 10))
-  const start    = (page - 1) * PAGE_SIZE
-  const end      = start + PAGE_SIZE
+  const limit    = Math.max(PAGE_SIZE, parseInt(searchParams.limit ?? String(PAGE_SIZE), 10))
 
   const [posts, totalCount] = await Promise.all([
     sanityFetch<Post[]>({
-      query:     POSTS_QUERY,
-      params:    { category, start, end },
-      revalidate: 300,
+      query:      POSTS_QUERY,
+      params:     { category, start: 0, end: limit },
+      revalidate: 60,
+      useCdn:     false,
     }),
     sanityFetch<number>({
-      query:     POSTS_COUNT_QUERY,
-      params:    { category },
-      revalidate: 300,
+      query:      POSTS_COUNT_QUERY,
+      params:     { category },
+      revalidate: 60,
+      useCdn:     false,
     }),
   ]).catch(() => [[], 0] as [Post[], number])
 
-  const displayPosts = posts as Post[]
   const total        = typeof totalCount === 'number' ? totalCount : 0
-  const totalPages   = Math.max(1, Math.ceil(total / PAGE_SIZE))
-
-  const cut = 'polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)'
-
-  const buildHref = (params: Record<string, string>) => {
-    const p = new URLSearchParams({ ...(category ? { category } : {}), ...(page > 1 ? { page: String(page) } : {}), ...params })
-    const s = p.toString()
-    return s ? `/news?${s}` : '/news'
-  }
+  const hasMore      = limit < total
+  const pinnedPosts  = category === '' ? (posts as Post[]).filter(p => p.isPinned) : []
+  const regularPosts = (posts as Post[]).filter(p => !p.isPinned)
+  const moreHref     = `/news?${category ? `category=${category}&` : ''}limit=${limit + PAGE_SIZE}`
 
   return (
-    <>
-      {/* ── 히어로 ──────────────────────────────────────────── */}
-      <PageHero
-        badge="News & Notice"
-        title="공지사항 & 소식"
-        subtitle="인제 GT 마스터즈의 최신 소식과 공지사항을 확인하세요."
-      />
+    <div className={styles.wrapper}>
 
-      {/* ── 카테고리 탭 ──────────────────────────────────── */}
-      <section style={{ borderBottom: '1px solid var(--line)', background: 'var(--bg)', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
-        <div className="container" style={{ display: 'flex', gap: '8px', padding: '12px 0', overflowX: 'auto', scrollbarWidth: 'none' }}>
-          {CATEGORIES.map(cat => (
-            <Link
-              key={cat.key}
-              href={buildHref(cat.key ? { category: cat.key, page: '1' } : { page: '1' })}
-              style={{
-                padding: '7px 16px', fontSize: '.85rem', fontWeight: 800, whiteSpace: 'nowrap',
-                background: category === cat.key ? 'var(--red)' : 'var(--bg-2)',
-                color:      category === cat.key ? '#fff' : 'var(--text-mid)',
-                border:     `1px solid ${category === cat.key ? 'var(--red)' : 'var(--line)'}`,
-                clipPath:   'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-                textDecoration: 'none', display: 'inline-block',
-              }}
-            >{cat.label}</Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 목록 ───────────────────────────────────────────── */}
-      <section className="section">
+      {/* ── Hero ─────────────────────────────────────────── */}
+      <div className={styles.hero}>
         <div className="container">
-          {displayPosts.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--muted)' }}>
-              <i className="fa-solid fa-newspaper" style={{ fontSize: '3rem', marginBottom: '16px', display: 'block', opacity: .3 }} />
-              <p>게시물이 없습니다.</p>
-            </div>
-          ) : (
-            <div style={{ display: 'grid', gap: '0' }}>
-              {/* 핀 고정 게시물 */}
-              {displayPosts.filter(p => p.isPinned).map(post => (
-                <PostRow key={post._id} post={post} cut={cut} pinned />
-              ))}
-              {/* 일반 게시물 */}
-              {displayPosts.filter(p => !p.isPinned).map(post => (
-                <PostRow key={post._id} post={post} cut={cut} />
-              ))}
-            </div>
-          )}
-
-          {/* ── 페이지네이션 ── */}
-          {totalPages > 1 && (
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '36px' }}>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                <Link
-                  key={p}
-                  href={buildHref({ page: String(p) })}
-                  style={{
-                    width: '40px', height: '40px', display: 'grid', placeItems: 'center',
-                    fontWeight: 800, fontSize: '.9rem',
-                    background: p === page ? 'var(--red)' : 'var(--bg-2)',
-                    color:      p === page ? '#fff' : 'var(--text-mid)',
-                    border:     `1px solid ${p === page ? 'var(--red)' : 'var(--line)'}`,
-                    clipPath:   'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-                    textDecoration: 'none',
-                  }}
-                >{p}</Link>
-              ))}
-            </div>
-          )}
+          <div className={styles.breadcrumb}>
+            인제GT마스터즈 <span>/</span> <strong>NEWS</strong>
+          </div>
+          <h1 className={styles.title}>NEWS</h1>
+          <div className={styles.redSlash} />
+          <p className={styles.subtitle}>인제GT마스터즈의 공식 소식</p>
         </div>
-      </section>
-    </>
-  )
-}
-
-function PostRow({ post, cut, pinned = false }: { post: Post; cut: string; pinned?: boolean }) {
-  const catColor = CATEGORY_COLORS[post.category] ?? 'var(--muted)'
-  const catLabel = CATEGORY_LABELS[post.category] ?? post.category
-
-  return (
-    <Link href={`/news/${post.slug.current}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <div className="post-row" style={{
-        display: 'grid',
-        gridTemplateColumns: 'auto 1fr auto',
-        gap: '16px',
-        alignItems: 'center',
-        padding: '18px 0',
-        borderBottom: '1px solid var(--line)',
-        background: pinned ? 'rgba(230,0,35,.02)' : 'transparent',
-      }}>
-        {/* 카테고리 배지 */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', minWidth: '72px' }}>
-          <span style={{
-            padding: '3px 10px', fontSize: '.75rem', fontWeight: 900,
-            background: `${catColor}14`, color: catColor,
-            border: `1px solid ${catColor}38`,
-            clipPath: 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)',
-            whiteSpace: 'nowrap',
-          }}>{catLabel}</span>
-          {pinned && (
-            <span style={{ fontSize: '.7rem', fontWeight: 900, color: 'var(--red)' }}>
-              <i className="fa-solid fa-thumbtack" style={{ marginRight: '3px' }} />핀고정
-            </span>
-          )}
-        </div>
-
-        {/* 제목 + 요약 */}
-        <div style={{ minWidth: 0 }}>
-          <strong style={{ display: 'block', fontSize: '1rem', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {post.title}
-          </strong>
-          {post.excerpt && (
-            <span style={{ fontSize: '.88rem', color: 'var(--muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>
-              {post.excerpt}
-            </span>
-          )}
-        </div>
-
-        {/* 날짜 */}
-        <span style={{ fontSize: '.82rem', color: 'var(--muted)', whiteSpace: 'nowrap', fontWeight: 700 }}>
-          {post.publishedAt?.slice(0, 10)}
-        </span>
       </div>
-    </Link>
+
+      <div className="container" style={{ paddingTop: '40px' }}>
+
+        {/* ── 필터 탭 ──────────────────────────────────── */}
+        <div className={styles.filterBar}>
+          {TABS.map(tab => {
+            const href     = tab.value ? `/news?category=${tab.value}` : '/news'
+            const isActive = category === tab.value
+            return (
+              <Link
+                key={tab.value}
+                href={href}
+                className={`${styles.filterBtn} ${isActive ? styles.active : ''}`}
+              >
+                {tab.label}
+              </Link>
+            )
+          })}
+        </div>
+
+        {/* ── 고정 공지 ─────────────────────────────────── */}
+        {pinnedPosts.length > 0 && (
+          <div className={styles.pinnedSection}>
+            <div className={styles.pinnedLabel}>
+              <span>📌</span> 중요 공지
+            </div>
+            <div className={styles.grid}>
+              {pinnedPosts.map((post, i) => (
+                <NewsCard key={post._id} post={post} index={i} pinned basePath="/news" />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── 카드 그리드 ───────────────────────────────── */}
+        <div className={styles.grid}>
+          {regularPosts.length > 0 ? (
+            regularPosts.map((post, i) => (
+              <NewsCard key={post._id} post={post} index={i} basePath="/news" />
+            ))
+          ) : (
+            <div className={styles.empty}>해당 카테고리의 게시글이 없습니다.</div>
+          )}
+        </div>
+
+        {/* ── 더보기 ───────────────────────────────────── */}
+        {hasMore && (
+          <div className={styles.loadMore}>
+            <Link href={moreHref} className={styles.btnLoadMore}>
+              더보기 +
+            </Link>
+          </div>
+        )}
+
+      </div>
+    </div>
   )
 }
