@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import type { ClassInfo } from '@/types/sanity'
 import SectionHeader from '@/components/ui/SectionHeader'
+import { urlFor } from '@/lib/sanity.client'
 
 interface Props {
   classes: ClassInfo[]
@@ -64,9 +65,9 @@ export default function SectionClass({ classes }: Props) {
                     <div
                       className="cls__p-slice-cut"
                       style={
-                        (cls.heroImage?.asset?.url || cls.cardImage?.asset?.url)
+                        (cls.heroImage || cls.cardImage)
                           ? {
-                              backgroundImage: `url(${cls.heroImage?.asset?.url ?? cls.cardImage?.asset?.url})`,
+                              backgroundImage: `url(${urlFor(cls.heroImage ?? cls.cardImage!).width(800).url()})`,
                               backgroundSize: 'cover',
                               backgroundPosition: 'center',
                             }
