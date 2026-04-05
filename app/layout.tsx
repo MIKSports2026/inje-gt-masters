@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     index:  true,
     follow: true,
   },
+  verification: {
+    other: {
+      'naver-site-verification': 'cbb0fdca3a36e434bba6770e826efcc2a7657ed6',
+    },
+  },
 }
 
 export const viewport: Viewport = {
@@ -51,7 +56,6 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <meta name="naver-site-verification" content="cbb0fdca3a36e434bba6770e826efcc2a7657ed6" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link
           rel="stylesheet"
