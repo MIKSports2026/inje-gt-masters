@@ -41,7 +41,7 @@ export default async function HomePage() {
     sanityFetch<Round | null> ({ query: NEXT_ROUND_QUERY,     params: { today },        revalidate: 300 }).catch(() => null),
     sanityFetch<Post[]>       ({ query: RECENT_POSTS_QUERY,   params: { limit: 3 },     revalidate: 300 }).catch(() => [] as Post[]),
     sanityFetch<Partner[]>    ({ query: PARTNERS_QUERY,       params: { currentSeason: 2026 }, revalidate: 3600 }).catch(() => [] as Partner[]),
-    sanityFetch<ClassInfo[]>  ({ query: CLASSES_QUERY, useCdn: false, revalidate: false }).catch(() => [] as ClassInfo[]),
+    sanityFetch<ClassInfo[]>  ({ query: CLASSES_QUERY, useCdn: false, revalidate: 3600 }).catch(() => [] as ClassInfo[]),
   ])
 
   const s  = settings  as SiteSettings | null
