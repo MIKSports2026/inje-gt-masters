@@ -1,4 +1,5 @@
 // app/(site)/media/news/page.tsx — 뉴스 카드 그리드 목록
+export const dynamic = 'force-dynamic'  // 매 요청마다 서버에서 신선하게 렌더
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
