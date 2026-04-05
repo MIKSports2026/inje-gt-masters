@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }).catch(() => null)
   if (!settings) return {}
   return {
-    title:       settings.metaTitle,
+    title:       { absolute: settings.metaTitle ?? '인제 GT 마스터즈 | 공식 홈페이지' },
     description: settings.metaDescription,
     openGraph: {
       title:       settings.metaTitle,
