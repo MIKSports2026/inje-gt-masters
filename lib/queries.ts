@@ -180,6 +180,17 @@ export const POST_DETAIL_QUERY = /* groq */`
   }
 `
 
+/** 이전 글 (더 오래된 게시물) */
+export const POST_PREV_QUERY = /* groq */`
+  *[_type == "post" && isHidden != true && publishedAt < $publishedAt]
+  | order(publishedAt desc)[0]{ _id, title, slug }
+`
+/** 다음 글 (더 최신 게시물) */
+export const POST_NEXT_QUERY = /* groq */`
+  *[_type == "post" && isHidden != true && publishedAt > $publishedAt]
+  | order(publishedAt asc)[0]{ _id, title, slug }
+`
+
 // ════════════════════════════════════════════════════════════
 // media
 // ════════════════════════════════════════════════════════════
