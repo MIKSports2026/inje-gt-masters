@@ -76,6 +76,7 @@ export const CLASSES_QUERY = /* groq */`
     teamCount, driverCount, carCount,
     features, isEntryOpen,
     entryFeePerRound, entryFeeSeason, entryFeeNote, isFeePublic,
+    regulationPdf { asset->{ url } },
     cardImage ${IMAGE}, heroImage ${IMAGE},
     "gallery0": gallery[0] ${IMAGE}
   }
