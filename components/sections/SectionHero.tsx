@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import type { SiteSettings, Round } from '@/types/sanity'
 
 interface Props {
@@ -31,19 +32,26 @@ export default function SectionHero({ settings }: Props) {
 
   return (
     <section className="hero-section">
-      {bgUrl ? (
-        <img
-          key={current}
-          src={bgUrl}
-          alt="인제 GT 마스터즈"
-          className="hero-section__img"
-        />
-      ) : (
-        <div className="hero-section__fallback" />
-      )}
+      {/* 배경 이미지 래퍼 — absolute inset-0 으로 섹션에 딱 맞게 */}
+      <div className="hero-section__img-wrap">
+        {bgUrl ? (
+          <Image
+            key={current}
+            src={bgUrl}
+            alt="인제 GT 마스터즈"
+            fill
+            sizes="100vw"
+            priority
+            style={{ objectFit: 'cover', objectPosition: 'center center' }}
+          />
+        ) : (
+          <div className="hero-section__fallback" />
+        )}
+      </div>
+
       {/* 상하 그라디언트 */}
       <div className="hero-section__overlay" />
-      {/* 좌우 그라디언트 — contain 전환 시 경계 자연스럽게 */}
+      {/* 좌우 그라디언트 */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
         background: 'linear-gradient(to right, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 12%, rgba(10,10,10,0) 88%, rgba(10,10,10,0.95) 100%)',
@@ -53,24 +61,18 @@ export default function SectionHero({ settings }: Props) {
         .hero-section {
           position: relative;
           width: 100%;
-          height: 100vh;
+          height: 100svh;
+          height: 100vh; /* fallback for browsers without svh support */
           overflow: hidden;
           background: #0a0a0a;
         }
-        .hero-section__img {
+        @supports (height: 100svh) {
+          .hero-section { height: 100svh; }
+        }
+        .hero-section__img-wrap {
           position: absolute;
           inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center center;
-          transition: opacity 1s ease;
-        }
-        @media (min-aspect-ratio: 16/9) and (min-width: 1600px) {
-          .hero-section__img {
-            object-fit: contain;
-            background: #0a0a0a;
-          }
+          overflow: hidden;
         }
         .hero-section__fallback {
           position: absolute;

@@ -31,16 +31,18 @@ export default function PageHero({ image, badge, title, subtitle, breadcrumb, ch
       display: 'flex',
       alignItems: 'flex-end',
     }}>
-      {/* 배경 이미지 */}
+      {/* 배경 이미지 — absolute inset-0 래퍼로 overflow 차단 */}
       {imgUrl && (
-        <Image
-          src={imgUrl}
-          alt=""
-          fill
-          style={{ objectFit: 'cover', objectPosition: 'center 40%' }}
-          sizes="100vw"
-          priority
-        />
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+          <Image
+            src={imgUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            priority
+            style={{ objectFit: 'cover', objectPosition: 'center 40%' }}
+          />
+        </div>
       )}
       {/* 오버레이 */}
       <div style={{
