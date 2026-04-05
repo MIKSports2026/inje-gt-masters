@@ -206,6 +206,24 @@ export const FEATURED_MEDIA_QUERY = /* groq */`
   }
 `
 
+/** 갤러리 페이지 — 전체 앨범 + 사진 배열 (라이트박스용) */
+export const GALLERY_QUERY = /* groq */`
+  *[_type == "media" && mediaType == "photoAlbum" && isPublished == true]
+  | order(sortOrder asc, publishedAt desc){
+    _id, title, slug, publishedAt,
+    relatedRound->{ roundNumber, title },
+    photos[]{
+      image{ asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } },
+      alt, caption, credit
+    }
+  }
+`
+
+/** GNB 조건부 노출용 — 공개된 사진 앨범 수 */
+export const GALLERY_COUNT_QUERY = /* groq */`
+  count(*[_type == "media" && mediaType == "photoAlbum" && isPublished == true])
+`
+
 /** 사진 앨범 목록 */
 export const PHOTO_ALBUMS_QUERY = /* groq */`
   *[_type == "media" && mediaType == "photoAlbum" && isPublished == true]

@@ -4,23 +4,25 @@
 
 import GNB    from '@/components/layout/GNB'
 import Footer from '@/components/layout/Footer'
-import { sanityFetch }         from '@/lib/sanity.client'
-import { SITE_SETTINGS_QUERY } from '@/lib/queries'
-import type { SiteSettings }   from '@/types/sanity'
+import { sanityFetch }                          from '@/lib/sanity.client'
+import { SITE_SETTINGS_QUERY, GALLERY_COUNT_QUERY } from '@/lib/queries'
+import type { SiteSettings }                    from '@/types/sanity'
 
 export default async function SiteLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const settings = await sanityFetch<SiteSettings>({
-    query:      SITE_SETTINGS_QUERY,
-    revalidate: 3600,
-  }).catch(() => null)
+  const [settings, galleryCount] = await Promise.all([
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, revalidate: 3600 }),
+    sanityFetch<number>({ query: GALLERY_COUNT_QUERY, revalidate: 3600 }),
+  ]).catch(() => [null, 0] as [SiteSettings | null, number])
+
+  const hasGallery = typeof galleryCount === 'number' && galleryCount > 0
 
   return (
     <>
-      <GNB settings={settings} />
+      <GNB settings={settings} hasGallery={hasGallery} />
       <main id="top" style={{ paddingTop: 'var(--header-h)' }}>{children}</main>
       <Footer settings={settings} />
     </>

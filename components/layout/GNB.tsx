@@ -39,17 +39,25 @@ const NAV_ITEMS: NavItem[] = [
     href: '/results',
     drop: [],
   },
-  {
-    label: 'MEDIA',
-    href: '/media/news',
-    drop: [
-      { label: '공지사항 & 소식', href: '/media/news' },
-      { label: '미디어 갤러리', toast: true },
-    ],
-  },
 ]
 
-export default function GNB({ settings }: { settings: SiteSettings | null }) {
+/** MEDIA 드롭 — hasGallery에 따라 GALLERY 항목 조건부 포함 */
+function buildMediaDrop(hasGallery: boolean): DropItem[] {
+  return [
+    { label: '공지사항 & 소식', href: '/media/news' },
+    ...(hasGallery ? [{ label: '사진 갤러리', href: '/media/gallery' }] : []),
+    { label: '동영상', href: '/media/video' },
+    { label: 'PRESS KIT', href: '/media/kit' },
+  ]
+}
+
+export default function GNB({
+  settings,
+  hasGallery = false,
+}: {
+  settings:    SiteSettings | null
+  hasGallery?: boolean
+}) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDrop, setOpenDrop] = useState<number | null>(null)
@@ -70,6 +78,13 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
+
+  // MEDIA 드롭 항목 동적 생성
+  const navItems: NavItem[] = NAV_ITEMS.map(item =>
+    item.label === 'MEDIA'
+      ? { ...item, drop: buildMediaDrop(hasGallery) }
+      : item
+  )
 
   return (
     <>
@@ -101,7 +116,7 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
 
           {/* 데스크톱 메뉴 */}
           <nav className="gnav__nav gnb-desktop" aria-label="주 메뉴">
-            {NAV_ITEMS.map((item, i) => (
+            {navItems.map((item, i) => (
               <div
                 key={i}
                 className="gnav__item"
@@ -145,7 +160,7 @@ export default function GNB({ settings }: { settings: SiteSettings | null }) {
 
       {/* 모바일 풀스크린 메뉴 */}
       <div className={`gnav__mobile ${mobileOpen ? 'gnav__mobile--open' : ''}`}>
-        {NAV_ITEMS.map((item, i) => (
+        {navItems.map((item, i) => (
           <div key={i} className="gnav__mobile-group">
             <Link href={item.href} onClick={() => setMobileOpen(false)} className="gnav__mobile-title">
               {item.label}
