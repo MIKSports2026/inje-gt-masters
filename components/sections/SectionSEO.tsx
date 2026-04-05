@@ -4,8 +4,8 @@ export default function SectionSEO() {
     {
       title: '대회 소개',
       body: [
-        '인제 GT 마스터즈는 강원도 인제스피디움(3.9km)에서 개최되는 대한민국 대표 아마추어 GT 내구레이스입니다. 연간 4라운드 구성으로 2026 시즌에는 107대의 경주차와 208명의 드라이버가 참가합니다.',
-        'GT1·GT2·GT3 내구레이스를 비롯해 드리프트 KDGP, 두카티·스즈키 바이크 레이스, 슈퍼카 챌린지까지 총 6개 클래스가 운영됩니다.',
+        '인제 GT 마스터즈는 강원도 인제스피디움(3.9km)에서 개최되는 대한민국 대표 아마추어 GT 내구레이스입니다. 2026 시즌 5라운드 구성으로 Masters 1·Masters 2·Masters N·Masters 3·Masters N-evo 총 5개 클래스가 운영됩니다.',
+        'Masters 1·Masters 2·Masters N·Masters 3·Masters N-evo 참가 신청 접수 중.',
       ],
       keywords: ['인제스피디움', 'GT내구레이스', '아마추어레이싱', '2026시즌'],
     },

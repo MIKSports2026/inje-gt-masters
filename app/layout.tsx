@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: '%s | 인제 GT 마스터즈',
   },
   description:
-    '대한민국 정통 GT 내구레이스, 인제 GT 마스터즈. 강원도 인제스피디움 3.9km 서킷, 2026 시즌 연간 4라운드.',
+    '대한민국 정통 GT 내구레이스, 인제 GT 마스터즈. 강원도 인제스피디움 3.9km 서킷, 2026 시즌 5라운드. Masters 1·Masters 2·Masters N·Masters 3·Masters N-evo 참가 신청 접수 중.',
   openGraph: {
     type:   'website',
     locale: 'ko_KR',

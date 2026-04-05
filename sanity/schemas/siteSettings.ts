@@ -167,7 +167,7 @@ export default defineType({
       rows: 3,
       group: 'seo',
       initialValue:
-        '대한민국 정통 GT 내구레이스, 인제 GT 마스터즈. 강원도 인제스피디움 3.9km 서킷, 2026 시즌 연간 4라운드. GT1·GT2·GT3·드리프트·바이크·슈퍼카 참가 신청 접수 중.',
+        '대한민국 정통 GT 내구레이스, 인제 GT 마스터즈. 강원도 인제스피디움 3.9km 서킷, 2026 시즌 5라운드. Masters 1·Masters 2·Masters N·Masters 3·Masters N-evo 참가 신청 접수 중.',
       validation: R => R.max(160),
     }),
     defineField({
