@@ -227,10 +227,21 @@ export const PHOTO_ALBUM_DETAIL_QUERY = /* groq */`
   }
 `
 
-/** 동영상 목록 */
+/** 동영상 목록 (페이지네이션) */
 export const VIDEOS_QUERY = /* groq */`
   *[_type == "media" && mediaType in ["video","uploadedVideo"] && isPublished == true]
   | order(publishedAt desc)[$start...$end]{
+    _id, title, slug, mediaType, publishedAt, duration,
+    youtubeUrl, youtubeThumbnail,
+    coverImage ${IMAGE},
+    relatedRound->{ roundNumber, title }
+  }
+`
+
+/** 동영상 전체 목록 — /media/video 페이지용 (라운드 필터 포함) */
+export const VIDEOS_ALL_QUERY = /* groq */`
+  *[_type == "media" && mediaType in ["video","uploadedVideo"] && isPublished == true]
+  | order(sortOrder asc, publishedAt desc){
     _id, title, slug, mediaType, publishedAt, duration,
     youtubeUrl, youtubeThumbnail,
     coverImage ${IMAGE},

@@ -1,0 +1,212 @@
+/* ── Filter Bar ─────────────────────────────────────────── */
+.filterBar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 36px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.filterBar::-webkit-scrollbar { display: none; }
+
+.filterBtn {
+  display: inline-block;
+  padding: 8px 20px;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-decoration: none;
+  background: var(--bg-2);
+  color: var(--text-mid);
+  border: 1px solid var(--line);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.filterBtn:hover {
+  border-color: #555;
+  color: #fff;
+}
+.filterBtnActive {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
+/* ── Video Grid ─────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+/* ── Video Card ─────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+  animation: cardIn 0.45s ease backwards;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Thumbnail */
+.thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+}
+
+.thumbImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.card:hover .thumbImg {
+  transform: scale(1.05);
+}
+
+/* Red overlay on hover */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(230, 0, 35, 0);
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+.card:hover .overlay {
+  background: rgba(230, 0, 35, 0.45);
+}
+
+/* Play icon */
+.playIcon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card:hover .playIcon {
+  opacity: 1;
+}
+.playCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--red);
+  transform: scale(0.85);
+  transition: transform 0.25s ease;
+}
+.card:hover .playCircle {
+  transform: scale(1);
+}
+
+/* Duration badge */
+.duration {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  letter-spacing: 0.5px;
+  z-index: 3;
+}
+
+/* Card info */
+.info {
+  padding: 14px 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left: 2px solid transparent;
+  transition: border-left-color 0.25s ease;
+}
+.card:hover .info {
+  border-left-color: var(--red);
+}
+
+.roundBadge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 3px 10px;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--red);
+  background: rgba(230, 0, 35, 0.08);
+  border: 1px solid rgba(230, 0, 35, 0.2);
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%);
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ccc;
+  line-height: 1.45;
+  transition: color 0.2s ease;
+}
+.card:hover .title { color: #fff; }
+
+.date {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: #555;
+  letter-spacing: 0.5px;
+}
+
+/* ── Empty State ─────────────────────────────────────────── */
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 0;
+}
+.emptyIcon {
+  display: block;
+  font-size: 3rem;
+  opacity: 0.2;
+  margin-bottom: 16px;
+}
+.emptyText {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.emptyNote {
+  font-size: 0.88rem;
+  color: #444;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .playCircle {
+    width: 52px;
+    height: 52px;
+    font-size: 1.2rem;
+  }
+}
