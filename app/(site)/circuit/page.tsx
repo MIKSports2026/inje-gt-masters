@@ -17,8 +17,8 @@ export default async function CircuitPage() {
 
   const specs = [
     { icon: 'fa-road', label: '서킷 전장', value: '3.908 km' },
-    { icon: 'fa-rotate', label: '코너', value: '15개' },
-    { icon: 'fa-arrows-left-right', label: '직선 구간', value: '650m' },
+    { icon: 'fa-rotate', label: '코너', value: '19개' },
+    { icon: 'fa-arrows-left-right', label: '직선 구간', value: '640m' },
     { icon: 'fa-mountain', label: '고저차', value: '88m' },
     { icon: 'fa-location-dot', label: '소재지', value: '강원도 인제군' },
   ]
@@ -26,7 +26,7 @@ export default async function CircuitPage() {
   const circuitInfo = [
     { icon: 'fa-location-dot', text: '주소 : 강원도 인제군 기린면 상하답로 130' },
     { icon: 'fa-road', text: '서킷 전장 : 3.908km / 고저차 88m' },
-    { icon: 'fa-flag', text: '코너 수 : 15개 / 국내 최고 수준 상설 서킷' },
+    { icon: 'fa-flag', text: '코너 수 : 19개 / 국내 최고 수준 상설 서킷' },
     { icon: 'fa-car', text: '서울 기준 약 2시간 30분 소요' },
     { icon: 'fa-eye', text: '그랜드스탠드 무료 관람' },
     { icon: 'fa-square-parking', text: '경기 당일 현장 주차 운영' },
@@ -90,7 +90,7 @@ export default async function CircuitPage() {
             <div>
               <p style={{ fontSize: '1.08rem', lineHeight: 1.9, color: 'var(--text-mid)', wordBreak: 'keep-all', marginBottom: '24px' }}>
                 강원도 인제군에 위치한 인제스피디움은 대한민국 최고의 모터스포츠 서킷입니다.
-                총 길이 3.908km, 15개의 코너와 650m 직선 구간이 드라이버의 기술과 머신의 성능을 동시에 시험합니다.
+                총 길이 3.908km, 19개의 코너와 640m 직선 구간이 드라이버의 기술과 머신의 성능을 동시에 시험합니다.
                 인제 GT 마스터즈의 유일한 개최지로, 이곳에서 모든 전설이 시작됩니다.
               </p>
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
