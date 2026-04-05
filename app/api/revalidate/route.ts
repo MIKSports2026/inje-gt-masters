@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       round:        ['/', '/season', '/entry'],
       classInfo:    ['/', '/classes'],
       result:       ['/', '/results'],
-      post:         ['/', '/news'],
+      post:         ['/', '/media/news'],
       media:        ['/', '/media'],
       partner:      ['/'],
       history:      ['/', '/about'],

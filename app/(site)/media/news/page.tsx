@@ -33,12 +33,14 @@ export default async function MediaNewsPage({
     sanityFetch<Post[]>({
       query:      POSTS_QUERY,
       params:     { category, start: 0, end: limit },
-      revalidate: 300,
+      revalidate: 60,
+      useCdn:     false,
     }),
     sanityFetch<number>({
       query:      POSTS_COUNT_QUERY,
       params:     { category },
-      revalidate: 300,
+      revalidate: 60,
+      useCdn:     false,
     }),
   ]).catch(() => [[], 0] as [Post[], number])
 
