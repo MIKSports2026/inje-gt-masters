@@ -1,3 +1,4 @@
+/* ── Wrapper ─────────────────────────────────────────── */
 .wrapper {
   background-color: var(--bg-carbon);
   min-height: 100vh;
@@ -30,16 +31,15 @@
 }
 
 .badge {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
   padding: 4px 12px;
   color: #fff;
-  letter-spacing: 0.5px;
 }
 .tagRed  { background-color: var(--primary-red); }
 .tagDark { background-color: #333; }
-.tagGray { background-color: #666; }
+.tagGray { background-color: #777; }
 
 .date {
   font-family: var(--font-heading);
@@ -66,24 +66,38 @@
 /* ── Content ─────────────────────────────────────────── */
 .content { margin-bottom: 80px; }
 
+.contentMedia {
+  width: 100%;
+  margin: 40px 0;
+}
+
 .coverImg {
   width: 100%;
   height: auto;
   border: 1px solid #2a2a2a;
   display: block;
-  margin: 40px 0;
 }
 
-.body {
+/* 요약 블록 */
+.excerpt {
+  padding: 16px 20px;
+  background: rgba(230, 0, 35, .05);
+  border-left: 3px solid var(--primary-red);
+  margin-bottom: 32px;
+  font-size: 1.05rem;
+  color: #bbb;
+  line-height: 1.7;
+}
+
+/* PortableText prose */
+.prose {
+  font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.8;
   color: #ccc;
   margin-bottom: 40px;
-  white-space: pre-wrap;
 }
-
-/* PortableText prose */
 .prose p         { margin-bottom: 1.2em; color: #ccc; }
 .prose h2        { font-size: 1.4rem; font-weight: 900; margin: 2em 0 0.6em; border-bottom: 2px solid #2a2a2a; padding-bottom: 0.4em; color: #fff; }
 .prose h3        { font-size: 1.15rem; font-weight: 700; margin: 1.6em 0 0.5em; color: #fff; }
@@ -126,12 +140,13 @@
   transition: all 0.2s ease;
   min-width: 0;
 }
-.navBtn:hover {
+.navBtn:not(.navDisabled):hover {
   border-color: var(--primary-red);
   transform: translateY(-2px);
 }
 .navDisabled {
-  opacity: 0.4;
+  opacity: 0.5;
+  cursor: not-allowed;
   pointer-events: none;
 }
 
@@ -140,12 +155,12 @@
   font-size: 0.9rem;
   color: var(--primary-red);
   margin-bottom: 8px;
-  letter-spacing: 0.5px;
 }
-.navDisabled .navDir { color: #555; }
+.navDisabled .navDir { color: #777; }
 
 .navHead {
-  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
   font-weight: 700;
   color: #fff;
   white-space: nowrap;
@@ -158,7 +173,8 @@
 .btnBack {
   background: transparent;
   border: none;
-  color: #777;
+  color: #999;
+  font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -170,8 +186,8 @@
 
 /* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 768px) {
-  .wrapper { padding: 120px 0 80px; }
-  .title { font-size: 1.9rem; }
-  .body  { font-size: 1rem; }
+  .wrapper     { padding: 120px 0 80px; }
+  .title       { font-size: 2rem; }
+  .prose       { font-size: 1rem; }
   .navControls { flex-direction: column; }
 }

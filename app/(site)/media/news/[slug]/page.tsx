@@ -73,27 +73,21 @@ export default async function MediaNewsDetailPage({ params }: { params: { slug: 
 
             {/* 커버 이미지 */}
             {post.coverImage?.asset?.url && (
-              <Image
-                src={post.coverImage.asset.url}
-                alt={post.title}
-                width={720}
-                height={405}
-                className={styles.coverImg}
-                priority
-              />
+              <div className={styles.contentMedia}>
+                <Image
+                  src={post.coverImage.asset.url}
+                  alt={post.title}
+                  width={720}
+                  height={405}
+                  className={styles.coverImg}
+                  priority
+                />
+              </div>
             )}
 
             {/* 요약 (excerpt) */}
             {post.excerpt && (
-              <div style={{
-                padding: '16px 20px',
-                background: 'rgba(230,0,35,.05)',
-                borderLeft: '3px solid var(--primary-red)',
-                marginBottom: '32px',
-                fontSize: '1.05rem',
-                color: '#bbb',
-                lineHeight: 1.7,
-              }}>
+              <div className={styles.excerpt}>
                 {post.excerpt}
               </div>
             )}

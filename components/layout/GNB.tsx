@@ -39,6 +39,11 @@ const NAV_ITEMS: NavItem[] = [
     href: '/results',
     drop: [],
   },
+  {
+    label: 'MEDIA',
+    href: '/media/news',
+    drop: [], // buildMediaDrop(hasGallery)로 교체됨
+  },
 ]
 
 /** MEDIA 드롭 — hasGallery에 따라 GALLERY 항목 조건부 포함 */
