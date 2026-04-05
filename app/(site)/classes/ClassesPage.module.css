@@ -1,0 +1,425 @@
+/* ── 래퍼 ─────────────────────────────────────────────── */
+.wrapper {
+  background-color: var(--bg-carbon);
+  min-height: 100vh;
+  padding: 120px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── 배경 사선 패턴 ────────────────────────────────────── */
+.diagonalBgPattern {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 28px,
+    rgba(230, 0, 35, 0.03) 28px,
+    rgba(230, 0, 35, 0.03) 30px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.diagonalBgPattern::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(230, 0, 35, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.classesContainer {
+  position: relative;
+  z-index: 10;
+  max-width: 1440px;
+}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+.classesHeader {
+  margin-bottom: 56px;
+}
+
+.classesEyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--primary-red);
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.classesTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  margin-bottom: 0;
+}
+
+.diagonalAccentBar {
+  width: 120px;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-red) 0%, transparent 100%);
+  clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+  margin: 18px 0 20px;
+}
+
+.classesSubtitle {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: #888;
+  letter-spacing: 2px;
+}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.classTabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 56px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-red) transparent;
+}
+.classTabs::-webkit-scrollbar       { height: 3px; }
+.classTabs::-webkit-scrollbar-thumb { background: var(--primary-red); }
+
+.classTabBtn {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 14px 36px 14px 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+.tabSkewBg {
+  position: absolute;
+  inset: 0;
+  background-color: #1c1c1c;
+  border-bottom: 2px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.tabActiveLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.classTabBtn.active .tabActiveLine { transform: scaleX(1); }
+.classTabBtn.active .tabSkewBg     { background-color: var(--primary-red); }
+.classTabBtn:not(.active):hover .tabSkewBg { background-color: #282828; }
+
+.tabTag {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+  transition: color 0.25s ease;
+}
+.classTabBtn.active .tabTag { color: rgba(255, 255, 255, 0.7); }
+
+.tabText {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #666;
+  letter-spacing: 2px;
+  transition: color 0.25s ease;
+}
+.classTabBtn:not(.active):hover .tabText { color: #ccc; }
+.classTabBtn.active .tabText { color: #fff; font-weight: 900; }
+
+/* ── MAIN PANEL ─────────────────────────────────────────── */
+.telemetryPanel {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 0;
+  min-height: 560px;
+  animation: panelFadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── LEFT ─────────────────────────────────────────────── */
+.panelLeft {
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+}
+
+.imgDiagonalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--primary-red) 0%,
+    rgba(230, 0, 35, 0.6) 40%,
+    transparent 70%
+  );
+  z-index: 1;
+  opacity: 0.25;
+}
+
+.carImageWrap {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 2;
+  animation: carZoom 0.7s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+@keyframes carZoom {
+  from { opacity: 0; transform: scale(1.06) translateX(16px); }
+  to   { opacity: 1; transform: scale(1) translateX(0); }
+}
+
+.classBadge {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: stretch;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.6);
+}
+.badgeLabel {
+  background-color: var(--primary-red);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 900;
+  padding: 10px 14px;
+  letter-spacing: 3px;
+}
+.badgeName {
+  background-color: #0d0d0d;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 10px 20px 10px 14px;
+  letter-spacing: 2px;
+  border-top: 1px solid var(--primary-red);
+  border-bottom: 1px solid var(--primary-red);
+}
+
+.classWatermark {
+  position: absolute;
+  top: 24px;
+  right: 40px;
+  font-family: var(--font-heading);
+  font-size: 7rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 1;
+  z-index: 3;
+  pointer-events: none;
+  letter-spacing: -4px;
+}
+
+/* ── RIGHT ─────────────────────────────────────────────── */
+.panelRight {
+  background-color: #141414;
+  padding: 48px 48px 48px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+  margin-left: -2%;
+}
+
+.specTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.specDiagonalRule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary-red) 0%, rgba(230, 0, 35, 0.2) 60%, transparent 100%);
+  margin: 20px 0;
+  transform: skewX(-3deg);
+  transform-origin: left;
+}
+
+.specDesc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #999;
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+
+/* ── 스펙 그리드 ─────────────────────────────────────────── */
+.specGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.specBox {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid var(--primary-red);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  transition: background-color 0.2s ease;
+}
+.specBox:hover { background-color: rgba(230, 0, 35, 0.05); }
+
+.specBoxCorner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary-red);
+  opacity: 0.6;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.specLabel {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: #666;
+  letter-spacing: 2px;
+}
+.specValue {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #eee;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+/* ── 규정 다운로드 버튼 ─────────────────────────────────── */
+.btnRegulation {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 16px 100%);
+  transition: transform 0.2s ease;
+}
+.btnRegulation:hover { transform: translateY(-2px); }
+
+.btnSkewBg {
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+  border: 1px solid var(--primary-red);
+  transition: background-color 0.3s ease;
+}
+.btnRegulation:hover .btnSkewBg { background-color: var(--primary-red); }
+
+.btnContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+/* ── 하단 인디케이터 ────────────────────────────────────── */
+.classIndicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.indicatorDot {
+  width: 28px;
+  height: 4px;
+  background-color: #333;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  transition: all 0.3s ease;
+  padding: 0;
+}
+.indicatorDot.active { background-color: var(--primary-red); width: 48px; }
+.indicatorDot:not(.active):hover { background-color: #555; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .telemetryPanel {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .panelLeft {
+    height: 380px;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  }
+  .panelRight {
+    clip-path: none;
+    margin-left: 0;
+    padding: 40px 32px;
+  }
+  .specGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .wrapper { padding: 100px 0 80px; }
+  .classTabs { gap: 4px; }
+  .classTabBtn {
+    padding: 12px 20px 12px 16px;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+  .tabTag    { display: none; }
+  .tabText   { font-size: 0.85rem; letter-spacing: 1px; }
+  .panelLeft {
+    height: 280px;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  }
+  .classWatermark { font-size: 5rem; }
+  .panelRight     { padding: 32px 20px; }
+  .specGrid       { grid-template-columns: 1fr; }
+  .specTitle      { font-size: 1.6rem; }
+}

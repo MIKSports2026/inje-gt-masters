@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItem[] = [
     href: '/season',
     drop: [
       { label: '경기 일정', href: '/season' },
-      { label: '클래스 소개', toast: true },
+      { label: '클래스 소개', href: '/classes' },
       { label: '인제스피디움', href: '/circuit' },
     ],
   },
