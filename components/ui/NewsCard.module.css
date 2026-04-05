@@ -1,0 +1,165 @@
+/* ── Card ────────────────────────────────────────────── */
+.card {
+  background: #1a1a1a;
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  animation: cardIn 0.4s ease backwards;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* ── 이미지 영역 (16:9 고정) ─────────────────────────── */
+.imgWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.imgBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+.card:hover .imgBg { transform: scale(1.05); }
+
+/* 이미지 없을 때 폴백: 다크 배경 + 브랜드 텍스트 */
+.imgFallback {
+  position: absolute;
+  inset: 0;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fallbackText {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.07);
+  user-select: none;
+}
+
+.imgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26, 26, 26, 1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── 배지 (카테고리) ─────────────────────────────────── */
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  padding: 3px 10px;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.tagRed  { background: #e60023; }
+.tagDark { background: #333; }
+.tagGray { background: #666; }
+
+/* 고정 게시글 테두리 */
+.pinned .imgWrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid #e60023;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ── 본문 영역 ───────────────────────────────────────── */
+.body {
+  padding: 20px 24px 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.cat {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #e60023;
+}
+.date {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+  line-height: 1.3;
+  margin: 0 0 10px;
+  transition: color 0.3s ease;
+}
+.card:hover .title { color: #e60023; }
+
+.excerpt {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 1.6;
+  margin: 0 0 auto;
+  padding-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.readMore {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+  margin-top: auto;
+}
+.card:hover .readMore { color: #e60023; }
+
+.readMoreArrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.card:hover .readMoreArrow { transform: translateX(5px); }
