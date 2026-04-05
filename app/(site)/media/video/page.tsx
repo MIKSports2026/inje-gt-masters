@@ -44,8 +44,9 @@ export default async function VideoPage({
   const roundFilter = roundParam ? parseInt(roundParam, 10) : 0   // 0 = 전체
 
   const videos = await sanityFetch<Media[]>({
-    query:     VIDEOS_ALL_QUERY,
-    revalidate: 300,
+    query:      VIDEOS_ALL_QUERY,
+    revalidate: 60,
+    useCdn:     false,
   }).catch(() => [] as Media[])
 
   const allVideos = videos as Media[]
