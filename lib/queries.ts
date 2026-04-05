@@ -70,13 +70,14 @@ export const NEXT_ROUND_QUERY = /* groq */`
 
 /** 모든 활성 클래스 */
 export const CLASSES_QUERY = /* groq */`
-  *[_type == "classInfo" && isActive == true] | order(order asc){
+  *[_type == "classInfo" && (isActive == true || !defined(isActive))] | order(order asc){
     _id, classCode, slug, order,
     name, nameEn, tagline, accentColor,
     teamCount, driverCount, carCount,
     features, isEntryOpen,
     entryFeePerRound, entryFeeSeason, entryFeeNote, isFeePublic,
-    cardImage ${IMAGE}, heroImage ${IMAGE}
+    cardImage ${IMAGE}, heroImage ${IMAGE},
+    "gallery0": gallery[0] ${IMAGE}
   }
 `
 

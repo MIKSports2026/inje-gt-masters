@@ -4,10 +4,18 @@ import { useState } from 'react'
 import Link from 'next/link'
 import type { ClassInfo } from '@/types/sanity'
 import SectionHeader from '@/components/ui/SectionHeader'
-import { urlFor } from '@/lib/sanity.client'
+import type { SanityImage } from '@/types/sanity'
+
+interface ClassWithGallery extends ClassInfo {
+  gallery0?: SanityImage
+}
 
 interface Props {
-  classes: ClassInfo[]
+  classes: ClassWithGallery[]
+}
+
+function getImageUrl(img: SanityImage | undefined | null): string | null {
+  return img?.asset?.url ?? null
 }
 
 export default function SectionClass({ classes }: Props) {
@@ -62,18 +70,21 @@ export default function SectionClass({ classes }: Props) {
 
                 <div className="cls__p-right">
                   <div className="cls__p-slice">
-                    <div
-                      className="cls__p-slice-cut"
-                      style={
-                        (cls.heroImage || cls.cardImage)
-                          ? {
-                              backgroundImage: `url(${urlFor(cls.heroImage ?? cls.cardImage!).width(800).url()})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                            }
-                          : undefined
-                      }
-                    />
+                    {(() => {
+                      const imgUrl = getImageUrl(cls.heroImage)
+                        ?? getImageUrl(cls.cardImage)
+                        ?? getImageUrl(cls.gallery0)
+                      return (
+                        <div
+                          className="cls__p-slice-cut"
+                          style={imgUrl ? {
+                            backgroundImage: `url(${imgUrl})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                          } : undefined}
+                        />
+                      )
+                    })()}
                   </div>
                 </div>
               </div>
