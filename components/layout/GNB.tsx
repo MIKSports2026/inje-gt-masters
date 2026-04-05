@@ -41,9 +41,9 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'MEDIA',
-    href: '/news',
+    href: '/media/news',
     drop: [
-      { label: '공지사항 & 소식', href: '/news' },
+      { label: '공지사항 & 소식', href: '/media/news' },
       { label: '미디어 갤러리', toast: true },
     ],
   },
