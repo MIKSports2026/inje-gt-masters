@@ -1,3 +1,4 @@
+'use client'
 // components/layout/Footer.tsx — v3 dark footer
 import Link from 'next/link'
 import type { SiteSettings } from '@/types/sanity'
