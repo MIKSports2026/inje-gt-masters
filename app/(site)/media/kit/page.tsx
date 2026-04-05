@@ -1,17 +1,20 @@
-// app/(site)/media/kit/page.tsx — 미디어킷 다운로드
+// app/(site)/media/kit/page.tsx — PRESS KIT
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
+import { SITE_SETTINGS_QUERY } from '@/lib/queries'
+import type { SiteSettings } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
+import styles from './MediaKitPage.module.css'
 
 export const metadata: Metadata = {
-  title: '미디어킷 | 인제 GT 마스터즈',
+  title: 'PRESS KIT | 인제 GT 마스터즈',
   description: '인제 GT 마스터즈 공식 로고, 사진, 규정 문서 등 미디어킷을 다운로드하세요.',
 }
 
-const MEDIA_KIT_QUERY = `
-  *[_type == "mediaKit" && isPublic == true] | order(order asc) {
+const MEDIA_KIT_QUERY = /* groq */`
+  *[_type == "mediaKit" && isPublic == true] | order(order asc, publishedAt desc) {
     _id, title, description, category,
     file { asset->{ url } },
     thumbnail { asset->{ url } },
@@ -20,27 +23,25 @@ const MEDIA_KIT_QUERY = `
 `
 
 interface MediaKitItem {
-  _id: string
-  title: string
+  _id:          string
+  title:        string
   description?: string
-  category?: string
-  file?: { asset?: { url: string } }
-  thumbnail?: { asset?: { url: string } }
+  category?:    string
+  file?:        { asset?: { url: string } }
+  thumbnail?:   { asset?: { url: string } }
   publishedAt?: string
 }
-
-const CATEGORIES = [
-  { key: '',           label: '전체'   },
-  { key: 'logo',       label: '로고'   },
-  { key: 'photo',      label: '사진'   },
-  { key: 'regulation', label: '규정문서' },
-  { key: 'press',      label: '보도자료' },
-  { key: 'etc',        label: '기타'   },
-]
 
 const CATEGORY_LABELS: Record<string, string> = {
   logo: '로고', photo: '사진', regulation: '규정문서', press: '보도자료', etc: '기타',
 }
+
+const CLASSES = [
+  { code: 'Masters 1', color: '#e60023' },
+  { code: 'Masters 2', color: '#e60023' },
+  { code: 'Masters N', color: '#e60023' },
+  { code: 'Masters 3', color: '#e60023' },
+]
 
 export default async function MediaKitPage({
   searchParams,
@@ -50,141 +51,207 @@ export default async function MediaKitPage({
   const { category: categoryParam } = await searchParams
   const category = categoryParam ?? ''
 
-  const items = await sanityFetch<MediaKitItem[]>({
-    query: MEDIA_KIT_QUERY,
-    revalidate: 3600,
-  }).catch(() => [] as MediaKitItem[])
+  const [settings, items] = await Promise.all([
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, revalidate: 3600 }),
+    sanityFetch<MediaKitItem[]>({ query: MEDIA_KIT_QUERY, revalidate: 3600 }),
+  ]).catch(() => [null, []] as [SiteSettings | null, MediaKitItem[]])
 
   const filtered = category
-    ? items.filter(item => item.category === category)
-    : items
+    ? (items as MediaKitItem[]).filter(i => i.category === category)
+    : (items as MediaKitItem[])
 
-  const cut = 'polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)'
+  const season      = (settings as SiteSettings | null)?.currentSeason ?? 2026
+  const siteName    = (settings as SiteSettings | null)?.siteNameEn ?? 'INJE GT MASTERS'
+  const email       = (settings as SiteSettings | null)?.email ?? 'media@injegtmasters.com'
 
-  const buildHref = (cat: string) => cat ? `/media/kit?category=${cat}` : '/media/kit'
+  const CATEGORIES = [
+    { key: '',           label: '전체'   },
+    { key: 'logo',       label: '로고'   },
+    { key: 'photo',      label: '사진'   },
+    { key: 'regulation', label: '규정문서' },
+    { key: 'press',      label: '보도자료' },
+    { key: 'etc',        label: '기타'   },
+  ]
+
+  const cut = 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)'
 
   return (
     <>
+      {/* ── 1. PageHero ─────────────────────────────────── */}
       <PageHero
-        badge="Media Kit"
-        title="미디어킷"
+        badge="Media"
+        title="PRESS KIT"
         subtitle="공식 로고 · 사진 · 문서를 다운로드하세요."
+        breadcrumb={[
+          { label: '홈', href: '/' },
+          { label: 'MEDIA', href: '/media/news' },
+          { label: 'PRESS KIT' },
+        ]}
       />
 
-      {/* 카테고리 탭 */}
-      <section style={{ borderBottom: '1px solid var(--line)', background: 'var(--bg)', position: 'sticky', top: 'var(--header-h)', zIndex: 100 }}>
-        <div className="container" style={{ display: 'flex', gap: '8px', padding: '12px 0', overflowX: 'auto', scrollbarWidth: 'none' }}>
-          {CATEGORIES.map(cat => (
-            <Link
-              key={cat.key}
-              href={buildHref(cat.key)}
-              style={{
-                padding: '7px 16px', fontSize: '.85rem', fontWeight: 800, whiteSpace: 'nowrap',
-                background: category === cat.key ? 'var(--red)' : 'var(--bg-2)',
-                color:      category === cat.key ? '#fff' : 'var(--text-mid)',
-                border:     `1px solid ${category === cat.key ? 'var(--red)' : 'var(--line)'}`,
-                clipPath:   'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-                textDecoration: 'none', display: 'inline-block',
-              }}
-            >{cat.label}</Link>
-          ))}
-        </div>
-      </section>
-
-      {/* 목록 */}
-      <section className="section">
+      <section className="section" style={{ background: 'var(--bg-carbon)', paddingBottom: 0 }}>
         <div className="container">
+
+          {/* ── 2. 대회 개요 카드 ───────────────────────── */}
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>ABOUT THE EVENT</h2>
+            <div className={styles.sectionBar} />
+          </div>
+
+          <div className={styles.overviewGrid}>
+            <div className={styles.overviewCard}>
+              <span className={styles.overviewLabel}>대회명</span>
+              <span className={styles.overviewValue}>{siteName}</span>
+            </div>
+            <div className={styles.overviewCard}>
+              <span className={styles.overviewLabel}>시즌</span>
+              <span className={styles.overviewValue}>{season} SEASON</span>
+            </div>
+            <div className={styles.overviewCard}>
+              <span className={styles.overviewLabel}>개최지</span>
+              <span className={styles.overviewValue}>인제스피디움<br /><span style={{ fontSize: '0.85rem', color: 'var(--muted)', fontWeight: 400 }}>강원도 인제군</span></span>
+            </div>
+            <div className={styles.overviewCard}>
+              <span className={styles.overviewLabel}>클래스</span>
+              <span className={styles.overviewValue} style={{ fontSize: '0.95rem', lineHeight: 1.6 }}>
+                Masters 1 · 2 · N · N-EVO · 3
+              </span>
+            </div>
+            <div className={styles.overviewCard}>
+              <span className={styles.overviewLabel}>서킷 길이</span>
+              <span className={styles.overviewValue}>4.627 km</span>
+            </div>
+            <div className={styles.overviewCard}>
+              <span className={styles.overviewLabel}>공식 홈페이지</span>
+              <span className={styles.overviewValue} style={{ fontSize: '0.85rem', color: 'var(--muted)', fontWeight: 400, wordBreak: 'break-all' }}>
+                injegtmasters.com
+              </span>
+            </div>
+          </div>
+
+          {/* ── 3. 미디어킷 파일 목록 ────────────────────── */}
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>DOWNLOADS</h2>
+            <div className={styles.sectionBar} />
+          </div>
+
+          {/* 카테고리 필터 */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '32px', overflowX: 'auto', paddingBottom: '4px' }}>
+            {CATEGORIES.map(cat => {
+              const href     = cat.key ? `/media/kit?category=${cat.key}` : '/media/kit'
+              const isActive = category === cat.key
+              return (
+                <Link
+                  key={cat.key}
+                  href={href}
+                  style={{
+                    padding: '7px 16px',
+                    fontSize: '.85rem', fontWeight: 800, whiteSpace: 'nowrap',
+                    background: isActive ? 'var(--red)' : 'var(--bg-2)',
+                    color:      isActive ? '#fff' : 'var(--text-mid)',
+                    border:     `1px solid ${isActive ? 'var(--red)' : 'var(--line)'}`,
+                    clipPath:   cut,
+                    textDecoration: 'none', display: 'inline-block',
+                    transition: 'all .2s',
+                  }}
+                >
+                  {cat.label}
+                </Link>
+              )
+            })}
+          </div>
+
+          {/* 파일 카드 그리드 */}
           {filtered.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '80px 0', color: 'var(--muted)' }}>
-              <i className="fa-solid fa-folder-open" style={{ fontSize: '3rem', marginBottom: '16px', display: 'block', opacity: .3 }} />
-              <p>등록된 미디어킷 자료가 없습니다.</p>
-              <p style={{ fontSize: '.88rem', marginTop: '8px' }}>준비 중입니다. 문의: 운영팀 이메일</p>
+            <div className={styles.empty}>
+              <i className={`fa-solid fa-folder-open ${styles.emptyIcon}`} />
+              <p className={styles.emptyText}>등록된 미디어킷 자료가 없습니다.</p>
+              <p className={styles.emptyNote}>준비 중입니다. 취재 문의는 아래 이메일로 연락해 주세요.</p>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '16px' }}>
+            <div className={styles.kitGrid}>
               {filtered.map(item => (
-                <div key={item._id} style={{
-                  background: 'var(--bg-2)', border: '1px solid var(--line)',
-                  clipPath: cut, display: 'flex', flexDirection: 'column', position: 'relative',
-                }}>
+                <div key={item._id} className={styles.kitCard}>
+
                   {/* 썸네일 */}
-                  <div style={{ position: 'relative', aspectRatio: '16/9', background: 'var(--bg-4)', overflow: 'hidden' }}>
+                  <div className={styles.thumbnail}>
                     {item.thumbnail?.asset?.url ? (
                       <Image
                         src={item.thumbnail.asset.url}
                         alt={item.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, 300px"
                         style={{ objectFit: 'cover' }}
-                        sizes="(max-width: 768px) 100vw, 260px"
                       />
                     ) : (
-                      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: 'var(--muted)', opacity: .4 }}>
-                        <i className="fa-solid fa-file-arrow-down" style={{ fontSize: '2rem' }} />
+                      <div className={styles.thumbnailFallback}>
+                        <i className="fa-solid fa-file-arrow-down" />
                       </div>
                     )}
                   </div>
 
-                  {/* 정보 */}
-                  <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  {/* 카드 본문 */}
+                  <div className={styles.cardBody}>
                     {item.category && (
-                      <span style={{
-                        display: 'inline-block', marginBottom: '8px',
-                        padding: '3px 10px', fontSize: '.75rem', fontWeight: 900,
-                        background: 'rgba(230,0,35,.08)', color: 'var(--red)',
-                        border: '1px solid rgba(230,0,35,.2)',
-                        clipPath: 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)',
-                      }}>
+                      <span className={styles.catBadge}>
                         {CATEGORY_LABELS[item.category] ?? item.category}
                       </span>
                     )}
-                    <strong style={{ fontSize: '.95rem', marginBottom: '6px', display: 'block' }}>{item.title}</strong>
+                    <strong className={styles.cardTitle}>{item.title}</strong>
                     {item.description && (
-                      <p style={{ fontSize: '.85rem', color: 'var(--muted)', lineHeight: 1.6, flex: 1 }}>{item.description}</p>
+                      <p className={styles.cardDesc}>{item.description}</p>
                     )}
                     {item.publishedAt && (
-                      <span style={{ fontSize: '.78rem', color: 'var(--muted)', marginTop: '8px', display: 'block' }}>
-                        {item.publishedAt}
-                      </span>
+                      <span className={styles.cardDate}>{item.publishedAt}</span>
                     )}
                   </div>
 
                   {/* 다운로드 버튼 */}
-                  <div style={{ padding: '0 16px 16px' }}>
+                  <div className={styles.cardFooter}>
                     {item.file?.asset?.url ? (
                       <a
                         href={item.file.asset.url}
                         download
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{
-                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                          padding: '10px 16px', width: '100%',
-                          background: 'var(--red)', color: '#fff',
-                          fontWeight: 800, fontSize: '.85rem', letterSpacing: '.04em',
-                          textDecoration: 'none',
-                          clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-                          transition: 'opacity .2s',
-                        }}
+                        className={styles.btnDownload}
                       >
                         <i className="fa-solid fa-download" />
                         다운로드
                       </a>
                     ) : (
-                      <div style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        padding: '10px 16px',
-                        background: 'var(--bg-4)', color: 'var(--muted)',
-                        fontSize: '.85rem',
-                        clipPath: 'polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)',
-                      }}>
+                      <div className={styles.btnUnavailable}>
+                        <i className="fa-solid fa-clock" />
                         준비 중
                       </div>
                     )}
                   </div>
+
                 </div>
               ))}
             </div>
           )}
+
+          {/* ── 4. 취재 문의 ────────────────────────────── */}
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>MEDIA INQUIRY</h2>
+            <div className={styles.sectionBar} />
+          </div>
+
+          <div className={styles.contactSection}>
+            <div className={styles.contactText}>
+              <h3>취재 문의</h3>
+              <p>
+                공식 미디어 패스 신청, 보도자료 수령, 취재 허가 등<br />
+                미디어 관련 모든 문의는 아래 이메일로 연락 바랍니다.
+              </p>
+            </div>
+            <a href={`mailto:${email}`} className={styles.contactEmail}>
+              <i className="fa-solid fa-envelope" />
+              {email}
+            </a>
+          </div>
+
         </div>
       </section>
     </>
