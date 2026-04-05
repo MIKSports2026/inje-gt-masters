@@ -246,12 +246,10 @@
 /* ── RIGHT ─────────────────────────────────────────────── */
 .panelRight {
   background-color: #141414;
-  padding: 48px 48px 48px 56px;
+  padding: 48px 48px 48px 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
-  margin-left: -2%;
 }
 
 .specTitle {
@@ -267,10 +265,8 @@
 .specDiagonalRule {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, var(--primary-red) 0%, rgba(230, 0, 35, 0.2) 60%, transparent 100%);
+  background: #2a2a2a;
   margin: 20px 0;
-  transform: skewX(-3deg);
-  transform-origin: left;
 }
 
 .specDesc {
@@ -298,21 +294,12 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
   transition: background-color 0.2s ease;
 }
 .specBox:hover { background-color: rgba(230, 0, 35, 0.05); }
 
-.specBoxCorner {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background-color: var(--primary-red);
-  opacity: 0.6;
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
-}
+/* specBoxCorner 제거됨 — 직각 박스 사용 */
+.specBoxCorner { display: none; }
 
 .specLabel {
   font-family: var(--font-heading);
@@ -337,7 +324,6 @@
   padding: 0;
   cursor: pointer;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 16px 100%);
   transition: transform 0.2s ease;
 }
 .btnRegulation:hover { transform: translateY(-2px); }
@@ -399,8 +385,6 @@
     clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
   }
   .panelRight {
-    clip-path: none;
-    margin-left: 0;
     padding: 40px 32px;
   }
   .specGrid { grid-template-columns: 1fr 1fr; }
