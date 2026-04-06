@@ -110,6 +110,9 @@ const structure = (S: any) =>
               S.listItem().id('media-all').title('전체').child(
                 S.documentTypeList('media').title('전체 미디어')
               ),
+              S.listItem().id('mediaKit').title('📦  미디어킷').child(
+                S.documentTypeList('mediaKit').title('미디어킷')
+              ),
             ])
         ),
 
