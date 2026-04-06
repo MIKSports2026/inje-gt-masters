@@ -3,17 +3,19 @@
 import { useState, useEffect, useCallback } from 'react'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 
-// Sheets 열 순서 (v2): [0]참가유형 [1]라운드 [2]클래스 [3]팀명 [4]차량 [5]D1이름 [6]D1생년월일 [7]D1혈액형 [8]D1연락처 [9]D1이메일 [10]D1라이선스 ... [19]신청일시
+// Sheets 열 순서 (v2): [0]참가유형 [1]라운드 [2]클래스 [3]팀명 [4]차량 [5]D1이름 [6]D1생년월일 [7]D1혈액형 [8]D1연락처 [9]D1이메일 [10]D1라이선스 ... [19]신청일시 [20]희망번호
 const COLS: { label: string; idx: number }[] = [
-  { label: '신청일시', idx: 19 },
-  { label: '참가유형', idx: 0 },
-  { label: '라운드',   idx: 1 },
-  { label: '클래스',   idx: 2 },
-  { label: '팀명',     idx: 3 },
-  { label: '차량',     idx: 4 },
-  { label: '드라이버', idx: 5 },
-  { label: '연락처',   idx: 8 },
-  { label: '이메일',   idx: 9 },
+  { label: '신청일시',   idx: 19 },
+  { label: '참가유형',   idx: 0  },
+  { label: '라운드',     idx: 1  },
+  { label: '클래스',     idx: 2  },
+  { label: '팀명',       idx: 3  },
+  { label: '차량',       idx: 4  },
+  { label: '희망번호',   idx: 20 },
+  { label: '드라이버',   idx: 5  },
+  { label: '혈액형',     idx: 7  },
+  { label: '연락처',     idx: 8  },
+  { label: '이메일',     idx: 9  },
 ]
 
 type Row = string[]
