@@ -157,43 +157,43 @@
   justify-content: center;
 }
 
-/* 수직선 + CMO/사무국장 + 5위원장 전체 영역 */
-.opsArea {
-  position: relative;
+/* 경기위원장(윤연정) 컬럼 — 수직으로 쌓임 */
+.yunjungCol {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
 }
 
-/* 수직선: 윤연정 → 5위원장 관통 */
+/* CMO ── [수직선] ── 사무국장 가로 행 */
+.opsRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  justify-content: center;
+}
+
+/* 수직선 — CMO와 사무국장 사이 */
 .opsVLine {
   width: 2px;
-  height: 140px;
+  height: 60px;
   background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 24px;
 }
 
-/* CMO — 수직선 왼쪽에 absolute */
-.opsLeft {
-  position: absolute;
-  left: 5%;
-  top: 30px;
-  align-items: flex-end;
-}
-
-/* 사무국장 — 수직선 오른쪽에 absolute */
-.opsRight {
-  position: absolute;
-  right: 5%;
-  top: 30px;
-  align-items: flex-start;
+/* 수평 연결선 — 5위원장 연결 */
+.horizontalConnectorBar {
+  width: 90%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Floor Committees */
 .floorCommittees {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
   margin-top: 0;
 }
 
@@ -240,7 +240,8 @@
 @media (max-width: 992px) {
   .treeSplitBridge,
   .orgBranches::before,
-  .orgBranches::after {
+  .orgBranches::after,
+  .horizontalConnectorBar {
     display: none;
   }
 
@@ -259,14 +260,14 @@
     gap: 16px;
   }
 
-  .opsArea {
+  .yunjungCol {
     align-items: center;
+    width: 100%;
   }
 
-  .opsLeft,
-  .opsRight {
-    position: static;
-    align-items: center;
+  .opsRow {
+    flex-direction: column;
+    gap: 16px;
   }
 
   .opsVLine {

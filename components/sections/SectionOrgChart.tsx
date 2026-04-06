@@ -52,6 +52,7 @@ export default function SectionOrgChart() {
             {/* Right Branch: Race Committee & Ops */}
             <div className={`${styles.orgBranch} ${styles.raceBranch}`}>
 
+              {/* 경기위원회 헤드 */}
               <div className={`${styles.orgNode} ${styles.branchHead} ${styles.raceHead}`}>
                 <div className={styles.nodeAccentBar}></div>
                 <span className={styles.nodeTitle}>경기위원회</span>
@@ -62,55 +63,48 @@ export default function SectionOrgChart() {
 
               <div className={`${styles.treeLineVertical} ${styles.short}`}></div>
 
+              {/* SC드라이버 / 경기위원장 가로 행 */}
               <div className={styles.splitNodes}>
                 <div className={`${styles.orgNode} ${styles.cleanNode}`}>
                   <span className={styles.nodeTitle}>SC드라이버</span>
                   <span className={styles.nodeNameLight}>최종석 / 고건</span>
                 </div>
-                <div className={`${styles.orgNode} ${styles.cleanNode}`}>
-                  <span className={styles.nodeTitle}>경기위원장</span>
-                  <span className={styles.nodeNameBold}>윤연정</span>
-                </div>
-              </div>
-
-              {/* 윤연정 아래 수직선 + CMO/사무국장 양옆 배치 + 5위원장 */}
-              <div className={styles.opsArea}>
-                {/* 수직선 (윤연정 → 5위원장 관통) */}
-                <div className={styles.opsVLine}></div>
-
-                {/* CMO — 수직선 왼쪽 */}
-                <div className={`${styles.orgNode} ${styles.cleanNode} ${styles.opsLeft}`}>
-                  <span className={styles.nodeTitle}>CMO</span>
-                  <span className={styles.nodeNameBold}>박일환</span>
-                </div>
-
-                {/* 사무국장 — 수직선 오른쪽 */}
-                <div className={`${styles.orgNode} ${styles.cleanNode} ${styles.opsRight}`}>
-                  <span className={styles.nodeTitle}>사무국장</span>
-                  <span className={styles.nodeNameBold}>한광규</span>
-                </div>
-
-                {/* 5개 위원장 */}
-                <div className={styles.floorCommittees}>
-                  <div className={`${styles.orgNode} ${styles.microNode}`}>
-                    <span className={styles.nodeTitle}>피트위원장</span>
-                    <span className={styles.nodeNameLight}>오성욱</span>
+                <div className={styles.yunjungCol}>
+                  {/* 경기위원장 노드 */}
+                  <div className={`${styles.orgNode} ${styles.cleanNode}`}>
+                    <span className={styles.nodeTitle}>경기위원장</span>
+                    <span className={styles.nodeNameBold}>윤연정</span>
                   </div>
-                  <div className={`${styles.orgNode} ${styles.microNode}`}>
-                    <span className={styles.nodeTitle}>코스위원장</span>
-                    <span className={styles.nodeNameLight}>박정수</span>
+                  {/* 윤연정 직속 수직선 */}
+                  <div className={`${styles.treeLineVertical} ${styles.short}`}></div>
+                  {/* CMO / 사무국장 — 수직선 양옆 */}
+                  <div className={styles.opsRow}>
+                    <div className={`${styles.orgNode} ${styles.cleanNode}`}>
+                      <span className={styles.nodeTitle}>CMO</span>
+                      <span className={styles.nodeNameBold}>박일환</span>
+                    </div>
+                    <div className={styles.opsVLine}></div>
+                    <div className={`${styles.orgNode} ${styles.cleanNode}`}>
+                      <span className={styles.nodeTitle}>사무국장</span>
+                      <span className={styles.nodeNameBold}>한광규</span>
+                    </div>
                   </div>
-                  <div className={`${styles.orgNode} ${styles.microNode}`}>
-                    <span className={styles.nodeTitle}>안전위원장</span>
-                    <span className={styles.nodeNameLight}>김상현</span>
-                  </div>
-                  <div className={`${styles.orgNode} ${styles.microNode}`}>
-                    <span className={styles.nodeTitle}>기술위원장</span>
-                    <span className={styles.nodeNameLight}>허경환</span>
-                  </div>
-                  <div className={`${styles.orgNode} ${styles.microNode}`}>
-                    <span className={styles.nodeTitle}>기록위원장</span>
-                    <span className={styles.nodeNameLight}>이형곤</span>
+                  {/* 수직선 → 수평 연결선 → 5위원장 */}
+                  <div className={`${styles.treeLineVertical} ${styles.short}`}></div>
+                  <div className={styles.horizontalConnectorBar}></div>
+                  <div className={styles.floorCommittees}>
+                    {[
+                      { title: '피트위원장', name: '오성욱' },
+                      { title: '코스위원장', name: '박정수' },
+                      { title: '안전위원장', name: '김상현' },
+                      { title: '기술위원장', name: '허경환' },
+                      { title: '기록위원장', name: '이형곤' },
+                    ].map((item) => (
+                      <div key={item.title} className={`${styles.orgNode} ${styles.microNode}`}>
+                        <span className={styles.nodeTitle}>{item.title}</span>
+                        <span className={styles.nodeNameLight}>{item.name}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
