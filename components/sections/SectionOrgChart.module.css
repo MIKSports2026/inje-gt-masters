@@ -1,108 +1,250 @@
-.orgSection { background-color: var(--bg-carbon); padding: 100px 0; }
-.orgTreeWrapper { display: flex; flex-direction: column; align-items: center; max-width: 1000px; margin: 0 auto; }
+.orgSection {
+  background-color: var(--bg-carbon);
+  padding: 100px 0;
+}
 
-/* 연결선 */
-.treeLineVertical { width: 2px; height: 40px; background-color: rgba(255,255,255,0.5); }
-.treeLineVertical.short { height: 24px; }
-.treeSplitBridge { width: 60%; height: 2px; background-color: rgba(255,255,255,0.5); }
-
-.orgBranches { display: flex; justify-content: space-between; width: 100%; margin-top: 0; position: relative; }
-.orgBranches::before, .orgBranches::after { content: ''; position: absolute; top: 0; width: 2px; height: 40px; background-color: rgba(255,255,255,0.5); }
-.orgBranches::before { left: 20%; }
-.orgBranches::after { right: 20%; }
-
-.orgBranch { display: flex; flex-direction: column; margin-top: 40px; }
-.judgeBranch { width: 35%; align-items: center; }
-.raceBranch { width: 55%; align-items: center; }
-
-/* 노드 */
-.orgNode { display: flex; flex-direction: column; position: relative; transition: transform 0.2s ease; }
-.nodeAccentBar { position: absolute; left: 0; top: 0; height: 100%; width: 4px; background-color: var(--primary-red); }
-.leaderNode { background: linear-gradient(135deg, rgba(30,30,30,0.8), rgba(15,15,15,0.9)); border: 1px solid rgba(255,255,255,0.05); padding: 24px 48px; align-items: center; min-width: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: skewX(-5deg); }
-.branchHead { background-color: rgba(20,20,20,0.6); border: 1px solid rgba(255,255,255,0.05); padding: 16px 32px; align-items: center; min-width: 240px; transform: skewX(-5deg); }
-.raceHead { background-color: rgba(30,20,20,0.6); }
-
-/* 텍스트 */
-.nodeTitle { font-family: var(--font-body); color: var(--primary-red); font-size: 0.85rem; letter-spacing: 2px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
-.nodeName { font-family: var(--font-heading); color: #FFF; font-size: 2rem; font-weight: 800; letter-spacing: 1px; }
-.subTag { font-size: 1rem; color: #AAA; font-weight: 400; margin-left: 8px; }
-.cleanNode { padding: 12px 24px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.nodeNameLight { font-family: var(--font-body); color: #DDD; font-size: 1.1rem; font-weight: 400; }
-.nodeNameBold { font-family: var(--font-heading); color: #FFF; font-size: 1.5rem; font-weight: 700; }
-
-.splitNodes { display: flex; gap: 40px; width: 100%; justify-content: center; }
-.orgLeadersGroup { display: flex; flex-direction: column; align-items: center; }
-
-/* ── 핵심: 윤연정 아래 하단 블록 ── */
-.bottomBlock {
-  position: relative;        /* centerVLine의 기준점 */
-  width: 100%;
+.orgTreeWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 0;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-/* 수직선: splitNodes의 윤연정(오른쪽) 중앙에서 수평선까지 절대위치로 관통 */
-/* splitNodes에서 윤연정은 오른쪽 절반 → raceBranch 기준 약 75% 위치 */
-.centerVLine {
+/* Structural Trees */
+.treeLineVertical {
+  width: 2px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.treeLineVertical.short { height: 24px; }
+.treeLineVertical.medium { height: 60px; }
+
+.treeSplitBridge {
+  width: 60%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.orgBranches {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0;
+  position: relative;
+}
+
+/* Add vertical drops from the split bridge */
+.orgBranches::before, .orgBranches::after {
+  content: '';
   position: absolute;
   top: 0;
-  /* floorCommittees 위 수평선 상단까지 = bottomBlock 전체 높이 - floorCommittees 높이 */
-  bottom: 68px;
-  /* 윤연정 중앙 위치: splitNodes가 justify-content:center + gap:40px
-     왼쪽(SC드라이버) 약 120px, gap 40px, 오른쪽(윤연정) 약 120px
-     전체 width 기준 오른쪽 1/4 지점 */
-  right: 22%;
   width: 2px;
-  background-color: rgba(255,255,255,0.5);
-  pointer-events: none;
-  z-index: 0;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
+.orgBranches::before { left: 20%; }
+.orgBranches::after { right: 20%; }
 
-/* CMO / 사무국장 가로 행 */
-.opsRow {
+.orgBranch {
   display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.judgeBranch {
+  width: 35%;
+  align-items: center;
+}
+
+.raceBranch {
+  width: 55%;
+  align-items: center;
+}
+
+/* Nodes */
+.orgNode {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.leaderNode {
+  background: linear-gradient(135deg, rgba(30,30,30,0.8), rgba(15,15,15,0.9));
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 24px 48px;
+  align-items: center;
+  min-width: 280px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transform: skewX(-5deg);
+}
+
+.nodeAccentBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: var(--primary-red);
+}
+
+.branchHead {
+  background-color: rgba(20,20,20,0.6);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 16px 32px;
+  align-items: center;
+  min-width: 240px;
+  transform: skewX(-5deg);
+}
+
+.raceHead {
+  background-color: rgba(30, 20, 20, 0.6);
+}
+
+/* Text */
+.nodeTitle {
+  font-family: var(--font-body);
+  color: var(--primary-red);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.nodeName {
+  font-family: var(--font-heading);
+  color: #FFF;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.subTag {
+  font-size: 1rem;
+  color: #AAA;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+/* Clean Nodes */
+.cleanNode {
+  padding: 12px 24px;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nodeNameLight {
+  font-family: var(--font-body);
+  color: #DDD;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.nodeNameBold {
+  font-family: var(--font-heading);
+  color: #FFF;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Split Nodes Row */
+.splitNodes {
+  display: flex;
+  gap: 40px;
   width: 100%;
-  justify-content: space-between;
-  position: relative;
-  z-index: 1;
+  justify-content: center;
 }
 
-/* 수평선 */
+/* Floor Committees */
 .horizontalConnectorBar {
-  width: 90%;
+  width: 80%;
   height: 2px;
-  background-color: rgba(255,255,255,0.5);
-  align-self: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  align-self: flex-start;
+  margin-left: 10%;
   position: relative;
-  z-index: 1;
 }
 
-/* 5위원장 */
 .floorCommittees {
   display: flex;
   justify-content: space-between;
   width: 90%;
-  margin-top: 0;
-  position: relative;
-  z-index: 1;
+  margin-top: 20px;
 }
 
-.microNode { align-items: center; padding: 0 8px; position: relative; }
-.microNode::before { content: ''; position: absolute; top: -20px; left: 50%; width: 2px; height: 20px; background-color: rgba(255,255,255,0.5); transform: translateX(-50%); }
-.microNode .nodeTitle { font-size: 0.7rem; color: #888; }
-.microNode .nodeNameLight { font-size: 0.9rem; }
+.microNode {
+  align-items: center;
+  padding: 0 10px;
+  position: relative;
+}
+.microNode::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: translateX(-50%);
+}
 
-.orgNode:hover .nodeTitle { color: #FFF; }
-.orgNode:hover .nodeAccentBar { box-shadow: 0 0 15px var(--primary-red); }
+.microNode .nodeTitle {
+  font-size: 0.7rem;
+  color: #888;
+}
+
+.microNode .nodeNameLight {
+  font-size: 0.9rem;
+}
+
+/* Hover */
+.orgNode:hover .nodeTitle {
+  color: #FFF;
+}
+.orgNode:hover .nodeAccentBar {
+  box-shadow: 0 0 15px var(--primary-red);
+}
+
+/* org-leaders-group */
+.orgLeadersGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 @media (max-width: 992px) {
-  .treeSplitBridge, .orgBranches::before, .orgBranches::after, .horizontalConnectorBar, .centerVLine { display: none; }
-  .orgBranches { flex-direction: column; align-items: center; }
-  .judgeBranch, .raceBranch { width: 100%; }
-  .splitNodes { flex-direction: column; gap: 16px; }
-  .opsRow { flex-direction: column; align-items: center; gap: 0; }
-  .floorCommittees { flex-direction: column; gap: 24px; align-items: center; margin-top: 40px; width: 100%; }
-  .microNode::before { display: none; }
+  .treeSplitBridge,
+  .orgBranches::before,
+  .orgBranches::after,
+  .horizontalConnectorBar {
+    display: none;
+  }
+
+  .orgBranches {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .judgeBranch,
+  .raceBranch {
+    width: 100%;
+  }
+
+  .splitNodes {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .floorCommittees {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .microNode::before {
+    display: none;
+  }
 }
