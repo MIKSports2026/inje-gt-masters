@@ -60,8 +60,6 @@ export default async function MediaKitPage({
     ? (items as MediaKitItem[]).filter(i => i.category === category)
     : (items as MediaKitItem[])
 
-  const season      = (settings as SiteSettings | null)?.currentSeason ?? 2026
-  const siteName    = (settings as SiteSettings | null)?.siteNameEn ?? 'INJE GT MASTERS'
   const email       = (settings as SiteSettings | null)?.email ?? 'media@injegtmasters.com'
 
   const CATEGORIES = [
@@ -92,44 +90,7 @@ export default async function MediaKitPage({
       <section className="section" style={{ background: 'var(--bg-carbon)', paddingBottom: 0 }}>
         <div className="container">
 
-          {/* ── 2. 대회 개요 카드 ───────────────────────── */}
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>ABOUT THE EVENT</h2>
-            <div className={styles.sectionBar} />
-          </div>
-
-          <div className={styles.overviewGrid}>
-            <div className={styles.overviewCard}>
-              <span className={styles.overviewLabel}>대회명</span>
-              <span className={styles.overviewValue}>{siteName}</span>
-            </div>
-            <div className={styles.overviewCard}>
-              <span className={styles.overviewLabel}>시즌</span>
-              <span className={styles.overviewValue}>{season} SEASON</span>
-            </div>
-            <div className={styles.overviewCard}>
-              <span className={styles.overviewLabel}>개최지</span>
-              <span className={styles.overviewValue}>인제스피디움<br /><span style={{ fontSize: '0.85rem', color: 'var(--muted)', fontWeight: 400 }}>강원도 인제군</span></span>
-            </div>
-            <div className={styles.overviewCard}>
-              <span className={styles.overviewLabel}>클래스</span>
-              <span className={styles.overviewValue} style={{ fontSize: '0.95rem', lineHeight: 1.6 }}>
-                Masters 1 · 2 · N · N-EVO · 3
-              </span>
-            </div>
-            <div className={styles.overviewCard}>
-              <span className={styles.overviewLabel}>서킷 길이</span>
-              <span className={styles.overviewValue}>4.627 km</span>
-            </div>
-            <div className={styles.overviewCard}>
-              <span className={styles.overviewLabel}>공식 홈페이지</span>
-              <span className={styles.overviewValue} style={{ fontSize: '0.85rem', color: 'var(--muted)', fontWeight: 400, wordBreak: 'break-all' }}>
-                injegtmasters.com
-              </span>
-            </div>
-          </div>
-
-          {/* ── 3. 미디어킷 파일 목록 ────────────────────── */}
+{/* ── 3. 미디어킷 파일 목록 ────────────────────── */}
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>DOWNLOADS</h2>
             <div className={styles.sectionBar} />
