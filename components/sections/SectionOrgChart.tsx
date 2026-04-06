@@ -33,6 +33,7 @@ export default function SectionOrgChart() {
             <div className={`${styles.orgBranch} ${styles.judgeBranch}`}>
 
               <div className={`${styles.orgNode} ${styles.branchHead}`}>
+                <div className={styles.nodeAccentBar}></div>
                 <span className={styles.nodeTitle}>심사위원회</span>
                 <h3 className={styles.nodeName}>
                   김광진 <span className={styles.subTag}>심사위원장</span>
@@ -46,12 +47,6 @@ export default function SectionOrgChart() {
                 <span className={styles.nodeNameLight}>오일기 / 김의수</span>
               </div>
 
-              <div className={`${styles.treeLineVertical} ${styles.short}`}></div>
-
-              <div className={`${styles.orgNode} ${styles.cleanNode}`}>
-                <span className={styles.nodeTitle}>심사보조</span>
-                <span className={styles.nodeNameLight}>양원용</span>
-              </div>
 
             </div>
 

@@ -13,17 +13,17 @@
 
 /* Structural Trees */
 .treeLineVertical {
-  width: 1px;
+  width: 2px;
   height: 40px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.5);
 }
-.treeLineVertical.short { height: 20px; }
+.treeLineVertical.short { height: 24px; }
 .treeLineVertical.medium { height: 60px; }
 
 .treeSplitBridge {
   width: 60%;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.2);
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .orgBranches {
@@ -39,9 +39,9 @@
   content: '';
   position: absolute;
   top: 0;
-  width: 1px;
+  width: 2px;
   height: 40px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 .orgBranches::before { left: 20%; }
 .orgBranches::after { right: 20%; }
@@ -160,8 +160,8 @@
 /* Floor Committees */
 .horizontalConnectorBar {
   width: 80%;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.2);
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
   align-self: flex-start;
   margin-left: 10%;
   position: relative;
@@ -184,9 +184,10 @@
   position: absolute;
   top: -20px;
   left: 50%;
-  width: 1px;
+  width: 2px;
   height: 20px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: translateX(-50%);
 }
 
 .microNode .nodeTitle {
