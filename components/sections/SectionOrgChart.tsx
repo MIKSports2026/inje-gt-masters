@@ -46,12 +46,6 @@ export default function SectionOrgChart() {
                 <span className={styles.nodeNameLight}>오일기 / 김의수</span>
               </div>
 
-              <div className={`${styles.treeLineVertical} ${styles.short}`}></div>
-
-              <div className={`${styles.orgNode} ${styles.cleanNode}`}>
-                <span className={styles.nodeTitle}>심사보조</span>
-                <span className={styles.nodeNameLight}>양원용</span>
-              </div>
 
             </div>
 
