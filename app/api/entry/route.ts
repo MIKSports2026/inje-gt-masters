@@ -21,12 +21,12 @@ export async function POST(req: Request) {
     const {
       entryType, roundId, roundLabel, className, teamName, carModel,
       drivers, contactPhone, contactEmail,
-      agreedRules, agreedPrivacy, entryFee,
+      agreedRules, agreedPrivacy, entryFee, preferredNumber,
     } = body as {
       entryType: 'round' | 'season'; roundId?: string; roundLabel: string; className: string;
       teamName: string; carModel: string;
       drivers: Driver[]; contactPhone: string; contactEmail: string;
-      agreedRules: boolean; agreedPrivacy: boolean; entryFee?: string;
+      agreedRules: boolean; agreedPrivacy: boolean; entryFee?: string; preferredNumber?: string;
     }
     const entryTypeLabel = entryType === 'season' ? '시즌 전체' : '라운드'
 
@@ -55,6 +55,7 @@ export async function POST(req: Request) {
               className,
               teamName,
               carModel,
+              preferredNumber: preferredNumber ?? '',
               drivers: drivers.map((d, i) => ({
                 _key: `driver-${i}`,
                 name: d.name,
@@ -98,6 +99,7 @@ export async function POST(req: Request) {
               d1.name ?? '', d1.birthDate ?? '', d1.bloodType ?? '', d1.phone ?? contactPhone, d1.email ?? contactEmail, d1.karaLicense ?? '',
               d2.name ?? '', d2.birthDate ?? '', d2.bloodType ?? '', d2.karaLicense ?? '',
               d3.name ?? '', d3.birthDate ?? '', d3.bloodType ?? '', d3.karaLicense ?? '',
+              preferredNumber ?? '',
               now,
             ]],
           },
@@ -109,6 +111,12 @@ export async function POST(req: Request) {
 
     // ── ③④ 이메일 발송 ────────────────────────────────
     const resend = new Resend(process.env.RESEND_API_KEY)
+
+    const preferredNumberRow = preferredNumber ? `
+  <tr style="background:#fff">
+    <td style="padding:8px 0;border-bottom:1px solid #f0f0f0;width:100px;font-size:13px;color:#666;font-weight:700;">희망 번호</td>
+    <td style="padding:8px 0 8px 16px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#111;font-weight:600;">${preferredNumber}</td>
+  </tr>` : ''
 
     const driverRows = drivers.map((d, i) => `
       <tr style="background:${i % 2 === 0 ? '#fff' : '#fafafa'}">
@@ -136,6 +144,7 @@ export async function POST(req: Request) {
               ['클래스', className],
               ['팀명', teamName],
               ['차량', carModel],
+              ...(preferredNumber ? [['희망 번호', preferredNumber]] : []),
               ['대표 연락처', contactPhone],
               ['대표 이메일', contactEmail],
             ].map(([l, v]) => `
@@ -172,6 +181,7 @@ export async function POST(req: Request) {
               ['클래스', className],
               ['팀명', teamName],
               ['차량', carModel],
+              ...(preferredNumber ? [['희망 번호', preferredNumber]] : []),
             ].map(([l, v], i) => `
             <tr style="background:${i % 2 === 0 ? '#fff' : '#fafafa'}">
               <td style="padding:10px 16px;width:100px;font-size:13px;color:#666;font-weight:700;border-bottom:1px solid #f0f0f0;">${l}</td>
