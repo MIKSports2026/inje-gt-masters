@@ -74,8 +74,8 @@ export default function SectionOrgChart() {
               </div>
 
               <div
-                className={`${styles.treeLineVertical} ${styles.medium}`}
-                style={{ alignSelf: 'flex-end', marginRight: '20%' }}
+                className={`${styles.treeLineVertical} ${styles.short}`}
+                style={{ alignSelf: 'flex-end', marginRight: '22%' }}
               ></div>
 
               {/* CMO — [수평선] — 사무국장 */}

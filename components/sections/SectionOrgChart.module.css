@@ -162,6 +162,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  justify-content: space-between;
 }
 
 /* Floor Committees */
@@ -169,14 +170,16 @@
   flex: 1;
   height: 2px;
   background-color: rgba(255, 255, 255, 0.5);
-  align-self: center;
+  align-self: flex-end;
+  margin-bottom: 14px;
 }
 
 .floorCommittees {
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 60%;
   margin-top: 20px;
+  align-self: center;
 }
 
 .microNode {
@@ -245,6 +248,7 @@
   .opsConnectorRow {
     flex-direction: column;
     gap: 16px;
+    align-items: center;
   }
 
   .floorCommittees {
