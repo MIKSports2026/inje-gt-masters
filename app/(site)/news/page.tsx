@@ -18,6 +18,7 @@ const PAGE_SIZE = 6
 const TABS = [
   { label: '전체',     value: '' },
   { label: '공지사항', value: 'notice' },
+  { label: '참가안내', value: 'entry' },
   { label: '보도자료', value: 'press' },
   { label: '대회소식', value: 'news' },
 ]
