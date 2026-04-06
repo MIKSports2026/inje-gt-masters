@@ -47,7 +47,6 @@ export default function SectionOrgChart() {
                 <span className={styles.nodeNameLight}>오일기 / 김의수</span>
               </div>
 
-
             </div>
 
             {/* Right Branch: Race Committee & Ops */}
@@ -79,22 +78,18 @@ export default function SectionOrgChart() {
                 style={{ alignSelf: 'flex-end', marginRight: '20%' }}
               ></div>
 
-              <div className={`${styles.splitNodes} ${styles.opsSplit}`}>
+              {/* CMO — [수평선] — 사무국장 */}
+              <div className={styles.opsConnectorRow}>
                 <div className={`${styles.orgNode} ${styles.cleanNode}`}>
                   <span className={styles.nodeTitle}>CMO</span>
                   <span className={styles.nodeNameBold}>박일환</span>
                 </div>
+                <div className={styles.horizontalConnectorBar}></div>
                 <div className={`${styles.orgNode} ${styles.cleanNode}`}>
                   <span className={styles.nodeTitle}>사무국장</span>
                   <span className={styles.nodeNameBold}>한광규</span>
                 </div>
               </div>
-
-              <div
-                className={`${styles.treeLineVertical} ${styles.short}`}
-                style={{ alignSelf: 'flex-start', marginLeft: '25%' }}
-              ></div>
-              <div className={styles.horizontalConnectorBar}></div>
 
               {/* Floor Committees */}
               <div className={styles.floorCommittees}>

@@ -157,14 +157,19 @@
   justify-content: center;
 }
 
+/* Ops Connector Row: CMO ── bar ── 사무국장 */
+.opsConnectorRow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 /* Floor Committees */
 .horizontalConnectorBar {
-  width: 80%;
+  flex: 1;
   height: 2px;
   background-color: rgba(255, 255, 255, 0.5);
-  align-self: flex-start;
-  margin-left: 10%;
-  position: relative;
+  align-self: center;
 }
 
 .floorCommittees {
@@ -233,6 +238,11 @@
   }
 
   .splitNodes {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .opsConnectorRow {
     flex-direction: column;
     gap: 16px;
   }
