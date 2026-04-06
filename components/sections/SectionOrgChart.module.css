@@ -157,29 +157,44 @@
   justify-content: center;
 }
 
-/* Ops Connector Row: CMO ── bar ── 사무국장 */
-.opsConnectorRow {
+/* 수직선 + CMO/사무국장 + 5위원장 전체 영역 */
+.opsArea {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: 100%;
-  justify-content: space-between;
+}
+
+/* 수직선: 윤연정 → 5위원장 관통 */
+.opsVLine {
+  width: 2px;
+  height: 140px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* CMO — 수직선 왼쪽에 absolute */
+.opsLeft {
+  position: absolute;
+  left: 5%;
+  top: 30px;
+  align-items: flex-end;
+}
+
+/* 사무국장 — 수직선 오른쪽에 absolute */
+.opsRight {
+  position: absolute;
+  right: 5%;
+  top: 30px;
+  align-items: flex-start;
 }
 
 /* Floor Committees */
-.horizontalConnectorBar {
-  flex: 1;
-  height: 2px;
-  background-color: rgba(255, 255, 255, 0.5);
-  align-self: flex-end;
-  margin-bottom: 14px;
-}
-
 .floorCommittees {
   display: flex;
   justify-content: space-between;
-  width: 60%;
-  margin-top: 20px;
-  align-self: center;
+  width: 100%;
+  margin-top: 0;
 }
 
 .microNode {
@@ -225,8 +240,7 @@
 @media (max-width: 992px) {
   .treeSplitBridge,
   .orgBranches::before,
-  .orgBranches::after,
-  .horizontalConnectorBar {
+  .orgBranches::after {
     display: none;
   }
 
@@ -245,10 +259,18 @@
     gap: 16px;
   }
 
-  .opsConnectorRow {
-    flex-direction: column;
-    gap: 16px;
+  .opsArea {
     align-items: center;
+  }
+
+  .opsLeft,
+  .opsRight {
+    position: static;
+    align-items: center;
+  }
+
+  .opsVLine {
+    display: none;
   }
 
   .floorCommittees {
