@@ -69,44 +69,50 @@ export default function SectionOrgChart() {
                   <span className={styles.nodeTitle}>SC드라이버</span>
                   <span className={styles.nodeNameLight}>최종석 / 고건</span>
                 </div>
-                <div className={styles.yunjungCol}>
-                  {/* 경기위원장 노드 */}
-                  <div className={`${styles.orgNode} ${styles.cleanNode}`}>
-                    <span className={styles.nodeTitle}>경기위원장</span>
-                    <span className={styles.nodeNameBold}>윤연정</span>
-                  </div>
-                  {/* 윤연정 직속 수직선 */}
-                  <div className={`${styles.treeLineVertical} ${styles.short}`}></div>
-                  {/* CMO / 사무국장 — 수직선 양옆 */}
-                  <div className={styles.opsRow}>
-                    <div className={`${styles.orgNode} ${styles.cleanNode}`}>
-                      <span className={styles.nodeTitle}>CMO</span>
-                      <span className={styles.nodeNameBold}>박일환</span>
-                    </div>
-                    <div className={styles.opsVLine}></div>
-                    <div className={`${styles.orgNode} ${styles.cleanNode}`}>
-                      <span className={styles.nodeTitle}>사무국장</span>
-                      <span className={styles.nodeNameBold}>한광규</span>
-                    </div>
-                  </div>
-                  {/* 수직선 → 수평 연결선 → 5위원장 */}
-                  <div className={`${styles.treeLineVertical} ${styles.short}`}></div>
-                  <div className={styles.horizontalConnectorBar}></div>
-                  <div className={styles.floorCommittees}>
-                    {[
-                      { title: '피트위원장', name: '오성욱' },
-                      { title: '코스위원장', name: '박정수' },
-                      { title: '안전위원장', name: '김상현' },
-                      { title: '기술위원장', name: '허경환' },
-                      { title: '기록위원장', name: '이형곤' },
-                    ].map((item) => (
-                      <div key={item.title} className={`${styles.orgNode} ${styles.microNode}`}>
-                        <span className={styles.nodeTitle}>{item.title}</span>
-                        <span className={styles.nodeNameLight}>{item.name}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className={`${styles.orgNode} ${styles.cleanNode}`}>
+                  <span className={styles.nodeTitle}>경기위원장</span>
+                  <span className={styles.nodeNameBold}>윤연정</span>
                 </div>
+              </div>
+
+              {/* 윤연정 아래 수직선 (오른쪽 정렬) */}
+              <div
+                className={`${styles.treeLineVertical} ${styles.short}`}
+                style={{ alignSelf: 'flex-end', marginRight: '22%' }}
+              ></div>
+
+              {/* CMO ── 수직선 ── 사무국장 */}
+              <div className={styles.opsRow}>
+                <div className={`${styles.orgNode} ${styles.cleanNode}`}>
+                  <span className={styles.nodeTitle}>CMO</span>
+                  <span className={styles.nodeNameBold}>박일환</span>
+                </div>
+                <div className={styles.opsVLine}></div>
+                <div className={`${styles.orgNode} ${styles.cleanNode}`}>
+                  <span className={styles.nodeTitle}>사무국장</span>
+                  <span className={styles.nodeNameBold}>한광규</span>
+                </div>
+              </div>
+
+              {/* 수직선 → 수평선 → 5위원장 */}
+              <div
+                className={`${styles.treeLineVertical} ${styles.short}`}
+                style={{ alignSelf: 'center' }}
+              ></div>
+              <div className={styles.horizontalConnectorBar}></div>
+              <div className={styles.floorCommittees}>
+                {[
+                  { title: '피트위원장', name: '오성욱' },
+                  { title: '코스위원장', name: '박정수' },
+                  { title: '안전위원장', name: '김상현' },
+                  { title: '기술위원장', name: '허경환' },
+                  { title: '기록위원장', name: '이형곤' },
+                ].map((item) => (
+                  <div key={item.title} className={`${styles.orgNode} ${styles.microNode}`}>
+                    <span className={styles.nodeTitle}>{item.title}</span>
+                    <span className={styles.nodeNameLight}>{item.name}</span>
+                  </div>
+                ))}
               </div>
 
             </div>
