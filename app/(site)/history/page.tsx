@@ -8,7 +8,7 @@ import type { History } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
-  title: '대회 역사',
+  title: 'INJE GT MASTERS History',
   description: '인제 GT 마스터즈의 연도별 역사와 역대 챔피언 기록.',
 }
 
@@ -21,7 +21,7 @@ export default async function HistoryPage() {
     <>
       <PageHero
         badge="History"
-        title="대회 역사"
+        title="INJE GT MASTERS History"
         subtitle="Where Legends Begin — 매 시즌 새로운 전설이 탄생합니다"
       />
 

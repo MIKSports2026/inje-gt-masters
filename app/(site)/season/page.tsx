@@ -9,7 +9,7 @@ import PageHero from '@/components/ui/PageHero'
 import SectionSeasonSchedule from '@/components/sections/SectionSeasonSchedule'
 
 export const metadata: Metadata = {
-  title: '2026 시즌 안내',
+  title: '2026 Calendar',
   description: '인제 GT 마스터즈 2026 시즌 라운드 일정, 클래스 소개, 포인트 시스템, 규정 안내.',
 }
 
@@ -44,7 +44,7 @@ const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
       <PageHero
         image={(settings as SiteSettings | null)?.heroSeason}
         badge="2026 Season"
-        title="2026 SEASON"
+        title="2026 Calendar"
         subtitle="레이서의 근성과 머신의 한계가 만나는 곳"
       >
         <div style={{ marginTop: '20px' }}>

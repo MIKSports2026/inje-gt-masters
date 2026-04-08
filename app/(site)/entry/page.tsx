@@ -9,7 +9,7 @@ import EntryTabs from './EntryTabs'
 import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
-  title: '참가 신청',
+  title: 'Register',
   description: '인제 GT 마스터즈 2026 시즌 온라인 참가 신청. Masters 1·Masters 2·Masters N·Masters 3·Masters N-evo 클래스 선착순 접수.',
   openGraph: {
     title: '참가 신청 | 인제 GT 마스터즈 2026',
@@ -48,7 +48,7 @@ export default async function EntryPage({
       <PageHero
         image={s?.heroEntry}
         badge="2026 Season Entry"
-        title="참가 신청"
+        title="Register"
         subtitle="당신의 도전이 시작되는 곳, 인제 GT 마스터즈."
       >
         <div style={{

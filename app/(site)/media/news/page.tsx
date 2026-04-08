@@ -9,7 +9,7 @@ import NewsCard from '@/components/ui/NewsCard'
 import styles from './NewsListPage.module.css'
 
 export const metadata: Metadata = {
-  title: 'NEWS',
+  title: 'Notice',
   description: '인제GT마스터즈의 공식 공지사항, 보도자료, 대회 소식을 확인하세요.',
 }
 
@@ -58,9 +58,9 @@ export default async function MediaNewsPage({
       <div className={styles.hero}>
         <div className="container">
           <div className={styles.breadcrumb}>
-            인제GT마스터즈 <span>/</span> MEDIA <span>/</span> <strong>NEWS</strong>
+            인제GT마스터즈 <span>/</span> LATEST <span>/</span> <strong>Notice</strong>
           </div>
-          <h1 className={styles.title}>NEWS</h1>
+          <h1 className={styles.title}>Notice</h1>
           <div className={styles.redSlash} />
           <p className={styles.subtitle}>인제GT마스터즈의 공식 소식</p>
         </div>

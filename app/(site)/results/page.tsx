@@ -8,7 +8,7 @@ import PageHero from '@/components/ui/PageHero'
 import ResultsClient from './ResultsClient'
 
 export const metadata: Metadata = {
-  title: '경기 결과',
+  title: 'Results',
   description: '인제 GT 마스터즈 2026 시즌 경기 결과, 순위표, 챔피언십 스탠딩. 라운드별 결과 및 포인트 현황을 확인하세요.',
 }
 
@@ -44,7 +44,7 @@ export default async function ResultsPage({
       <PageHero
         image={(siteSettings as SiteSettings | null)?.heroResults}
         badge="Race Information"
-        title="경기 결과"
+        title="Results"
         subtitle="2026 시즌 라운드별 결과 및 챔피언십 스탠딩"
       />
 

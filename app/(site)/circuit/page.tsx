@@ -7,7 +7,7 @@ import type { SiteSettings } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
 
 export const metadata: Metadata = {
-  title: '인제스피디움 | 인제 GT 마스터즈',
+  title: 'Speedium',
   description: '인제 GT 마스터즈 개최지, 인제스피디움 서킷 소개 · 찾아오는 길 · 관람 안내.',
 }
 
@@ -47,7 +47,7 @@ export default async function CircuitPage() {
       <PageHero
         image={siteSettings?.heroCircuit}
         badge="Inje Speedium"
-        title="인제스피디움"
+        title="Speedium"
         subtitle="전설이 시작되는 서킷 — 인제 GT 마스터즈 전 라운드 개최지"
         breadcrumb={[
           { label: '인제 GT 마스터즈', href: '/' },
