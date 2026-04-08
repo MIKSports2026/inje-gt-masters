@@ -12,7 +12,7 @@ const NAV_ITEMS: NavItem[] = [
     label: 'INJE GT MASTERS',
     href: '/history',
     drop: [
-      { label: '마스터즈 히스토리', href: '/history' },
+      { label: '인제GT마스터즈 히스토리', href: '/history' },
       { label: 'Speedium', href: '/circuit' },
     ],
   },
@@ -28,7 +28,7 @@ const NAV_ITEMS: NavItem[] = [
     href: '/entry',
     drop: [
       { label: 'Register', href: '/entry' },
-      { label: '규정', toast: true },
+      { label: 'Regulation', toast: true },
     ],
   },
   {
