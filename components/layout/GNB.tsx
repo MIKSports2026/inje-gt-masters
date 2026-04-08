@@ -9,28 +9,25 @@ type NavItem = { label: string; href: string; drop: DropItem[] }
 
 const NAV_ITEMS: NavItem[] = [
   {
-    label: 'MASTERS',
+    label: 'INJE GT MASTERS',
     href: '/history',
     drop: [
       { label: '마스터즈 히스토리', href: '/history' },
-      { label: '역대 챔피언', toast: true },
-      { label: '조직도', href: '/masters/organization' },
+      { label: 'Speedium', href: '/circuit' },
     ],
   },
   {
-    label: 'SEASON',
+    label: 'RACE SCHEDULE',
     href: '/season',
     drop: [
-      { label: '경기 일정', href: '/season' },
-      { label: '클래스 소개', href: '/classes' },
-      { label: '인제스피디움', href: '/circuit' },
+      { label: '2026 Calendar', href: '/season' },
     ],
   },
   {
     label: 'ENTRY',
     href: '/entry',
     drop: [
-      { label: '참가 신청', href: '/entry' },
+      { label: 'Register', href: '/entry' },
       { label: '규정', toast: true },
     ],
   },
@@ -40,19 +37,18 @@ const NAV_ITEMS: NavItem[] = [
     drop: [],
   },
   {
-    label: 'MEDIA',
+    label: 'LATEST',
     href: '/media/news',
     drop: [], // buildMediaDrop(hasGallery)로 교체됨
   },
 ]
 
-/** MEDIA 드롭 — hasGallery에 따라 GALLERY 항목 조건부 포함 */
+/** LATEST 드롭 — hasGallery에 따라 GALLERY 항목 조건부 포함 */
 function buildMediaDrop(hasGallery: boolean): DropItem[] {
   return [
-    { label: '공지사항 & 소식', href: '/media/news' },
+    { label: 'Notice', href: '/media/news' },
     ...(hasGallery ? [{ label: '사진 갤러리', href: '/media/gallery' }] : []),
     { label: '동영상', href: '/media/video' },
-    { label: 'PRESS KIT', href: '/media/kit' },
   ]
 }
 
@@ -86,7 +82,7 @@ export default function GNB({
 
   // MEDIA 드롭 항목 동적 생성
   const navItems: NavItem[] = NAV_ITEMS.map(item =>
-    item.label === 'MEDIA'
+    item.label === 'LATEST'
       ? { ...item, drop: buildMediaDrop(hasGallery) }
       : item
   )
@@ -187,7 +183,7 @@ export default function GNB({
         ))}
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         /* ── GNB Base ─────────────────────────── */
         .gnav {
           position: fixed; top: 0; left: 0; width: 100%;
@@ -353,7 +349,7 @@ export default function GNB({
           .gnav__logo { height: 64px !important; }
           .gnav__mobile { max-width: 100%; }
         }
-      `}</style>
+      ` }} />
     </>
   )
 }
