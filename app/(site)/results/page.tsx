@@ -48,33 +48,6 @@ export default async function ResultsPage({
         subtitle="2026 시즌 누적 Driver Ranking · Team Ranking"
       />
 
-      {/* ── 라운드 네비게이션 ──────────────────────────────── */}
-      <section style={{ background: 'var(--surface-2)', borderBottom: '1px solid var(--line)', padding: '20px 0' }}>
-        <div className="container">
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            {displayRounds.map(r => (
-              <Link
-                key={r._id}
-                href={`/results?round=${r.slug.current}`}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '10px 16px', fontWeight: 800, fontSize: '.9rem',
-                  background: selectedRound === r.slug.current ? 'var(--red)' : 'var(--bg-2)',
-                  color:      selectedRound === r.slug.current ? '#fff' : 'var(--text-mid)',
-                  border:     `1px solid ${selectedRound === r.slug.current ? 'var(--red)' : 'var(--line)'}`,
-                  clipPath:   'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)',
-                  textDecoration: 'none',
-                  opacity: r.hasResults ? 1 : 0.6,
-                }}
-              >
-                <span style={{ fontSize: '.9rem', fontWeight: 800 }}>Round {r.roundNumber}</span>
-                {!r.hasResults && <span style={{ fontSize: '.72rem', opacity: .7 }}>(예정)</span>}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="section">
         <div className="container">
           <div>
