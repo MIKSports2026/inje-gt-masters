@@ -3,11 +3,17 @@
 import { useState, useEffect, useCallback } from 'react'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 
-// Sheets 열 순서 (v3 실제): [0]신청일시(클라이언트) [1]참가유형 [2]라운드 [3]클래스 [4]팀명
-// [5]팀대표 [6]참가비 [7]차량 [8]D1이름 [9]D1생년월일 [10]D1혈액형 [11]D1연락처 [12]D1이메일 [13]D1라이선스
-// [14]D2이름 [15]D2생년월일 [16]D2혈액형 [17]D2라이선스
-// [18]D3이름 [19]D3생년월일 [20]D3혈액형 [21]D3라이선스
-// [22]희망번호 [23]신청일시(서버)
+// 기존 구조 (21열, 오늘 이전): [0]참가유형 [1]라운드 [2]클래스 [3]팀명 [4]차량
+//   [5]D1이름 [6]D1생년월일 [7]D1혈액형 [8]D1연락처 [9]D1이메일 [10]D1라이선스
+//   [11]D2이름 [12]D2생년월일 [13]D2혈액형 [14]D2라이선스
+//   [15]D3이름 [16]D3생년월일 [17]D3혈액형 [18]D3라이선스
+//   [19]희망번호 [20]신청일시(ISO)
+// 신규 구조 (23열, 오늘 이후): [0]참가유형 [1]라운드 [2]클래스 [3]팀명 [4]차량
+//   [5]팀대표 [6]참가비
+//   [7]D1이름 [8]D1생년월일 [9]D1혈액형 [10]D1연락처 [11]D1이메일 [12]D1라이선스
+//   [13]D2이름 [14]D2생년월일 [15]D2혈액형 [16]D2라이선스
+//   [17]D3이름 [18]D3생년월일 [19]D3혈액형 [20]D3라이선스
+//   [21]희망번호 [22]신청일시(ISO)
 
 function fmtDate(iso: string | undefined): string {
   if (!iso || !/\d{4}-\d{2}-\d{2}T/.test(iso)) return iso ?? '—'
@@ -17,19 +23,28 @@ function fmtDate(iso: string | undefined): string {
   } catch { return iso }
 }
 
-const COLS: { label: string; idx?: number; render?: (row: Row) => string }[] = [
-  { label: '신청일시',   render: (row) => fmtDate(row[23]) },
-  { label: '참가유형',   idx: 1  },
-  { label: '라운드',     idx: 2  },
-  { label: '클래스',     idx: 3  },
-  { label: '팀명',       idx: 4  },
-  { label: '팀 대표',    idx: 5  },
-  { label: '차량',       idx: 7  },
-  { label: '희망번호',   idx: 22 },
-  { label: '드라이버',   render: (row) => [row[8], row[14], row[18]].filter(Boolean).join(' / ') },
-  { label: '혈액형',     render: (row) => [row[10], row[16], row[20]].filter(Boolean).join(' / ') },
-  { label: '연락처',     idx: 11 },
-  { label: '이메일',     idx: 12 },
+// row.length >= 23 이면 신규 구조, 아니면 기존 구조
+function getVal(row: Row, newIdx: number, oldIdx: number): string {
+  return (row.length >= 23 ? row[newIdx] : row[oldIdx]) ?? '—'
+}
+
+const COLS: { label: string; render: (row: Row) => string }[] = [
+  { label: '신청일시', render: (row) => fmtDate(row.length >= 23 ? row[22] : row[20]) },
+  { label: '참가유형', render: (row) => getVal(row, 0,  0)  },
+  { label: '라운드',   render: (row) => getVal(row, 1,  1)  },
+  { label: '클래스',   render: (row) => getVal(row, 2,  2)  },
+  { label: '팀명',     render: (row) => getVal(row, 3,  3)  },
+  { label: '팀 대표',  render: (row) => row.length >= 23 ? (row[5] ?? '—') : '—' },
+  { label: '차량',     render: (row) => getVal(row, 4,  4)  },
+  { label: '희망번호', render: (row) => getVal(row, 21, 19) },
+  { label: '드라이버', render: (row) => row.length >= 23
+    ? [row[7],  row[13], row[17]].filter(Boolean).join(' / ')
+    : [row[5],  row[11], row[15]].filter(Boolean).join(' / ') },
+  { label: '혈액형',   render: (row) => row.length >= 23
+    ? [row[9],  row[15], row[19]].filter(Boolean).join(' / ')
+    : [row[7],  row[13], row[17]].filter(Boolean).join(' / ') },
+  { label: '연락처',   render: (row) => getVal(row, 10, 8)  },
+  { label: '이메일',   render: (row) => getVal(row, 11, 9)  },
 ]
 
 type Row = string[]
