@@ -18,6 +18,8 @@ export default defineType({
     defineField({ name: 'className', title: '클래스', type: 'string' }),
     defineField({ name: 'teamName', title: '팀명', type: 'string', validation: R => R.required() }),
     defineField({ name: 'carModel', title: '차량', type: 'string' }),
+    defineField({ name: 'teamRepresentative', title: '팀 대표', type: 'string' }),
+    defineField({ name: 'preferredNumber', title: '희망 엔트리 넘버', type: 'string' }),
 
     // 드라이버 배열
     defineField({

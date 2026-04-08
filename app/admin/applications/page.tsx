@@ -3,19 +3,29 @@
 import { useState, useEffect, useCallback } from 'react'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 
-// Sheets 열 순서 (v2): [0]참가유형 [1]라운드 [2]클래스 [3]팀명 [4]차량 [5]D1이름 [6]D1생년월일 [7]D1혈액형 [8]D1연락처 [9]D1이메일 [10]D1라이선스 ... [19]신청일시 [20]희망번호
-const COLS: { label: string; idx: number }[] = [
-  { label: '신청일시',   idx: 19 },
+// Sheets 열 순서 (v3): [0]참가유형 [1]라운드 [2]클래스 [3]팀명 [4]차량 [5]팀대표 [6]참가비 [7]D1이름 [8]D1생년월일 [9]D1혈액형 [10]D1연락처 [11]D1이메일 [12]D1라이선스 [13]D2이름 [14]D2생년월일 [15]D2혈액형 [16]D2라이선스 [17]D3이름 [18]D3생년월일 [19]D3혈액형 [20]D3라이선스 [21]희망번호 [22]신청일시
+
+function fmtDate(iso: string | undefined): string {
+  if (!iso || !/\d{4}-\d{2}-\d{2}T/.test(iso)) return iso ?? '—'
+  try {
+    const kst = new Date(new Date(iso).getTime() + 9 * 60 * 60 * 1000)
+    return kst.toISOString().slice(0, 10) + ' ' + kst.toISOString().slice(11, 16)
+  } catch { return iso }
+}
+
+const COLS: { label: string; idx?: number; render?: (row: Row) => string }[] = [
+  { label: '신청일시',   render: (row) => fmtDate(row[22]) },
   { label: '참가유형',   idx: 0  },
   { label: '라운드',     idx: 1  },
   { label: '클래스',     idx: 2  },
   { label: '팀명',       idx: 3  },
+  { label: '팀 대표',    idx: 5  },
   { label: '차량',       idx: 4  },
-  { label: '희망번호',   idx: 20 },
-  { label: '드라이버',   idx: 5  },
-  { label: '혈액형',     idx: 7  },
-  { label: '연락처',     idx: 8  },
-  { label: '이메일',     idx: 9  },
+  { label: '희망번호',   idx: 21 },
+  { label: '드라이버',   render: (row) => [row[7], row[13], row[17]].filter(Boolean).join(' / ') },
+  { label: '혈액형',     idx: 9  },
+  { label: '연락처',     idx: 10 },
+  { label: '이메일',     idx: 11 },
 ]
 
 type Row = string[]
@@ -86,7 +96,10 @@ export default function AdminApplicationsPage() {
 
   // ── 필터 ────────────────────────────────────────────────
   const filtered = rows.filter((row) =>
-    COLS.some((c) => (row[c.idx] ?? '').toLowerCase().includes(search.toLowerCase()))
+    COLS.some((c) => {
+      const val = c.render ? c.render(row) : (c.idx !== undefined ? row[c.idx] ?? '' : '')
+      return val.toLowerCase().includes(search.toLowerCase())
+    })
   )
 
   // ── 로딩 중 ─────────────────────────────────────────────
@@ -218,7 +231,7 @@ export default function AdminApplicationsPage() {
                   <td style={tdMutedStyle}>{filtered.length - i}</td>
                   {COLS.map((c) => (
                     <td key={c.label} style={c.idx === 3 ? { ...tdStyle, color: 'rgba(255,255,255,0.5)', fontSize: '13px' } : tdStyle}>
-                      {row[c.idx] ?? '—'}
+                      {c.render ? c.render(row) : (c.idx !== undefined ? row[c.idx] ?? '—' : '—')}
                     </td>
                   ))}
                 </tr>

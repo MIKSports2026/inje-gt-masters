@@ -29,6 +29,7 @@ interface FormState {
   entryType: 'round' | 'season';
   roundId: string; roundLabel: string; className: string;
   teamName: string; carModel: string;
+  teamRepresentative: string;
   preferredNumber: string;
   drivers: Driver[];
   showDriver2: boolean;
@@ -40,6 +41,7 @@ const init = (): FormState => ({
   entryType: 'round',
   roundId: '', roundLabel: '', className: '',
   teamName: '', carModel: '',
+  teamRepresentative: '',
   preferredNumber: '',
   drivers: [emptyDriver(), emptyDriver(), emptyDriver()],
   showDriver2: false, showDriver3: false, agreedRules: false, agreedPrivacy: false,
@@ -112,6 +114,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           roundId: form.entryType === 'round' ? form.roundId : undefined,
           roundLabel: form.entryType === 'season' ? '2026 시즌 전체' : form.roundLabel,
           className: form.className, teamName: form.teamName, carModel: form.carModel,
+          teamRepresentative: form.teamRepresentative || undefined,
           drivers: driversToSend,
           contactPhone: d1.phone, contactEmail: d1.email,
           preferredNumber: form.preferredNumber || undefined,
@@ -218,7 +221,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           </div>
           <div className="form-group">
             <label>TEAM REPRESENTATIVE</label>
-            <input type="text" placeholder="팀 대표 성명" />
+            <input type="text" placeholder="팀 대표 성명" value={form.teamRepresentative} onChange={e => set('teamRepresentative', e.target.value)} />
           </div>
           <div className="form-group">
             <label>ENTRY NUMBER</label>
@@ -365,6 +368,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
               ['CLASS', form.className],
               ['TEAM', form.teamName],
               ['VEHICLE', form.carModel],
+              ...(form.teamRepresentative ? [['TEAM REP.', form.teamRepresentative]] : []),
               ...(form.preferredNumber ? [['PREFERRED NO.', form.preferredNumber]] : []),
               ['DRIVER 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType}`],
               ...(form.showDriver2 && form.drivers[1].name ? [['DRIVER 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`]] : []),
