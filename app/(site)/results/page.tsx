@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 }
 
 const CLASSES: { code: ClassCode; label: string; color: string }[] = [
-  { code: 'masters-1',   label: 'Masters 1',    color: '#e60023' },
-  { code: 'masters-2',   label: 'Masters 2',    color: '#2563eb' },
-  { code: 'masters-n',   label: 'Masters N',    color: '#b8921e' },
-  { code: 'masters-3',   label: 'Masters 3',    color: '#16a34a' },
+  { code: 'masters-1',     label: 'Masters 1',    color: '#e60023' },
+  { code: 'masters-2',     label: 'Masters 2',    color: '#2563eb' },
   { code: 'masters-n-evo', label: 'Masters N-evo', color: '#a855f7' },
+  { code: 'masters-n',     label: 'Masters N',    color: '#b8921e' },
+  { code: 'masters-3',     label: 'Masters 3',    color: '#16a34a' },
 ]
 
 
