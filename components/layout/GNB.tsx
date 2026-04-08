@@ -12,7 +12,7 @@ const NAV_ITEMS: NavItem[] = [
     label: 'INJE GT MASTERS',
     href: '/history',
     drop: [
-      { label: '인제GT마스터즈 히스토리', href: '/history' },
+      { label: 'INJE GT MASTERS History', href: '/history' },
       { label: 'Speedium', href: '/circuit' },
     ],
   },
@@ -48,7 +48,7 @@ function buildMediaDrop(hasGallery: boolean): DropItem[] {
   return [
     { label: 'Notice', href: '/media/news' },
     ...(hasGallery ? [{ label: '사진 갤러리', href: '/media/gallery' }] : []),
-    { label: '동영상', href: '/media/video' },
+    { label: 'Video', href: '/media/video' },
   ]
 }
 
