@@ -45,7 +45,7 @@ export default async function ResultsPage({
         image={(siteSettings as SiteSettings | null)?.heroResults}
         badge="Race Information"
         title="Results"
-        subtitle="2026 시즌 라운드별 결과 및 챔피언십 스탠딩"
+        subtitle="2026 시즌 누적 Driver Ranking · Team Ranking"
       />
 
       {/* ── 라운드 네비게이션 ──────────────────────────────── */}
@@ -67,8 +67,7 @@ export default async function ResultsPage({
                   opacity: r.hasResults ? 1 : 0.6,
                 }}
               >
-                <span>R{r.roundNumber}</span>
-                <span style={{ fontSize: '.8rem', fontWeight: 700 }}>{r.title.replace(/R\d — /, '')}</span>
+                <span style={{ fontSize: '.9rem', fontWeight: 800 }}>Round {r.roundNumber}</span>
                 {!r.hasResults && <span style={{ fontSize: '.72rem', opacity: .7 }}>(예정)</span>}
               </Link>
             ))}
@@ -78,14 +77,14 @@ export default async function ResultsPage({
 
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '24px', alignItems: 'start' }}>
+          <div>
 
-            {/* ── 챔피언십 스탠딩 (메인) ──────────────────── */}
+            {/* ── Driver / Team Ranking (메인) ─────────────── */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
                 <div>
-                  <span className="eyebrow">Championship Standings</span>
-                  <h2 style={{ fontSize: 'clamp(1.4rem,2.5vw,2rem)' }}>챔피언십 스탠딩</h2>
+                  <span className="eyebrow">Driver Ranking · Team Ranking</span>
+                  <h2 style={{ fontSize: 'clamp(1.4rem,2.5vw,2rem)' }}>Driver Ranking</h2>
                 </div>
                 <span className="chip">2026 시즌 누적</span>
               </div>
@@ -102,7 +101,7 @@ export default async function ResultsPage({
                       ...(selectedClass === cls.code ? { background: cls.color, borderColor: cls.color } : {}),
                     }}
                   >
-                    {cls.code}
+                    {cls.label}
                   </Link>
                 ))}
               </div>
@@ -113,42 +112,6 @@ export default async function ResultsPage({
                 classColor={CLASSES.find(c => c.code === selectedClass)?.color ?? '#e60023'}
                 standings={[]}
               />
-            </div>
-
-            {/* ── 사이드: 라운드 카드 ──────────────────────── */}
-            <div style={{ display: 'grid', gap: '12px' }}>
-              <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
-                <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-                <h3 style={{ marginBottom: '14px' }}>2026 시즌 일정</h3>
-                <div style={{ display: 'grid', gap: '8px' }}>
-                  {displayRounds.map(r => (
-                    <div key={r._id} style={{
-                      display: 'flex', alignItems: 'center', gap: '10px',
-                      padding: '10px 12px', background: 'var(--surface-2)', border: '1px solid var(--line)',
-                      clipPath: 'polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%)',
-                    }}>
-                      <span style={{ width: '32px', height: '32px', display: 'grid', placeItems: 'center', background: 'rgba(230,0,35,.08)', color: 'var(--red)', border: '1px solid rgba(230,0,35,.18)', fontWeight: 900, fontSize: '.82rem', clipPath: 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)', flexShrink: 0 }}>R{r.roundNumber}</span>
-                      <div style={{ flex: 1 }}>
-                        <strong style={{ display: 'block', fontSize: '.88rem' }}>{r.title}</strong>
-                        <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>{r.dateStart}</span>
-                      </div>
-                      {r.hasResults && (
-                        <Link href={`/results?round=${r.slug.current}`} style={{ fontSize: '.78rem', fontWeight: 900, color: 'var(--red)' }}>결과보기</Link>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 서킷 레코드 */}
-              <div id="records" style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
-                <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-                <h3 style={{ marginBottom: '14px' }}>서킷 랩레코드</h3>
-                <div style={{ textAlign: 'center', padding: '20px 0', color: 'var(--muted)' }}>
-                  <i className="fa-solid fa-stopwatch" style={{ fontSize: '2rem', opacity: .3, display: 'block', marginBottom: '10px' }} />
-                  <p style={{ fontSize: '.88rem' }}>랩레코드 데이터를 준비중입니다.</p>
-                </div>
-              </div>
             </div>
 
           </div>
