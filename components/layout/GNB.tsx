@@ -27,8 +27,9 @@ const NAV_ITEMS: NavItem[] = [
     label: 'ENTRY',
     href: '/entry',
     drop: [
-      { label: 'Register', href: '/entry' },
+      { label: 'Class', href: '/classes' },
       { label: 'Regulation', toast: true },
+      { label: 'Register', href: '/entry' },
     ],
   },
   {
