@@ -115,10 +115,7 @@ export default function AdminApplicationsPage() {
 
   // ── 필터 ────────────────────────────────────────────────
   const filtered = rows.filter((row) =>
-    COLS.some((c) => {
-      const val = c.render ? c.render(row) : (c.idx !== undefined ? row[c.idx] ?? '' : '')
-      return val.toLowerCase().includes(search.toLowerCase())
-    })
+    COLS.some((c) => c.render(row).toLowerCase().includes(search.toLowerCase()))
   )
 
   // ── 로딩 중 ─────────────────────────────────────────────
@@ -249,8 +246,8 @@ export default function AdminApplicationsPage() {
                 >
                   <td style={tdMutedStyle}>{filtered.length - i}</td>
                   {COLS.map((c) => (
-                    <td key={c.label} style={c.idx === 3 ? { ...tdStyle, color: 'rgba(255,255,255,0.5)', fontSize: '13px' } : tdStyle}>
-                      {c.render ? c.render(row) : (c.idx !== undefined ? row[c.idx] ?? '—' : '—')}
+                    <td key={c.label} style={tdStyle}>
+                      {c.render(row)}
                     </td>
                   ))}
                 </tr>
