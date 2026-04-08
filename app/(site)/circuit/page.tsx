@@ -50,9 +50,9 @@ export default async function CircuitPage() {
         title="Speedium"
         subtitle="전설이 시작되는 서킷 — 인제 GT 마스터즈 전 라운드 개최지"
         breadcrumb={[
-          { label: '인제 GT 마스터즈', href: '/' },
-          { label: 'SEASON', href: '/season' },
-          { label: '인제스피디움' },
+          { label: '인제GT마스터즈', href: '/' },
+          { label: 'INJE GT MASTERS', href: '/history' },
+          { label: 'Speedium' },
         ]}
       />
 
