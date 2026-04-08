@@ -78,7 +78,7 @@ export default function SectionEntry({ settings, classes }: Props) {
 
             <Link href="/entry" className="btn-primary-red">
               <i className="fa fa-flag-checkered" />
-              {isOpen ? '지금 신청하기' : '참가 신청 페이지'}
+              {isOpen ? '지금 신청하기' : 'Register'}
             </Link>
           </div>
 

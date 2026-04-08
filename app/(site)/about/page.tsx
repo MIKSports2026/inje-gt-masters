@@ -203,7 +203,7 @@ export default async function AboutPage() {
           </h2>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/entry" className="btn-fill" style={{ fontSize: '1rem', padding: '14px 32px' }}>
-              <i className="fa fa-flag-checkered" /> 참가 신청하기
+              <i className="fa fa-flag-checkered" /> Register
             </Link>
             <Link href="/season" className="btn-line" style={{ fontSize: '1rem', padding: '14px 32px', color: 'rgba(255,255,255,.7)', borderColor: 'rgba(255,255,255,.3)' }}>
               2026 시즌 일정 보기

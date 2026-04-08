@@ -150,7 +150,7 @@ export default function AdminApplicationsPage() {
               INJE GT MASTERS ADMIN
             </p>
             <h1 style={{ margin: 0, fontSize: '26px', fontWeight: 800, color: '#fff' }}>
-              참가신청 목록
+              Register 목록
               <span style={{ marginLeft: '12px', fontSize: '16px', color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}>
                 {filtered.length}건
               </span>

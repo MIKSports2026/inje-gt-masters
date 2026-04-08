@@ -154,7 +154,7 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
                   </Link>
                 ) : (
                   <Link href="/entry" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
-                    참가 신청 페이지
+                    Register
                   </Link>
                 )}
               </div>

@@ -170,7 +170,7 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
               <Link href="/entry" className="btn btn-primary">
                 <i className="fa-solid fa-flag-checkered" />
-                참가 신청
+                Register
               </Link>
               {hasTuning && (
                 <button

@@ -50,7 +50,7 @@ const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
         <div style={{ marginTop: '20px' }}>
           <Link href="/entry" className="btn btn-primary">
             <i className="fa-solid fa-flag-checkered" />
-            2026 참가 신청
+            2026 Register
           </Link>
         </div>
       </PageHero>
@@ -69,7 +69,7 @@ const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
           <div className="btns" style={{ justifyContent: 'center' }}>
             <Link href="/entry" className="btn btn-primary" style={{ fontSize: '1.05rem', minHeight: '56px' }}>
               <i className="fa-solid fa-flag-checkered" />
-              참가 신청하기
+              Register
             </Link>
             <Link href="/results" className="btn btn-ghost">
               경기 결과 보기

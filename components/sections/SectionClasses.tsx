@@ -96,11 +96,11 @@ export default function SectionClasses({ classes }: { classes: ClassInfo[] }) {
           border:'1px solid rgba(230,0,35,.2)',borderRadius:'8px',
         } as any}>
           <div>
-            <strong style={{fontSize:'1.1rem'}}>6개 클래스 참가 신청 접수중</strong>
+            <strong style={{fontSize:'1.1rem'}}>6개 클래스 Register 접수중</strong>
             <p style={{color:'var(--muted)',fontSize:'.92rem',marginTop:'4px'}}>GT 내구레이스 · 드리프트 · 바이크 · 슈퍼카 챌린지</p>
           </div>
           <Link href="/entry" className="btn btn-primary">
-            <i className="fa-solid fa-flag-checkered" /> 참가 신청하기
+            <i className="fa-solid fa-flag-checkered" /> Register
           </Link>
         </RevealOnScroll>
 

@@ -61,7 +61,7 @@ export default function NotFound() {
           </Link>
           <Link href="/entry" className="btn btn-ghost" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.25)' }}>
             <i className="fa-solid fa-flag-checkered" />
-            참가 신청
+            Register
           </Link>
         </div>
       </div>

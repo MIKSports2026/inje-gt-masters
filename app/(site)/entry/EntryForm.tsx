@@ -132,7 +132,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
 
   if (!isOpen) return (
     <div className="ef-summary" style={{ textAlign: 'center', padding: 40 }}>
-      <p style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>현재 참가 신청 접수 기간이 아닙니다.</p>
+      <p style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>현재 Register 접수 기간이 아닙니다.</p>
     </div>
   )
 

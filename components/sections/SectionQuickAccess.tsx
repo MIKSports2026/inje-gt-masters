@@ -4,7 +4,7 @@ import type { SiteSettings } from '@/types/sanity'
 
 const CARDS = [
   { icon:'fa-solid fa-calendar-days',  title:'2026 라운드 일정', desc:'개막전부터 파이널까지 전체 라운드 일정을 확인하세요.', href:'/#season' },
-  { icon:'fa-solid fa-flag-checkered', title:'참가 신청하기',     desc:'온라인 신청서 작성 후 토스페이먼츠로 빠르게 결제하세요.', href:'/entry' },
+  { icon:'fa-solid fa-flag-checkered', title:'Register',     desc:'온라인 신청서 작성 후 토스페이먼츠로 빠르게 결제하세요.', href:'/entry' },
   { icon:'fa-solid fa-trophy',         title:'경기 결과',         desc:'2025 파이널 기준 시즌 최종 순위 및 클래스별 결과.', href:'/#results' },
   { icon:'fa-solid fa-camera',         title:'미디어 갤러리',     desc:'레이스 현장 포토·영상·하이라이트 아카이브.', href:'/media' },
 ]

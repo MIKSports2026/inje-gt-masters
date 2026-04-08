@@ -213,7 +213,7 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
               {/* 참가신청 CTA */}
               <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '22px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,var(--red),rgba(230,0,35,.35) 35%,transparent 75%)' }} />
-                <h3 style={{ fontSize: '1rem', marginBottom: '14px' }}>참가 신청</h3>
+                <h3 style={{ fontSize: '1rem', marginBottom: '14px' }}>Register</h3>
 
                 {resolvedStatus === 'entry_open' ? (
                   <>
