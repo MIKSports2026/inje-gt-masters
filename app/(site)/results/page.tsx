@@ -71,6 +71,7 @@ export default async function ResultsPage({
                     className={`tab${selectedClass === cls.code ? ' active' : ''}`}
                     style={{
                       textDecoration: 'none',
+                      textTransform: 'none',
                       ...(selectedClass === cls.code ? { background: cls.color, borderColor: cls.color } : {}),
                     }}
                   >
