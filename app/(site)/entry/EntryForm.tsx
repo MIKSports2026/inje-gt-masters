@@ -217,10 +217,14 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
             </div>
           </div>
           <div className="form-group">
-            <label>PREFERRED RACING NUMBER</label>
+            <label>TEAM REPRESENTATIVE</label>
+            <input type="text" placeholder="팀 대표 성명" />
+          </div>
+          <div className="form-group">
+            <label>ENTRY NUMBER</label>
             <input
               type="text"
-              placeholder="희망 레이싱 넘버 (선택)"
+              placeholder="희망 엔트리 넘버 (선택)"
               value={form.preferredNumber}
               onChange={e => set('preferredNumber', e.target.value)}
               maxLength={3}
@@ -426,7 +430,7 @@ function DriverFields({ driver, idx, setDriver, showContact }: {
         </div>
         <div className="form-group">
           <label>EMAIL *</label>
-          <input type="email" placeholder="driver@example.com" value={driver.email} onChange={e => setDriver(idx, 'email', e.target.value)} />
+          <input type="email" placeholder="이메일 주소" value={driver.email} onChange={e => setDriver(idx, 'email', e.target.value)} />
         </div>
       </div>
     )}
