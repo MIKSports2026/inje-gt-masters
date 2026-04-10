@@ -55,12 +55,12 @@ const COLS: { label: string; render: (row: Row) => string }[] = [
       const s = struct(row)
       return s === 'C' ? (row[21] ?? '—') : s === 'B' ? (row[19] ?? '—') : '—'
   }},
-  { label: '드라이버', render: (row) => struct(row) === 'C'
-      ? [row[7],  row[13], row[17]].filter(Boolean).join(' / ')
-      : [row[5],  row[11], row[15]].filter(Boolean).join(' / ') },
-  { label: '혈액형',   render: (row) => struct(row) === 'C'
-      ? [row[9],  row[15], row[19]].filter(Boolean).join(' / ')
-      : [row[7],  row[13], row[17]].filter(Boolean).join(' / ') },
+  { label: '드라이버 1', render: (row) => (struct(row) === 'C' ? row[7]  : row[5])  || '—' },
+  { label: '혈액형 1',   render: (row) => (struct(row) === 'C' ? row[9]  : row[7])  || '—' },
+  { label: '드라이버 2', render: (row) => (struct(row) === 'C' ? row[13] : row[11]) || '—' },
+  { label: '혈액형 2',   render: (row) => (struct(row) === 'C' ? row[15] : row[13]) || '—' },
+  { label: '드라이버 3', render: (row) => (struct(row) === 'C' ? row[17] : row[15]) || '—' },
+  { label: '혈액형 3',   render: (row) => (struct(row) === 'C' ? row[19] : row[17]) || '—' },
   { label: '연락처',   render: (row) => (struct(row) === 'C' ? row[10] : row[8]) ?? '—' },
   { label: '이메일',   render: (row) => (struct(row) === 'C' ? row[11] : row[9]) ?? '—' },
 ]
