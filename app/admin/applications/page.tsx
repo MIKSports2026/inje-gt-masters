@@ -26,6 +26,15 @@ function fmtDate(iso: string | undefined): string {
   } catch { return iso }
 }
 
+function fmtPhone(val: string | undefined): string {
+  if (!val) return '—'
+  if (/^\d{10}$/.test(val) && val[0] === '1') {
+    const p = '0' + val
+    return `${p.slice(0, 3)}-${p.slice(3, 7)}-${p.slice(7)}`
+  }
+  return val
+}
+
 function fmtRound(val: string | undefined): string {
   if (!val) return '—'
   const m = val.match(/^R(\d+)\s/)
@@ -61,7 +70,7 @@ const COLS: { label: string; render: (row: Row) => string }[] = [
   { label: '혈액형 2',   render: (row) => (struct(row) === 'C' ? row[15] : row[13]) || '—' },
   { label: '드라이버 3', render: (row) => (struct(row) === 'C' ? row[17] : row[15]) || '—' },
   { label: '혈액형 3',   render: (row) => (struct(row) === 'C' ? row[19] : row[17]) || '—' },
-  { label: '연락처',   render: (row) => (struct(row) === 'C' ? row[10] : row[8]) ?? '—' },
+  { label: '연락처',   render: (row) => fmtPhone(struct(row) === 'C' ? row[10] : row[8]) },
   { label: '이메일',   render: (row) => (struct(row) === 'C' ? row[11] : row[9]) ?? '—' },
 ]
 
