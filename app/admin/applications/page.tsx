@@ -42,17 +42,24 @@ function fmtRound(val: string | undefined): string {
   return val
 }
 
-// 구조 판단: C → length>=23 / B → length>=20 / A → 나머지
+function isIso(val: string | undefined): boolean {
+  return !!val && /\d{4}-\d{2}-\d{2}T/.test(val)
+}
+
+// 구조 판단: ISO 날짜 위치 기반
+// C → row[22]가 ISO / B → row[20]이 ISO / A → 나머지
 function struct(row: Row): 'C' | 'B' | 'A' {
-  if (row.length >= 23) return 'C'
-  if (row.length >= 20) return 'B'
+  if (isIso(row[22])) return 'C'
+  if (isIso(row[20])) return 'B'
   return 'A'
 }
 
 const COLS: { label: string; render: (row: Row) => string }[] = [
   { label: '신청일시', render: (row) => {
       const s = struct(row)
-      return fmtDate(s === 'C' ? row[22] : s === 'B' ? row[20] : row[19])
+      if (s === 'C') return fmtDate(row[22])
+      if (s === 'B') return fmtDate(row[20])
+      return fmtDate(isIso(row[19]) ? row[19] : undefined)
   }},
   { label: '참가유형', render: (row) => row[0] ?? '—' },
   { label: '라운드',   render: (row) => fmtRound(row[1]) },
