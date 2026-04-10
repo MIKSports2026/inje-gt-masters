@@ -217,7 +217,7 @@ export async function POST(req: Request) {
 
     await Promise.all([
       resend.emails.send({
-        from: FROM, to: ADMIN,
+        from: FROM, to: ADMIN, cc: 'hynam@miksports.com',
         subject: `[참가신청] ${teamName} - ${className} - ${roundLabel}`,
         html: adminHtml, replyTo: contactEmail,
       }),
