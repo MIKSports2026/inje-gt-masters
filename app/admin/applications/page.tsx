@@ -19,21 +19,24 @@ import Breadcrumb from '@/components/ui/Breadcrumb'
 //   [21]희망번호, [22]신청일시(ISO)
 
 function fmtDate(iso: string | undefined): string {
-  if (!iso || !/\d{4}-\d{2}-\d{2}T/.test(iso)) return iso ?? '—'
+  if (!iso || !/\d{4}-\d{2}-\d{2}T/.test(iso)) return iso || '—'
   try {
     const kst = new Date(new Date(iso).getTime() + 9 * 60 * 60 * 1000)
     return kst.toISOString().slice(0, 10) + ' ' + kst.toISOString().slice(11, 16)
   } catch { return iso }
 }
 
-function isIso(val: string | undefined): boolean {
-  return !!val && /\d{4}-\d{2}-\d{2}T/.test(val)
+function fmtRound(val: string | undefined): string {
+  if (!val) return '—'
+  const m = val.match(/^R(\d+)\s/)
+  if (m) return `Round ${m[1]}`
+  return val
 }
 
-// 구조 판단: C → length>=23 / B → length>=21 && row[20] ISO날짜 / A → 나머지
+// 구조 판단: C → length>=23 / B → length>=20 / A → 나머지
 function struct(row: Row): 'C' | 'B' | 'A' {
   if (row.length >= 23) return 'C'
-  if (row.length >= 21 && isIso(row[20])) return 'B'
+  if (row.length >= 20) return 'B'
   return 'A'
 }
 
@@ -43,7 +46,7 @@ const COLS: { label: string; render: (row: Row) => string }[] = [
       return fmtDate(s === 'C' ? row[22] : s === 'B' ? row[20] : row[19])
   }},
   { label: '참가유형', render: (row) => row[0] ?? '—' },
-  { label: '라운드',   render: (row) => row[1] ?? '—' },
+  { label: '라운드',   render: (row) => fmtRound(row[1]) },
   { label: '클래스',   render: (row) => row[2] ?? '—' },
   { label: '팀명',     render: (row) => row[3] ?? '—' },
   { label: '팀 대표',  render: (row) => struct(row) === 'C' ? (row[5] ?? '—') : '—' },
