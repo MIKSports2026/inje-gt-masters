@@ -4,7 +4,7 @@ import { Resend } from 'resend'
 import { google } from 'googleapis'
 
 const ADMIN = process.env.ADMIN_EMAIL ?? 'miksports2026@gmail.com'
-const FROM  = 'onboarding@resend.dev'
+const FROM  = 'noreply@injegtmasters.com'
 
 interface Driver {
   name: string
