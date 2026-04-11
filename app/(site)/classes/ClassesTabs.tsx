@@ -1,10 +1,8 @@
 'use client'
-// app/(site)/classes/ClassesTabs.tsx — 탭 네비게이션 + 탭 콘텐츠 + 토글
+// app/(site)/classes/ClassesTabs.tsx — 풀블리드 히어로 카드 + skewX 탭
 import { useState } from 'react'
 import Link from 'next/link'
 import type { ClassPageData } from './page'
-
-const CUT = 'polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%)'
 
 /** Portable Text 배열 또는 문자열에서 텍스트 추출 */
 function extractText(v: any): string {
@@ -24,247 +22,280 @@ function extractText(v: any): string {
   return ''
 }
 
+const fmtKRW = (n: number) => n.toLocaleString('ko-KR') + '원'
+
 export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
-  const [activeIdx, setActiveIdx]     = useState(0)
-  const [openTuning, setOpenTuning]   = useState(false)
+  const [activeIdx, setActiveIdx] = useState(0)
 
   if (!classes.length) return null
 
   const cls = classes[activeIdx]
 
   const specs = [
-    { label: '참가 자격 / 배기량', value: extractText(cls.eligibility) },
-    { label: '타이어 규정',         value: cls.tireSpec   ?? '' },
-    { label: '최저 중량',           value: cls.minWeight  ?? '' },
-    { label: '안전 장비',           value: cls.safetySpec ?? '' },
+    { label: '참가 자격',   value: extractText(cls.eligibility) },
+    { label: '개조 범위',   value: cls.tuningRange ?? '' },
+    { label: '타이어',      value: cls.tireSpec    ?? '' },
+    { label: '최저 중량',   value: cls.minWeight   ?? '' },
+    { label: '안전 장비',   value: cls.safetySpec  ?? '' },
   ].filter(s => s.value)
 
-  const hasTuning = !!(cls.tuningRange || cls.features?.length)
-
-  const fmtKRW = (n: number) => n.toLocaleString('ko-KR') + '원'
-
-  const handleTab = (i: number) => {
-    setActiveIdx(i)
-    setOpenTuning(false)
-  }
+  const hasFee = cls.entryFeePerRound || cls.entryFeePerSeason
 
   return (
-    <section style={{ background: 'var(--bg-carbon)', padding: '48px 0 80px' }}>
-      <div className="container">
+    <div style={{ background: '#111' }}>
 
-        {/* ── 탭 네비게이션 ─────────────────────────────────────── */}
-        <nav aria-label="클래스 선택" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '40px' }}>
-          {classes.map((c, i) => (
-            <button
-              key={c._id}
-              role="tab"
-              aria-selected={i === activeIdx}
-              onClick={() => handleTab(i)}
-              style={{
-                padding: '10px 28px',
-                background:   i === activeIdx ? 'var(--primary-red)' : 'var(--bg-2)',
-                color:        i === activeIdx ? '#fff' : 'var(--text-sub)',
-                border:       'none',
-                cursor:       'pointer',
-                fontSize:     '13px',
-                fontWeight:   700,
-                letterSpacing: '.06em',
-                clipPath:     CUT,
-                transition:   'background .2s, color .2s',
-              }}
-            >
-              {c.name}
-            </button>
-          ))}
-        </nav>
+      {/* ── 탭 바 ─────────────────────────────────────────────── */}
+      <nav
+        aria-label="클래스 선택"
+        style={{
+          background:   '#1a1a1a',
+          borderBottom: '1px solid #2a2a2a',
+          display:      'flex',
+          gap:          '4px',
+          padding:      '20px 40px 0',
+          overflowX:    'auto',
+        }}
+      >
+        {classes.map((c, i) => (
+          <button
+            key={c._id}
+            role="tab"
+            aria-selected={i === activeIdx}
+            onClick={() => setActiveIdx(i)}
+            style={{
+              fontFamily:    'var(--font-oswald, Oswald, sans-serif)',
+              fontSize:      '13px',
+              fontWeight:    700,
+              letterSpacing: '1px',
+              color:         i === activeIdx ? '#fff' : '#777',
+              background:    i === activeIdx ? '#E60023' : 'transparent',
+              border:        'none',
+              padding:       '12px 28px',
+              cursor:        'pointer',
+              transform:     'skewX(-15deg)',
+              transition:    'background .2s, color .2s',
+              whiteSpace:    'nowrap',
+              flexShrink:    0,
+            }}
+          >
+            <span style={{ display: 'inline-block', transform: 'skewX(15deg)' }}>
+              {c.name.toUpperCase()}
+            </span>
+          </button>
+        ))}
+      </nav>
 
-        {/* ── 탭 콘텐츠 ─────────────────────────────────────────── */}
-        <div style={{
-          display:               'grid',
-          gridTemplateColumns:   'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
-          gap:                   '40px',
-          alignItems:            'start',
-        }}>
+      {/* ── 풀블리드 히어로 카드 ──────────────────────────────── */}
+      <div
+        style={{
+          position:   'relative',
+          minHeight:  '520px',
+          display:    'flex',
+          alignItems: 'center',
+          overflow:   'hidden',
+        }}
+      >
+        {/* 배경 이미지 */}
+        <div
+          aria-hidden="true"
+          style={{
+            position:           'absolute',
+            inset:              0,
+            backgroundImage:    cls.imageUrl ? `url(${cls.imageUrl})` : undefined,
+            backgroundSize:     'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat:   'no-repeat',
+            background:         cls.imageUrl ? undefined : 'linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%)',
+          }}
+        />
 
-          {/* 좌: 차량 이미지 */}
-          <div style={{
-            background:   'var(--bg-2)',
-            clipPath:     CUT,
-            overflow:     'hidden',
-            aspectRatio:  '16 / 9',
-          }}>
-            {cls.imageUrl
-              ? (
-                <img
-                  src={cls.imageUrl}
-                  alt={cls.name}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
-              )
-              : (
-                <div style={{
-                  width: '100%', height: '100%', minHeight: '200px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--text-sub)', fontSize: '13px',
-                }} />
-              )
-            }
-          </div>
+        {/* 그라데이션 오버레이 */}
+        <div
+          aria-hidden="true"
+          style={{
+            position:   'absolute',
+            inset:      0,
+            background: 'linear-gradient(to right, rgba(0,0,0,.92) 0%, rgba(0,0,0,.75) 50%, rgba(0,0,0,.35) 100%)',
+          }}
+        />
 
-          {/* 우: 클래스 정보 */}
+        {/* 콘텐츠 그리드 */}
+        <div
+          style={{
+            position:            'relative',
+            zIndex:              2,
+            display:             'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%,360px),1fr))',
+            gap:                 '60px',
+            padding:             'clamp(40px,6vw,72px) clamp(24px,5vw,64px)',
+            width:               '100%',
+            maxWidth:            '1200px',
+            margin:              '0 auto',
+          }}
+        >
+
+          {/* ── 좌측 패널 ──────────────────────────────────────── */}
           <div>
-            <h2 style={{
-              color:          '#fff',
-              fontSize:       'clamp(1.5rem, 3vw, 2.2rem)',
-              fontWeight:     900,
-              letterSpacing:  '-.02em',
-              marginBottom:   '24px',
+            {/* 배지 */}
+            <div style={{
+              display:       'inline-block',
+              background:    '#E60023',
+              fontFamily:    'var(--font-oswald, Oswald, sans-serif)',
+              fontSize:      '11px',
+              fontWeight:    700,
+              letterSpacing: '3px',
+              color:         '#fff',
+              padding:       '4px 16px',
+              marginBottom:  '16px',
+              clipPath:      'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)',
             }}>
-              {cls.name}
+              ENTRY CLASS
+            </div>
+
+            {/* 클래스명 */}
+            <h2 style={{
+              fontFamily:    'var(--font-oswald, Oswald, sans-serif)',
+              fontSize:      'clamp(40px,6vw,72px)',
+              fontWeight:    700,
+              lineHeight:    1,
+              letterSpacing: '-1px',
+              color:         '#fff',
+              marginBottom:  '10px',
+            }}>
+              {cls.name.replace(/Masters\s*/i, 'MASTERS ')}
             </h2>
 
-            {/* 스펙 목록 */}
-            {specs.length > 0 && (
-              <dl style={{ display: 'flex', flexDirection: 'column', marginBottom: '28px' }}>
-                {specs.map(s => (
-                  <div key={s.label} style={{
-                    display:      'flex',
-                    gap:          '16px',
-                    padding:      '12px 0',
-                    borderBottom: '1px solid rgba(255,255,255,.07)',
-                  }}>
+            {/* tagline */}
+            {cls.tuningRange && (
+              <p style={{ fontSize: '15px', color: '#aaa', marginBottom: '32px', lineHeight: 1.5 }}>
+                {cls.tuningRange.split('\n')[0]}
+              </p>
+            )}
+
+            {/* 구분선 */}
+            <div style={{ width: '40px', height: '2px', background: '#E60023', marginBottom: '28px' }} />
+
+            {/* 참가비 */}
+            {hasFee && (
+              <>
+                <div style={{
+                  fontFamily:    'var(--font-oswald, Oswald, sans-serif)',
+                  fontSize:      '11px',
+                  letterSpacing: '3px',
+                  color:         '#555',
+                  marginBottom:  '10px',
+                }}>
+                  ENTRY FEE
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '36px' }}>
+                  {cls.entryFeePerRound && (
+                    <div style={{
+                      background: 'rgba(255,255,255,.05)',
+                      border:     '1px solid rgba(255,255,255,.08)',
+                      padding:    '14px 16px',
+                    }}>
+                      <div style={{ fontSize: '11px', color: '#555', letterSpacing: '1px', marginBottom: '6px' }}>라운드당</div>
+                      <div style={{
+                        fontFamily: 'var(--font-oswald, Oswald, sans-serif)',
+                        fontSize:   '22px',
+                        fontWeight: 700,
+                        color:      '#fff',
+                      }}>
+                        {fmtKRW(cls.entryFeePerRound)}
+                      </div>
+                    </div>
+                  )}
+                  {cls.entryFeePerSeason && (
+                    <div style={{
+                      background: 'rgba(255,255,255,.05)',
+                      border:     '1px solid rgba(255,255,255,.08)',
+                      padding:    '14px 16px',
+                    }}>
+                      <div style={{ fontSize: '11px', color: '#555', letterSpacing: '1px', marginBottom: '6px' }}>연간 패키지</div>
+                      <div style={{
+                        fontFamily: 'var(--font-oswald, Oswald, sans-serif)',
+                        fontSize:   '22px',
+                        fontWeight: 700,
+                        color:      '#fff',
+                      }}>
+                        {fmtKRW(cls.entryFeePerSeason)}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
+            {/* REGISTER 버튼 */}
+            <Link
+              href="/entry"
+              style={{
+                display:       'inline-flex',
+                alignItems:    'center',
+                gap:           '10px',
+                background:    '#E60023',
+                color:         '#fff',
+                fontFamily:    'var(--font-oswald, Oswald, sans-serif)',
+                fontSize:      '15px',
+                fontWeight:    700,
+                letterSpacing: '2px',
+                padding:       '16px 40px',
+                textDecoration:'none',
+                clipPath:      'polygon(16px 0%,100% 0%,calc(100% - 16px) 100%,0% 100%)',
+              }}
+            >
+              REGISTER NOW →
+            </Link>
+          </div>
+
+          {/* ── 우측 패널 — TECHNICAL SPECS ────────────────────── */}
+          {specs.length > 0 && (
+            <div>
+              <div style={{
+                fontFamily:    'var(--font-oswald, Oswald, sans-serif)',
+                fontSize:      '12px',
+                fontWeight:    600,
+                letterSpacing: '4px',
+                color:         '#E60023',
+                marginBottom:  '20px',
+              }}>
+                TECHNICAL SPECS
+              </div>
+
+              <dl style={{ margin: 0 }}>
+                {specs.map((s, i) => (
+                  <div
+                    key={s.label}
+                    style={{
+                      display:      'grid',
+                      gridTemplateColumns: '130px 1fr',
+                      gap:          '16px',
+                      padding:      '16px 0',
+                      borderTop:    i === 0 ? '1px solid rgba(255,255,255,.07)' : undefined,
+                      borderBottom: '1px solid rgba(255,255,255,.07)',
+                    }}
+                  >
                     <dt style={{
-                      color:         'var(--text-sub)',
+                      fontFamily:    'var(--font-oswald, Oswald, sans-serif)',
                       fontSize:      '12px',
-                      fontWeight:    700,
-                      letterSpacing: '.04em',
-                      minWidth:      '110px',
-                      flexShrink:    0,
+                      letterSpacing: '2px',
+                      color:         '#555',
                       paddingTop:    '2px',
+                      margin:        0,
                     }}>
                       {s.label}
                     </dt>
-                    <dd style={{ color: 'var(--text-mid)', fontSize: '14px', margin: 0, lineHeight: 1.7 }}>
+                    <dd style={{ fontSize: '14px', color: '#ccc', margin: 0, lineHeight: 1.65 }}>
                       {s.value}
                     </dd>
                   </div>
                 ))}
               </dl>
-            )}
-
-            {/* 참가비 — 작고 조용하게 */}
-            {(cls.entryFeePerRound || cls.entryFeePerSeason) && (
-              <div style={{
-                color:         'var(--text-sub)',
-                fontSize:      '12px',
-                lineHeight:    1.8,
-                letterSpacing: '.02em',
-                marginBottom:  '20px',
-              }}>
-                {cls.entryFeePerRound  && <div>라운드 참가비 {fmtKRW(cls.entryFeePerRound)}</div>}
-                {cls.entryFeePerSeason && <div>시즌 참가비 {fmtKRW(cls.entryFeePerSeason)}</div>}
-              </div>
-            )}
-
-            {/* 참가 신청 + 개조 범위 토글 */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-              <Link href="/entry" className="btn btn-primary">
-                <i className="fa-solid fa-flag-checkered" />
-                Register
-              </Link>
-              {hasTuning && (
-                <button
-                  onClick={() => setOpenTuning(v => !v)}
-                  style={{
-                    background:    'none',
-                    border:        '1px solid rgba(255,255,255,.15)',
-                    color:         'var(--text-sub)',
-                    cursor:        'pointer',
-                    padding:       '10px 18px',
-                    fontSize:      '12px',
-                    fontWeight:    700,
-                    letterSpacing: '.04em',
-                    transition:    'border-color .2s, color .2s',
-                  }}
-                >
-                  개조 범위 상세 {openTuning ? '▲' : '▼'}
-                </button>
-              )}
             </div>
-          </div>
+          )}
+
         </div>
-
-        {/* ── 개조 범위 + features 토글 패널 ──────────────────────── */}
-        {openTuning && hasTuning && (
-          <div style={{
-            marginTop:    '48px',
-            borderTop:    '1px solid rgba(255,255,255,.08)',
-            paddingTop:   '40px',
-          }}>
-
-            {cls.tuningRange && (
-              <div style={{ marginBottom: '36px' }}>
-                <h3 style={{
-                  color:         'var(--primary-red)',
-                  fontSize:      '11px',
-                  fontWeight:    800,
-                  letterSpacing: '.1em',
-                  textTransform: 'uppercase',
-                  marginBottom:  '14px',
-                }}>
-                  개조 범위
-                </h3>
-                <p style={{
-                  color:      'var(--text-mid)',
-                  fontSize:   '14px',
-                  lineHeight: 1.85,
-                  whiteSpace: 'pre-line',
-                  maxWidth:   '720px',
-                }}>
-                  {cls.tuningRange}
-                </p>
-              </div>
-            )}
-
-            {cls.features && cls.features.length > 0 && (
-              <div>
-                <h3 style={{
-                  color:         'var(--primary-red)',
-                  fontSize:      '11px',
-                  fontWeight:    800,
-                  letterSpacing: '.1em',
-                  textTransform: 'uppercase',
-                  marginBottom:  '16px',
-                }}>
-                  주요 특징
-                </h3>
-                <div style={{
-                  display:               'grid',
-                  gridTemplateColumns:   'repeat(auto-fill, minmax(200px, 1fr))',
-                  gap:                   '12px',
-                }}>
-                  {cls.features.map((f, i) => (
-                    <div key={i} style={{
-                      background:  'var(--bg-2)',
-                      padding:     '16px 18px',
-                      borderLeft:  '3px solid var(--primary-red)',
-                    }}>
-                      <div style={{ color: 'var(--text-sub)', fontSize: '11px', fontWeight: 700, letterSpacing: '.04em', marginBottom: '5px' }}>
-                        {f.label}
-                      </div>
-                      <div style={{ color: 'var(--text)', fontSize: '14px', fontWeight: 700 }}>
-                        {f.value}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-          </div>
-        )}
-
       </div>
-    </section>
+    </div>
   )
 }
