@@ -82,10 +82,6 @@ export default function ClassesClient({ classes }: Props) {
               className={styles.carImageWrap}
               style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
             />
-            <div className={styles.classBadge}>
-              <span className={styles.badgeLabel}>CLASS</span>
-              <span className={styles.badgeName}>{displayName}</span>
-            </div>
             <span className={styles.classWatermark}>
               {String(activeTab + 1).padStart(2, '0')}
             </span>
@@ -100,18 +96,41 @@ export default function ClassesClient({ classes }: Props) {
               <p className={styles.specDesc}>{cls.tagline}</p>
             )}
 
-            {/* 스펙 그리드 (features) */}
-            {cls.features && cls.features.length > 0 && (
-              <div className={styles.specGrid}>
-                {cls.features.map((spec, i) => (
-                  <div key={i} className={styles.specBox}>
-                    <span className={styles.specBoxCorner} aria-hidden="true" />
-                    <span className={styles.specLabel}>{spec.label}</span>
-                    <span className={styles.specValue}>{spec.value}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* 스펙 그리드 */}
+            <div className={styles.specGrid}>
+              {cls.tireSpec && (
+                <div className={styles.specBox}>
+                  <span className={styles.specBoxCorner} aria-hidden="true" />
+                  <span className={styles.specLabel}>타이어 규정</span>
+                  <span className={styles.specValue}>{cls.tireSpec}</span>
+                </div>
+              )}
+              {cls.minWeight && (
+                <div className={styles.specBox}>
+                  <span className={styles.specBoxCorner} aria-hidden="true" />
+                  <span className={styles.specLabel}>최저 중량</span>
+                  <span className={styles.specValue}>{cls.minWeight}</span>
+                </div>
+              )}
+              {cls.safetySpec && (
+                <div className={styles.specBox}>
+                  <span className={styles.specBoxCorner} aria-hidden="true" />
+                  <span className={styles.specLabel}>안전 규정</span>
+                  <span className={styles.specValue}>{cls.safetySpec}</span>
+                </div>
+              )}
+              {(cls.entryFeePerRound || cls.entryFeePerSeason) && (
+                <div className={styles.specBox}>
+                  <span className={styles.specBoxCorner} aria-hidden="true" />
+                  <span className={styles.specLabel}>참가비</span>
+                  <span className={styles.specValue}>
+                    {cls.entryFeePerRound ? `라운드 ${cls.entryFeePerRound.toLocaleString('ko-KR')}원` : ''}
+                    {cls.entryFeePerRound && cls.entryFeePerSeason ? ' / ' : ''}
+                    {cls.entryFeePerSeason ? `시즌 ${cls.entryFeePerSeason.toLocaleString('ko-KR')}원` : ''}
+                  </span>
+                </div>
+              )}
+            </div>
 
             {/* 규정집 다운로드 */}
             {cls.regulationPdf?.asset?.url ? (
