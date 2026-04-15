@@ -17,7 +17,7 @@ const BREADCRUMB = [
 const SECTIONS = [
   {
     label: 'ABOUT THE SERIES',
-    title: "WHAT'S INJE GT MASTERS",
+    subtitle: '대한민국 정통 내구레이스의 자부심, "전설이 시작되는 곳"',
     body: [
       '인제GT마스터즈(INJE GT MASTERS)는 대한민국 모터스포츠의 성지인 인제스피디움에서 펼쳐지는 국내 유일의 정통 내구레이스 시리즈입니다.',
       '획일화된 규격의 레이스를 넘어 드라이버의 근성과 머신의 한계가 맞물려 돌아가는 진정한 승부의 장을 지향합니다.',
@@ -38,7 +38,6 @@ export default function AboutPage() {
     <>
       <PageHero
         title="WHAT'S INJE GT MASTERS"
-        subtitle='대한민국 정통 내구레이스의 자부심, "전설이 시작되는 곳"'
         breadcrumb={BREADCRUMB}
       />
       <div className={styles.wrapper}>
@@ -47,7 +46,12 @@ export default function AboutPage() {
           {SECTIONS.map((section) => (
             <section key={section.label} className={styles.section}>
               <p className={styles.sectionLabel}>{section.label}</p>
-              <h2 className={styles.sectionTitle}>{section.title}</h2>
+              {'subtitle' in section && (
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, marginBottom: '24px' }}>{section.subtitle}</p>
+              )}
+              {'title' in section && (
+                <h2 className={styles.sectionTitle}>{section.title}</h2>
+              )}
               <div className={styles.sectionBody}>
                 {section.body.map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
