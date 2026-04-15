@@ -44,14 +44,6 @@ export default function ClassesClient({ classes }: Props) {
 
       <div className={`container ${styles.classesContainer}`}>
 
-        {/* ── HEADER ──────────────────────────────────────────── */}
-        <div className={styles.classesHeader}>
-          <p className={styles.classesEyebrow}>2026 INJE GT MASTERS</p>
-          <h1 className={styles.classesTitle}>RACE CLASSES</h1>
-          <div className={styles.diagonalAccentBar} />
-          <p className={styles.classesSubtitle}>튜닝 아마추어 한계 돌파전</p>
-        </div>
-
         {/* ── TABS ────────────────────────────────────────────── */}
         <div className={styles.classTabs} role="tablist">
           {classes.map((item, idx) => (
@@ -98,18 +90,31 @@ export default function ClassesClient({ classes }: Props) {
 
             {/* 스펙 그리드 */}
             <div className={styles.specGrid}>
+              {cls.eligibility && (
+                <div className={styles.specBox}>
+                  <span className={styles.specBoxCorner} aria-hidden="true" />
+                  <span className={styles.specLabel}>참가 가능 차량</span>
+                  <span className={styles.specValue}>{
+                    typeof cls.eligibility === 'string'
+                      ? cls.eligibility
+                      : Array.isArray(cls.eligibility)
+                        ? cls.eligibility.map((b: any) => b?.children?.map((c: any) => c.text).join('')).filter(Boolean).join(' ')
+                        : ''
+                  }</span>
+                </div>
+              )}
+              {cls.tuningRange && (
+                <div className={styles.specBox}>
+                  <span className={styles.specBoxCorner} aria-hidden="true" />
+                  <span className={styles.specLabel}>개조 범위</span>
+                  <span className={styles.specValue} style={{whiteSpace: 'pre-line'}}>{cls.tuningRange}</span>
+                </div>
+              )}
               {cls.tireSpec && (
                 <div className={styles.specBox}>
                   <span className={styles.specBoxCorner} aria-hidden="true" />
                   <span className={styles.specLabel}>타이어 규정</span>
                   <span className={styles.specValue}>{cls.tireSpec}</span>
-                </div>
-              )}
-              {cls.minWeight && (
-                <div className={styles.specBox}>
-                  <span className={styles.specBoxCorner} aria-hidden="true" />
-                  <span className={styles.specLabel}>최저 중량</span>
-                  <span className={styles.specValue}>{cls.minWeight}</span>
                 </div>
               )}
               {cls.safetySpec && (
@@ -119,13 +124,20 @@ export default function ClassesClient({ classes }: Props) {
                   <span className={styles.specValue}>{cls.safetySpec}</span>
                 </div>
               )}
+              {cls.minWeight && (
+                <div className={styles.specBox}>
+                  <span className={styles.specBoxCorner} aria-hidden="true" />
+                  <span className={styles.specLabel}>최저 중량</span>
+                  <span className={styles.specValue}>{cls.minWeight}</span>
+                </div>
+              )}
               {(cls.entryFeePerRound || cls.entryFeePerSeason) && (
                 <div className={styles.specBox}>
                   <span className={styles.specBoxCorner} aria-hidden="true" />
                   <span className={styles.specLabel}>참가비</span>
-                  <span className={styles.specValue}>
+                  <span className={styles.specValue} style={{whiteSpace: 'pre-line'}}>
                     {cls.entryFeePerRound ? `라운드 ${cls.entryFeePerRound.toLocaleString('ko-KR')}원` : ''}
-                    {cls.entryFeePerRound && cls.entryFeePerSeason ? ' / ' : ''}
+                    {cls.entryFeePerRound && cls.entryFeePerSeason ? '\n' : ''}
                     {cls.entryFeePerSeason ? `시즌 ${cls.entryFeePerSeason.toLocaleString('ko-KR')}원` : ''}
                   </span>
                 </div>
