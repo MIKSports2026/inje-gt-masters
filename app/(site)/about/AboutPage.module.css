@@ -1,0 +1,77 @@
+/* ── 래퍼 ─────────────────────────────────────────────── */
+.wrapper {
+  background-color: var(--bg-carbon);
+  min-height: 100vh;
+  padding: 80px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.diagonalBg {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 28px,
+    rgba(230, 0, 35, 0.03) 28px,
+    rgba(230, 0, 35, 0.03) 30px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 섹션 ─────────────────────────────────────────────── */
+.section {
+  border-top: 3px solid #E60023;
+  padding-top: 36px;
+  margin-bottom: 72px;
+}
+
+.sectionLabel {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #E60023;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.sectionBody {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.9;
+  word-break: keep-all;
+  max-width: 720px;
+}
+
+.sectionBody p + p {
+  margin-top: 16px;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .wrapper { padding: 60px 0 80px; }
+  .section { padding-top: 24px; margin-bottom: 48px; }
+  .sectionTitle { font-size: 1.5rem; }
+  .sectionBody { font-size: 0.92rem; }
+}
