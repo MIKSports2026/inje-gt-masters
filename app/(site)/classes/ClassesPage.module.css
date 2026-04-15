@@ -433,3 +433,74 @@
   .indicatorDot { width: 20px; }
   .indicatorDot.active { width: 36px; }
 }
+
+/* ── 스펙 rows (와이어프레임 형식) ── */
+.specRows {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: start;
+}
+
+.specRowLabel {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary-red);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+
+.specRowValue {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+.feeRow {
+  display: flex;
+  gap: 32px;
+  padding: 18px 0 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 4px;
+}
+
+.feeItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.feeLabel {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.feeValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 768px) {
+  .specRow {
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+  }
+  .specRowLabel { font-size: 0.66rem; }
+  .specRowValue { font-size: 0.82rem; }
+}
