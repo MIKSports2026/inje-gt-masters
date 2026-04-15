@@ -16,9 +16,9 @@ const CLASSES_PAGE_QUERY = /* groq */`
     _id, name, nameEn, classCode, order, slug,
     entryFeePerRound, entryFeePerSeason,
     eligibility, tireSpec, minWeight, safetySpec, tuningRange, tagline, features,
-    heroImage{ asset->{ url } },
-    cardImage{ asset->{ url } },
-    regulationPdf{ asset->{ url } },
+    "heroImage": {"asset": {"url": heroImage.asset->url}},
+    "cardImage": {"asset": {"url": cardImage.asset->url}},
+    "regulationPdf": {"asset": {"url": regulationPdf.asset->url}},
     "imageUrl": cardImage.asset->url
   }
 `
