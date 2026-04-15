@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class 페이지 — 와이어프레임</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── 와이어프레임 배너 ── */
+    .wf-banner {
+      background: #E60023;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      font-weight: 700;
+    }
+
+    /* ── 탭 바 ── */
+    .tab-bar {
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+      display: flex;
+      gap: 4px;
+      padding: 20px 40px 0;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #888;
+      background: transparent;
+      border: none;
+      padding: 12px 28px;
+      cursor: pointer;
+      position: relative;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transform: skewX(-15deg);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn span {
+      display: inline-block;
+      transform: skewX(15deg);
+    }
+
+    .tab-btn:hover { color: #fff; background: #2a2a2a; }
+    .tab-btn.active { color: #fff; background: #E60023; }
+
+    /* ── 히어로 카드 영역 ── */
+    .hero-section {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-bg-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      color: #444;
+      letter-spacing: 3px;
+      border: 1px dashed #333;
+      padding: 12px 24px;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.92) 0%,
+        rgba(0,0,0,0.75) 50%,
+        rgba(0,0,0,0.3) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      padding: 60px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── 좌측 패널 ── */
+    .class-badge {
+      display: inline-block;
+      background: #E60023;
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #fff;
+      padding: 4px 14px;
+      margin-bottom: 16px;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    }
+
+    .class-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .class-name span { color: #E60023; }
+
+    .class-tagline {
+      font-size: 15px;
+      color: #aaa;
+      margin-bottom: 32px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: #E60023;
+      margin-bottom: 28px;
+    }
+
+    .fee-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .fee-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .fee-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 16px;
+    }
+
+    .fee-item-label { font-size: 11px; color: #666; letter-spacing: 1px; margin-bottom: 4px; }
+
+    .fee-item-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .fee-item-value small { font-size: 13px; color: #888; }
+
+    .register-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #E60023;
+      color: #fff;
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 16px 40px;
+      border: none;
+      cursor: pointer;
+      clip-path: polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%);
+      transition: background 0.2s;
+    }
+
+    .register-btn:hover { background: #cc0020; }
+
+    /* ── 우측 패널 ── */
+    .specs-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: #E60023;
+      margin-bottom: 20px;
+    }
+
+    .spec-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 16px 0;
+    }
+
+    .spec-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+
+    .spec-key {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #666;
+      padding-top: 2px;
+    }
+
+    .spec-val { font-size: 14px; color: #ccc; line-height: 1.6; }
+    .spec-val strong { color: #fff; font-weight: 700; }
+
+    /* ── 비교 노트 ── */
+    .notes-section {
+      background: #0d0d0d;
+      border-top: 1px solid #222;
+      padding: 48px 60px;
+    }
+
+    .notes-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: #E60023;
+      margin-bottom: 32px;
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .note-col h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #333;
+    }
+
+    .note-col.proposed h3 { color: #E60023; }
+
+    .note-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .note-col ul li {
+      font-size: 13px;
+      color: #888;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .note-col ul li::before { content: '—'; position: absolute; left: 0; color: #444; }
+
+    .note-col.proposed ul li { color: #bbb; }
+    .note-col.proposed ul li::before { color: #E60023; }
+
+    /* ── 탭 패널 ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <div class="wf-banner">⚡ WIREFRAME PROPOSAL — CLASS 페이지 개선안 ⚡</div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(0)"><span>MASTERS 1</span></button>
+    <button class="tab-btn" onclick="switchTab(1)"><span>MASTERS 2</span></button>
+    <button class="tab-btn" onclick="switchTab(2)"><span>MASTERS N-EVO</span></button>
+    <button class="tab-btn" onclick="switchTab(3)"><span>MASTERS N</span></button>
+    <button class="tab-btn" onclick="switchTab(4)"><span>MASTERS 3</span></button>
+  </div>
+
+  <!-- Masters 1 -->
+  <div class="tab-panel active" id="panel-0">
+    <div class="hero-section">
+      <div class="hero-bg"><div class="hero-bg-label">[ 차량 풀블리드 배경 이미지 — Sanity 연동 ]</div></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="left-panel">
+          <div class="class-badge">ENTRY CLASS</div>
+          <div class="class-name">MASTERS <span>1</span></div>
+          <div class="class-tagline">최상위 클래스, 경험과 속도의 정점</div>
+          <div class="divider"></div>
+          <div class="fee-label">ENTRY FEE</div>
+          <div class="fee-grid">
+            <div class="fee-item">
+              <div class="fee-item-label">라운드당</div>
+              <div class="fee-item-value">700,000<small>원</small></div>
+            </div>
+            <div class="fee-item">
+              <div class="fee-item-label">연간 패키지</div>
+              <div class="fee-item-value">3,000,000<small>원</small></div>
+            </div>
+          </div>
+          <button class="register-btn">REGISTER NOW →</button>
+        </div>
+        <div class="right-panel">
+          <div class="specs-title">TECHNICAL SPECS</div>
+          <div class="spec-item"><div class="spec-key">참가 자격</div><div class="spec-val"><strong>국내 A·B 라이선스</strong> 소지자</div></div>
+          <div class="spec-item"><div class="spec-key">개조 범위</div><div class="spec-val">엔진 내부 튜닝 허용 / 흡·배기 자유</div></div>
+          <div class="spec-item"><div class="spec-key">타이어</div><div class="spec-val">슬릭 타이어 허용</div></div>
+          <div class="spec-item"><div class="spec-key">최저 중량</div><div class="spec-val"><strong>1,050 kg</strong></div></div>
+          <div class="spec-item"><div class="spec-key">안전 장비</div><div class="spec-val">FIA 롤케이지 / 6점식 벨트 / HANS 필수</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Masters 2 -->
+  <div class="tab-panel" id="panel-1">
+    <div class="hero-section">
+      <div class="hero-bg"><div class="hero-bg-label">[ 차량 풀블리드 배경 이미지 — Sanity 연동 ]</div></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="left-panel">
+          <div class="class-badge">ENTRY CLASS</div>
+          <div class="class-name">MASTERS <span>2</span></div>
+          <div class="class-tagline">균형 잡힌 성능과 접근성의 클래스</div>
+          <div class="divider"></div>
+          <div class="fee-label">ENTRY FEE</div>
+          <div class="fee-grid">
+            <div class="fee-item">
+              <div class="fee-item-label">라운드당</div>
+              <div class="fee-item-value">600,000<small>원</small></div>
+            </div>
+            <div class="fee-item">
+              <div class="fee-item-label">연간 패키지</div>
+              <div class="fee-item-value">2,500,000<small>원</small></div>
+            </div>
+          </div>
+          <button class="register-btn">REGISTER NOW →</button>
+        </div>
+        <div class="right-panel">
+          <div class="specs-title">TECHNICAL SPECS</div>
+          <div class="spec-item"><div class="spec-key">참가 자격</div><div class="spec-val"><strong>국내 B 라이선스</strong> 소지자</div></div>
+          <div class="spec-item"><div class="spec-key">개조 범위</div><div class="spec-val">외부 흡·배기 허용 / 엔진 내부 제한</div></div>
+          <div class="spec-item"><div class="spec-key">타이어</div><div class="spec-val">세미슬릭 이하</div></div>
+          <div class="spec-item"><div class="spec-key">최저 중량</div><div class="spec-val"><strong>1,100 kg</strong></div></div>
+          <div class="spec-item"><div class="spec-key">안전 장비</div><div class="spec-val">롤바 / 4점식 벨트 이상</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Masters N-evo -->
+  <div class="tab-panel" id="panel-2">
+    <div class="hero-section">
+      <div class="hero-bg"><div class="hero-bg-label">[ 차량 풀블리드 배경 이미지 — Sanity 연동 ]</div></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="left-panel">
+          <div class="class-badge">ENTRY CLASS</div>
+          <div class="class-name">MASTERS <span>N-EVO</span></div>
+          <div class="class-tagline">현대 N 라인업, 진화된 퍼포먼스</div>
+          <div class="divider"></div>
+          <div class="fee-label">ENTRY FEE</div>
+          <div class="fee-grid">
+            <div class="fee-item">
+              <div class="fee-item-label">라운드당</div>
+              <div class="fee-item-value">600,000<small>원</small></div>
+            </div>
+            <div class="fee-item">
+              <div class="fee-item-label">연간 패키지</div>
+              <div class="fee-item-value">2,500,000<small>원</small></div>
+            </div>
+          </div>
+          <button class="register-btn">REGISTER NOW →</button>
+        </div>
+        <div class="right-panel">
+          <div class="specs-title">TECHNICAL SPECS</div>
+          <div class="spec-item"><div class="spec-key">참가 자격</div><div class="spec-val"><strong>국내 B 라이선스</strong> 소지자</div></div>
+          <div class="spec-item"><div class="spec-key">개조 범위</div><div class="spec-val">현대 N 차량 한정 / ECU 튜닝 허용</div></div>
+          <div class="spec-item"><div class="spec-key">타이어</div><div class="spec-val">세미슬릭 이하</div></div>
+          <div class="spec-item"><div class="spec-key">최저 중량</div><div class="spec-val"><strong>1,150 kg</strong></div></div>
+          <div class="spec-item"><div class="spec-key">안전 장비</div><div class="spec-val">롤바 / 4점식 벨트 이상</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Masters N -->
+  <div class="tab-panel" id="panel-3">
+    <div class="hero-section">
+      <div class="hero-bg"><div class="hero-bg-label">[ 차량 풀블리드 배경 이미지 — Sanity 연동 ]</div></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="left-panel">
+          <div class="class-badge">ENTRY CLASS</div>
+          <div class="class-name">MASTERS <span>N</span></div>
+          <div class="class-tagline">현대 N 순정 퍼포먼스, 공정한 경쟁</div>
+          <div class="divider"></div>
+          <div class="fee-label">ENTRY FEE</div>
+          <div class="fee-grid">
+            <div class="fee-item">
+              <div class="fee-item-label">라운드당</div>
+              <div class="fee-item-value">600,000<small>원</small></div>
+            </div>
+            <div class="fee-item">
+              <div class="fee-item-label">연간 패키지</div>
+              <div class="fee-item-value">2,500,000<small>원</small></div>
+            </div>
+          </div>
+          <button class="register-btn">REGISTER NOW →</button>
+        </div>
+        <div class="right-panel">
+          <div class="specs-title">TECHNICAL SPECS</div>
+          <div class="spec-item"><div class="spec-key">참가 자격</div><div class="spec-val"><strong>국내 B 라이선스</strong> 소지자</div></div>
+          <div class="spec-item"><div class="spec-key">개조 범위</div><div class="spec-val">현대 N 순정 유지 / 서스펜션만 허용</div></div>
+          <div class="spec-item"><div class="spec-key">타이어</div><div class="spec-val">순정 동급 라디얼</div></div>
+          <div class="spec-item"><div class="spec-key">최저 중량</div><div class="spec-val"><strong>순정 유지</strong></div></div>
+          <div class="spec-item"><div class="spec-key">안전 장비</div><div class="spec-val">롤바 / 4점식 벨트 이상</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Masters 3 -->
+  <div class="tab-panel" id="panel-4">
+    <div class="hero-section">
+      <div class="hero-bg"><div class="hero-bg-label">[ 차량 풀블리드 배경 이미지 — Sanity 연동 ]</div></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="left-panel">
+          <div class="class-badge">ENTRY CLASS</div>
+          <div class="class-name">MASTERS <span>3</span></div>
+          <div class="class-tagline">입문자를 위한 가장 친근한 클래스</div>
+          <div class="divider"></div>
+          <div class="fee-label">ENTRY FEE</div>
+          <div class="fee-grid">
+            <div class="fee-item">
+              <div class="fee-item-label">라운드당</div>
+              <div class="fee-item-value">500,000<small>원</small></div>
+            </div>
+            <div class="fee-item">
+              <div class="fee-item-label">연간 패키지</div>
+              <div class="fee-item-value">2,000,000<small>원</small></div>
+            </div>
+          </div>
+          <button class="register-btn">REGISTER NOW →</button>
+        </div>
+        <div class="right-panel">
+          <div class="specs-title">TECHNICAL SPECS</div>
+          <div class="spec-item"><div class="spec-key">참가 자격</div><div class="spec-val"><strong>국내 C 라이선스</strong> 이상</div></div>
+          <div class="spec-item"><div class="spec-key">개조 범위</div><div class="spec-val">안전 장비 외 최소 개조</div></div>
+          <div class="spec-item"><div class="spec-key">타이어</div><div class="spec-val">공도용 라디얼 타이어</div></div>
+          <div class="spec-item"><div class="spec-key">최저 중량</div><div class="spec-val"><strong>순정 유지</strong></div></div>
+          <div class="spec-item"><div class="spec-key">안전 장비</div><div class="spec-val">4점식 벨트 / 헬멧 필수</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 현재 vs 개선안 비교 노트 -->
+  <div class="notes-section">
+    <div class="notes-title">WIREFRAME NOTES — 현재 vs 개선안</div>
+    <div class="notes-grid">
+      <div class="note-col current">
+        <h3>현재 (AS-IS)</h3>
+        <ul>
+          <li>클래스 목록 단순 나열, 시각적 위계 없음</li>
+          <li>참가비 정보 없음</li>
+          <li>기술 스펙 없음</li>
+          <li>탭 전환 없음 — 스크롤로만 탐색</li>
+          <li>차량 이미지 미활용</li>
+          <li>REGISTER 버튼 연결 없음</li>
+        </ul>
+      </div>
+      <div class="note-col proposed">
+        <h3>개선안 (TO-BE)</h3>
+        <ul>
+          <li>5개 클래스 탭 전환 — skewX(-15deg) 사선 스타일</li>
+          <li>차량 풀블리드 배경 + 그라데이션 오버레이</li>
+          <li>좌측: 클래스명(대형) + tagline + 참가비(라운드/연간)</li>
+          <li>우측: TECHNICAL SPECS 5종 표 형식</li>
+          <li>REGISTER NOW 버튼 → /entry 직접 연결</li>
+          <li>Sanity 연동: 이미지·스펙·참가비 CMS 편집 가능</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const panels = document.querySelectorAll('.tab-panel');
+    const tabs = document.querySelectorAll('.tab-btn');
+    function switchTab(idx) {
+      panels.forEach((p, i) => p.classList.toggle('active', i === idx));
+      tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+    }
+  </script>
+</body>
+</html>
