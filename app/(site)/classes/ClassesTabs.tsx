@@ -53,7 +53,7 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
       <div className="container">
 
         {/* ── 탭 네비게이션 ─────────────────────────────────────── */}
-        <nav aria-label="클래스 선택" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '40px' }}>
+        <nav aria-label="클래스 선택" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '32px', overflowX: 'auto' }}>
           {classes.map((c, i) => (
             <button
               key={c._id}
@@ -61,7 +61,7 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
               aria-selected={i === activeIdx}
               onClick={() => handleTab(i)}
               style={{
-                padding: '10px 28px',
+                padding: '10px 20px',
                 background:   i === activeIdx ? 'var(--primary-red)' : 'var(--bg-2)',
                 color:        i === activeIdx ? '#fff' : 'var(--text-sub)',
                 border:       'none',
@@ -71,6 +71,8 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
                 letterSpacing: '.06em',
                 clipPath:     CUT,
                 transition:   'background .2s, color .2s',
+                flexShrink:   0,
+                whiteSpace:   'nowrap',
               }}
             >
               {c.name}
@@ -81,8 +83,8 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
         {/* ── 탭 콘텐츠 ─────────────────────────────────────────── */}
         <div style={{
           display:               'grid',
-          gridTemplateColumns:   'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
-          gap:                   '40px',
+          gridTemplateColumns:   'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+          gap:                   '32px',
           alignItems:            'start',
         }}>
 
@@ -92,6 +94,9 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
             clipPath:     CUT,
             overflow:     'hidden',
             aspectRatio:  '16 / 9',
+            minHeight:    '200px',
+            maxHeight:    '400px',
+            width:        '100%',
           }}>
             {cls.imageUrl
               ? (
@@ -138,7 +143,8 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
                       fontSize:      '12px',
                       fontWeight:    700,
                       letterSpacing: '.04em',
-                      minWidth:      '110px',
+                      minWidth:      '90px',
+                      maxWidth:      '90px',
                       flexShrink:    0,
                       paddingTop:    '2px',
                     }}>
