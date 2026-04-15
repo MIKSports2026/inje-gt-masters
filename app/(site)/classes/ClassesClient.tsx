@@ -1,7 +1,7 @@
 'use client'
 // ClassesClient.tsx — Sanity classInfo 데이터 기반 클래스 소개 페이지
 import { useState } from 'react'
-import type { ClassInfo } from '@/types/sanity'
+import type { ClassPageData } from './page'
 import styles from './ClassesPage.module.css'
 
 // classCode → 짧은 탭 태그
@@ -13,7 +13,7 @@ const TAG_MAP: Record<string, string> = {
   'masters-3':     'M3',
 }
 
-interface Props { classes: ClassInfo[] }
+interface Props { classes: ClassPageData[] }
 
 export default function ClassesClient({ classes }: Props) {
   const [activeTab, setActiveTab] = useState(0)

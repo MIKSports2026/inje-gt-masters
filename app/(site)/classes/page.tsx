@@ -4,7 +4,7 @@ import { sanityFetch } from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY } from '@/lib/queries'
 import type { SiteSettings } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
-import ClassesTabs from './ClassesTabs'
+import ClassesClient from './ClassesClient'
 
 export const metadata: Metadata = {
   title: '클래스 안내 | 인제 GT 마스터즈',
@@ -13,9 +13,12 @@ export const metadata: Metadata = {
 
 const CLASSES_PAGE_QUERY = /* groq */`
   *[_type == "classInfo" && !(_id in path("drafts.**"))] | order(order asc){
-    _id, name, order, slug,
+    _id, name, nameEn, classCode, order, slug,
     entryFeePerRound, entryFeePerSeason,
-    eligibility, tireSpec, minWeight, safetySpec, tuningRange, features,
+    eligibility, tireSpec, minWeight, safetySpec, tuningRange, tagline, features,
+    heroImage{ asset->{ url } },
+    cardImage{ asset->{ url } },
+    regulationPdf{ asset->{ url } },
     "imageUrl": cardImage.asset->url
   }
 `
@@ -23,6 +26,8 @@ const CLASSES_PAGE_QUERY = /* groq */`
 export interface ClassPageData {
   _id:               string
   name:              string
+  nameEn?:           string
+  classCode:         string
   order:             number
   slug:              { current: string }
   entryFeePerRound?: number
@@ -32,7 +37,11 @@ export interface ClassPageData {
   minWeight?:        string
   safetySpec?:       string
   tuningRange?:      string
+  tagline?:          string
   features?:         Array<{ icon?: string; label: string; value: string }>
+  heroImage?:        { asset?: { url: string } }
+  cardImage?:        { asset?: { url: string } }
+  regulationPdf?:    { asset?: { url: string } }
   imageUrl?:         string
 }
 
@@ -50,7 +59,7 @@ export default async function ClassesPage() {
         title="CLASS GUIDE"
         subtitle="참가 클래스별 차량 규정 및 참가비 안내"
       />
-      <ClassesTabs classes={classes as ClassPageData[]} />
+      <ClassesClient classes={classes as ClassPageData[]} />
     </>
   )
 }
