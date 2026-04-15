@@ -1,0 +1,118 @@
+/* ── 래퍼 ─────────────────────────────────────────────── */
+.wrapper {
+  background-color: var(--bg-carbon);
+  min-height: 100vh;
+  padding: 80px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.diagonalBg {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 28px,
+    rgba(230, 0, 35, 0.03) 28px,
+    rgba(230, 0, 35, 0.03) 30px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── 섹션 ─────────────────────────────────────────────── */
+.section {
+  border-top: 3px solid #E60023;
+  padding-top: 36px;
+  margin-bottom: 64px;
+}
+
+.sectionNum {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #E60023;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.sectionSubtitle {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: #888;
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+
+/* ── specRows ─────────────────────────────────────────── */
+.specRows {
+  display: flex;
+  flex-direction: column;
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: start;
+}
+
+.specRowLabel {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #E60023;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 2px;
+  word-break: keep-all;
+}
+
+.specRowValue {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+/* ── 강조 수치 ────────────────────────────────────────── */
+.specRowValue em {
+  font-style: normal;
+  color: #E60023;
+  font-weight: 600;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .wrapper { padding: 60px 0 80px; }
+  .section { padding-top: 24px; margin-bottom: 44px; }
+  .sectionTitle { font-size: 1.4rem; }
+
+  .specRow {
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+  }
+  .specRowLabel { font-size: 0.66rem; }
+  .specRowValue { font-size: 0.82rem; }
+}
