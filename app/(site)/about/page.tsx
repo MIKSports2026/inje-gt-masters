@@ -47,7 +47,7 @@ export default function AboutPage() {
             <section key={section.label} className={styles.section}>
               <p className={styles.sectionLabel}>{section.label}</p>
               {'subtitle' in section && (
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, marginBottom: '24px' }}>{section.subtitle}</p>
+                <p className={styles.sectionSubtitle}>{section.subtitle}</p>
               )}
               {'title' in section && (
                 <h2 className={styles.sectionTitle}>{section.title}</h2>
