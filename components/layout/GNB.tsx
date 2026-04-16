@@ -12,6 +12,7 @@ const NAV_ITEMS: NavItem[] = [
     label: 'INJE GT MASTERS',
     href: '/history',
     drop: [
+      { label: "What's INJE GT Masters", href: '/about' },
       { label: 'INJE GT MASTERS History', href: '/history' },
       { label: 'Speedium', href: '/circuit' },
     ],
