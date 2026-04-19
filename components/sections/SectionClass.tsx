@@ -1,7 +1,6 @@
 // components/sections/SectionClass.tsx — Horizontal accordion (Sanity classInfo 기반)
 'use client'
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState, useCallback } from 'react'
 import type { ClassInfo } from '@/types/sanity'
 import SectionHeader from '@/components/ui/SectionHeader'
 import type { SanityImage } from '@/types/sanity'
@@ -20,6 +19,17 @@ function getImageUrl(img: SanityImage | undefined | null): string | null {
 
 export default function SectionClass({ classes }: Props) {
   const [active, setActive] = useState(0)
+  const [overlayIndex, setOverlayIndex] = useState<number | null>(null)
+
+  const openOverlay = useCallback((e: React.MouseEvent, idx: number) => {
+    e.stopPropagation()
+    setOverlayIndex(idx)
+  }, [])
+
+  const closeOverlay = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    setOverlayIndex(null)
+  }, [])
 
   if (classes.length === 0) return null
 
@@ -62,10 +72,13 @@ export default function SectionClass({ classes }: Props) {
                     <span className="cls__p-slash" style={{ color }}>/</span>
                     <span className="cls__p-elig">{cls.tagline ?? ''}</span>
                   </div>
-                  <Link href="/entry" className="cls__p-btn" onClick={e => e.stopPropagation()}
-                    style={{ borderColor: color, color: '#fff' }}>
-                    <span className="cls__p-btn-inner">VIEW CLASS</span>
-                  </Link>
+                  <button
+                    className="cls__p-btn"
+                    onClick={e => openOverlay(e, i)}
+                    style={{ borderColor: color, color: '#fff', cursor: 'pointer' }}
+                  >
+                    <span className="cls__p-btn-inner">VIEW DETAILS</span>
+                  </button>
                 </div>
 
                 <div className="cls__p-right">
@@ -87,6 +100,59 @@ export default function SectionClass({ classes }: Props) {
                     })()}
                   </div>
                 </div>
+
+                {/* 오버레이 */}
+                {overlayIndex === i && (
+                  <div
+                    className="cls__overlay"
+                    onClick={e => closeOverlay(e)}
+                  >
+                    <div className="cls__overlay-inner" onClick={e => e.stopPropagation()}>
+                      <button
+                        className="cls__overlay-close"
+                        onClick={e => closeOverlay(e)}
+                        aria-label="닫기"
+                      >×</button>
+
+                      <div className="cls__overlay-tag" style={{ borderLeftColor: color }}>
+                        <span style={{ color }}>{cls.classCode}</span>
+                      </div>
+                      <h4 className="cls__overlay-title">{cls.name}</h4>
+
+                      <div className="cls__overlay-rows">
+                        {cls.features && cls.features.length > 0
+                          ? cls.features.map((f, fi) => (
+                            <div key={fi} className="cls__overlay-row">
+                              <span className="cls__overlay-label">{f.label}</span>
+                              <span className="cls__overlay-value">{f.value}</span>
+                            </div>
+                          ))
+                          : cls.tagline && (
+                            <div className="cls__overlay-row">
+                              <span className="cls__overlay-label">클래스 소개</span>
+                              <span className="cls__overlay-value">{cls.tagline}</span>
+                            </div>
+                          )
+                        }
+                        {(cls.entryFeePerRound || cls.entryFeeSeason) && (
+                          <div className="cls__overlay-row">
+                            <span className="cls__overlay-label">참가비</span>
+                            <span className="cls__overlay-value">
+                              {[
+                                cls.entryFeePerRound
+                                  ? `라운드 ${cls.entryFeePerRound.toLocaleString('ko-KR')}원`
+                                  : '',
+                                cls.entryFeeSeason
+                                  ? `시즌 ${cls.entryFeeSeason.toLocaleString('ko-KR')}원`
+                                  : '',
+                              ].filter(Boolean).join('\n')}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )
@@ -243,6 +309,67 @@ export default function SectionClass({ classes }: Props) {
         }
         .cls__dot--on { width: 28px; background: #E60023; }
         .cls__dot:hover { background: rgba(255,255,255,.25); }
+
+        /* Overlay */
+        .cls__overlay {
+          position: absolute; inset: 0; z-index: 20;
+          background: rgba(0,0,0,0.88);
+          display: flex; align-items: center; justify-content: center;
+          animation: cls-ov-in .18s ease;
+        }
+        @keyframes cls-ov-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        .cls__overlay-inner {
+          position: relative;
+          width: 100%; height: 100%;
+          padding: 40px 48px;
+          display: flex; flex-direction: column; justify-content: center;
+          overflow-y: auto;
+        }
+        .cls__overlay-close {
+          position: absolute; top: 16px; right: 20px;
+          background: transparent; border: none; cursor: pointer;
+          color: #fff; font-size: 1.8rem; line-height: 1;
+          padding: 4px 8px;
+          transition: color .2s;
+        }
+        .cls__overlay-close:hover { color: #E60023; }
+
+        .cls__overlay-tag {
+          display: inline-block;
+          background: #333; padding: 3px 14px;
+          border-left: 3px solid #E60023;
+          margin-bottom: 12px;
+          font-family: 'Oswald',sans-serif; font-weight: 700;
+          font-size: .85rem; letter-spacing: 2px;
+        }
+        .cls__overlay-title {
+          font-family: 'Oswald',sans-serif; font-size: 2rem; font-weight: 900;
+          text-transform: uppercase; color: #fff;
+          margin: 0 0 20px; letter-spacing: -.02em;
+        }
+
+        .cls__overlay-rows {
+          display: flex; flex-direction: column; gap: 0;
+        }
+        .cls__overlay-row {
+          display: flex; align-items: baseline; gap: 16px;
+          padding: 10px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .cls__overlay-row:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+        .cls__overlay-label {
+          font-family: 'Oswald',sans-serif; font-size: .78rem;
+          font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+          color: rgba(255,255,255,0.45); white-space: nowrap; min-width: 100px;
+        }
+        .cls__overlay-value {
+          font-family: 'Noto Sans KR',sans-serif; font-size: .9rem;
+          color: rgba(255,255,255,0.9); line-height: 1.5;
+          white-space: pre-line;
+        }
 
         @media (max-width: 900px) {
           .cls__acc { flex-direction: column; height: auto; padding: 0 20px; }
