@@ -381,13 +381,31 @@ export default function SectionClass({ classes }: Props) {
         @media (max-width: 900px) {
           .cls__acc { flex-direction: column; height: auto; padding: 0 20px; }
           .cls__p { height: 56px; flex: none !important; transition: height .4s cubic-bezier(.25,1,.5,1); }
-          .cls__p--on { height: 280px; }
+          .cls__p--on { height: auto; }
           .cls__p-collapsed { flex-direction: row; }
           .cls__p-name { writing-mode: horizontal-tb; transform: none; }
-          .cls__p-expanded { grid-template-columns: 1fr; }
-          .cls__p-right { display: none; }
-          .cls__p-left { padding: 24px; }
-          .cls__p-title { font-size: 2.5rem; }
+          .cls__p-expanded {
+            grid-template-columns: 1fr;
+            grid-template-rows: 200px auto;
+            align-items: start;
+          }
+          .cls__p-right {
+            display: flex;
+            grid-row: 1;
+            height: 200px;
+            width: 100%;
+          }
+          .cls__p-slice {
+            width: 100%;
+            height: 100%;
+            clip-path: none;
+          }
+          .cls__p-slice-cut {
+            background-size: cover;
+            background-position: center;
+          }
+          .cls__p-left { padding: 20px 24px 28px; grid-row: 2; }
+          .cls__p-title { font-size: 2.2rem; }
           .cls__hd { padding: 0 20px; }
         }
       `}</style>
