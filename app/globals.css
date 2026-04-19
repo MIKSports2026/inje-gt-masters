@@ -50,7 +50,7 @@
    RESET
 ════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; max-width: 4000px; margin: 0 auto; overflow-x: hidden; }
+html { scroll-behavior: smooth; max-width: 4000px; margin: 0 auto; overflow-x: hidden; overscroll-behavior-x: none; }
 body {
   background: var(--bg-carbon);
   color: var(--text);
@@ -774,6 +774,7 @@ textarea:focus-visible {
   background-color: var(--bg-carbon);
   padding: 80px 0;
   border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
 }
 .ac-container {
   max-width: 1440px;
@@ -972,5 +973,12 @@ textarea:focus-visible {
   .ac-item--active {
     height: 300px;
     flex: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 모바일 가로 overflow 방지 — 히어로·레이스스케줄 우측 accent 바 삐져나옴 수정 */
+  .hero-section {
+    overflow: hidden;
   }
 }
