@@ -7,6 +7,7 @@ import type { SanityImage } from '@/types/sanity'
 
 interface ClassWithGallery extends ClassInfo {
   gallery0?: SanityImage
+  tuningRange?: string
 }
 
 interface Props {
@@ -134,6 +135,12 @@ export default function SectionClass({ classes }: Props) {
                             </div>
                           )
                         }
+                        {cls.tuningRange && (
+                          <div className="cls__overlay-row">
+                            <span className="cls__overlay-label">개조 범위</span>
+                            <span className="cls__overlay-value">{cls.tuningRange}</span>
+                          </div>
+                        )}
                         {(cls.entryFeePerRound || cls.entryFeeSeason) && (
                           <div className="cls__overlay-row">
                             <span className="cls__overlay-label">참가비</span>
