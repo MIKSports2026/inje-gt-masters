@@ -307,9 +307,14 @@ export default function GNB({
           padding: 100px 28px 40px;
           overflow-y: auto;
           transform: translateX(100%);
-          transition: transform .35s cubic-bezier(.4,0,.2,1);
+          visibility: hidden;
+          transition: transform .35s cubic-bezier(.4,0,.2,1), visibility 0s linear .35s;
         }
-        .gnav__mobile--open { transform: translateX(0); }
+        .gnav__mobile--open {
+          transform: translateX(0);
+          visibility: visible;
+          transition: transform .35s cubic-bezier(.4,0,.2,1), visibility 0s;
+        }
         .gnav__mobile-group {
           padding: 18px 0;
           border-bottom: 1px solid rgba(255,255,255,.06);
