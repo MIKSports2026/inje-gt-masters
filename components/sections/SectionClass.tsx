@@ -378,6 +378,38 @@ export default function SectionClass({ classes }: Props) {
           white-space: pre-line;
         }
 
+        @media (max-width: 768px) {
+          .cls__p-expanded {
+            position: static;
+            inset: auto;
+            display: none;
+            opacity: 1;
+            pointer-events: auto;
+            transition: none;
+          }
+          .cls__p--on .cls__p-expanded {
+            display: flex;
+            flex-direction: column;
+          }
+          .cls__p-right {
+            display: block;
+            width: 100%;
+            height: 200px;
+            order: -1;
+          }
+          .cls__p-slice {
+            width: 100%;
+            height: 100%;
+            clip-path: none;
+          }
+          .cls__p-slice-cut {
+            background-size: cover;
+            background-position: center;
+          }
+          .cls__p-left { padding: 20px 20px 28px; }
+          .cls__p-title { font-size: 2rem; }
+        }
+
         @media (max-width: 900px) {
           .cls__acc { flex-direction: column; height: auto; padding: 0 20px; }
           .cls__p { height: 56px; flex: none !important; transition: height .4s cubic-bezier(.25,1,.5,1); }
