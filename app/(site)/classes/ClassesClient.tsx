@@ -56,9 +56,6 @@ export default function ClassesClient({ classes }: Props) {
             >
               <span className={styles.tabSkewBg}     aria-hidden="true" />
               <span className={styles.tabActiveLine} aria-hidden="true" />
-              <span className={styles.tabTag}>
-                {TAG_MAP[item.classCode] ?? item.classCode.slice(0, 2).toUpperCase()}
-              </span>
               <span className={styles.tabText}>{item.nameEn ?? item.name}</span>
             </button>
           ))}
