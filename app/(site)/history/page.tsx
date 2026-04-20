@@ -47,18 +47,6 @@ export default async function HistoryPage() {
                     <h2 style={{ fontSize: 'clamp(1.1rem,2vw,1.5rem)', marginBottom: '8px' }}>{h.headline}</h2>
                     {h.summary && <p style={{ color: 'var(--muted)', fontSize: '.92rem', lineHeight: 1.7, maxWidth: '640px', marginBottom: '16px' }}>{h.summary}</p>}
 
-                    {/* 통계 */}
-                    {h.stats && h.stats.length > 0 && (
-                      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                        {h.stats.map((s, i) => (
-                          <div key={i} style={{ textAlign: 'center' }}>
-                            <strong style={{ display: 'block', fontSize: '1.4rem', color: 'var(--red)', letterSpacing: '-.04em', fontWeight: 950 }}>{s.value}</strong>
-                            <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>{s.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
                     {/* 챔피언 */}
                     {h.champions && h.champions.length > 0 && (
                       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
