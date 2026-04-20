@@ -2,6 +2,7 @@
 // app/(site)/results/ResultsClient.tsx
 import { useState, useMemo } from 'react'
 import type { Round } from '@/types/sanity'
+import styles from './Results.module.css'
 
 // ── 공개 타입 (page.tsx에서 import type으로 사용) ─────────────
 export interface RoundStanding {
@@ -205,16 +206,18 @@ export default function ResultsClient({ rounds, allResults }: Props) {
 
   // ── 클래스 탭 ───────────────────────────────────────────────
   const classTabs = (
-    <div className="tabs" style={{ marginBottom: '16px', flexWrap: 'wrap' }}>
+    <div className={styles.tabGroup}>
       {CLASSES.map(cls => (
         <button
           key={cls.code} type="button"
-          className={`tab${activeClass === cls.code ? ' active' : ''}`}
+          className={`${styles.tabBtn}${activeClass === cls.code ? ` ${styles.active}` : ''}`}
           onClick={() => setActiveClass(cls.code)}
-          style={activeClass === cls.code
-            ? { background: cls.color, borderColor: cls.color }
-            : {}}
-        >{cls.label}</button>
+          style={{ '--tab-color': cls.color } as React.CSSProperties}
+        >
+          <span className={styles.tabBg} aria-hidden="true" />
+          <span className={styles.tabLine} aria-hidden="true" />
+          <span className={styles.tabLabel}>{cls.label}</span>
+        </button>
       ))}
     </div>
   )
@@ -222,12 +225,16 @@ export default function ResultsClient({ rounds, allResults }: Props) {
   return (
     <div>
       {/* ── 메인 탭 ─────────────────────────────────────────── */}
-      <div className="tabs" style={{ marginBottom: '28px' }}>
+      <div className={`${styles.tabGroup} ${styles.mainTabGroup}`}>
         {MAIN_TABS.map((t, i) => (
           <button key={i} type="button"
-            className={`tab${mainTab === i ? ' active' : ''}`}
+            className={`${styles.tabBtn} ${styles.mainTabBtn}${mainTab === i ? ` ${styles.active}` : ''}`}
             onClick={() => setMainTab(i)}
-          >{t}</button>
+          >
+            <span className={styles.tabBg} aria-hidden="true" />
+            <span className={styles.tabLine} aria-hidden="true" />
+            <span className={styles.tabLabel}>{t}</span>
+          </button>
         ))}
       </div>
 
@@ -379,16 +386,19 @@ export default function ResultsClient({ rounds, allResults }: Props) {
           </div>
 
           {/* 라운드 선택 */}
-          <div className="tabs" style={{ marginBottom: '16px' }}>
+          <div className={styles.tabGroup}>
             {ROUND_NUMS.map(n => {
               const roundInfo = rounds.find(r => r.roundNumber === n)
               return (
                 <button key={n} type="button"
-                  className={`tab${selectedRound === n ? ' active' : ''}`}
+                  className={`${styles.tabBtn}${selectedRound === n ? ` ${styles.active}` : ''}`}
                   onClick={() => setSelectedRound(n)}
                   title={roundInfo?.title}
+                  style={{ '--tab-color': color } as React.CSSProperties}
                 >
-                  R{n}
+                  <span className={styles.tabBg} aria-hidden="true" />
+                  <span className={styles.tabLine} aria-hidden="true" />
+                  <span className={styles.tabLabel}>R{n}</span>
                 </button>
               )
             })}

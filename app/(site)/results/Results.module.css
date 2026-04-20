@@ -1,0 +1,96 @@
+/* Results.module.css — /classes 탭 패턴과 동일한 사선 스타일 */
+
+/* ── 탭 컨테이너 ────────────────────────────────────────────── */
+.tabGroup {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-red, #e60023) transparent;
+  flex-wrap: nowrap;
+}
+.tabGroup::-webkit-scrollbar       { height: 3px; }
+.tabGroup::-webkit-scrollbar-thumb { background: var(--primary-red, #e60023); }
+
+/* ── 탭 버튼 공통 ───────────────────────────────────────────── */
+.tabBtn {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 10px 28px 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  --tab-color: #e60023;
+}
+
+/* ── 배경 레이어 ─────────────────────────────────────────────── */
+.tabBg {
+  position: absolute;
+  inset: 0;
+  background-color: #1c1c1c;
+  transition: background-color 0.25s ease;
+}
+
+/* ── 하단 활성 라인 ──────────────────────────────────────────── */
+.tabLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--tab-color);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+/* ── 활성 상태 ───────────────────────────────────────────────── */
+.tabBtn.active .tabLine { transform: scaleX(1); }
+.tabBtn.active .tabBg   { background-color: var(--tab-color); }
+.tabBtn:not(.active):hover .tabBg { background-color: #282828; }
+
+/* ── 텍스트 ──────────────────────────────────────────────────── */
+.tabLabel {
+  position: relative;
+  z-index: 2;
+  font-family: 'Oswald', var(--font-heading, sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #666;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+.tabBtn:not(.active):hover .tabLabel { color: #ccc; }
+.tabBtn.active .tabLabel             { color: #fff; font-weight: 900; }
+
+/* ── 메인 탭 (Driver / Team / Round) — 더 넓은 패딩 ────────── */
+.mainTabBtn {
+  padding: 12px 36px 12px 28px;
+}
+.mainTabBtn .tabLabel {
+  font-size: 0.95rem;
+  letter-spacing: 2.5px;
+}
+
+/* ── 메인 탭 그룹 하단 간격 ──────────────────────────────────── */
+.mainTabGroup {
+  margin-bottom: 28px;
+}
+
+/* ── 반응형 ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .tabGroup    { gap: 4px; scrollbar-width: none; }
+  .tabGroup::-webkit-scrollbar { display: none; }
+  .tabBtn      { padding: 8px 22px 8px 14px; }
+  .tabLabel    { font-size: 0.75rem; letter-spacing: 1px; }
+  .mainTabBtn  { padding: 10px 28px 10px 20px; }
+  .mainTabBtn .tabLabel { font-size: 0.8rem; letter-spacing: 1.5px; }
+}
