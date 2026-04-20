@@ -126,8 +126,8 @@ export default async function MediaNewsDetailPage({ params }: { params: { slug: 
                           <Image
                             src={value.asset.url}
                             alt={value.alt ?? value.caption ?? '이미지'}
-                            width={720}
-                            height={405}
+                            width={value.asset.metadata?.dimensions?.width ?? 720}
+                            height={value.asset.metadata?.dimensions?.height ?? 405}
                             style={{ width: '100%', height: 'auto' }}
                           />
                         </div>
