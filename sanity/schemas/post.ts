@@ -159,6 +159,13 @@ export default defineType({
       group: 'seo',
       validation: R => R.max(160),
     }),
+    defineField({
+      name: 'relatedRounds',
+      title: '관련 라운드',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'round' }] }],
+      description: '이 콘텐츠를 해당 라운드 상세 페이지 하단에 노출합니다. 비워두면 노출되지 않습니다.',
+    }),
   ],
 
   orderings: [
