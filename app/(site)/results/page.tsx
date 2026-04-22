@@ -31,9 +31,9 @@ const ALL_SEASON_RESULTS_QUERY = /* groq */`
 
 export default async function ResultsPage() {
   const [siteSettings, rounds, allResults] = await Promise.all([
-    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }).catch(() => null),
-    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300 }).catch(() => [] as Round[]),
-    sanityFetch<RoundResult[]>({ query: ALL_SEASON_RESULTS_QUERY, revalidate: 300 }).catch(() => [] as RoundResult[]),
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, useCdn: false }).catch(() => null),
+    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300, useCdn: false }).catch(() => [] as Round[]),
+    sanityFetch<RoundResult[]>({ query: ALL_SEASON_RESULTS_QUERY, revalidate: 300, useCdn: false }).catch(() => [] as RoundResult[]),
   ])
 
   return (
