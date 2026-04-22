@@ -165,6 +165,18 @@ export default function ResultsClient({ rounds, allResults }: Props) {
     [allResults, selectedRound, activeClass]
   )
 
+  const showStatusColumn = useMemo(
+    () => roundStandings.some(s =>
+      s.status === 'dnf' || s.status === 'dns' || s.status === 'dsq'
+    ),
+    [roundStandings]
+  )
+
+  const showBestLapColumn = useMemo(
+    () => roundStandings.some(s => !!s.fastestLap?.trim()),
+    [roundStandings]
+  )
+
   // ── 공통 스타일 ─────────────────────────────────────────────
   const cut = 'polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)'
 
@@ -455,6 +467,8 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                       <th style={TH({ textAlign: 'center' })}>랩수</th>
                       <th style={TH()}>기록</th>
                       <th style={TH()}>GAP</th>
+                      {showBestLapColumn && <th style={TH()}>BEST LAP</th>}
+                      {showStatusColumn  && <th style={TH()}>STATUS</th>}
                       <th style={TH({ textAlign: 'right', color })}>PTS</th>
                     </tr>
                   </thead>
@@ -491,6 +505,19 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                         <td style={TD({ fontFamily: 'monospace', fontSize: '.84rem', color: 'var(--muted)' })}>
                           {s.position === 1 ? 'LEADER' : (s.gap || '—')}
                         </td>
+                        {showBestLapColumn && (
+                          <td style={TD({ fontFamily: 'monospace', fontSize: '.84rem' })}>
+                            {s.fastestLap || '—'}
+                          </td>
+                        )}
+                        {showStatusColumn && (
+                          <td style={TD()}>
+                            {s.status === 'dnf' && <span className={`${styles.statusBadge} ${styles.statusDnf}`}>DNF</span>}
+                            {s.status === 'dns' && <span className={`${styles.statusBadge} ${styles.statusDns}`}>DNS</span>}
+                            {s.status === 'dsq' && <span className={`${styles.statusBadge} ${styles.statusDsq}`}>DSQ</span>}
+                            {(!s.status || s.status === 'classified') && '—'}
+                          </td>
+                        )}
                         <td style={TD({ textAlign: 'right', fontWeight: 900, color })}>
                           {s.points ?? '—'}
                         </td>

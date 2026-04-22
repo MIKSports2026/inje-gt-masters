@@ -85,6 +85,26 @@
   margin-bottom: 28px;
 }
 
+/* ── status 배지 ─────────────────────────────────────────────── */
+.statusBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.statusDnf,
+.statusDsq {
+  background: #e60023;
+  color: #ffffff;
+}
+
+.statusDns {
+  background: #555;
+  color: #ffffff;
+}
+
 /* ── 반응형 ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .tabGroup    { gap: 4px; scrollbar-width: none; }
