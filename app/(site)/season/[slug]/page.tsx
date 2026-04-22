@@ -8,6 +8,7 @@ import type { Round } from '@/types/sanity'
 import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
 import { resolveRoundStatus } from '@/lib/roundStatus'
+import SectionRelatedContent from '@/components/sections/SectionRelatedContent'
 
 const STATUS_MAP: Record<string, { text: string; color: string; bg: string }> = {
   upcoming:     { text: '예정',     color: '#3b82f6', bg: 'rgba(59,130,246,.1)'  },
@@ -52,6 +53,10 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
   const st = STATUS_MAP[resolvedStatus]
   const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
   const SESSION_COLORS: Record<string, string> = { practice: '#3b82f6', qualifying: '#f59e0b', race: '#e60023', other: '#6b7280' }
+
+  const roundLabel = (r.season != null && r.roundNumber != null)
+    ? `${r.season}-R${r.roundNumber} · 인제스피디움`
+    : r.title ?? '라운드'
 
   return (
     <>
@@ -262,6 +267,12 @@ export default async function RoundDetailPage({ params }: { params: { slug: stri
           </div>
         </div>
       </section>
+
+      <SectionRelatedContent
+        roundLabel={roundLabel}
+        posts={r.relatedPosts ?? []}
+        media={r.relatedMedia ?? []}
+      />
     </>
   )
 }

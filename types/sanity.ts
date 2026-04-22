@@ -120,6 +120,9 @@ export interface Round {
   resultUrl?:    string
   posterImage?:  SanityImage
   gallery?:      SanityImage[]
+  // 관련 콘텐츠 (라운드 상세 페이지 하단 노출용)
+  relatedPosts?:  RelatedPost[]
+  relatedMedia?:  RelatedMediaItem[]
 }
 
 // ── classInfo ─────────────────────────────────────────────────
@@ -267,6 +270,29 @@ export interface Partner {
   description?:   string
   isActive:       boolean
   sortOrder?:     number
+}
+
+// ── 라운드 상세 페이지용 관련 콘텐츠 slim 타입 ───────────────────
+export interface RelatedPost {
+  _id:         string
+  title:       string
+  slug:        SanitySlug
+  category:    PostCategory
+  publishedAt: string
+  excerpt?:    string
+  coverImage?: { asset: { _id: string; url: string } }
+}
+
+export interface RelatedMediaItem {
+  _id:              string
+  title:            string
+  slug:             SanitySlug
+  mediaType:        MediaType
+  publishedAt?:     string
+  duration?:        string
+  youtubeUrl?:      string
+  youtubeThumbnail?: string
+  coverImage?:      { asset: { _id: string; url: string } }
 }
 
 // ── history ───────────────────────────────────────────────────

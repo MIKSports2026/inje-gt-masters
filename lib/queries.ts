@@ -51,7 +51,33 @@ export const ROUND_DETAIL_QUERY = /* groq */`
     entryOpenDate, entryCloseDate, tossPaymentUrl, entryFeeNote, maxEntries,
     notices, description, hasResults,
     heroImage ${IMAGE}, posterImage ${IMAGE},
-    gallery[] ${IMAGE}
+    gallery[] ${IMAGE},
+    "relatedPosts": *[_type == "post"
+        && isHidden != true
+        && references(^._id)
+      ] | order(publishedAt desc){
+        _id,
+        title,
+        slug,
+        category,
+        publishedAt,
+        excerpt,
+        coverImage { asset->{ _id, url } }
+      },
+    "relatedMedia": *[_type == "media"
+        && isPublished == true
+        && references(^._id)
+      ] | order(sortOrder asc, publishedAt desc){
+        _id,
+        title,
+        slug,
+        mediaType,
+        publishedAt,
+        duration,
+        youtubeUrl,
+        youtubeThumbnail,
+        coverImage { asset->{ _id, url } }
+      }
   }
 `
 
