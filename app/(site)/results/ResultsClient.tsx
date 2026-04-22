@@ -141,8 +141,12 @@ export default function ResultsClient({ rounds, allResults }: Props) {
   const color = CLASSES.find(c => c.code === activeClass)?.color ?? '#e60023'
 
   const roundsWithResults = useMemo(
-    () => new Set(allResults.map(r => r.roundNumber)),
-    [allResults]
+    () => new Set(
+      allResults
+        .filter(r => r.classCode === activeClass)
+        .map(r => r.roundNumber)
+    ),
+    [allResults, activeClass]
   )
 
   const driverRows = useMemo(
