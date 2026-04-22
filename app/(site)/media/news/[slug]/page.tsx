@@ -121,6 +121,9 @@ export default async function MediaNewsDetailPage({ params }: { params: { slug: 
                       ),
                     },
                     types: {
+                      // NOTE: PortableTextRenderer.tsx와 동기화 유지 필수
+                      // 새 block type 추가 시 두 파일 모두 업데이트할 것
+                      // → components/ui/PortableTextRenderer.tsx ↔ 이 파일
                       image: ({ value }) => value?.asset?.url ? (
                         <div style={{ margin: '1.6em 0' }}>
                           <Image
@@ -128,7 +131,8 @@ export default async function MediaNewsDetailPage({ params }: { params: { slug: 
                             alt={value.alt ?? value.caption ?? '이미지'}
                             width={value.asset.metadata?.dimensions?.width ?? 720}
                             height={value.asset.metadata?.dimensions?.height ?? 405}
-                            style={{ width: '100%', height: 'auto' }}
+                            style={{ width: '100%', height: 'auto', display: 'block' }}
+                            unoptimized
                           />
                         </div>
                       ) : null,

@@ -1,24 +1,29 @@
 // components/ui/PortableTextRenderer.tsx
+// NOTE: app/(site)/media/news/[slug]/page.tsx 인라인 렌더러와 동기화 유지 필수
+// 새 block type 추가 시 두 파일 모두 업데이트할 것
+// → 이 파일 ↔ app/(site)/media/news/[slug]/page.tsx
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import Image from 'next/image'
 import type { SanityImage } from '@/types/sanity'
 
 const components: PortableTextComponents = {
   types: {
-    image: ({ value }: { value: SanityImage & { caption?: string; alt?: string } }) => {
+    image: ({ value }: { value: SanityImage & { caption?: string; alt?: string; metadata?: { dimensions?: { width?: number; height?: number } } } }) => {
       if (!value?.asset?.url) return null
+      const w = (value.asset as any)?.metadata?.dimensions?.width ?? 1200
+      const h = (value.asset as any)?.metadata?.dimensions?.height ?? 675
       return (
-        <figure className="my-6">
-          <div className="relative w-full aspect-video overflow-hidden rounded-lg"
-            style={{ clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)' }}
-          >
-            <Image
-              src={value.asset.url}
-              alt={value.alt ?? value.caption ?? ''}
-              fill
-              className="object-cover"
-            />
-          </div>
+        <figure className="my-6"
+          style={{ clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)' }}
+        >
+          <Image
+            src={value.asset.url}
+            alt={value.alt ?? value.caption ?? ''}
+            width={w}
+            height={h}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+            unoptimized
+          />
           {value.caption && (
             <figcaption className="text-sm text-muted mt-2 text-center">
               {value.caption}
