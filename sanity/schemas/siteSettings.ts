@@ -63,14 +63,93 @@ export default defineType({
       options: { hotspot: false },
     }),
 
-    /* ── 히어로 이미지 ────────────────────────────────────── */
+    /* ── 히어로 슬라이드 ─────────────────────────────────── */
+    defineField({
+      name: 'heroSlides',
+      title: '히어로 배너 슬라이드 (최대 10장, 드래그로 순서 변경)',
+      type: 'array',
+      group: 'basic',
+      description: '드래그로 우선순위 변경. 노출 토글과 스케줄링으로 제어 가능. 모든 슬라이드가 비노출 상태면 첫 슬라이드가 강제 노출됩니다.',
+      validation: (Rule) => Rule.max(10),
+      of: [
+        {
+          type: 'object',
+          name: 'heroSlide',
+          title: '슬라이드',
+          fields: [
+            {
+              name: 'image',
+              title: '이미지',
+              type: 'image',
+              options: { hotspot: true },
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'alt',
+              title: '대체 텍스트 (SEO/접근성, 필수)',
+              type: 'string',
+              description: '예: "2026 인제 GT 마스터즈 R1 결승 스타트 그리드" — 대회명/라운드/장면 순. 60자 이내 권장. 검색엔진과 스크린리더에 노출됩니다.',
+              validation: (Rule) => Rule.required().min(5).max(100),
+            },
+            {
+              name: 'isActive',
+              title: '노출',
+              type: 'boolean',
+              description: '체크 해제 시 롤링에서 제외 (삭제하지 않고 숨김).',
+              initialValue: true,
+            },
+            {
+              name: 'startAt',
+              title: '노출 시작 시각 (선택)',
+              type: 'datetime',
+              description: '비워두면 즉시 노출. 예: 일요일 07:00 설정 시 해당 시각부터 자동 노출.',
+            },
+            {
+              name: 'endAt',
+              title: '노출 종료 시각 (선택)',
+              type: 'datetime',
+              description: '비워두면 영구 노출. 예: 일요일 18:00 설정 시 해당 시각부터 자동 숨김.',
+            },
+          ],
+          preview: {
+            select: {
+              media: 'image',
+              title: 'alt',
+              isActive: 'isActive',
+              startAt: 'startAt',
+              endAt: 'endAt',
+            },
+            prepare(selected: Record<string, string | boolean | undefined>) {
+              const { media, title, isActive, startAt, endAt } = selected
+              const now = new Date()
+              let status = '✅ 노출'
+              if (isActive === false) {
+                status = '❌ 숨김'
+              } else if (startAt && new Date(startAt as string) > now) {
+                status = `⏰ 예정 (${new Date(startAt as string).toLocaleString('ko-KR')})`
+              } else if (endAt && new Date(endAt as string) < now) {
+                status = '🔚 만료됨'
+              }
+              return {
+                media,
+                title: (title as string) || '(alt 텍스트 없음)',
+                subtitle: status,
+              }
+            },
+          },
+        },
+      ],
+    }),
+
+    /* ── 히어로 이미지 (deprecated) ──────────────────────── */
     defineField({
       name: 'heroImage',
-      title: '메인 히어로 이미지',
+      title: '[DEPRECATED] Hero Image — 사용하지 마세요',
       type: 'image',
       group: 'basic',
+      hidden: true,
       options: { hotspot: true },
-      description: '홈페이지 메인 히어로 배경',
+      description: 'heroSlides로 이관됨. 마이그레이션 스크립트 실행 완료.',
       fields: [
         defineField({
           name: 'alt',
@@ -82,9 +161,10 @@ export default defineType({
     }),
     defineField({
       name: 'heroImages',
-      title: '히어로 슬라이드 이미지 (최대 10장)',
+      title: '[DEPRECATED] 히어로 슬라이드 이미지 (구버전)',
       type: 'array',
       group: 'basic',
+      hidden: true,
       of: [
         {
           type: 'image',
@@ -99,7 +179,7 @@ export default defineType({
         },
       ],
       validation: R => R.max(10),
-      description: '5초 간격 자동 롤링. 비어 있으면 heroImage 단일 이미지를 사용합니다.',
+      description: 'heroSlides로 대체됨.',
     }),
     defineField({
       name: 'heroVideo',
