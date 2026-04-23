@@ -153,7 +153,7 @@ export async function POST(req: Request) {
     raceType,
     standings: normalizedStandings,
     publishedAt: now,
-    isPublished: false,
+    isPublished: true,
   }
 
   const mutation = existingId

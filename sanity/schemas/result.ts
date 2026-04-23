@@ -138,7 +138,7 @@ export default defineType({
       name: 'isPublished',
       title: '결과 공개',
       type: 'boolean',
-      initialValue: false,
+      initialValue: true,
     }),
     defineField({
       name: 'publishedAt',
