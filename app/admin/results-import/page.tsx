@@ -1,12 +1,15 @@
 'use client'
 // app/admin/results-import/page.tsx — 경기 결과 일괄 입력 어드민
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import * as XLSX from 'xlsx'
 
 // ── 타입 정의 ─────────────────────────────────────────────────
 type RaceType = 'qualifying' | 'race1' | 'race2' | 'race'
 type Status = 'classified' | 'dnf' | 'dns' | 'dsq'
+
+const VALID_RACE_TYPES: RaceType[] = ['qualifying', 'race1', 'race2', 'race']
 
 interface StandingRow {
   position: string
@@ -187,8 +190,10 @@ const cellInputStyle: React.CSSProperties = {
   boxSizing: 'border-box',
 }
 
-// ── 메인 컴포넌트 ─────────────────────────────────────────────
-export default function ResultsImportPage() {
+// ── 내부 컴포넌트 (useSearchParams 사용) ─────────────────────
+function ResultsImportContent() {
+  const searchParams = useSearchParams()
+
   const [authed,   setAuthed]   = useState(false)
   const [checking, setChecking] = useState(true)
   const [password, setPassword] = useState('')
@@ -237,6 +242,25 @@ export default function ResultsImportPage() {
   }, [])
 
   useEffect(() => { if (authed) loadDropdowns() }, [authed, loadDropdowns])
+
+  // ── URL 파라미터 → 드롭다운 자동 선택 ─────────────────────
+  useEffect(() => {
+    if (!authed || rounds.length === 0) return
+    const roundParam = searchParams.get('roundRef')
+    const classParam = searchParams.get('classRef')
+    const raceParam  = searchParams.get('raceType')
+
+    if (roundParam && rounds.some((r) => r._id === roundParam)) {
+      setRoundRef(roundParam)
+    }
+    if (classParam && classes.some((c) => c._id === classParam)) {
+      setClassRef(classParam)
+    }
+    if (raceParam && (VALID_RACE_TYPES as string[]).includes(raceParam)) {
+      setRaceType(raceParam as RaceType)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authed, rounds, classes])
 
   // ── 로그인 ────────────────────────────────────────────────
   async function handleLogin(e: React.FormEvent) {
@@ -508,7 +532,23 @@ export default function ResultsImportPage() {
             </select>
           </div>
 
-          <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px', alignItems: 'flex-end', paddingBottom: '2px' }}>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px', alignItems: 'flex-end', paddingBottom: '2px', flexWrap: 'wrap' }}>
+            {/* 엑셀 양식 다운로드 */}
+            <a
+              href="/templates/inje-gt-masters_results_template.xlsx"
+              download
+              style={{
+                ...btnSecondaryStyle,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                borderColor: 'rgba(255,255,255,0.2)',
+                color: 'rgba(255,255,255,0.6)',
+              }}
+            >
+              📥 엑셀 양식 다운로드
+            </a>
             <button onClick={handlePreviewCheck} style={btnSecondaryStyle}>
               기존 데이터 확인
             </button>
@@ -616,7 +656,6 @@ export default function ResultsImportPage() {
                     {rows.map((row, rowIdx) => {
                       const errs = rowErrors[rowIdx]
                       const isDup = row.position ? dupPositions.has(row.position) : false
-                      const hasRowError = Object.keys(errs).length > 0 || isDup
 
                       return (
                         <tr
@@ -716,10 +755,7 @@ export default function ResultsImportPage() {
               <br />저장하면 전체 덮어씌워집니다.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
-              <button
-                onClick={() => setShowModal(false)}
-                style={btnSecondaryStyle}
-              >
+              <button onClick={() => setShowModal(false)} style={btnSecondaryStyle}>
                 취소
               </button>
               <button
@@ -746,5 +782,18 @@ export default function ResultsImportPage() {
         </div>
       )}
     </div>
+  )
+}
+
+// ── 기본 export: Suspense 래핑 (useSearchParams 요구사항) ────
+export default function ResultsImportPage() {
+  return (
+    <Suspense fallback={
+      <div style={pageStyle}>
+        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px' }}>로딩 중...</p>
+      </div>
+    }>
+      <ResultsImportContent />
+    </Suspense>
   )
 }

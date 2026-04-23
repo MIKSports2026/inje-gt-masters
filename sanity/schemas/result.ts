@@ -1,6 +1,7 @@
 // schemas/result.ts — 경기 결과 (라운드 × 클래스 × 세션)
 import { defineField, defineType } from 'sanity'
 import { StarIcon as TrophyIcon } from '@sanity/icons'
+import { ResultsImportLinkButton } from '../components/ResultsImportLinkButton'
 
 export default defineType({
   name: 'result',
@@ -9,6 +10,15 @@ export default defineType({
   icon: TrophyIcon,
 
   fields: [
+    /* ── 일괄 입력 버튼 ────────────────────────────────────── */
+    defineField({
+      name: 'importAction',
+      title: '📥 엑셀로 일괄 입력',
+      type: 'string',
+      readOnly: true,
+      components: { input: ResultsImportLinkButton },
+    }),
+
     /* ── 연결 정보 ─────────────────────────────────────────── */
     defineField({
       name: 'round',
