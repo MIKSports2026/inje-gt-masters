@@ -18,6 +18,17 @@ export const SITE_SETTINGS_QUERY = /* groq */`
     email, phone, kakaoChannelUrl, address,
     instagram, youtube, facebook, naverBlog,
     logoLight ${IMAGE}, logoDark ${IMAGE},
+    "heroSlides": heroSlides[]{
+      "imageUrl": image.asset->url,
+      "imageRef": image.asset._ref,
+      "hotspot": image.hotspot,
+      "crop": image.crop,
+      "dimensions": image.asset->metadata.dimensions,
+      alt,
+      isActive,
+      startAt,
+      endAt
+    },
     heroImage ${IMAGE}, heroImages[] ${IMAGE}, heroVideo,
     heroAbout ${IMAGE}, heroSeason ${IMAGE},
     heroEntry ${IMAGE}, heroResults ${IMAGE}, heroMedia ${IMAGE}, heroCircuit ${IMAGE},

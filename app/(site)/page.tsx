@@ -5,7 +5,24 @@ import {
   SITE_SETTINGS_QUERY, ROUNDS_QUERY,
   RECENT_POSTS_QUERY, PARTNERS_QUERY, NEXT_ROUND_QUERY, CLASSES_QUERY,
 } from '@/lib/queries'
-import type { SiteSettings, Round, Post, Partner, ClassInfo } from '@/types/sanity'
+import type { SiteSettings, Round, Post, Partner, ClassInfo, HeroSlide } from '@/types/sanity'
+
+function filterActiveSlides(slides: HeroSlide[] | undefined): HeroSlide[] {
+  if (!slides || slides.length === 0) return []
+  const now = new Date()
+  const active = slides.filter((slide) => {
+    if (!slide.imageUrl) return false
+    if (slide.isActive === false) return false
+    if (slide.startAt && new Date(slide.startAt) > now) return false
+    if (slide.endAt && new Date(slide.endAt) < now) return false
+    return true
+  })
+  if (active.length === 0 && slides[0]?.imageUrl) {
+    console.warn('[SectionHero] 모든 슬라이드가 비노출 상태 — 첫 슬라이드 강제 노출')
+    return [slides[0]]
+  }
+  return active
+}
 
 import SectionHero       from '@/components/sections/SectionHero'
 import SectionRound      from '@/components/sections/SectionRound'
@@ -51,9 +68,11 @@ export default async function HomePage() {
   const pt = (partners ?? []) as Partner[]
   const cs = (classes  ?? []) as ClassInfo[]
 
+  const activeSlides = filterActiveSlides(s?.heroSlides)
+
   return (
     <>
-      <SectionHero settings={s} nextRound={nr} rounds={rs} />
+      <SectionHero slides={activeSlides} />
       <SectionRound    rounds={rs} />
       <SectionClass classes={cs} />
       <SectionNews     posts={ps} />

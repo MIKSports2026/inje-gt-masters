@@ -18,6 +18,19 @@ export interface SanityImage {
 
 export interface SanitySlug { current: string }
 
+// ── heroSlide ─────────────────────────────────────────────────
+export interface HeroSlide {
+  imageUrl:   string
+  imageRef?:  string
+  hotspot?:   { x: number; y: number }
+  crop?:      { top: number; bottom: number; left: number; right: number }
+  dimensions?: { width: number; height: number }
+  alt:        string
+  isActive?:  boolean
+  startAt?:   string
+  endAt?:     string
+}
+
 // ── siteSettings ─────────────────────────────────────────────
 export interface SiteSettings {
   siteName:         string
@@ -41,7 +54,9 @@ export interface SiteSettings {
   // 로고
   logoLight?:       SanityImage
   logoDark?:        SanityImage
-  // 히어로 이미지
+  // 히어로 슬라이드
+  heroSlides?:      HeroSlide[]
+  // 히어로 이미지 (deprecated)
   heroImage?:       SanityImage
   heroImages?:      SanityImage[]
   heroVideo?:       string
