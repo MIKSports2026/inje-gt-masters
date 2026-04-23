@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { ClassPageData } from './page'
+import { ENTRY_CLOSED } from '@/lib/config'
 
 const CUT = 'polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%)'
 
@@ -174,10 +175,12 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
 
             {/* 참가 신청 + 개조 범위 토글 */}
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-              <Link href="/entry" className="btn btn-primary">
-                <i className="fa-solid fa-flag-checkered" />
-                Register
-              </Link>
+              {!ENTRY_CLOSED && (
+                <Link href="/entry" className="btn btn-primary">
+                  <i className="fa-solid fa-flag-checkered" />
+                  Register
+                </Link>
+              )}
               {hasTuning && (
                 <button
                   onClick={() => setOpenTuning(v => !v)}

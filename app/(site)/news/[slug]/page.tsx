@@ -7,6 +7,7 @@ import { sanityFetch } from '@/lib/sanity.client'
 import { POST_DETAIL_QUERY } from '@/lib/queries'
 import type { Post, PostCategory } from '@/types/sanity'
 import { PortableText } from '@portabletext/react'
+import { ENTRY_CLOSED } from '@/lib/config'
 
 const CAT_LABELS: Record<PostCategory, string> = {
   notice: '공지사항', news: '대회소식', press: '보도자료',
@@ -152,9 +153,11 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
                 <Link href="/news" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--muted)', fontWeight: 700, fontSize: '.9rem', textDecoration: 'none' }}>
                   <i className="fa-solid fa-arrow-left" />목록으로
                 </Link>
-                <Link href="/entry" className="btn btn-primary" style={{ fontSize: '.9rem', minHeight: '44px' }}>
-                  <i className="fa-solid fa-flag-checkered" />Register
-                </Link>
+                {!ENTRY_CLOSED && (
+                  <Link href="/entry" className="btn btn-primary" style={{ fontSize: '.9rem', minHeight: '44px' }}>
+                    <i className="fa-solid fa-flag-checkered" />Register
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -179,12 +182,14 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
               </div>
 
               {/* 참가신청 CTA */}
-              <div style={{ background: 'linear-gradient(135deg,rgba(230,0,35,.08),rgba(230,0,35,.02))', border: '1px solid rgba(230,0,35,.2)', borderRadius: '8px', padding: '20px', textAlign: 'center' }}>
-                <i className="fa-solid fa-flag-checkered" style={{ fontSize: '1.8rem', color: 'var(--red)', marginBottom: '10px', display: 'block' }} />
-                <strong style={{ display: 'block', marginBottom: '6px' }}>2026 Register</strong>
-                <p style={{ fontSize: '.84rem', color: 'var(--muted)', marginBottom: '14px', lineHeight: 1.5 }}>선착순 마감.<br />지금 바로 신청하세요.</p>
-                <Link href="/entry" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '.88rem', minHeight: '44px' }}>신청하기</Link>
-              </div>
+              {!ENTRY_CLOSED && (
+                <div style={{ background: 'linear-gradient(135deg,rgba(230,0,35,.08),rgba(230,0,35,.02))', border: '1px solid rgba(230,0,35,.2)', borderRadius: '8px', padding: '20px', textAlign: 'center' }}>
+                  <i className="fa-solid fa-flag-checkered" style={{ fontSize: '1.8rem', color: 'var(--red)', marginBottom: '10px', display: 'block' }} />
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>2026 Register</strong>
+                  <p style={{ fontSize: '.84rem', color: 'var(--muted)', marginBottom: '14px', lineHeight: 1.5 }}>선착순 마감.<br />지금 바로 신청하세요.</p>
+                  <Link href="/entry" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '.88rem', minHeight: '44px' }}>신청하기</Link>
+                </div>
+              )}
 
               {/* 카테고리별 이동 */}
               <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px' }}>

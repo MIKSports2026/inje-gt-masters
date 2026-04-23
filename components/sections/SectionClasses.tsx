@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import RevealOnScroll from '@/components/ui/RevealOnScroll'
 import type { ClassInfo } from '@/types/sanity'
+import { ENTRY_CLOSED } from '@/lib/config'
 
 export default function SectionClasses({ classes }: { classes: ClassInfo[] }) {
   const list = classes
@@ -89,20 +90,22 @@ export default function SectionClasses({ classes }: { classes: ClassInfo[] }) {
         </div>
 
         {/* CTA 배너 */}
-        <RevealOnScroll style={{
-          marginTop:'24px',padding:'24px 28px',
-          display:'flex',alignItems:'center',justifyContent:'space-between',gap:'16px',flexWrap:'wrap',
-          background:'linear-gradient(90deg,rgba(230,0,35,.06),transparent)',
-          border:'1px solid rgba(230,0,35,.2)',borderRadius:'8px',
-        } as any}>
-          <div>
-            <strong style={{fontSize:'1.1rem'}}>6개 클래스 Register 접수중</strong>
-            <p style={{color:'var(--muted)',fontSize:'.92rem',marginTop:'4px'}}>GT 내구레이스 · 드리프트 · 바이크 · 슈퍼카 챌린지</p>
-          </div>
-          <Link href="/entry" className="btn btn-primary">
-            <i className="fa-solid fa-flag-checkered" /> Register
-          </Link>
-        </RevealOnScroll>
+        {!ENTRY_CLOSED && (
+          <RevealOnScroll style={{
+            marginTop:'24px',padding:'24px 28px',
+            display:'flex',alignItems:'center',justifyContent:'space-between',gap:'16px',flexWrap:'wrap',
+            background:'linear-gradient(90deg,rgba(230,0,35,.06),transparent)',
+            border:'1px solid rgba(230,0,35,.2)',borderRadius:'8px',
+          } as any}>
+            <div>
+              <strong style={{fontSize:'1.1rem'}}>6개 클래스 Register 접수중</strong>
+              <p style={{color:'var(--muted)',fontSize:'.92rem',marginTop:'4px'}}>GT 내구레이스 · 드리프트 · 바이크 · 슈퍼카 챌린지</p>
+            </div>
+            <Link href="/entry" className="btn btn-primary">
+              <i className="fa-solid fa-flag-checkered" /> Register
+            </Link>
+          </RevealOnScroll>
+        )}
 
       </div>
     </section>

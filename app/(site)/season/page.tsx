@@ -7,6 +7,7 @@ import type { SiteSettings, Round, ClassInfo } from '@/types/sanity'
 import { resolveRoundStatus } from '@/lib/roundStatus'
 import PageHero from '@/components/ui/PageHero'
 import SectionSeasonSchedule from '@/components/sections/SectionSeasonSchedule'
+import { ENTRY_CLOSED, ENTRY_CLOSED_TEXT_EN } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: '2026 Calendar',
@@ -48,9 +49,14 @@ const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
         subtitle="레이서의 근성과 머신의 한계가 만나는 곳"
       >
         <div style={{ marginTop: '20px' }}>
-          <Link href="/entry" className="btn btn-primary">
+          <Link
+            href={ENTRY_CLOSED ? '/season' : '/entry'}
+            className="btn btn-primary"
+            aria-disabled={ENTRY_CLOSED}
+            style={ENTRY_CLOSED ? { pointerEvents: 'none', opacity: 0.5 } : undefined}
+          >
             <i className="fa-solid fa-flag-checkered" />
-            2026 Register
+            {ENTRY_CLOSED ? ENTRY_CLOSED_TEXT_EN : '2026 Register'}
           </Link>
         </div>
       </PageHero>
@@ -60,23 +66,25 @@ const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
 
 
 {/* ── CTA ──────────────────────────────────────────────── */}
-      <section style={{ background: 'linear-gradient(135deg,#111,#1a0008)', padding: '64px 0' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h2 style={{ color: '#fff', fontSize: 'clamp(1.6rem,3vw,2.6rem)', marginBottom: '14px' }}>Where Legends Begin</h2>
-          <p style={{ color: 'rgba(255,255,255,.65)', marginBottom: '28px', fontSize: 'clamp(.9rem,1.4vw,1.06rem)' }}>
-            2026 인제 GT 마스터즈 — 지금 참가를 신청하세요.
-          </p>
-          <div className="btns" style={{ justifyContent: 'center' }}>
-            <Link href="/entry" className="btn btn-primary" style={{ fontSize: '1.05rem', minHeight: '56px' }}>
-              <i className="fa-solid fa-flag-checkered" />
-              Register
-            </Link>
-            <Link href="/results" className="btn btn-ghost">
-              경기 결과 보기
-            </Link>
+      {!ENTRY_CLOSED && (
+        <section style={{ background: 'linear-gradient(135deg,#111,#1a0008)', padding: '64px 0' }}>
+          <div className="container" style={{ textAlign: 'center' }}>
+            <h2 style={{ color: '#fff', fontSize: 'clamp(1.6rem,3vw,2.6rem)', marginBottom: '14px' }}>Where Legends Begin</h2>
+            <p style={{ color: 'rgba(255,255,255,.65)', marginBottom: '28px', fontSize: 'clamp(.9rem,1.4vw,1.06rem)' }}>
+              2026 인제 GT 마스터즈 — 지금 참가를 신청하세요.
+            </p>
+            <div className="btns" style={{ justifyContent: 'center' }}>
+              <Link href="/entry" className="btn btn-primary" style={{ fontSize: '1.05rem', minHeight: '56px' }}>
+                <i className="fa-solid fa-flag-checkered" />
+                Register
+              </Link>
+              <Link href="/results" className="btn btn-ghost">
+                경기 결과 보기
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   )
 }

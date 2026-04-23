@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import type { SiteSettings, ClassInfo } from '@/types/sanity'
 import SectionHeader from '@/components/ui/SectionHeader'
+import { ENTRY_CLOSED, ENTRY_CLOSED_TEXT_KO } from '@/lib/config'
 
 interface Props {
   settings: SiteSettings | null
@@ -76,10 +77,17 @@ export default function SectionEntry({ settings, classes }: Props) {
               ))}
             </div>
 
-            <Link href="/entry" className="btn-primary-red">
-              <i className="fa fa-flag-checkered" />
-              {isOpen ? '지금 신청하기' : 'Register'}
-            </Link>
+            {ENTRY_CLOSED ? (
+              <p style={{ fontSize: '.95rem', color: '#ff6b6b', fontWeight: 700, marginTop: '8px' }}>
+                <i className="fa-solid fa-ban" style={{ marginRight: '6px' }} />
+                {ENTRY_CLOSED_TEXT_KO}
+              </p>
+            ) : (
+              <Link href="/entry" className="btn-primary-red">
+                <i className="fa fa-flag-checkered" />
+                {isOpen ? '지금 신청하기' : 'Register'}
+              </Link>
+            )}
           </div>
 
           {/* 우측 — 클래스 그리드 */}

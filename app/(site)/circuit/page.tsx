@@ -5,6 +5,7 @@ import { sanityFetch } from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY } from '@/lib/queries'
 import type { SiteSettings } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
+import { ENTRY_CLOSED } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Speedium',
@@ -230,9 +231,11 @@ export default async function CircuitPage() {
             인제스피디움에서 당신의 전설을 시작하세요
           </h2>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/entry" className="btn-fill" style={{ fontSize: '1rem', padding: '14px 32px' }}>
-              <i className="fa fa-flag-checkered" /> Register
-            </Link>
+            {!ENTRY_CLOSED && (
+              <Link href="/entry" className="btn-fill" style={{ fontSize: '1rem', padding: '14px 32px' }}>
+                <i className="fa fa-flag-checkered" /> Register
+              </Link>
+            )}
             <Link href="/season" className="btn-line" style={{ fontSize: '1rem', padding: '14px 32px', color: 'rgba(255,255,255,.7)', borderColor: 'rgba(255,255,255,.3)' }}>
               2026 시즌 일정 보기
             </Link>
