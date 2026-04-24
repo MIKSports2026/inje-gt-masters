@@ -6,6 +6,13 @@ import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import Image from 'next/image'
 import type { SanityImage } from '@/types/sanity'
 
+type TableBlockValue = {
+  _type: 'tableBlock'
+  headers?: string[]
+  rows?: { cells?: string[] }[]
+  caption?: string
+}
+
 const components: PortableTextComponents = {
   types: {
     image: ({ value }: { value: SanityImage & { caption?: string; alt?: string; metadata?: { dimensions?: { width?: number; height?: number } } } }) => {
@@ -74,6 +81,52 @@ const components: PortableTextComponents = {
           <span className="font-bold">{value.label ?? '첨부 파일 다운로드'}</span>
           <i className="fa-solid fa-download ml-auto text-muted" />
         </a>
+      )
+    },
+
+    tableBlock: ({ value }: { value: TableBlockValue }) => {
+      if (!value?.headers?.length) return null
+      return (
+        <div className="overflow-x-auto my-6">
+          <table className="w-full border-collapse bg-black/50">
+            <thead>
+              <tr className="bg-red-600">
+                {value.headers.map((h: string, i: number) => (
+                  <th
+                    key={i}
+                    className="px-4 py-3 text-left text-white font-semibold uppercase tracking-wider text-sm min-w-[60px]"
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {(value.rows ?? []).map(
+                (row: { cells?: string[] }, ri: number) => (
+                  <tr
+                    key={ri}
+                    className="border-b border-white/10 hover:bg-white/5 transition-colors"
+                  >
+                    {(row.cells ?? []).map((cell: string, ci: number) => (
+                      <td
+                        key={ci}
+                        className="px-4 py-3 text-sm text-gray-300 whitespace-normal"
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                )
+              )}
+            </tbody>
+            {value.caption && (
+              <caption className="caption-bottom text-xs text-gray-500 mt-2 text-center">
+                {value.caption}
+              </caption>
+            )}
+          </table>
+        </div>
       )
     },
   },

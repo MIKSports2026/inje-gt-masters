@@ -10,6 +10,7 @@ import history      from './history'
 import regulation   from './regulation'
 import application  from './application'
 import mediaKit     from './mediaKit'
+import tableBlock   from './blocks/tableBlock'
 
 export const schemaTypes = [
   siteSettings,
@@ -23,4 +24,5 @@ export const schemaTypes = [
   regulation,
   application,
   mediaKit,
+  tableBlock,
 ]
