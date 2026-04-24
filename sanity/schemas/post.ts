@@ -141,6 +141,7 @@ export default defineType({
           ],
           preview: { select: { title: 'label' } },
         },
+        { type: 'tableBlock' },
       ],
     }),
 

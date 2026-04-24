@@ -1,4 +1,7 @@
 // app/(site)/media/news/[slug]/page.tsx — 뉴스 상세
+// NOTE: PortableTextRenderer.tsx와 동기화 유지 필수
+// 새 block type 추가 시 양쪽 파일 모두 업데이트할 것
+// → components/ui/PortableTextRenderer.tsx ↔ 이 파일
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -20,6 +23,13 @@ const TAG_CLS: Record<string, string> = {
 }
 
 type AdjacentPost = { _id: string; title: string; slug: { current: string } } | null
+
+type TableBlockValue = {
+  _type: 'tableBlock'
+  headers?: string[]
+  rows?: { cells?: string[] }[]
+  caption?: string
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await sanityFetch<Post>({ query: POST_DETAIL_QUERY, params: { slug: params.slug }, revalidate: 300 }).catch(() => null)
@@ -121,9 +131,6 @@ export default async function MediaNewsDetailPage({ params }: { params: { slug: 
                       ),
                     },
                     types: {
-                      // NOTE: PortableTextRenderer.tsx와 동기화 유지 필수
-                      // 새 block type 추가 시 두 파일 모두 업데이트할 것
-                      // → components/ui/PortableTextRenderer.tsx ↔ 이 파일
                       image: ({ value }) => value?.asset?.url ? (
                         <div style={{ margin: '1.6em 0' }}>
                           <Image
@@ -136,6 +143,51 @@ export default async function MediaNewsDetailPage({ params }: { params: { slug: 
                           />
                         </div>
                       ) : null,
+                      tableBlock: ({ value }: { value: TableBlockValue }) => {
+                        if (!value?.headers?.length) return null
+                        return (
+                          <div className="overflow-x-auto my-6">
+                            <table className="w-full border-collapse bg-black/50">
+                              <thead>
+                                <tr className="bg-red-600">
+                                  {value.headers.map((h: string, i: number) => (
+                                    <th
+                                      key={i}
+                                      className="px-4 py-3 text-left text-white font-semibold uppercase tracking-wider text-sm min-w-[60px]"
+                                    >
+                                      {h}
+                                    </th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {(value.rows ?? []).map(
+                                  (row: { cells?: string[] }, ri: number) => (
+                                    <tr
+                                      key={ri}
+                                      className="border-b border-white/10 hover:bg-white/5 transition-colors"
+                                    >
+                                      {(row.cells ?? []).map((cell: string, ci: number) => (
+                                        <td
+                                          key={ci}
+                                          className="px-4 py-3 text-sm text-gray-300 whitespace-normal"
+                                        >
+                                          {cell}
+                                        </td>
+                                      ))}
+                                    </tr>
+                                  )
+                                )}
+                              </tbody>
+                              {value.caption && (
+                                <caption className="caption-bottom text-xs text-gray-500 mt-2 text-center">
+                                  {value.caption}
+                                </caption>
+                              )}
+                            </table>
+                          </div>
+                        )
+                      },
                     },
                   }}
                 />
