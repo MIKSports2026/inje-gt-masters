@@ -6,7 +6,7 @@ import styles from './Results.module.css'
 
 // ── 공개 타입 (page.tsx에서 import type으로 사용) ─────────────
 export interface RoundStanding {
-  position:   number
+  position?:  number
   carNumber?: string
   teamName?:  string
   driver1?:   string
@@ -160,13 +160,24 @@ export default function ResultsClient({ rounds, allResults }: Props) {
     () => buildTeamRows(allResults, activeClass),
     [allResults, activeClass]
   )
-  const roundStandings = useMemo(
-    () => allResults
+  const roundStandings = useMemo(() => {
+    const statusOrder = (s?: string) => {
+      if (!s || s === 'classified') return 0
+      if (s === 'dnf') return 1
+      if (s === 'dns') return 2
+      if (s === 'dsq') return 3
+      return 4
+    }
+    return allResults
       .filter(r => r.roundNumber === selectedRound && r.classCode === activeClass && isRace(r.raceType))
       .flatMap(r => r.standings)
-      .sort((a, b) => a.position - b.position),
-    [allResults, selectedRound, activeClass]
-  )
+      .sort((a, b) => {
+        const ao = statusOrder(a.status), bo = statusOrder(b.status)
+        if (ao !== bo) return ao - bo
+        if (ao === 0) return (a.position ?? 999) - (b.position ?? 999)
+        return 0
+      })
+  }, [allResults, selectedRound, activeClass])
 
   const showStatusColumn = useMemo(
     () => roundStandings.some(s =>
@@ -480,7 +491,20 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                         onMouseLeave={e => (e.currentTarget.style.background = '')}
                       >
                         <td style={TD()}>
-                          <div style={rankBox(s.position)}>{s.position}</div>
+                          {(!s.status || s.status === 'classified')
+                            ? <div style={rankBox(s.position ?? 0)}>{s.position ?? '—'}</div>
+                            : <div style={{
+                                width: '32px', height: '32px',
+                                display: 'grid', placeItems: 'center',
+                                fontWeight: 900, fontSize: '.7rem',
+                                background: 'rgba(255,255,255,0.06)',
+                                color: 'rgba(255,255,255,0.5)',
+                                border: '1px solid rgba(255,255,255,0.12)',
+                                clipPath: 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)',
+                              }}>
+                                {s.status === 'dnf' ? 'DNF' : s.status === 'dns' ? 'DNS' : 'DQ'}
+                              </div>
+                          }
                         </td>
                         <td style={TD()}>
                           <span style={carTag}>#{s.carNumber || '—'}</span>
@@ -498,7 +522,7 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                           {s.totalTime || '—'}
                         </td>
                         <td style={TD({ fontFamily: 'monospace', fontSize: '.84rem', color: 'var(--muted)' })}>
-                          {s.position === 1 ? 'LEADER' : (s.gap || '—')}
+                          {s.position === 1 && (!s.status || s.status === 'classified') ? 'LEADER' : (s.gap || '—')}
                         </td>
                         {showBestLapColumn && (
                           <td style={TD({ fontFamily: 'monospace', fontSize: '.84rem' })}>

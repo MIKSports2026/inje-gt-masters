@@ -14,7 +14,7 @@ type RaceType = (typeof RACE_TYPES)[number]
 type Status = (typeof STATUSES)[number]
 
 interface StandingInput {
-  position: number
+  position?: number
   carNumber?: string
   teamName: string
   driver1: string
@@ -81,17 +81,26 @@ export async function POST(req: Request) {
   for (let i = 0; i < standings.length; i++) {
     const s = standings[i]
     const rowLabel = `행 ${i + 1}`
+    const isClassified = !s.status || s.status === 'classified'
 
-    if (s.position === undefined || s.position === null) {
-      return NextResponse.json({ ok: false, error: `${rowLabel}: position 필수`, field: `standings[${i}].position` }, { status: 400 })
+    if (isClassified) {
+      // classified: position 필수
+      if (s.position === undefined || s.position === null) {
+        return NextResponse.json({ ok: false, error: `${rowLabel}: classified 상태는 position 필수`, field: `standings[${i}].position` }, { status: 400 })
+      }
+      if (!Number.isInteger(s.position) || s.position < 1) {
+        return NextResponse.json({ ok: false, error: `${rowLabel}: position은 1 이상 정수여야 합니다`, field: `standings[${i}].position` }, { status: 400 })
+      }
+      if (positionsSeen.has(s.position)) {
+        return NextResponse.json({ ok: false, error: `position ${s.position} 중복`, field: `standings[${i}].position` }, { status: 400 })
+      }
+      positionsSeen.add(s.position)
+    } else if (s.position !== undefined && s.position !== null) {
+      // dnf/dns/dsq: position 있으면 유효성만 확인
+      if (!Number.isInteger(s.position) || s.position < 1) {
+        return NextResponse.json({ ok: false, error: `${rowLabel}: position은 1 이상 정수여야 합니다`, field: `standings[${i}].position` }, { status: 400 })
+      }
     }
-    if (!Number.isInteger(s.position) || s.position < 1) {
-      return NextResponse.json({ ok: false, error: `${rowLabel}: position은 1 이상 정수여야 합니다`, field: `standings[${i}].position` }, { status: 400 })
-    }
-    if (positionsSeen.has(s.position)) {
-      return NextResponse.json({ ok: false, error: `position ${s.position} 중복`, field: `standings[${i}].position` }, { status: 400 })
-    }
-    positionsSeen.add(s.position)
 
     if (!s.teamName?.trim()) {
       return NextResponse.json({ ok: false, error: `${rowLabel}: teamName 필수`, field: `standings[${i}].teamName` }, { status: 400 })
@@ -105,9 +114,9 @@ export async function POST(req: Request) {
   }
 
   // ── standings에 _key 부여 ───────────────────────────────────
-  const normalizedStandings = standings.map((s) => ({
-    _key: `p${s.position}`,
-    position: s.position,
+  const normalizedStandings = standings.map((s, i) => ({
+    _key: s.position != null ? `p${s.position}` : `${s.status ?? 'nc'}-${i}`,
+    ...(s.position != null ? { position: s.position } : {}),
     ...(s.carNumber !== undefined && s.carNumber !== '' ? { carNumber: s.carNumber } : {}),
     teamName: s.teamName.trim(),
     driver1: s.driver1.trim(),

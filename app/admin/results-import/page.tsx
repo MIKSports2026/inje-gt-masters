@@ -77,9 +77,21 @@ function parseTabText(text: string): StandingRow[] {
 
 function cellsToRow(cells: (string | undefined)[]): StandingRow {
   const c = (i: number) => (cells[i] ?? '').trim()
-  const status = c(12)
+  const rawPos = c(0)
+  const rawStatus = c(12)
+
+  // 순위 셀이 "DNF"/"DQ"/"DNS"/"DSQ" 텍스트이면 → position 비우고 status 자동 매핑
+  const posStatusMap: Record<string, Status> = {
+    dnf: 'dnf', dns: 'dns', dq: 'dsq', dsq: 'dsq',
+  }
+  const posAsStatus = posStatusMap[rawPos.toLowerCase()]
+  const resolvedPosition = posAsStatus ? '' : rawPos
+  const resolvedStatus = posAsStatus
+    ? posAsStatus
+    : (['classified', 'dnf', 'dns', 'dsq'].includes(rawStatus) ? rawStatus : '') as Status | ''
+
   return {
-    position: c(0),
+    position: resolvedPosition,
     carNumber: c(1),
     teamName: c(2),
     driver1: c(3),
@@ -91,7 +103,7 @@ function cellsToRow(cells: (string | undefined)[]): StandingRow {
     gap: c(9),
     fastestLap: c(10),
     points: c(11),
-    status: (['classified', 'dnf', 'dns', 'dsq'].includes(status) ? status : '') as Status | '',
+    status: resolvedStatus,
   }
 }
 
@@ -105,10 +117,15 @@ interface RowError {
 
 function validateRow(row: StandingRow): RowError {
   const errs: RowError = {}
-  if (!row.position || isNaN(Number(row.position)) || Number(row.position) < 1) {
-    errs.position = 'position 필수 (1 이상 정수)'
-  } else if (!Number.isInteger(Number(row.position))) {
-    errs.position = 'position은 정수여야 합니다'
+  const isClassified = !row.status || row.status === 'classified'
+  if (isClassified) {
+    if (!row.position || isNaN(Number(row.position)) || Number(row.position) < 1) {
+      errs.position = 'position 필수 (1 이상 정수)'
+    } else if (!Number.isInteger(Number(row.position))) {
+      errs.position = 'position은 정수여야 합니다'
+    }
+  } else if (row.position && (!Number.isInteger(Number(row.position)) || Number(row.position) < 1)) {
+    errs.position = 'position은 1 이상 정수여야 합니다'
   }
   if (!row.teamName.trim()) errs.teamName = 'teamName 필수'
   if (!row.driver1.trim()) errs.driver1 = 'driver1 필수'
@@ -120,9 +137,12 @@ function validateRow(row: StandingRow): RowError {
 
 function getDuplicatePositions(rows: StandingRow[]): Set<string> {
   const counts = new Map<string, number>()
-  rows.forEach((r) => {
-    if (r.position) counts.set(r.position, (counts.get(r.position) ?? 0) + 1)
-  })
+  // classified 행만 중복 체크 (DNF/DNS/DSQ는 position 없어도 됨)
+  rows
+    .filter((r) => !r.status || r.status === 'classified')
+    .forEach((r) => {
+      if (r.position) counts.set(r.position, (counts.get(r.position) ?? 0) + 1)
+    })
   const dups = new Set<string>()
   counts.forEach((cnt, pos) => { if (cnt > 1) dups.add(pos) })
   return dups
@@ -375,7 +395,7 @@ function ResultsImportContent() {
     }
 
     const standingsPayload = rows.map((r) => ({
-      position: Number(r.position),
+      ...(r.position ? { position: Number(r.position) } : {}),
       ...(r.carNumber ? { carNumber: r.carNumber } : {}),
       teamName: r.teamName,
       driver1: r.driver1,
@@ -692,9 +712,13 @@ function ResultsImportContent() {
                                   type={col.type}
                                   value={row[col.key as keyof StandingRow]}
                                   onChange={(e) => updateRow(rowIdx, col.key as keyof StandingRow, e.target.value)}
+                                  disabled={col.key === 'position' && !!row.status && row.status !== 'classified'}
                                   style={{
                                     ...cellInputStyle,
                                     borderBottomColor: errs[col.key as keyof RowError] ? '#ff6b6b' : 'rgba(255,255,255,0.1)',
+                                    ...(col.key === 'position' && !!row.status && row.status !== 'classified'
+                                      ? { opacity: 0.3, cursor: 'not-allowed' }
+                                      : {}),
                                   }}
                                 />
                               )}

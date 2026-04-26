@@ -61,7 +61,8 @@ export default defineType({
         name: 'standing',
         fields: [
           defineField({ name: 'position',    title: '순위',      type: 'number',
-            validation: R => R.required().integer().min(1) }),
+            description: 'classified 상태일 때 필수. DNF/DNS/DSQ는 비워도 됩니다.',
+            validation: R => R.integer().min(1) }),
           defineField({ name: 'carNumber',   title: '차량 번호', type: 'string' }),
           defineField({ name: 'teamName',    title: '팀명',      type: 'string' }),
           defineField({ name: 'driver1',     title: '드라이버 1', type: 'string' }),
