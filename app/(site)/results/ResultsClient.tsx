@@ -58,16 +58,6 @@ const SUB_TABS  = ['팀 랭킹', '드라이버 랭킹'] as const
 // ── 헬퍼 ──────────────────────────────────────────────────────
 const isRace = (t: string) => t === 'race' || t === 'race1' || t === 'race2'
 
-function medalStyle(pos: number) {
-  const m: [string, string, string][] = [
-    ['rgba(245,158,11,.12)', '#d97706',  'rgba(245,158,11,.3)'],
-    ['rgba(156,163,175,.12)','#6b7280',  'rgba(156,163,175,.3)'],
-    ['rgba(180,83,9,.12)',   '#92400e',  'rgba(180,83,9,.3)'],
-  ]
-  const [bg, fg, border] = pos <= 3 ? m[pos - 1] : [`${RED}0d`, RED, `${RED}22`]
-  return { background: bg, color: fg, border: `1px solid ${border}` }
-}
-
 // ── 컴포넌트 ──────────────────────────────────────────────────
 export default function ResultsClient({ rounds, allResults }: Props) {
   const [mainTab,     setMainTab]     = useState(0)
@@ -129,14 +119,6 @@ export default function ResultsClient({ rounds, allResults }: Props) {
     borderBottom: '1px solid rgba(255,255,255,.04)',
     verticalAlign: 'middle' as const,
     ...style,
-  })
-
-  const rankBox = (pos: number) => ({
-    width: '32px', height: '32px',
-    display: 'grid', placeItems: 'center',
-    fontWeight: 900, fontSize: '.88rem',
-    ...medalStyle(pos),
-    clipPath: 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)',
   })
 
   const carTag = {
@@ -211,21 +193,12 @@ export default function ResultsClient({ rounds, allResults }: Props) {
               onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.03)')}
               onMouseLeave={e => (e.currentTarget.style.background = '')}
             >
-              <td style={TD()}>
+              <td style={TD({ fontWeight: 700 })}>
                 {(!s.status || s.status === 'classified')
-                  ? <div style={rankBox(s.position ?? 0)}>{s.position ?? '—'}</div>
-                  : <div style={{
-                      width: '32px', height: '32px',
-                      display: 'grid', placeItems: 'center',
-                      fontWeight: 900, fontSize: '.7rem',
-                      background: 'rgba(255,255,255,0.06)',
-                      color: 'rgba(255,255,255,0.5)',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      clipPath: 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)',
-                    }}>
-                      {s.status === 'dnf' ? 'DNF' : s.status === 'dns' ? 'DNS' : 'DQ'}
-                    </div>
-                }
+                  ? (s.position ?? '—')
+                  : s.status === 'dnf' ? 'DNF'
+                  : s.status === 'dns' ? 'DNS'
+                  : 'DQ'}
               </td>
               <td style={TD()}>
                 <span style={carTag}>#{s.carNumber || '—'}</span>
@@ -319,10 +292,11 @@ export default function ResultsClient({ rounds, allResults }: Props) {
               background: `${RED}14`, color: RED, border: `1px solid ${RED}30`,
               clipPath: 'polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)',
             }}>R{SELECTED_ROUND}</span>
-            <strong style={{ fontSize: '.92rem' }}>{info.title}</strong>
             <span style={{ fontSize: '.82rem', color: 'var(--muted)' }}>
               {info.dateStart?.slice(0, 10).replace(/-/g, '.')}
-              {info.dateEnd && ` ~ ${info.dateEnd.slice(0, 10).replace(/-/g, '.')}`}
+              {info.dateEnd && info.dateEnd.slice(0, 10) !== info.dateStart?.slice(0, 10)
+                ? ` ~ ${info.dateEnd.slice(0, 10).replace(/-/g, '.')}`
+                : ''}
             </span>
           </div>
         )
