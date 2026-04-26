@@ -294,9 +294,6 @@ export default function ResultsClient({ rounds, allResults }: Props) {
             }}>R{SELECTED_ROUND}</span>
             <span style={{ fontSize: '.82rem', color: 'var(--muted)' }}>
               {info.dateStart?.slice(0, 10).replace(/-/g, '.')}
-              {info.dateEnd && info.dateEnd.slice(0, 10) !== info.dateStart?.slice(0, 10)
-                ? ` ~ ${info.dateEnd.slice(0, 10).replace(/-/g, '.')}`
-                : ''}
             </span>
           </div>
         )
