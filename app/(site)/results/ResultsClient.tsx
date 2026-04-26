@@ -299,12 +299,7 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                           <span style={carTag}>#{row.carNumber || '—'}</span>
                         </td>
                         <td style={TD()}>
-                          <strong style={{ display: 'block', fontSize: '.9rem' }}>{row.driver1 || '—'}</strong>
-                          {(row.driver2 || row.driver3) && (
-                            <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>
-                              {[row.driver2, row.driver3].filter(Boolean).join(' / ')}
-                            </span>
-                          )}
+                          {[row.driver1, row.driver2, row.driver3].filter(Boolean).join(' / ') || '—'}
                         </td>
                         <td style={TD({ color: 'var(--muted)', fontSize: '.84rem' })}>
                           {row.teamName || '—'}
@@ -494,14 +489,7 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                           {s.teamName || '—'}
                         </td>
                         <td style={TD()}>
-                          <strong style={{ display: 'block', fontSize: '.88rem' }}>
-                            {s.driver1 || '—'}
-                          </strong>
-                          {(s.driver2 || s.driver3) && (
-                            <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>
-                              {[s.driver2, s.driver3].filter(Boolean).join(' / ')}
-                            </span>
-                          )}
+                          {[s.driver1, s.driver2, s.driver3].filter(Boolean).join(' / ') || '—'}
                         </td>
                         <td style={TD({ textAlign: 'center', color: 'var(--muted)' })}>
                           {s.laps ?? '—'}
