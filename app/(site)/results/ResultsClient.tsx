@@ -11,6 +11,7 @@ export interface RoundStanding {
   teamName?:  string
   driver1?:   string
   driver2?:   string
+  driver3?:   string
   laps?:      number
   totalTime?: string
   gap?:       string
@@ -68,7 +69,7 @@ function medalStyle(pos: number, color: string) {
 function buildDriverRows(results: RoundResult[], classCode: string) {
   const races = results.filter(r => r.classCode === classCode && isRace(r.raceType))
   const map = new Map<string, {
-    carNumber: string; driver1: string; driver2: string; teamName: string
+    carNumber: string; driver1: string; driver2: string; driver3: string; teamName: string
     perRound: Record<number, number>; total: number
   }>()
 
@@ -81,6 +82,7 @@ function buildDriverRows(results: RoundResult[], classCode: string) {
           carNumber: s.carNumber ?? '',
           driver1:   s.driver1   ?? '',
           driver2:   s.driver2   ?? '',
+          driver3:   s.driver3   ?? '',
           teamName:  s.teamName  ?? '',
           perRound: {}, total: 0,
         })
@@ -114,6 +116,7 @@ function buildTeamRows(results: RoundResult[], classCode: string) {
       if (s.carNumber) t.carNums.add(s.carNumber)
       if (s.driver1)   t.driverSet.add(s.driver1)
       if (s.driver2)   t.driverSet.add(s.driver2)
+      if (s.driver3)   t.driverSet.add(s.driver3)
       const pts = s.points ?? 0
       t.perRound[r.roundNumber] = (t.perRound[r.roundNumber] ?? 0) + pts
       t.total += pts
@@ -297,8 +300,10 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                         </td>
                         <td style={TD()}>
                           <strong style={{ display: 'block', fontSize: '.9rem' }}>{row.driver1 || '—'}</strong>
-                          {row.driver2 && (
-                            <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>{row.driver2}</span>
+                          {(row.driver2 || row.driver3) && (
+                            <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>
+                              {[row.driver2, row.driver3].filter(Boolean).join(' / ')}
+                            </span>
                           )}
                         </td>
                         <td style={TD({ color: 'var(--muted)', fontSize: '.84rem' })}>
@@ -492,8 +497,10 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                           <strong style={{ display: 'block', fontSize: '.88rem' }}>
                             {s.driver1 || '—'}
                           </strong>
-                          {s.driver2 && (
-                            <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>{s.driver2}</span>
+                          {(s.driver2 || s.driver3) && (
+                            <span style={{ fontSize: '.78rem', color: 'var(--muted)' }}>
+                              {[s.driver2, s.driver3].filter(Boolean).join(' / ')}
+                            </span>
                           )}
                         </td>
                         <td style={TD({ textAlign: 'center', color: 'var(--muted)' })}>

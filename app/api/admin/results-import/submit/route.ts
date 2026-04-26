@@ -19,6 +19,7 @@ interface StandingInput {
   teamName: string
   driver1: string
   driver2?: string
+  driver3?: string
   carModel?: string
   laps?: number
   totalTime?: string
@@ -111,6 +112,7 @@ export async function POST(req: Request) {
     teamName: s.teamName.trim(),
     driver1: s.driver1.trim(),
     ...(s.driver2?.trim() ? { driver2: s.driver2.trim() } : {}),
+    ...(s.driver3?.trim() ? { driver3: s.driver3.trim() } : {}),
     ...(s.carModel?.trim() ? { carModel: s.carModel.trim() } : {}),
     ...(s.laps !== undefined && s.laps !== null ? { laps: s.laps } : {}),
     ...(s.totalTime?.trim() ? { totalTime: s.totalTime.trim() } : {}),

@@ -66,6 +66,12 @@ export default defineType({
           defineField({ name: 'teamName',    title: '팀명',      type: 'string' }),
           defineField({ name: 'driver1',     title: '드라이버 1', type: 'string' }),
           defineField({ name: 'driver2',     title: '드라이버 2 (공동)', type: 'string' }),
+          defineField({
+            name: 'driver3',
+            type: 'string',
+            title: '드라이버 3 (공동)',
+            description: '3인 참가 시 입력. 선택 사항.',
+          }),
           defineField({ name: 'carModel',    title: '차량 모델', type: 'string' }),
           defineField({ name: 'laps',        title: '완주 랩수', type: 'number' }),
           defineField({ name: 'totalTime',   title: '총 시간',   type: 'string',

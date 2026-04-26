@@ -17,6 +17,7 @@ interface StandingRow {
   teamName: string
   driver1: string
   driver2: string
+  driver3: string
   carModel: string
   laps: string
   totalTime: string
@@ -49,6 +50,7 @@ function emptyRow(): StandingRow {
     teamName: '',
     driver1: '',
     driver2: '',
+    driver3: '',
     carModel: '',
     laps: '',
     totalTime: '',
@@ -75,19 +77,20 @@ function parseTabText(text: string): StandingRow[] {
 
 function cellsToRow(cells: (string | undefined)[]): StandingRow {
   const c = (i: number) => (cells[i] ?? '').trim()
-  const status = c(11)
+  const status = c(12)
   return {
     position: c(0),
     carNumber: c(1),
     teamName: c(2),
     driver1: c(3),
     driver2: c(4),
-    carModel: c(5),
-    laps: c(6),
-    totalTime: c(7),
-    gap: c(8),
-    fastestLap: c(9),
-    points: c(10),
+    driver3: c(5),
+    carModel: c(6),
+    laps: c(7),
+    totalTime: c(8),
+    gap: c(9),
+    fastestLap: c(10),
+    points: c(11),
     status: (['classified', 'dnf', 'dns', 'dsq'].includes(status) ? status : '') as Status | '',
   }
 }
@@ -377,6 +380,7 @@ function ResultsImportContent() {
       teamName: r.teamName,
       driver1: r.driver1,
       ...(r.driver2 ? { driver2: r.driver2 } : {}),
+      ...(r.driver3 ? { driver3: r.driver3 } : {}),
       ...(r.carModel ? { carModel: r.carModel } : {}),
       ...(r.laps ? { laps: Number(r.laps) } : {}),
       ...(r.totalTime ? { totalTime: r.totalTime } : {}),
@@ -471,6 +475,7 @@ function ResultsImportContent() {
     { key: 'teamName',   label: '팀명',        width: '140px', type: 'text' },
     { key: 'driver1',    label: '드라이버1',  width: '110px', type: 'text' },
     { key: 'driver2',    label: '드라이버2',  width: '110px', type: 'text' },
+    { key: 'driver3',    label: '드라이버3',  width: '110px', type: 'text' },
     { key: 'carModel',   label: '차량',        width: '110px', type: 'text' },
     { key: 'laps',       label: '랩수',        width: '60px',  type: 'number' },
     { key: 'totalTime',  label: '총시간',      width: '90px',  type: 'text' },
@@ -588,7 +593,7 @@ function ResultsImportContent() {
           {activeTab === 'paste' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <p style={{ margin: 0, fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
-                엑셀에서 Ctrl+C 후 아래에 Ctrl+V. 컬럼 순서: 순위 / 차량번호 / 팀명 / 드라이버1 / 드라이버2 / 차량모델 / 랩수 / 총시간 / 갭 / 패스티스트랩 / 포인트 / 상태
+                엑셀에서 Ctrl+C 후 아래에 Ctrl+V. 컬럼 순서: 순위 / 차량번호 / 팀명 / 드라이버1 / 드라이버2 / 드라이버3 / 차량모델 / 랩수 / 총시간 / 갭 / 패스티스트랩 / 포인트 / 상태
               </p>
               <textarea
                 placeholder="엑셀에서 Ctrl+C 후 여기에 Ctrl+V (탭 구분)"
