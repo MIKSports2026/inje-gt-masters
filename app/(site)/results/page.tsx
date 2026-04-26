@@ -20,7 +20,7 @@ const ALL_SEASON_RESULTS_QUERY = /* groq */`
     "roundNumber": round->roundNumber,
     "classCode":   classInfo->classCode,
     standings[]{
-      position, carNumber, teamName, driver1, driver2,
+      position, carNumber, teamName, driver1, driver2, driver3,
       laps, totalTime, gap, fastestLap, points, status
     },
     championshipStandings[]{
@@ -40,9 +40,9 @@ export default async function ResultsPage() {
     <>
       <PageHero
         image={(siteSettings as SiteSettings | null)?.heroResults}
-        badge="Race Information"
-        title="Results"
-        subtitle="2026 시즌 Driver Ranking · Team Ranking"
+        badge="SEASON 2026"
+        title="RESULTS"
+        subtitle="2026 시즌 라운드별 · 누적 결과"
       />
 
       <section className="section">
