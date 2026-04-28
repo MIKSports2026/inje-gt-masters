@@ -2,8 +2,9 @@
 import { sanityFetch } from '@/lib/sanity.client'
 import { POSTS_QUERY } from '@/lib/queries'
 import type { Post } from '@/types/sanity'
+import { getSiteUrl } from '@/lib/siteUrl'
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.injegtmasters.com'
+const BASE = getSiteUrl()
 
 const CATEGORY_LABEL: Record<string, string> = {
   notice: '공지사항',

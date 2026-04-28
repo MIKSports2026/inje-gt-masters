@@ -4,12 +4,11 @@ import './globals.css'
 import { sanityFetch }       from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY } from '@/lib/queries'
 import type { SiteSettings }   from '@/types/sanity'
+import { getSiteUrl }          from '@/lib/siteUrl'
 
 // ── 기본 메타데이터 (Sanity 값으로 덮어씌워짐) ────────────────
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.injegtmasters.com'
-  ),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default:  '인제 GT 마스터즈 | 공식 홈페이지',
     template: '%s | 인제 GT 마스터즈',
