@@ -1,46 +1,3 @@
-/* ── Overview Cards ─────────────────────────────────────── */
-.overviewGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 64px;
-}
-
-.overviewCard {
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  padding: 24px 20px;
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
-  position: relative;
-}
-
-.overviewCard::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--red), transparent 70%);
-}
-
-.overviewLabel {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--red);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.overviewValue {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 900;
-  color: #fff;
-  line-height: 1.3;
-}
-
 /* ── Section Header ─────────────────────────────────────── */
 .sectionHeader {
   margin-bottom: 32px;
@@ -64,66 +21,74 @@
 /* ── Kit Grid ───────────────────────────────────────────── */
 .kitGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
   margin-bottom: 80px;
 }
 
 /* ── Kit Card ───────────────────────────────────────────── */
 .kitCard {
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  background: #1A1A1A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
 
-.kitCard:hover {
-  border-color: rgba(230, 0, 35, 0.4);
-  transform: translateY(-3px);
+.kitCardReady:hover {
+  border-color: #E60023;
+  box-shadow: 0 0 0 1px rgba(230, 0, 35, 0.15);
 }
 
-.thumbnail {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  background: var(--bg-4);
-  overflow: hidden;
+.kitCardPending {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.thumbnailFallback {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  opacity: 0.3;
-  font-size: 2.2rem;
+/* ── Card Header ────────────────────────────────────────── */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 18px 0;
 }
 
+.roundBadge {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--red);
+  background: rgba(230, 0, 35, 0.1);
+  border: 1px solid rgba(230, 0, 35, 0.25);
+  padding: 3px 10px;
+  letter-spacing: 1px;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%);
+}
+
+.pendingBadge {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #666;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 10px;
+  letter-spacing: 0.5px;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%);
+}
+
+/* ── Card Body ──────────────────────────────────────────── */
 .cardBody {
-  padding: 18px 18px 0;
+  padding: 12px 18px 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.catBadge {
-  display: inline-block;
-  padding: 3px 10px;
-  font-family: var(--font-heading);
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: var(--red);
-  background: rgba(230, 0, 35, 0.08);
-  border: 1px solid rgba(230, 0, 35, 0.2);
-  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
-  letter-spacing: 0.5px;
-  align-self: flex-start;
+  gap: 6px;
 }
 
 .cardTitle {
+  font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 700;
   color: #ddd;
@@ -131,25 +96,45 @@
 }
 
 .cardDesc {
-  font-size: 0.88rem;
-  color: var(--muted);
-  line-height: 1.6;
-  flex: 1;
-}
-
-.cardDate {
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: #555;
-  letter-spacing: 0.5px;
+  line-height: 1.5;
 }
 
+/* ── Card Footer ────────────────────────────────────────── */
 .cardFooter {
   padding: 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* Download button — outline → fill on hover */
+/* Download button */
 .btnDownload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  background: #E60023;
+  border: 1px solid #E60023;
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  transition: box-shadow 0.25s ease;
+}
+
+.btnDownload:hover {
+  box-shadow: 0 0 15px rgba(230, 0, 35, 0.4);
+}
+
+/* Photo button */
+.btnPhoto {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,11 +153,12 @@
   transition: background 0.25s ease, color 0.25s ease;
 }
 
-.btnDownload:hover {
+.btnPhoto:hover {
   background: var(--red);
   color: #fff;
 }
 
+/* Unavailable button */
 .btnUnavailable {
   display: flex;
   align-items: center;
@@ -182,39 +168,39 @@
   padding: 11px 16px;
   font-size: 0.85rem;
   color: #555;
-  background: var(--bg-4);
-  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
 }
 
+/* Timing info */
+.timingInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #666;
+  padding: 0 2px;
+  line-height: 1.4;
+}
+
+.timingInfo i {
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: #555;
+}
+
 /* ── Empty State ─────────────────────────────────────────── */
-.empty {
-  text-align: center;
-  padding: 80px 0;
-  color: var(--muted);
-}
-
-.emptyIcon {
-  font-size: 3rem;
-  opacity: 0.25;
-  display: block;
-  margin-bottom: 16px;
-}
-
-.emptyText {
-  font-size: 1rem;
-  margin-bottom: 8px;
-}
-
 .emptyNote {
-  font-size: 0.88rem;
-  color: #444;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 80px;
 }
 
 /* ── Contact Section ─────────────────────────────────────── */
 .contactSection {
-  background: var(--bg-2);
-  border: 1px solid var(--line);
+  background: #1A1A1A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-left: 3px solid var(--red);
   padding: 32px 36px;
   clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
@@ -257,10 +243,6 @@
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .overviewGrid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
   .kitGrid {
     grid-template-columns: 1fr;
   }
@@ -268,11 +250,5 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 24px 20px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .overviewGrid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }

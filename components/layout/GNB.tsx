@@ -51,6 +51,7 @@ function buildMediaDrop(hasGallery: boolean): DropItem[] {
     { label: 'Notice', href: '/media/news' },
     ...(hasGallery ? [{ label: '사진 갤러리', href: '/media/gallery' }] : []),
     { label: 'Video', href: '/media/video' },
+    { label: 'Media Kit', href: '/media/kit' },
   ]
 }
 
