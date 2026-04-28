@@ -36,9 +36,41 @@ export interface RoundResult {
   }[]
 }
 
+export interface TeamStandingEntry {
+  position:    number
+  carNumber?:  string
+  teamName:    string
+  drivers?:    string
+  totalPoints: number
+}
+
+export interface DriverStandingEntry {
+  position:    number
+  driverName:  string
+  carNumber?:  string
+  teamName?:   string
+  totalPoints: number
+}
+
+export interface TeamStanding {
+  _id:       string
+  season:    number
+  classCode: string
+  entries:   TeamStandingEntry[]
+}
+
+export interface DriverStanding {
+  _id:       string
+  season:    number
+  classCode: string
+  entries:   DriverStandingEntry[]
+}
+
 interface Props {
-  rounds:     Round[]
-  allResults: RoundResult[]
+  rounds:          Round[]
+  allResults:      RoundResult[]
+  teamStandings:   TeamStanding[]
+  driverStandings: DriverStanding[]
 }
 
 // ── 상수 ──────────────────────────────────────────────────────
@@ -63,7 +95,7 @@ function fmtDate(d?: string) {
 }
 
 // ── 컴포넌트 ──────────────────────────────────────────────────
-export default function ResultsClient({ rounds, allResults }: Props) {
+export default function ResultsClient({ rounds, allResults, teamStandings, driverStandings }: Props) {
   // 결과 데이터가 있는 라운드 번호 Set
   const roundsWithData = useMemo(
     () => new Set(allResults.filter(r => isRace(r.raceType)).map(r => r.roundNumber)),
@@ -148,6 +180,18 @@ export default function ResultsClient({ rounds, allResults }: Props) {
   const showQualifyingStatusColumn = useMemo(() => qualifyingStandings.some(s => s.status === 'dnf' || s.status === 'dns' || s.status === 'dsq'), [qualifyingStandings])
   const hasQualifyingData          = useMemo(() => qualifyingStandings.length > 0, [qualifyingStandings])
 
+  // ── 누적 스탠딩 (activeClass 기준) ──────────────────────────
+  const activeTeamStanding = useMemo(
+    () => [...(teamStandings.find(s => s.classCode === activeClass)?.entries ?? [])]
+      .sort((a, b) => (a.position ?? 999) - (b.position ?? 999)),
+    [teamStandings, activeClass]
+  )
+  const activeDriverStanding = useMemo(
+    () => [...(driverStandings.find(s => s.classCode === activeClass)?.entries ?? [])]
+      .sort((a, b) => (a.position ?? 999) - (b.position ?? 999)),
+    [driverStandings, activeClass]
+  )
+
   // ── 공통 스타일 ─────────────────────────────────────────────
   const cut = 'polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)'
 
@@ -193,6 +237,78 @@ export default function ResultsClient({ rounds, allResults }: Props) {
       <i className="fa-solid fa-chart-bar"
         style={{ fontSize: '2.4rem', opacity: .18, display: 'block', marginBottom: '14px' }} />
       <p style={{ fontSize: '.95rem' }}>집계 중입니다.</p>
+    </div>
+  )
+
+  const noStandingData = (
+    <div style={{ textAlign: 'center', padding: '64px 0', color: 'var(--muted)' }}>
+      <i className="fa-solid fa-chart-bar"
+        style={{ fontSize: '2.4rem', opacity: .18, display: 'block', marginBottom: '14px' }} />
+      <p style={{ fontSize: '.95rem' }}>이번 시즌 데이터가 아직 입력되지 않았습니다.</p>
+    </div>
+  )
+
+  // ── 팀 스탠딩 테이블 ─────────────────────────────────────
+  const teamStandingTable = activeTeamStanding.length === 0 ? noStandingData : (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut }}>
+        <thead>
+          <tr>
+            <th style={TH()}>RANK</th>
+            <th style={TH()}>NO</th>
+            <th style={TH()}>팀명</th>
+            <th style={TH()}>드라이버</th>
+            <th style={TH({ textAlign: 'right', color: RED })}>PTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {activeTeamStanding.map((s, i) => (
+            <tr key={i}
+              style={{ transition: 'background .15s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.03)')}
+              onMouseLeave={e => (e.currentTarget.style.background = '')}
+            >
+              <td style={TD({ fontWeight: 700 })}>{s.position ?? '—'}</td>
+              <td style={TD()}><span style={carTag}>#{s.carNumber || '—'}</span></td>
+              <td style={TD({ fontWeight: 700, fontSize: '.88rem' })}>{s.teamName || '—'}</td>
+              <td style={TD({ color: 'var(--muted)', fontSize: '.84rem' })}>{s.drivers || '—'}</td>
+              <td style={TD({ textAlign: 'right', fontWeight: 900, color: RED })}>{s.totalPoints ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+
+  // ── 드라이버 스탠딩 테이블 ───────────────────────────────
+  const driverStandingTable = activeDriverStanding.length === 0 ? noStandingData : (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut }}>
+        <thead>
+          <tr>
+            <th style={TH()}>RANK</th>
+            <th style={TH()}>드라이버</th>
+            <th style={TH()}>NO</th>
+            <th style={TH()}>팀명</th>
+            <th style={TH({ textAlign: 'right', color: RED })}>PTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {activeDriverStanding.map((s, i) => (
+            <tr key={i}
+              style={{ transition: 'background .15s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.03)')}
+              onMouseLeave={e => (e.currentTarget.style.background = '')}
+            >
+              <td style={TD({ fontWeight: 700 })}>{s.position ?? '—'}</td>
+              <td style={TD({ fontWeight: 700, fontSize: '.88rem' })}>{s.driverName || '—'}</td>
+              <td style={TD()}><span style={carTag}>#{s.carNumber || '—'}</span></td>
+              <td style={TD({ color: 'var(--muted)', fontSize: '.84rem' })}>{s.teamName || '—'}</td>
+              <td style={TD({ textAlign: 'right', fontWeight: 900, color: RED })}>{s.totalPoints ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 
@@ -468,7 +584,8 @@ export default function ResultsClient({ rounds, allResults }: Props) {
         </>
       )}
       {mainTab === 0 && subTab === 1 && pending}
-      {mainTab === 1 && pending}
+      {mainTab === 1 && subTab === 0 && teamStandingTable}
+      {mainTab === 1 && subTab === 1 && driverStandingTable}
     </div>
   )
 }

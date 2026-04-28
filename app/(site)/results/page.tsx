@@ -5,7 +5,7 @@ import { SITE_SETTINGS_QUERY, ROUNDS_QUERY } from '@/lib/queries'
 import type { SiteSettings, Round } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
 import ResultsClient from './ResultsClient'
-import type { RoundResult } from './ResultsClient'
+import type { RoundResult, TeamStanding, DriverStanding } from './ResultsClient'
 
 export const metadata: Metadata = {
   title: 'Results',
@@ -29,11 +29,31 @@ const ALL_SEASON_RESULTS_QUERY = /* groq */`
   }
 `
 
+/** 2026 시즌 팀 스탠딩 */
+const TEAM_STANDINGS_QUERY = /* groq */`
+  *[_type == "teamStanding" && isPublished == true && season == 2026] {
+    _id, season,
+    "classCode": classInfo->classCode,
+    entries[]{ position, carNumber, teamName, drivers, totalPoints }
+  }
+`
+
+/** 2026 시즌 드라이버 스탠딩 */
+const DRIVER_STANDINGS_QUERY = /* groq */`
+  *[_type == "driverStanding" && isPublished == true && season == 2026] {
+    _id, season,
+    "classCode": classInfo->classCode,
+    entries[]{ position, driverName, carNumber, teamName, totalPoints }
+  }
+`
+
 export default async function ResultsPage() {
-  const [siteSettings, rounds, allResults] = await Promise.all([
+  const [siteSettings, rounds, allResults, teamStandings, driverStandings] = await Promise.all([
     sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, useCdn: false }).catch(() => null),
     sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300, useCdn: false }).catch(() => [] as Round[]),
     sanityFetch<RoundResult[]>({ query: ALL_SEASON_RESULTS_QUERY, revalidate: 300, useCdn: false }).catch(() => [] as RoundResult[]),
+    sanityFetch<TeamStanding[]>({ query: TEAM_STANDINGS_QUERY, revalidate: 300, useCdn: false }).catch(() => [] as TeamStanding[]),
+    sanityFetch<DriverStanding[]>({ query: DRIVER_STANDINGS_QUERY, revalidate: 300, useCdn: false }).catch(() => [] as DriverStanding[]),
   ])
 
   return (
@@ -50,6 +70,8 @@ export default async function ResultsPage() {
           <ResultsClient
             rounds={(rounds ?? []) as Round[]}
             allResults={(allResults ?? []) as RoundResult[]}
+            teamStandings={(teamStandings ?? []) as TeamStanding[]}
+            driverStandings={(driverStandings ?? []) as DriverStanding[]}
           />
         </div>
       </section>
