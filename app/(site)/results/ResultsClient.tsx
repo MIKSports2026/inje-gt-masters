@@ -36,11 +36,17 @@ export interface RoundResult {
   }[]
 }
 
+export interface StandingRound {
+  roundNumber: number
+  points:      number
+}
+
 export interface TeamStandingEntry {
   position:    number
   carNumber?:  string
   teamName:    string
   drivers?:    string
+  rounds?:     StandingRound[]
   totalPoints: number
 }
 
@@ -49,6 +55,7 @@ export interface DriverStandingEntry {
   driverName:  string
   carNumber?:  string
   teamName?:   string
+  rounds?:     StandingRound[]
   totalPoints: number
 }
 
@@ -192,6 +199,25 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
     [driverStandings, activeClass]
   )
 
+  // 진행된 라운드 번호 목록 (클래스별 독립)
+  const teamActiveRounds = useMemo(() => {
+    const set = new Set<number>()
+    activeTeamStanding.forEach(e => e.rounds?.forEach(r => set.add(r.roundNumber)))
+    return Array.from(set).sort((a, b) => a - b)
+  }, [activeTeamStanding])
+
+  const driverActiveRounds = useMemo(() => {
+    const set = new Set<number>()
+    activeDriverStanding.forEach(e => e.rounds?.forEach(r => set.add(r.roundNumber)))
+    return Array.from(set).sort((a, b) => a - b)
+  }, [activeDriverStanding])
+
+  // 특정 entry에서 roundNumber의 points 반환 (없으면 null)
+  const getRoundPoints = (rounds: StandingRound[] | undefined, roundNumber: number): number | null => {
+    const rd = rounds?.find(r => r.roundNumber === roundNumber)
+    return rd !== undefined ? rd.points : null
+  }
+
   // ── 공통 스타일 ─────────────────────────────────────────────
   const cut = 'polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)'
 
@@ -258,6 +284,9 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
             <th style={TH()}>NO</th>
             <th style={TH()}>팀명</th>
             <th style={TH()}>드라이버</th>
+            {teamActiveRounds.map(rn => (
+              <th key={rn} style={TH({ textAlign: 'right' })}>R{rn}</th>
+            ))}
             <th style={TH({ textAlign: 'right', color: RED })}>PTS</th>
           </tr>
         </thead>
@@ -272,6 +301,14 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
               <td style={TD()}><span style={carTag}>#{s.carNumber || '—'}</span></td>
               <td style={TD({ fontWeight: 700, fontSize: '.88rem' })}>{s.teamName || '—'}</td>
               <td style={TD({ color: 'var(--muted)', fontSize: '.84rem' })}>{s.drivers || '—'}</td>
+              {teamActiveRounds.map(rn => {
+                const pts = getRoundPoints(s.rounds, rn)
+                return (
+                  <td key={rn} style={TD({ textAlign: 'right', color: pts === null ? 'var(--muted)' : undefined, fontSize: '.84rem' })}>
+                    {pts === null ? '—' : pts}
+                  </td>
+                )
+              })}
               <td style={TD({ textAlign: 'right', fontWeight: 900, color: RED })}>{s.totalPoints ?? '—'}</td>
             </tr>
           ))}
@@ -290,6 +327,9 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
             <th style={TH()}>드라이버</th>
             <th style={TH()}>NO</th>
             <th style={TH()}>팀명</th>
+            {driverActiveRounds.map(rn => (
+              <th key={rn} style={TH({ textAlign: 'right' })}>R{rn}</th>
+            ))}
             <th style={TH({ textAlign: 'right', color: RED })}>PTS</th>
           </tr>
         </thead>
@@ -304,6 +344,14 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
               <td style={TD({ fontWeight: 700, fontSize: '.88rem' })}>{s.driverName || '—'}</td>
               <td style={TD()}><span style={carTag}>#{s.carNumber || '—'}</span></td>
               <td style={TD({ color: 'var(--muted)', fontSize: '.84rem' })}>{s.teamName || '—'}</td>
+              {driverActiveRounds.map(rn => {
+                const pts = getRoundPoints(s.rounds, rn)
+                return (
+                  <td key={rn} style={TD({ textAlign: 'right', color: pts === null ? 'var(--muted)' : undefined, fontSize: '.84rem' })}>
+                    {pts === null ? '—' : pts}
+                  </td>
+                )
+              })}
               <td style={TD({ textAlign: 'right', fontWeight: 900, color: RED })}>{s.totalPoints ?? '—'}</td>
             </tr>
           ))}

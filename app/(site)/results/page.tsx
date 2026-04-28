@@ -34,7 +34,11 @@ const TEAM_STANDINGS_QUERY = /* groq */`
   *[_type == "teamStanding" && isPublished == true && season == 2026] {
     _id, season,
     "classCode": classInfo->classCode,
-    entries[]{ position, carNumber, teamName, drivers, totalPoints }
+    entries[]{
+      position, carNumber, teamName, drivers,
+      rounds[]{ roundNumber, points },
+      totalPoints
+    }
   }
 `
 
@@ -43,7 +47,11 @@ const DRIVER_STANDINGS_QUERY = /* groq */`
   *[_type == "driverStanding" && isPublished == true && season == 2026] {
     _id, season,
     "classCode": classInfo->classCode,
-    entries[]{ position, driverName, carNumber, teamName, totalPoints }
+    entries[]{
+      position, driverName, carNumber, teamName,
+      rounds[]{ roundNumber, points },
+      totalPoints
+    }
   }
 `
 
