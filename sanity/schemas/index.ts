@@ -9,14 +9,18 @@ import partner      from './partner'
 import history      from './history'
 import regulation   from './regulation'
 import application  from './application'
-import mediaKit     from './mediaKit'
-import tableBlock   from './blocks/tableBlock'
+import mediaKit       from './mediaKit'
+import tableBlock     from './blocks/tableBlock'
+import teamStanding   from './teamStanding'
+import driverStanding from './driverStanding'
 
 export const schemaTypes = [
   siteSettings,
   round,
   classInfo,
   result,
+  teamStanding,
+  driverStanding,
   post,
   media,
   partner,

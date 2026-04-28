@@ -57,6 +57,28 @@ const structure = (S: any) =>
         .schemaType('result')
         .child(S.documentTypeList('result').title('결과 목록')),
 
+      // ⑤ 팀 스탠딩
+      S.listItem()
+        .title('🏅  팀 스탠딩')
+        .id('teamStanding')
+        .schemaType('teamStanding')
+        .child(
+          S.documentTypeList('teamStanding')
+            .title('팀 스탠딩 목록')
+            .defaultOrdering([{ field: 'season', direction: 'desc' }])
+        ),
+
+      // ⑥ 드라이버 스탠딩
+      S.listItem()
+        .title('👤  드라이버 스탠딩')
+        .id('driverStanding')
+        .schemaType('driverStanding')
+        .child(
+          S.documentTypeList('driverStanding')
+            .title('드라이버 스탠딩 목록')
+            .defaultOrdering([{ field: 'season', direction: 'desc' }])
+        ),
+
       S.divider(),
 
       // ⑤ 소식 / 공지 (카테고리 서브메뉴)
