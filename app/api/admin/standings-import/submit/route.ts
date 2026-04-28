@@ -11,26 +11,28 @@ const STANDING_TYPES = ['team', 'driver'] as const
 type StandingType = (typeof STANDING_TYPES)[number]
 
 interface TeamEntry {
-  position:         number
-  carNumber?:       string
-  teamName:         string
-  drivers?:         string
-  racePoints:       number
+  position:          number
+  carNumber?:        string
+  teamName:          string
+  drivers?:          string
+  racePoints:        number
   finishBonusPoints: number
-  qualifyingPoints: number
-  totalPoints:      number
+  qualifyingPoints:  number
+  totalPoints:       number
 }
 
 interface DriverEntry {
-  position:         number
-  driverName:       string
-  carNumber?:       string
-  teamName?:        string
-  racePoints:       number
+  position:          number
+  driverName:        string
+  carNumber?:        string
+  teamName?:         string
+  racePoints:        number
   finishBonusPoints: number
-  qualifyingPoints: number
-  totalPoints:      number
+  qualifyingPoints:  number
+  totalPoints:       number
 }
+
+type Entry = TeamEntry | DriverEntry
 
 function makeToken(password: string) {
   return crypto.createHash('sha256').update(password + ':inje-gt-admin').digest('hex')
@@ -44,80 +46,37 @@ function isAuthorized(): boolean {
   return token === expected
 }
 
-export async function POST(req: Request) {
-  if (!isAuthorized()) {
-    return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 })
-  }
-
-  const sanityToken = process.env.SANITY_API_WRITE_TOKEN
-  if (!sanityToken) {
-    return NextResponse.json({ ok: false, error: 'SANITY_API_WRITE_TOKEN 미설정' }, { status: 500 })
-  }
-
-  let body: {
-    season:       number
-    classRef:     string
-    classCode:    string
-    standingType: StandingType
-    entries:      (TeamEntry | DriverEntry)[]
-  }
-
-  try {
-    body = await req.json()
-  } catch {
-    return NextResponse.json({ ok: false, error: '잘못된 JSON 형식' }, { status: 400 })
-  }
-
-  const { season, classRef, classCode, standingType, entries } = body
-
-  // ── 기본 필드 검증 ──────────────────────────────────────────
-  if (!season || !Number.isInteger(season) || season < 2020) {
-    return NextResponse.json({ ok: false, error: 'season 필수 (2020 이상 정수)' }, { status: 400 })
-  }
-  if (!classRef) {
-    return NextResponse.json({ ok: false, error: 'classRef 필수' }, { status: 400 })
-  }
-  if (!standingType || !(STANDING_TYPES as readonly string[]).includes(standingType)) {
-    return NextResponse.json({ ok: false, error: 'standingType은 team 또는 driver 중 하나' }, { status: 400 })
-  }
-  if (!entries || !Array.isArray(entries) || entries.length === 0) {
-    return NextResponse.json({ ok: false, error: 'entries 배열이 비어있습니다' }, { status: 400 })
-  }
-
-  // ── entries 각 행 검증 ──────────────────────────────────────
+// ── 검증 ────────────────────────────────────────────────────
+function validateEntries(entries: Entry[], standingType: StandingType, label: string): string | null {
   for (let i = 0; i < entries.length; i++) {
-    const e = entries[i]
-    const rowLabel = `행 ${i + 1}`
+    const e        = entries[i]
+    const rowLabel = `${label} 행 ${i + 1}`
 
     if (!e.position || !Number.isInteger(e.position) || e.position < 1) {
-      return NextResponse.json({ ok: false, error: `${rowLabel}: position 필수 (1 이상 정수)` }, { status: 400 })
+      return `${rowLabel}: position 필수 (1 이상 정수)`
     }
     if (e.totalPoints === undefined || e.totalPoints === null) {
-      return NextResponse.json({ ok: false, error: `${rowLabel}: totalPoints 필수` }, { status: 400 })
+      return `${rowLabel}: totalPoints 필수`
     }
-
     if (standingType === 'team') {
-      const t = e as TeamEntry
-      if (!t.teamName?.trim()) {
-        return NextResponse.json({ ok: false, error: `${rowLabel}: teamName 필수` }, { status: 400 })
-      }
+      if (!(e as TeamEntry).teamName?.trim()) return `${rowLabel}: teamName 필수`
     } else {
-      const d = e as DriverEntry
-      if (!d.driverName?.trim()) {
-        return NextResponse.json({ ok: false, error: `${rowLabel}: driverName 필수` }, { status: 400 })
-      }
+      if (!(e as DriverEntry).driverName?.trim()) return `${rowLabel}: driverName 필수`
     }
   }
+  return null
+}
 
-  // ── entries에 _key 부여 ─────────────────────────────────────
-  const normalizedEntries = entries.map((e, i) => {
+// ── 정규화 ──────────────────────────────────────────────────
+function normalizeEntries(entries: Entry[], standingType: StandingType) {
+  return entries.map((e, i) => {
     const base = {
-      _key:             `p${e.position}-${i}`,
-      position:         e.position,
-      racePoints:       (e as TeamEntry).racePoints       ?? 0,
-      finishBonusPoints:(e as TeamEntry).finishBonusPoints ?? 0,
-      qualifyingPoints: (e as TeamEntry).qualifyingPoints  ?? 0,
-      totalPoints:      e.totalPoints,
+      _key:              `p${e.position}-${i}`,
+      position:          e.position,
+      racePoints:        (e as TeamEntry).racePoints        ?? 0,
+      finishBonusPoints: (e as TeamEntry).finishBonusPoints ?? 0,
+      qualifyingPoints:  (e as TeamEntry).qualifyingPoints  ?? 0,
+      totalPoints:       e.totalPoints,
     }
     if (standingType === 'team') {
       const t = e as TeamEntry
@@ -137,45 +96,144 @@ export async function POST(req: Request) {
       }
     }
   })
+}
 
-  // ── Sanity 저장 ─────────────────────────────────────────────
-  const docType   = standingType === 'team' ? 'teamStanding' : 'driverStanding'
-  const safeCode  = (classCode ?? '').toLowerCase().replace(/\s+/g, '-')
-  const documentId = `${docType}-${season}-${safeCode}`
-  const now        = new Date().toISOString()
-
+// ── Sanity 저장 ─────────────────────────────────────────────
+async function saveDoc(
+  docType:     string,
+  documentId:  string,
+  classRef:    string,
+  season:      number,
+  entries:     ReturnType<typeof normalizeEntries>,
+  sanityToken: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const now = new Date().toISOString()
   const doc = {
-    _type:      docType,
-    _id:        documentId,
+    _type:       docType,
+    _id:         documentId,
     season,
-    classInfo:  { _type: 'reference', _ref: classRef },
-    entries:    normalizedEntries,
+    classInfo:   { _type: 'reference', _ref: classRef },
+    entries,
     isPublished: true,
     updatedAt:   now,
   }
-
   try {
-    const mutateRes = await fetch(
+    const res = await fetch(
       `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/mutate/${SANITY_DATASET}`,
       {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization:  `Bearer ${sanityToken}`,
-        },
-        body: JSON.stringify({ mutations: [{ createOrReplace: doc }] }),
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${sanityToken}` },
+        body:    JSON.stringify({ mutations: [{ createOrReplace: doc }] }),
       }
     )
-
-    if (!mutateRes.ok) {
-      const errText = await mutateRes.text()
+    if (!res.ok) {
+      const errText = await res.text()
       console.error('Sanity mutate error:', errText)
-      return NextResponse.json({ ok: false, error: `Sanity 저장 실패: ${mutateRes.status}` }, { status: 500 })
+      return { ok: false, error: `Sanity 저장 실패: ${res.status}` }
+    }
+    return { ok: true }
+  } catch (err) {
+    console.error('saveDoc error:', err)
+    return { ok: false, error: 'Sanity 저장 중 네트워크 오류' }
+  }
+}
+
+export async function POST(req: Request) {
+  if (!isAuthorized()) {
+    return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 })
+  }
+
+  const sanityToken = process.env.SANITY_API_WRITE_TOKEN
+  if (!sanityToken) {
+    return NextResponse.json({ ok: false, error: 'SANITY_API_WRITE_TOKEN 미설정' }, { status: 500 })
+  }
+
+  let body: {
+    season:       number
+    standingType: StandingType
+    // 단일 모드
+    classRef?:  string
+    classCode?: string
+    entries?:   Entry[]
+    // 일괄 모드
+    batches?: { classRef: string; classCode: string; entries: Entry[] }[]
+  }
+
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ ok: false, error: '잘못된 JSON 형식' }, { status: 400 })
+  }
+
+  const { season, standingType } = body
+
+  // ── 공통 필드 검증 ──────────────────────────────────────────
+  if (!season || !Number.isInteger(season) || season < 2020) {
+    return NextResponse.json({ ok: false, error: 'season 필수 (2020 이상 정수)' }, { status: 400 })
+  }
+  if (!standingType || !(STANDING_TYPES as readonly string[]).includes(standingType)) {
+    return NextResponse.json({ ok: false, error: 'standingType은 team 또는 driver 중 하나' }, { status: 400 })
+  }
+
+  const docType = standingType === 'team' ? 'teamStanding' : 'driverStanding'
+
+  // ── 일괄 모드 ────────────────────────────────────────────────
+  if (body.batches) {
+    const { batches } = body
+    if (!Array.isArray(batches) || batches.length === 0) {
+      return NextResponse.json({ ok: false, error: 'batches 배열이 비어있습니다' }, { status: 400 })
     }
 
-    return NextResponse.json({ ok: true, _id: documentId, count: normalizedEntries.length })
-  } catch (err) {
-    console.error('Submit error:', err)
-    return NextResponse.json({ ok: false, error: 'Sanity 저장 중 네트워크 오류' }, { status: 500 })
+    for (const batch of batches) {
+      if (!batch.classRef) {
+        return NextResponse.json({ ok: false, error: 'batch.classRef 필수' }, { status: 400 })
+      }
+      if (!Array.isArray(batch.entries) || batch.entries.length === 0) {
+        return NextResponse.json({ ok: false, error: `${batch.classCode}: entries 비어있습니다` }, { status: 400 })
+      }
+      const err = validateEntries(batch.entries, standingType, batch.classCode ?? batch.classRef)
+      if (err) return NextResponse.json({ ok: false, error: err }, { status: 400 })
+    }
+
+    // 순차 저장
+    const results: { classCode: string; _id: string; count: number }[] = []
+    for (const batch of batches) {
+      const safeCode   = (batch.classCode ?? '').toLowerCase().replace(/\s+/g, '-')
+      const documentId = `${docType}-${season}-${safeCode}`
+      const normalized = normalizeEntries(batch.entries, standingType)
+      const result     = await saveDoc(docType, documentId, batch.classRef, season, normalized, sanityToken)
+      if (!result.ok) {
+        return NextResponse.json(
+          { ok: false, error: `${batch.classCode} 저장 실패: ${result.error}`, results },
+          { status: 500 }
+        )
+      }
+      results.push({ classCode: batch.classCode ?? safeCode, _id: documentId, count: normalized.length })
+    }
+
+    return NextResponse.json({ ok: true, results })
   }
+
+  // ── 단일 모드 ────────────────────────────────────────────────
+  const { classRef, classCode, entries } = body
+
+  if (!classRef) {
+    return NextResponse.json({ ok: false, error: 'classRef 필수' }, { status: 400 })
+  }
+  if (!entries || !Array.isArray(entries) || entries.length === 0) {
+    return NextResponse.json({ ok: false, error: 'entries 배열이 비어있습니다' }, { status: 400 })
+  }
+
+  const validErr = validateEntries(entries, standingType, '행')
+  if (validErr) return NextResponse.json({ ok: false, error: validErr }, { status: 400 })
+
+  const safeCode   = (classCode ?? '').toLowerCase().replace(/\s+/g, '-')
+  const documentId = `${docType}-${season}-${safeCode}`
+  const normalized = normalizeEntries(entries, standingType)
+
+  const result = await saveDoc(docType, documentId, classRef, season, normalized, sanityToken)
+  if (!result.ok) {
+    return NextResponse.json({ ok: false, error: result.error }, { status: 500 })
+  }
+  return NextResponse.json({ ok: true, _id: documentId, count: normalized.length })
 }
