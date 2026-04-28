@@ -51,7 +51,7 @@ export default async function MediaKitPage() {
     sanityFetch<MediaKitItem[]>({ query: MEDIA_KIT_QUERY, useCdn: false, revalidate: 0 }),
   ]).catch(() => [null, []] as [SiteSettings | null, MediaKitItem[]])
 
-  const email = (settings as SiteSettings | null)?.email ?? 'media@injegtmasters.com'
+  const email = (settings as SiteSettings | null)?.email ?? 'hynam@miksports.com'
   const kitList = (items as MediaKitItem[])
 
   return (
