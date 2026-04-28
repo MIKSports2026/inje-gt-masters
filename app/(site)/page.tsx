@@ -72,6 +72,86 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* SEO: 구조화 데이터 — SportsOrganization */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SportsOrganization',
+            name: '인제 GT 마스터즈',
+            alternateName: 'Inje GT Masters',
+            url: 'https://www.injegtmasters.com',
+            logo: 'https://www.injegtmasters.com/logo-white.png',
+            sport: '모터스포츠 / 내구레이스',
+            description: '대한민국 정통 GT 내구레이스. 인제스피디움 3.9km 서킷, 2026 시즌 5라운드.',
+            location: {
+              '@type': 'Place',
+              name: '인제스피디움',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: '강원특별자치도 인제군 기린면 상하답로 130',
+                addressLocality: '인제군',
+                addressRegion: '강원특별자치도',
+                addressCountry: 'KR',
+              },
+            },
+          }),
+        }}
+      />
+
+      {/* SEO: 다음 라운드가 있을 때 SportsEvent 추가 */}
+      {nr && nr.dateStart && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'SportsEvent',
+              name: `2026 인제 GT 마스터즈 R${nr.roundNumber} ${nr.title ?? ''}`.trim(),
+              startDate: nr.dateStart,
+              endDate: nr.dateEnd ?? nr.dateStart,
+              eventStatus: 'https://schema.org/EventScheduled',
+              eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+              location: {
+                '@type': 'Place',
+                name: '인제스피디움',
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress: '강원특별자치도 인제군 기린면 상하답로 130',
+                  addressLocality: '인제군',
+                  addressRegion: '강원특별자치도',
+                  addressCountry: 'KR',
+                },
+              },
+              organizer: {
+                '@type': 'Organization',
+                name: '인제 GT 마스터즈',
+                url: 'https://www.injegtmasters.com',
+              },
+              url: `https://www.injegtmasters.com/season/${nr.slug?.current ?? ''}`,
+            }),
+          }}
+        />
+      )}
+
+      {/* SEO: 화면에 노출되지 않는 sr-only h1 (키비주얼 디자인 보존) */}
+      <h1
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: 0,
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0,0,0,0)',
+          whiteSpace: 'nowrap',
+          border: 0,
+        }}
+      >
+        인제 GT 마스터즈 2026 — 대한민국 정통 GT 내구레이스
+      </h1>
+
       <SectionHero slides={activeSlides} />
       <SectionRound    rounds={rs} />
       <SectionClass classes={cs} />
