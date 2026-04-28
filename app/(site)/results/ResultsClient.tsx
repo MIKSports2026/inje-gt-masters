@@ -78,6 +78,7 @@ export default function ResultsClient({ rounds, allResults }: Props) {
 
   const [mainTab,       setMainTab]       = useState(0)
   const [subTab,        setSubTab]        = useState(0)
+  const [sessionTab,    setSessionTab]    = useState(0)  // 0=결승 1=예선
   const [activeClass,   setActiveClass]   = useState('masters-1')
   const [selectedRound, setSelectedRound] = useState(initialRound)
   const [dropdownOpen,  setDropdownOpen]  = useState(false)
@@ -123,6 +124,29 @@ export default function ResultsClient({ rounds, allResults }: Props) {
   const showStatusColumn  = useMemo(() => roundStandings.some(s => s.status === 'dnf' || s.status === 'dns' || s.status === 'dsq'), [roundStandings])
   const showBestLapColumn = useMemo(() => roundStandings.some(s => !!s.fastestLap?.trim()), [roundStandings])
   const hasRoundData      = useMemo(() => roundsWithData.has(selectedRound) && roundStandings.length > 0, [roundsWithData, selectedRound, roundStandings])
+
+  // ── 예선 데이터 ───────────────────────────────────────────
+  const qualifyingStandings = useMemo(() => {
+    const statusOrder = (s?: string) => {
+      if (!s || s === 'classified') return 0
+      if (s === 'dnf') return 1
+      if (s === 'dns') return 2
+      if (s === 'dsq') return 3
+      return 4
+    }
+    return allResults
+      .filter(r => r.roundNumber === selectedRound && r.classCode === activeClass && r.raceType === 'qualifying')
+      .flatMap(r => r.standings)
+      .sort((a, b) => {
+        const ao = statusOrder(a.status), bo = statusOrder(b.status)
+        if (ao !== bo) return ao - bo
+        if (ao === 0) return (a.position ?? 999) - (b.position ?? 999)
+        return 0
+      })
+  }, [allResults, selectedRound, activeClass])
+
+  const showQualifyingStatusColumn = useMemo(() => qualifyingStandings.some(s => s.status === 'dnf' || s.status === 'dns' || s.status === 'dsq'), [qualifyingStandings])
+  const hasQualifyingData          = useMemo(() => qualifyingStandings.length > 0, [qualifyingStandings])
 
   // ── 공통 스타일 ─────────────────────────────────────────────
   const cut = 'polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)'
@@ -235,6 +259,68 @@ export default function ResultsClient({ rounds, allResults }: Props) {
                 <td style={TD({ fontFamily: 'monospace', fontSize: '.84rem' })}>{s.fastestLap || '—'}</td>
               )}
               {showStatusColumn && (
+                <td style={TD()}>
+                  {s.status === 'dnf' && <span className={`${styles.statusBadge} ${styles.statusDnf}`}>DNF</span>}
+                  {s.status === 'dns' && <span className={`${styles.statusBadge} ${styles.statusDns}`}>DNS</span>}
+                  {s.status === 'dsq' && <span className={`${styles.statusBadge} ${styles.statusDsq}`}>DSQ</span>}
+                  {(!s.status || s.status === 'classified') && '—'}
+                </td>
+              )}
+              <td style={TD({ textAlign: 'right', fontWeight: 900, color: RED })}>{s.points ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+
+  // ── 예선 결과 테이블 ──────────────────────────────────────
+  const qualifyingTable = !hasQualifyingData ? (
+    <div style={{ textAlign: 'center', padding: '52px 0', color: 'var(--muted)' }}>
+      <i className="fa-solid fa-stopwatch"
+        style={{ fontSize: '2.4rem', opacity: .22, display: 'block', marginBottom: '12px' }} />
+      <p style={{ fontSize: '.92rem' }}>예선 결과를 준비 중입니다.</p>
+    </div>
+  ) : (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{
+        width: '100%', borderCollapse: 'collapse',
+        background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut,
+      }}>
+        <thead>
+          <tr>
+            <th style={TH()}>RANK</th>
+            <th style={TH()}>NO</th>
+            <th style={TH()}>팀명</th>
+            <th style={TH()}>드라이버</th>
+            <th style={TH({ fontFamily: 'monospace' })}>BEST LAP</th>
+            <th style={TH({ fontFamily: 'monospace' })}>DIFF</th>
+            {showQualifyingStatusColumn && <th style={TH()}>STATUS</th>}
+            <th style={TH({ textAlign: 'right', color: RED })}>PTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {qualifyingStandings.map((s, i) => (
+            <tr key={i}
+              style={{ transition: 'background .15s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.03)')}
+              onMouseLeave={e => (e.currentTarget.style.background = '')}
+            >
+              <td style={TD({ fontWeight: 700 })}>
+                {(!s.status || s.status === 'classified')
+                  ? (s.position ?? '—')
+                  : s.status === 'dnf' ? 'DNF'
+                  : s.status === 'dns' ? 'DNS'
+                  : 'DQ'}
+              </td>
+              <td style={TD()}><span style={carTag}>#{s.carNumber || '—'}</span></td>
+              <td style={TD({ fontWeight: 700, fontSize: '.88rem' })}>{s.teamName || '—'}</td>
+              <td style={TD()}>{[s.driver1, s.driver2, s.driver3].filter(Boolean).join(' / ') || '—'}</td>
+              <td style={TD({ fontFamily: 'monospace', fontSize: '.84rem' })}>{s.fastestLap || '—'}</td>
+              <td style={TD({ fontFamily: 'monospace', fontSize: '.84rem', color: 'var(--muted)' })}>
+                {s.position === 1 && (!s.status || s.status === 'classified') ? '—' : (s.gap || '—')}
+              </td>
+              {showQualifyingStatusColumn && (
                 <td style={TD()}>
                   {s.status === 'dnf' && <span className={`${styles.statusBadge} ${styles.statusDnf}`}>DNF</span>}
                   {s.status === 'dns' && <span className={`${styles.statusBadge} ${styles.statusDns}`}>DNS</span>}
@@ -370,7 +456,17 @@ export default function ResultsClient({ rounds, allResults }: Props) {
       </div>
 
       {/* ── 콘텐츠 ──────────────────────────────────────────── */}
-      {mainTab === 0 && subTab === 0 && roundTable}
+      {mainTab === 0 && subTab === 0 && (
+        <>
+          {/* ── 세션 탭: 결승 / 예선 ──────────────────────── */}
+          <div style={{ display: 'flex', gap: '4px', marginBottom: '20px', borderBottom: '1px solid var(--line)' }}>
+            <button type="button" style={subTabStyle(sessionTab === 0)} onClick={() => setSessionTab(0)}>결승</button>
+            <button type="button" style={subTabStyle(sessionTab === 1)} onClick={() => setSessionTab(1)}>예선</button>
+          </div>
+          {sessionTab === 0 && roundTable}
+          {sessionTab === 1 && qualifyingTable}
+        </>
+      )}
       {mainTab === 0 && subTab === 1 && pending}
       {mainTab === 1 && pending}
     </div>
