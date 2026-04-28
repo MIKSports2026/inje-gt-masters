@@ -25,7 +25,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: post.metaTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt,
-    openGraph: { title: post.title, description: post.excerpt, images: [ogImage] },
+    alternates: {
+      canonical: `https://www.injegtmasters.com/news/${params.slug}`,
+    },
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.excerpt,
+      url: `https://www.injegtmasters.com/news/${params.slug}`,
+      images: [ogImage],
+      publishedTime: post.publishedAt,
+      authors: post.author ? [post.author] : undefined,
+    },
   }
 }
 
@@ -51,6 +62,40 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
 
   return (
     <>
+      {/* SEO: NewsArticle 구조화 데이터 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'NewsArticle',
+            headline: display.title,
+            description: display.excerpt,
+            datePublished: display.publishedAt,
+            dateModified: display.publishedAt,
+            author: {
+              '@type': 'Organization',
+              name: display.author ?? '인제 GT 마스터즈 운영팀',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: '인제 GT 마스터즈',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://www.injegtmasters.com/logo-white.png',
+              },
+            },
+            image: display.coverImage?.asset?.url
+              ? [display.coverImage.asset.url]
+              : ['https://www.injegtmasters.com/og-default.jpg'],
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': `https://www.injegtmasters.com/news/${params.slug}`,
+            },
+          }),
+        }}
+      />
+
       {/* 히어로 */}
       <section style={{ background: 'linear-gradient(135deg,#111,#1a0008 55%,#0d0d0d)', padding: '52px 0 44px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(135deg,rgba(230,0,35,.04) 0 1px,transparent 1px 60px)', pointerEvents: 'none' }} />
