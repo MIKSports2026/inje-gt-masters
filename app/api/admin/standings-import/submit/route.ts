@@ -10,26 +10,27 @@ const SANITY_API_VERSION = '2024-01-01'
 const STANDING_TYPES = ['team', 'driver'] as const
 type StandingType = (typeof STANDING_TYPES)[number]
 
+interface RoundEntry {
+  roundNumber: number
+  points:      number
+}
+
 interface TeamEntry {
-  position:          number
-  carNumber?:        string
-  teamName:          string
-  drivers?:          string
-  racePoints:        number
-  finishBonusPoints: number
-  qualifyingPoints:  number
-  totalPoints:       number
+  position:    number
+  carNumber?:  string
+  teamName:    string
+  drivers?:    string
+  rounds:      RoundEntry[]
+  totalPoints: number
 }
 
 interface DriverEntry {
-  position:          number
-  driverName:        string
-  carNumber?:        string
-  teamName?:         string
-  racePoints:        number
-  finishBonusPoints: number
-  qualifyingPoints:  number
-  totalPoints:       number
+  position:    number
+  driverName:  string
+  carNumber?:  string
+  teamName?:   string
+  rounds:      RoundEntry[]
+  totalPoints: number
 }
 
 type Entry = TeamEntry | DriverEntry
@@ -63,6 +64,14 @@ function validateEntries(entries: Entry[], standingType: StandingType, label: st
     } else {
       if (!(e as DriverEntry).driverName?.trim()) return `${rowLabel}: driverName 필수`
     }
+    if (!Array.isArray(e.rounds)) {
+      return `${rowLabel}: rounds 배열 필수`
+    }
+    for (const rd of e.rounds) {
+      if (!Number.isInteger(rd.roundNumber) || rd.roundNumber < 1 || rd.roundNumber > 5) {
+        return `${rowLabel}: roundNumber는 1~5 정수`
+      }
+    }
   }
   return null
 }
@@ -70,13 +79,16 @@ function validateEntries(entries: Entry[], standingType: StandingType, label: st
 // ── 정규화 ──────────────────────────────────────────────────
 function normalizeEntries(entries: Entry[], standingType: StandingType) {
   return entries.map((e, i) => {
+    const rounds = (e.rounds ?? []).map(rd => ({
+      _key:        `r${rd.roundNumber}-${i}`,
+      roundNumber: rd.roundNumber,
+      points:      rd.points ?? 0,
+    }))
     const base = {
-      _key:              `p${e.position}-${i}`,
-      position:          e.position,
-      racePoints:        (e as TeamEntry).racePoints        ?? 0,
-      finishBonusPoints: (e as TeamEntry).finishBonusPoints ?? 0,
-      qualifyingPoints:  (e as TeamEntry).qualifyingPoints  ?? 0,
-      totalPoints:       e.totalPoints,
+      _key:        `p${e.position}-${i}`,
+      position:    e.position,
+      rounds,
+      totalPoints: e.totalPoints,
     }
     if (standingType === 'team') {
       const t = e as TeamEntry

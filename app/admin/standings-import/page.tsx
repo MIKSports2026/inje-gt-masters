@@ -23,25 +23,29 @@ interface ExistingStanding {
 }
 
 interface TeamRow {
-  position:          string
-  carNumber:         string
-  teamName:          string
-  drivers:           string
-  racePoints:        string
-  finishBonusPoints: string
-  qualifyingPoints:  string
-  totalPoints:       string
+  position:    string
+  carNumber:   string
+  teamName:    string
+  drivers:     string
+  r1:          string
+  r2:          string
+  r3:          string
+  r4:          string
+  r5:          string
+  totalPoints: string
 }
 
 interface DriverRow {
-  position:          string
-  driverName:        string
-  carNumber:         string
-  teamName:          string
-  racePoints:        string
-  finishBonusPoints: string
-  qualifyingPoints:  string
-  totalPoints:       string
+  position:    string
+  driverName:  string
+  carNumber:   string
+  teamName:    string
+  r1:          string
+  r2:          string
+  r3:          string
+  r4:          string
+  r5:          string
+  totalPoints: string
 }
 
 type EntryRow = TeamRow | DriverRow
@@ -55,43 +59,47 @@ interface ClassGroup {
 
 // ── 빈 행 ─────────────────────────────────────────────────────
 function emptyTeamRow(): TeamRow {
-  return { position: '', carNumber: '', teamName: '', drivers: '', racePoints: '', finishBonusPoints: '', qualifyingPoints: '', totalPoints: '' }
+  return { position: '', carNumber: '', teamName: '', drivers: '', r1: '', r2: '', r3: '', r4: '', r5: '', totalPoints: '' }
 }
 
 function emptyDriverRow(): DriverRow {
-  return { position: '', driverName: '', carNumber: '', teamName: '', racePoints: '', finishBonusPoints: '', qualifyingPoints: '', totalPoints: '' }
+  return { position: '', driverName: '', carNumber: '', teamName: '', r1: '', r2: '', r3: '', r4: '', r5: '', totalPoints: '' }
 }
 
 // ── 엑셀 파싱 ─────────────────────────────────────────────────
 function parseTeamRow(cells: string[], classFilter: string): TeamRow | null {
   const c = (i: number) => (cells[i] ?? '').toString().trim()
-  // 컬럼: 클래스(0) 순위(1) 차량번호(2) 팀명(3) 드라이버(4) 결승pt(5) 완주pt(6) 예선pt(7) 합계(8)
+  // 컬럼: 클래스(0) 순위(1) 차량번호(2) 팀명(3) 드라이버(4) R1(5) R2(6) R3(7) R4(8) R5(9) 합계(10)
   if (classFilter && c(0) && c(0) !== classFilter) return null
   return {
-    position:          c(1),
-    carNumber:         c(2),
-    teamName:          c(3),
-    drivers:           c(4),
-    racePoints:        c(5) || '0',
-    finishBonusPoints: c(6) || '0',
-    qualifyingPoints:  c(7) || '0',
-    totalPoints:       c(8),
+    position:    c(1),
+    carNumber:   c(2),
+    teamName:    c(3),
+    drivers:     c(4),
+    r1:          c(5),
+    r2:          c(6),
+    r3:          c(7),
+    r4:          c(8),
+    r5:          c(9),
+    totalPoints: c(10),
   }
 }
 
 function parseDriverRow(cells: string[], classFilter: string): DriverRow | null {
   const c = (i: number) => (cells[i] ?? '').toString().trim()
-  // 컬럼: 클래스(0) 순위(1) 드라이버(2) 차량번호(3) 팀명(4) 결승pt(5) 완주pt(6) 예선pt(7) 합계(8)
+  // 컬럼: 클래스(0) 순위(1) 드라이버(2) 차량번호(3) 팀명(4) R1(5) R2(6) R3(7) R4(8) R5(9) 합계(10)
   if (classFilter && c(0) && c(0) !== classFilter) return null
   return {
-    position:          c(1),
-    driverName:        c(2),
-    carNumber:         c(3),
-    teamName:          c(4),
-    racePoints:        c(5) || '0',
-    finishBonusPoints: c(6) || '0',
-    qualifyingPoints:  c(7) || '0',
-    totalPoints:       c(8),
+    position:    c(1),
+    driverName:  c(2),
+    carNumber:   c(3),
+    teamName:    c(4),
+    r1:          c(5),
+    r2:          c(6),
+    r3:          c(7),
+    r4:          c(8),
+    r5:          c(9),
+    totalPoints: c(10),
   }
 }
 
@@ -116,15 +124,15 @@ function validateRow(row: EntryRow, type: StandingType): RowError {
     const d = row as DriverRow
     if (!d.driverName?.trim()) errs.driverName = '드라이버명 필수'
   }
-  if (row.totalPoints === '' || isNaN(Number(row.totalPoints))) {
-    errs.totalPoints = '합계 필수'
+  if (row.totalPoints !== '' && isNaN(Number(row.totalPoints))) {
+    errs.totalPoints = '합계 형식 오류'
   }
-  const race  = Number(row.racePoints        || 0)
-  const bonus = Number(row.finishBonusPoints || 0)
-  const qual  = Number(row.qualifyingPoints  || 0)
-  const total = Number(row.totalPoints       || 0)
-  if (row.totalPoints !== '' && !isNaN(total) && race + bonus + qual !== total) {
-    errs.sumMismatch = `합계 불일치: ${race}+${bonus}+${qual}=${race+bonus+qual} ≠ ${total}`
+  const r = row as TeamRow
+  const rSum = [r.r1, r.r2, r.r3, r.r4, r.r5]
+    .reduce((acc, v) => acc + (v !== '' ? Number(v) || 0 : 0), 0)
+  const total = Number(row.totalPoints || 0)
+  if (row.totalPoints !== '' && !isNaN(total) && rSum !== total) {
+    errs.sumMismatch = `합계 불일치: R1~R5 합=${rSum} ≠ 입력합계=${total}`
   }
   return errs
 }
@@ -139,24 +147,28 @@ const cellInput:    React.CSSProperties = { width: '100%', padding: '5px 7px', b
 
 // ── 컬럼 정의 ─────────────────────────────────────────────────
 const TEAM_COLS = [
-  { key: 'position',          label: '순위',     width: '60px'  },
-  { key: 'carNumber',         label: '차번',     width: '70px'  },
-  { key: 'teamName',          label: '팀명',     width: '150px' },
-  { key: 'drivers',           label: '드라이버', width: '160px' },
-  { key: 'racePoints',        label: '결승pt',   width: '75px'  },
-  { key: 'finishBonusPoints', label: '완주pt',   width: '75px'  },
-  { key: 'qualifyingPoints',  label: '예선pt',   width: '75px'  },
-  { key: 'totalPoints',       label: '합계',     width: '75px'  },
+  { key: 'position',    label: '순위',     width: '60px'  },
+  { key: 'carNumber',   label: '차번',     width: '70px'  },
+  { key: 'teamName',    label: '팀명',     width: '150px' },
+  { key: 'drivers',     label: '드라이버', width: '160px' },
+  { key: 'r1',          label: 'R1',       width: '60px'  },
+  { key: 'r2',          label: 'R2',       width: '60px'  },
+  { key: 'r3',          label: 'R3',       width: '60px'  },
+  { key: 'r4',          label: 'R4',       width: '60px'  },
+  { key: 'r5',          label: 'R5',       width: '60px'  },
+  { key: 'totalPoints', label: '합계',     width: '75px'  },
 ]
 const DRIVER_COLS = [
-  { key: 'position',          label: '순위',     width: '60px'  },
-  { key: 'driverName',        label: '드라이버', width: '140px' },
-  { key: 'carNumber',         label: '차번',     width: '70px'  },
-  { key: 'teamName',          label: '팀명',     width: '140px' },
-  { key: 'racePoints',        label: '결승pt',   width: '75px'  },
-  { key: 'finishBonusPoints', label: '완주pt',   width: '75px'  },
-  { key: 'qualifyingPoints',  label: '예선pt',   width: '75px'  },
-  { key: 'totalPoints',       label: '합계',     width: '75px'  },
+  { key: 'position',    label: '순위',     width: '60px'  },
+  { key: 'driverName',  label: '드라이버', width: '140px' },
+  { key: 'carNumber',   label: '차번',     width: '70px'  },
+  { key: 'teamName',    label: '팀명',     width: '140px' },
+  { key: 'r1',          label: 'R1',       width: '60px'  },
+  { key: 'r2',          label: 'R2',       width: '60px'  },
+  { key: 'r3',          label: 'R3',       width: '60px'  },
+  { key: 'r4',          label: 'R4',       width: '60px'  },
+  { key: 'r5',          label: 'R5',       width: '60px'  },
+  { key: 'totalPoints', label: '합계',     width: '75px'  },
 ]
 
 // ── 공용 테이블 컴포넌트 ─────────────────────────────────────
@@ -220,7 +232,7 @@ function EntryTable({ rows, standingType, onUpdateRow, onAddRow, onRemoveLastRow
       </div>
       {hasErrors && (
         <div style={{ marginBottom: '8px', padding: '8px 12px', background: 'rgba(220,0,26,0.08)', border: '1px solid rgba(220,0,26,0.3)', fontSize: '12px', color: '#ff8080' }}>
-          {rowErrors.some(e => e.sumMismatch) && <div>합계 불일치 행 있음</div>}
+          {rowErrors.some(e => e.sumMismatch) && <div style={{ color: '#f59e0b' }}>⚠ 합계 불일치 행 있음 (저장은 가능)</div>}
           {rowErrors.some(e => e.position || e.teamName || e.driverName || e.totalPoints) && <div>필수 필드 누락 있음</div>}
         </div>
       )}
@@ -438,13 +450,20 @@ function StandingsImportContent() {
 
   // ── 엔트리 payload 변환 ────────────────────────────────────
   function toPayload(r: EntryRow) {
-    const base = {
-      position:          Number(r.position),
-      racePoints:        Number(r.racePoints        || 0),
-      finishBonusPoints: Number(r.finishBonusPoints || 0),
-      qualifyingPoints:  Number(r.qualifyingPoints  || 0),
-      totalPoints:       Number(r.totalPoints       || 0),
-    }
+    const rx = r as TeamRow
+    const roundDefs = [
+      { roundNumber: 1, val: rx.r1 },
+      { roundNumber: 2, val: rx.r2 },
+      { roundNumber: 3, val: rx.r3 },
+      { roundNumber: 4, val: rx.r4 },
+      { roundNumber: 5, val: rx.r5 },
+    ]
+    const rounds = roundDefs
+      .filter(rd => rd.val !== '')
+      .map(rd => ({ roundNumber: rd.roundNumber, points: Number(rd.val) || 0 }))
+    const computedTotal = rounds.reduce((acc, rd) => acc + rd.points, 0)
+    const totalPoints   = r.totalPoints !== '' ? Number(r.totalPoints) || 0 : computedTotal
+    const base          = { position: Number(r.position), rounds, totalPoints }
     if (standingType === 'team') {
       const t = r as TeamRow
       return { ...base, ...(t.carNumber?.trim() ? { carNumber: t.carNumber } : {}), teamName: t.teamName, ...(t.drivers?.trim() ? { drivers: t.drivers } : {}) }
@@ -525,13 +544,15 @@ function StandingsImportContent() {
   }
 
   // ── 유효성 ────────────────────────────────────────────────
-  const rowErrors = rows.map(r => validateRow(r, standingType))
-  const hasErrors = rowErrors.some(e => Object.keys(e).length > 0)
-  const canSubmit = !submitting && (
+  // sumMismatch는 경고만 — 저장 blocking 아님
+  const isBlocking = (e: RowError) => !!(e.position || e.teamName || e.driverName || e.totalPoints)
+  const rowErrors  = rows.map(r => validateRow(r, standingType))
+  const hasErrors  = rowErrors.some(e => Object.keys(e).length > 0)
+  const canSubmit  = !submitting && (
     uploadMode === 'single'
-      ? (!hasErrors && !!classRef && rows.length > 0)
+      ? (!rowErrors.some(isBlocking) && !!classRef && rows.length > 0)
       : (bulkGroups.length > 0 && bulkGroups.every(g =>
-          g.rows.map(r => validateRow(r, standingType)).every(e => Object.keys(e).length === 0)
+          g.rows.map(r => validateRow(r, standingType)).every(e => !isBlocking(e))
         ))
   )
 
@@ -721,7 +742,7 @@ function StandingsImportContent() {
           {uploadMode === 'single' && !classRef && (
             <span style={{ alignSelf: 'center', fontSize: '13px', color: 'rgba(255,255,255,0.35)' }}>클래스를 선택하세요</span>
           )}
-          {uploadMode === 'single' && hasErrors && classRef && (
+          {uploadMode === 'single' && rowErrors.some(isBlocking) && classRef && (
             <span style={{ alignSelf: 'center', fontSize: '13px', color: '#ff8080' }}>유효성 오류를 먼저 수정하세요</span>
           )}
           {uploadMode === 'bulk' && bulkGroups.length === 0 && (
