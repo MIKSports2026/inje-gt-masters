@@ -43,14 +43,29 @@ export default defineType({
       of: [{
         type: 'object',
         fields: [
-          defineField({ name: 'position',           title: '순위',              type: 'number', validation: R => R.integer().min(1) }),
-          defineField({ name: 'carNumber',           title: '차량번호',          type: 'string' }),
-          defineField({ name: 'teamName',            title: '팀명',              type: 'string', validation: R => R.required() }),
-          defineField({ name: 'drivers',             title: '드라이버 (/ 구분)', type: 'string', description: '예: 김태환 / 이인용' }),
-          defineField({ name: 'racePoints',          title: '결승 포인트',       type: 'number', initialValue: 0 }),
-          defineField({ name: 'finishBonusPoints',   title: '완주 보너스 포인트', type: 'number', initialValue: 0 }),
-          defineField({ name: 'qualifyingPoints',    title: '예선 포인트',       type: 'number', initialValue: 0 }),
-          defineField({ name: 'totalPoints',         title: '합계 포인트',       type: 'number', initialValue: 0 }),
+          defineField({ name: 'position',  title: '순위',              type: 'number', validation: R => R.integer().min(1) }),
+          defineField({ name: 'carNumber', title: '차량번호',          type: 'string' }),
+          defineField({ name: 'teamName',  title: '팀명',              type: 'string', validation: R => R.required() }),
+          defineField({ name: 'drivers',   title: '드라이버 (/ 구분)', type: 'string', description: '예: 김태환 / 이인용' }),
+          defineField({
+            name:  'rounds',
+            title: '라운드별 점수',
+            type:  'array',
+            of: [{
+              type: 'object',
+              fields: [
+                defineField({ name: 'roundNumber', title: '라운드', type: 'number', validation: R => R.required().integer().min(1).max(5) }),
+                defineField({ name: 'points',      title: '점수',   type: 'number', initialValue: 0 }),
+              ],
+              preview: {
+                select: { rn: 'roundNumber', pts: 'points' },
+                prepare({ rn, pts }: any) {
+                  return { title: `R${rn ?? '?'}`, subtitle: `${pts ?? 0}pt` }
+                },
+              },
+            }],
+          }),
+          defineField({ name: 'totalPoints', title: '합계 포인트', type: 'number', initialValue: 0 }),
         ],
         preview: {
           select: { pos: 'position', team: 'teamName', pts: 'totalPoints' },

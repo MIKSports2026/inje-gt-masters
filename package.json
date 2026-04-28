@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "studio": "sanity dev",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build:standings-template": "npx tsx scripts/build-standings-template.ts",
+    "migrate:standings": "npx tsx scripts/migrate-standings-to-rounds.ts"
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",
