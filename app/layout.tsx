@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     type:        'website',
     locale:      'ko_KR',
-    url:         'https://www.injegtmasters.com',
+    url:         'https://injegtmasters.com',
     siteName:    '인제 GT 마스터즈',
     title:       '인제 GT 마스터즈 2026 | Inje GT Masters',
     description: '인제스피디움에서 열리는 대한민국 정통 GT 내구레이스. 2026 시즌 일정·참가신청·결과를 확인하세요.',
