@@ -26,13 +26,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: post.metaTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt,
     alternates: {
-      canonical: `https://www.injegtmasters.com/news/${params.slug}`,
+      canonical: `https://injegtmasters.com/news/${params.slug}`,
     },
     openGraph: {
       type: 'article',
       title: post.title,
       description: post.excerpt,
-      url: `https://www.injegtmasters.com/news/${params.slug}`,
+      url: `https://injegtmasters.com/news/${params.slug}`,
       images: [ogImage],
       publishedTime: post.publishedAt,
       authors: post.author ? [post.author] : undefined,
@@ -82,15 +82,15 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
               name: '인제 GT 마스터즈',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.injegtmasters.com/logo-white.png',
+                url: 'https://injegtmasters.com/logo-white.png',
               },
             },
             image: display.coverImage?.asset?.url
               ? [display.coverImage.asset.url]
-              : ['https://www.injegtmasters.com/og-default.jpg'],
+              : ['https://injegtmasters.com/og-default.jpg'],
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://www.injegtmasters.com/news/${params.slug}`,
+              '@id': `https://injegtmasters.com/news/${params.slug}`,
             },
           }),
         }}

@@ -81,8 +81,8 @@ export default async function HomePage() {
             '@type': 'SportsOrganization',
             name: '인제 GT 마스터즈',
             alternateName: 'Inje GT Masters',
-            url: 'https://www.injegtmasters.com',
-            logo: 'https://www.injegtmasters.com/logo-white.png',
+            url: 'https://injegtmasters.com',
+            logo: 'https://injegtmasters.com/logo-white.png',
             sport: '모터스포츠 / 내구레이스',
             description: '대한민국 정통 GT 내구레이스. 인제스피디움 3.9km 서킷, 2026 시즌 5라운드.',
             location: {
@@ -127,9 +127,9 @@ export default async function HomePage() {
               organizer: {
                 '@type': 'Organization',
                 name: '인제 GT 마스터즈',
-                url: 'https://www.injegtmasters.com',
+                url: 'https://injegtmasters.com',
               },
-              url: `https://www.injegtmasters.com/season/${nr.slug?.current ?? ''}`,
+              url: `https://injegtmasters.com/season/${nr.slug?.current ?? ''}`,
             }),
           }}
         />
