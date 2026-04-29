@@ -14,19 +14,19 @@ export const metadata: Metadata = {
     template: '%s | 인제 GT 마스터즈',
   },
   description:
-    '대한민국 정통 GT 내구레이스. 인제스피디움 3.9km 서킷, 2026 시즌 5라운드. Masters 1·2·N·3·N-evo 클래스 참가 신청 접수 중.',
+    '인제스피디움에서 열리는 대한민국 정통 GT 내구레이스. 2026 시즌 일정·참가신청·결과를 확인하세요.',
   openGraph: {
     type:        'website',
     locale:      'ko_KR',
     url:         'https://www.injegtmasters.com',
     siteName:    '인제 GT 마스터즈',
     title:       '인제 GT 마스터즈 2026 | Inje GT Masters',
-    description: '대한민국 정통 GT 내구레이스. 인제스피디움 3.9km 서킷, 2026 시즌 5라운드. Masters 1·2·N·3·N-evo 클래스 참가 신청 접수 중.',
+    description: '인제스피디움에서 열리는 대한민국 정통 GT 내구레이스. 2026 시즌 일정·참가신청·결과를 확인하세요.',
   },
   twitter: {
     card:        'summary_large_image',
     title:       '인제 GT 마스터즈 2026 | Inje GT Masters',
-    description: '대한민국 정통 GT 내구레이스. 인제스피디움 3.9km 서킷, 2026 시즌 5라운드. Masters 1·2·N·3·N-evo 클래스 참가 신청 접수 중.',
+    description: '인제스피디움에서 열리는 대한민국 정통 GT 내구레이스. 2026 시즌 일정·참가신청·결과를 확인하세요.',
   },
   robots: {
     index:  true,
