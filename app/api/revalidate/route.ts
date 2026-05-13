@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       classInfo:    ['/', '/classes'],
       result:       ['/', '/results'],
       post:         ['/', '/media/news'],
-      media:        ['/', '/media'],
+      media:        ['/', '/media', '/media/video', '/media/gallery'],
       partner:      ['/'],
       history:      ['/', '/about'],
     }
