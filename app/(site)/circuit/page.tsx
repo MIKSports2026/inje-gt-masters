@@ -20,7 +20,7 @@ export default async function CircuitPage() {
     { icon: 'fa-road', label: '서킷 전장', value: '3.908 km' },
     { icon: 'fa-rotate', label: '코너', value: '19개' },
     { icon: 'fa-arrows-left-right', label: '직선 구간', value: '640m' },
-    { icon: 'fa-mountain', label: '고저차', value: '88m' },
+    { icon: 'fa-mountain', label: '고저차', value: '40m' },
     { icon: 'fa-location-dot', label: '소재지', value: '강원도 인제군' },
   ]
 
