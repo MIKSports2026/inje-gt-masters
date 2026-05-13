@@ -13,6 +13,7 @@ import mediaKit       from './mediaKit'
 import tableBlock     from './blocks/tableBlock'
 import teamStanding   from './teamStanding'
 import driverStanding from './driverStanding'
+import driverProfile  from './driverProfile'
 
 export const schemaTypes = [
   siteSettings,
@@ -21,6 +22,7 @@ export const schemaTypes = [
   result,
   teamStanding,
   driverStanding,
+  driverProfile,
   post,
   media,
   partner,
