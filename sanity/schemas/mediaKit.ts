@@ -58,6 +58,14 @@ export default {
       description: '구글 드라이브 등 외부 폴더 URL',
     },
     {
+      name: 'officialGallery',
+      title: '공식 사진 갤러리',
+      type: 'reference',
+      to: [{ type: 'media' }],
+      description: '연결할 사진 앨범(photoAlbum 타입 media 도큐먼트). 선택하면 미디어킷 카드에서 갤러리로 자동 연결됩니다.',
+      options: { filter: 'mediaType == "photoAlbum"' },
+    },
+    {
       name: 'timingPasswordInfo',
       title: '기록지 안내',
       type: 'string',
