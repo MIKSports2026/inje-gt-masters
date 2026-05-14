@@ -1,5 +1,6 @@
 // app/(site)/media/kit/page.tsx — 라운드별 미디어킷
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY } from '@/lib/queries'
 import type { SiteSettings } from '@/types/sanity'
@@ -21,6 +22,8 @@ const MEDIA_KIT_QUERY = /* groq */`
     "roundDateStart": round->dateStart,
     "mediaKitFileUrl": mediaKitFile.asset->url,
     photoFolderUrl,
+    "gallerySlug": officialGallery->slug.current,
+    "galleryPhotoCount": count(officialGallery->photos),
     timingPasswordInfo,
     order
   }
@@ -35,6 +38,8 @@ interface MediaKitItem {
   roundDateStart?:  string
   mediaKitFileUrl?: string
   photoFolderUrl?:  string
+  gallerySlug?:     string | null
+  galleryPhotoCount?: number | null
   timingPasswordInfo?: string
   order?:           number
 }
@@ -124,7 +129,17 @@ export default async function MediaKitPage() {
                               미디어킷 다운로드
                             </a>
                           )}
-                          {item.photoFolderUrl && (
+                          {item.gallerySlug ? (
+                            <Link
+                              href={`/media/${item.gallerySlug}`}
+                              className={styles.btnPhoto}
+                            >
+                              <i className="fa-solid fa-images" />
+                              {item.galleryPhotoCount
+                                ? `공식 사진 갤러리 (${item.galleryPhotoCount}장)`
+                                : '공식 사진 갤러리'}
+                            </Link>
+                          ) : item.photoFolderUrl ? (
                             <a
                               href={item.photoFolderUrl}
                               target="_blank"
@@ -134,7 +149,7 @@ export default async function MediaKitPage() {
                               <i className="fa-solid fa-images" />
                               오피셜 포토
                             </a>
-                          )}
+                          ) : null}
                           {item.timingPasswordInfo && (
                             <div className={styles.timingInfo}>
                               <i className="fa-solid fa-stopwatch" />
