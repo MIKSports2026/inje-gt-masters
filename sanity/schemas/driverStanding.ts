@@ -48,6 +48,13 @@ export default defineType({
           defineField({ name: 'carNumber',  title: '차량번호',  type: 'string' }),
           defineField({ name: 'teamName',   title: '팀명',     type: 'string' }),
           defineField({
+            name: 'driverProfile',
+            title: '드라이버 프로필 (사진 연결)',
+            type: 'reference',
+            to: [{ type: 'driverProfile' }],
+            description: '선택사항. 연결하면 스탠딩 표에 프로필 사진이 표시됩니다. 비워두면 텍스트만 표시.',
+          }),
+          defineField({
             name:  'rounds',
             title: '라운드별 점수',
             type:  'array',
