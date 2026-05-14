@@ -79,6 +79,17 @@ const structure = (S: any) =>
             .defaultOrdering([{ field: 'season', direction: 'desc' }])
         ),
 
+      // ⑦ 드라이버 프로필
+      S.listItem()
+        .title('🧑‍🏎️  드라이버 프로필')
+        .id('driverProfile')
+        .schemaType('driverProfile')
+        .child(
+          S.documentTypeList('driverProfile')
+            .title('드라이버 프로필 목록')
+            .defaultOrdering([{ field: 'carNumber', direction: 'asc' }])
+        ),
+
       S.divider(),
 
       // ⑤ 소식 / 공지 (카테고리 서브메뉴)
