@@ -235,7 +235,7 @@ async function main() {
     },
     photos: uploadedAssets.map((a, idx) => ({
       _key: `photo-${String(idx + 1).padStart(3, '0')}`,
-      _type: 'photo',
+      _type: 'object',
       image: {
         _type: 'image',
         asset: { _type: 'reference', _ref: a.id },
