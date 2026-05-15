@@ -1,14 +1,14 @@
 'use client'
 import Link from 'next/link'
 import type { SiteSettings } from '@/types/sanity'
-import { ENTRY_CLOSED } from '@/lib/config'
+import { ENTRY_CLOSED, ENTRY_CLOSED_TEXT_KO } from '@/lib/config'
 
 const CARDS = [
   { icon:'fa-solid fa-calendar-days',  title:'2026 라운드 일정', desc:'개막전부터 파이널까지 전체 라운드 일정을 확인하세요.', href:'/#season' },
   {
     icon:'fa-solid fa-flag-checkered',
     title: ENTRY_CLOSED ? 'Entry Closed' : 'Register',
-    desc: ENTRY_CLOSED ? '1라운드 접수 마감 되었습니다.' : '온라인 신청서 작성 후 토스페이먼츠로 빠르게 결제하세요.',
+    desc: ENTRY_CLOSED ? ENTRY_CLOSED_TEXT_KO : '온라인 신청서 작성 후 토스페이먼츠로 빠르게 결제하세요.',
     href: ENTRY_CLOSED ? '/season' : '/entry',
   },
   { icon:'fa-solid fa-trophy',         title:'경기 결과',         desc:'2025 파이널 기준 시즌 최종 순위 및 클래스별 결과.', href:'/#results' },

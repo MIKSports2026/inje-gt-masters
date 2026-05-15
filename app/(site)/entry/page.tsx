@@ -1,6 +1,6 @@
 // app/(site)/entry/page.tsx — 참가신청 페이지 (3탭 구조)
 // R2 접수 오픈 시 ENTRY_CLOSED = false 로 변경하면 기존 폼 복구
-const ENTRY_CLOSED = true
+const ENTRY_CLOSED = false
 
 export const dynamic = 'force-dynamic'
 
