@@ -31,6 +31,7 @@ interface FormState {
   teamName: string; carModel: string;
   teamRepresentative: string;
   preferredNumber: string;
+  preferredNumber2: string;
   drivers: Driver[];
   showDriver2: boolean;
   showDriver3: boolean;
@@ -43,6 +44,7 @@ const init = (): FormState => ({
   teamName: '', carModel: '',
   teamRepresentative: '',
   preferredNumber: '',
+  preferredNumber2: '',
   drivers: [emptyDriver(), emptyDriver(), emptyDriver()],
   showDriver2: false, showDriver3: false, agreedRules: false, agreedPrivacy: false,
 })
@@ -97,9 +99,19 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   const d1 = form.drivers[0]
 
   const roundOk = form.entryType === 'season' || form.roundId
+  const isValidEntryNum = (v: string) => /^[1-9][0-9]?$/.test(v)
+  const entryNumberError = (() => {
+    const v1 = form.preferredNumber; const v2 = form.preferredNumber2
+    if (!v1 || !v2) return ''
+    if (!isValidEntryNum(v1) || !isValidEntryNum(v2)) return '1~99 사이 정수를 입력하세요.'
+    if (v1 === v2) return '1순위와 2순위 번호는 달라야 합니다.'
+    return ''
+  })()
   const step1Valid = roundOk && form.className && form.teamName.length >= 1 && form.carModel.length >= 1
     && d1.name.length >= 2 && d1.birthDate && d1.bloodType && d1.phone && d1.email
     && form.agreedRules && form.agreedPrivacy
+    && isValidEntryNum(form.preferredNumber) && isValidEntryNum(form.preferredNumber2)
+    && form.preferredNumber !== form.preferredNumber2
 
   async function handleSubmit() {
     setSubmitting(true); setError('')
@@ -118,6 +130,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           drivers: driversToSend,
           contactPhone: d1.phone, contactEmail: d1.email,
           preferredNumber: form.preferredNumber || undefined,
+          preferredNumber2: form.preferredNumber2 || undefined,
           agreedRules: form.agreedRules, agreedPrivacy: form.agreedPrivacy,
           entryFee: (() => {
             if (!form.className) return undefined
@@ -224,14 +237,41 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
             <input type="text" placeholder="팀 대표 성명" value={form.teamRepresentative} onChange={e => set('teamRepresentative', e.target.value)} />
           </div>
           <div className="form-group">
-            <label>ENTRY NUMBER</label>
-            <input
-              type="text"
-              placeholder="희망 엔트리 넘버 (선택)"
-              value={form.preferredNumber}
-              onChange={e => set('preferredNumber', e.target.value)}
-              maxLength={3}
-            />
+            <label>희망 엔트리 *</label>
+            <div className="form-row">
+              <div className="form-group">
+                <label>1순위</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  maxLength={2}
+                  required
+                  placeholder="예: 7"
+                  value={form.preferredNumber}
+                  onChange={e => set('preferredNumber', e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label>2순위</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  maxLength={2}
+                  required
+                  placeholder="예: 12"
+                  value={form.preferredNumber2}
+                  onChange={e => set('preferredNumber2', e.target.value)}
+                />
+              </div>
+            </div>
+            {entryNumberError && (
+              <p style={{ color: '#E60023', fontSize: '.82rem', marginTop: 4 }}>{entryNumberError}</p>
+            )}
+            <p style={{ fontSize: '.78rem', color: '#888', marginTop: 6, lineHeight: 1.6 }}>
+              1·2순위 번호는 희망사항으로 접수됩니다. 신청 현황을 함께 검토해 최종 엔트리 넘버를 배정한 뒤 별도로 안내 드립니다.
+            </p>
           </div>
 
           {/* 드라이버 1 */}
@@ -369,7 +409,8 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
               ['TEAM', form.teamName],
               ['VEHICLE', form.carModel],
               ...(form.teamRepresentative ? [['TEAM REP.', form.teamRepresentative]] : []),
-              ...(form.preferredNumber ? [['PREFERRED NO.', form.preferredNumber]] : []),
+              ['희망 엔트리 1순위', `No. ${form.preferredNumber}`],
+              ['희망 엔트리 2순위', `No. ${form.preferredNumber2}`],
               ['DRIVER 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType}`],
               ...(form.showDriver2 && form.drivers[1].name ? [['DRIVER 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`]] : []),
               ...(form.showDriver3 && form.drivers[2].name ? [['DRIVER 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
@@ -384,6 +425,9 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
                 <span className="ef-summary__value">{v}</span>
               </div>
             ))}
+          <p style={{ fontSize: '.78rem', color: '#888', marginTop: 12, lineHeight: 1.6, padding: '0 4px' }}>
+            1·2순위 번호는 희망사항으로 접수됩니다. 신청 현황을 함께 검토해 최종 엔트리 넘버를 배정한 뒤 별도로 안내 드립니다.
+          </p>
           </div>
 
           {error && <div style={{ padding: '12px 16px', background: 'rgba(230,0,35,.08)', border: '1px solid rgba(230,0,35,.2)', fontSize: '.88rem', color: '#E60023' }}>{error}</div>}
