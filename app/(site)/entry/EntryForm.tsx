@@ -463,8 +463,9 @@ function DriverFields({ driver, idx, setDriver, showContact }: {
       </div>
     )}
     <div className="form-group">
-      <label>KARA LICENSE</label>
+      <label>KARA 라이센스 번호 (선택)</label>
       <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} />
+      <p style={{ fontSize: '12px', color: '#666', marginTop: 4, lineHeight: 1.5 }}>보유하지 않은 경우 비워두셔도 됩니다. 운영팀 검토 후 별도 안내 드립니다.</p>
     </div>
   </>)
 }

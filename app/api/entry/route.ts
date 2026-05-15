@@ -29,11 +29,18 @@ function buildEntryEmail({
 
   const r = (label: string, value: string, idx: number) =>
     `<tr style="background:${idx % 2 === 0 ? '#fff' : '#fafafa'}">` +
-    `<td style="padding:9px 14px;width:130px;font-size:12px;color:#666;font-weight:700;border-bottom:1px solid #f0f0f0;">${label}</td>` +
-    `<td style="padding:9px 14px;font-size:12px;color:#111;font-weight:600;border-bottom:1px solid #f0f0f0;">${value || '—'}</td>` +
+    `<td style="padding:8px 14px;width:120px;font-size:13px;color:#666;font-weight:600;border-bottom:1px solid #f0f0f0;vertical-align:top;">${label}</td>` +
+    `<td style="padding:8px 14px;font-size:14px;color:#111;border-bottom:1px solid #f0f0f0;">${value}</td>` +
     `</tr>`
 
+  const section = (title: string, rowsHtml: string) =>
+    `<tr><td style="padding:20px 32px 0;">` +
+    `<p style="margin:0 0 8px;font-size:11px;font-weight:800;letter-spacing:2px;color:#E60023;">${title}</p>` +
+    `<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee;">${rowsHtml}</table>` +
+    `</td></tr>`
+
   const infoRows = [
+    ['참가 유형', '라운드 참가'],
     ['라운드', roundLabel],
     ['클래스', className],
     ...(entryFee ? [['참가비', entryFee]] : []),
@@ -47,18 +54,38 @@ function buildEntryEmail({
     ['희망 엔트리 2순위', `No. ${preferredNumber2}`],
   ].map((item, i) => r(item[0], item[1], i)).join('')
 
-  const driverRowHtml = drivers.map((d, i) => {
-    const parts = i === 0
-      ? [d.name, d.birthDate, d.bloodType, d.phone || contactPhone, d.email || contactEmail, d.karaLicense]
-      : [d.name, d.birthDate, d.bloodType, d.karaLicense]
-    return r(`드라이버 ${i + 1}`, parts.filter(Boolean).join(' / '), i)
-  }).join('')
+  const hintBox =
+    `<tr><td style="padding:12px 32px 0;">` +
+    `<div style="background:#F5F5F5;border-left:3px solid #E60023;padding:12px 16px;">` +
+    `<p style="margin:0;font-size:12px;color:#666;line-height:1.7;">※ 1·2순위 번호는 희망사항으로 접수됩니다. 신청 현황을 함께 검토해 최종 엔트리 넘버를 배정한 뒤 별도로 안내 드립니다.</p>` +
+    `</div></td></tr>`
 
-  const section = (title: string, rows: string) =>
-    `<tr><td style="padding:20px 32px 0;">` +
-    `<p style="margin:0 0 8px;font-size:11px;font-weight:800;letter-spacing:2px;color:#E60023;">${title}</p>` +
-    `<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee;">${rows}</table>` +
-    `</td></tr>`
+  const d1 = drivers[0] ?? {} as Driver
+  const d2 = drivers[1]
+  const d3 = drivers[2]
+
+  const driver1Rows = [
+    ['성명', d1.name ?? ''],
+    ['생년월일', d1.birthDate ?? ''],
+    ['혈액형', d1.bloodType ?? ''],
+    ['전화번호', d1.phone || contactPhone],
+    ['이메일', d1.email || contactEmail],
+    ['KARA 라이센스', d1.karaLicense || '-'],
+  ].map((item, i) => r(item[0], item[1], i)).join('')
+
+  const driver2Rows = d2?.name ? [
+    ['성명', d2.name],
+    ['생년월일', d2.birthDate ?? ''],
+    ['혈액형', d2.bloodType ?? ''],
+    ['KARA 라이센스', d2.karaLicense || '-'],
+  ].map((item, i) => r(item[0], item[1], i)).join('') : ''
+
+  const driver3Rows = d3?.name ? [
+    ['성명', d3.name],
+    ['생년월일', d3.birthDate ?? ''],
+    ['혈액형', d3.bloodType ?? ''],
+    ['KARA 라이센스', d3.karaLicense || '-'],
+  ].map((item, i) => r(item[0], item[1], i)).join('') : ''
 
   return `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#f4f6f8;font-family:sans-serif;">
@@ -72,18 +99,16 @@ function buildEntryEmail({
 <tr><td style="padding:24px 32px 0;">
 <p style="margin:0;font-size:14px;color:#333;line-height:1.8;">안녕하세요, <strong>${greeting}</strong> 님.<br><strong>${roundLabel}</strong> 참가 신청이 정상 접수되었습니다.</p>
 </td></tr>
-<tr><td style="padding:16px 32px 0;">
-<div style="background:#f8f9fa;border-left:3px solid #aaa;padding:12px 16px;">
-<p style="margin:0;font-size:12px;color:#666;line-height:1.7;">※ 1·2순위 번호는 희망사항으로 접수됩니다. 신청 현황을 함께 검토해 최종 엔트리 넘버를 배정한 뒤 별도로 안내 드립니다.</p>
-</div>
-</td></tr>
 ${section('신청 내용', infoRows)}
 ${section('팀 / 차량', teamRows)}
-${section('드라이버', driverRowHtml)}
-<tr><td style="padding:16px 32px 24px;">
+${hintBox}
+${section('드라이버 1', driver1Rows)}
+${d2?.name ? section('드라이버 2', driver2Rows) : ''}
+${d3?.name ? section('드라이버 3', driver3Rows) : ''}
+<tr><td style="padding:20px 32px 24px;">
 <p style="margin:0;font-size:12px;color:#999;">접수 일시: ${now.replace('T', ' ').slice(0, 19)} (UTC)</p>
 </td></tr>
-<tr><td style="padding:16px 32px;background:#f4f6f8;border-top:1px solid #eee;">
+<tr><td style="padding:16px 32px;background:#f4f6f8;border-top:1px solid #eee;text-align:center;">
 <p style="margin:0;font-size:11px;color:#999;line-height:1.7;">문의: <a href="mailto:hynam@miksports.com" style="color:#E60023;">hynam@miksports.com</a><br>인제 GT 마스터즈 운영팀</p>
 </td></tr>
 </table>
