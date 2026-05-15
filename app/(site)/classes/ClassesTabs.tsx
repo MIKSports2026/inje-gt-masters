@@ -160,7 +160,7 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
             )}
 
             {/* 참가비 — 작고 조용하게 */}
-            {(cls.entryFeePerRound || cls.entryFeePerSeason) && (
+            {cls.entryFeePerRound && (
               <div style={{
                 color:         'var(--text-sub)',
                 fontSize:      '12px',
@@ -168,8 +168,7 @@ export default function ClassesTabs({ classes }: { classes: ClassPageData[] }) {
                 letterSpacing: '.02em',
                 marginBottom:  '20px',
               }}>
-                {cls.entryFeePerRound  && <div>라운드 참가비 {fmtKRW(cls.entryFeePerRound)}</div>}
-                {cls.entryFeePerSeason && <div>시즌 참가비 {fmtKRW(cls.entryFeePerSeason)}</div>}
+                <div>라운드 참가비 {fmtKRW(cls.entryFeePerRound)}</div>
               </div>
             )}
 

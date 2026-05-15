@@ -141,18 +141,11 @@ export default function SectionClass({ classes }: Props) {
                             <span className="cls__overlay-value">{cls.tuningRange}</span>
                           </div>
                         )}
-                        {(cls.entryFeePerRound || cls.entryFeeSeason) && (
+                        {cls.entryFeePerRound && (
                           <div className="cls__overlay-row">
                             <span className="cls__overlay-label">참가비</span>
                             <span className="cls__overlay-value">
-                              {[
-                                cls.entryFeePerRound
-                                  ? `라운드 ${cls.entryFeePerRound.toLocaleString('ko-KR')}원`
-                                  : '',
-                                cls.entryFeeSeason
-                                  ? `시즌 ${cls.entryFeeSeason.toLocaleString('ko-KR')}원`
-                                  : '',
-                              ].filter(Boolean).join('\n')}
+                              {`라운드 ${cls.entryFeePerRound.toLocaleString('ko-KR')}원`}
                             </span>
                           </div>
                         )}

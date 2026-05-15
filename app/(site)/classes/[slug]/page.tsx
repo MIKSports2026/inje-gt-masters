@@ -137,12 +137,6 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
                       <span style={{ fontSize: '.85rem', color: 'var(--muted)' }}>라운드당</span>
                       <strong style={{ fontSize: '1.3rem', color }}>{c.entryFeePerRound.toLocaleString()}원</strong>
                     </div>
-                    {c.entryFeeSeason && (
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '.85rem', color: 'var(--muted)' }}>시즌 전체</span>
-                        <strong style={{ fontSize: '1.1rem', color }}>{c.entryFeeSeason.toLocaleString()}원</strong>
-                      </div>
-                    )}
                     {c.entryFeeNote && <p style={{ fontSize: '.8rem', color: 'var(--muted)', marginTop: '8px', marginBottom: '14px', lineHeight: 1.5 }}>{c.entryFeeNote}</p>}
                   </>
                 ) : (

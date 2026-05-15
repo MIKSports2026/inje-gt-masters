@@ -26,7 +26,7 @@ function formatFee(amount?: number): string {
 }
 
 interface FormState {
-  entryType: 'round' | 'season';
+  entryType: 'round';
   roundId: string; roundLabel: string; className: string;
   teamName: string; carModel: string;
   teamRepresentative: string;
@@ -98,7 +98,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   const openRounds = rounds.filter(r => r.status === 'entry_open')
   const d1 = form.drivers[0]
 
-  const roundOk = form.entryType === 'season' || form.roundId
+  const roundOk = !!form.roundId
   const isValidEntryNum = (v: string) => /^[1-9][0-9]?$/.test(v)
   const entryNumberError = (() => {
     const v1 = form.preferredNumber; const v2 = form.preferredNumber2
@@ -124,7 +124,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
         body: JSON.stringify({
           entryType: form.entryType,
           roundId: form.entryType === 'round' ? form.roundId : undefined,
-          roundLabel: form.entryType === 'season' ? '2026 시즌 전체' : form.roundLabel,
+          roundLabel: form.roundLabel,
           className: form.className, teamName: form.teamName, carModel: form.carModel,
           teamRepresentative: form.teamRepresentative || undefined,
           drivers: driversToSend,
@@ -135,7 +135,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           entryFee: (() => {
             if (!form.className) return undefined
             const cls = classes.find(c => c.name === form.className)
-            return form.entryType === 'season' ? formatFee(cls?.entryFeeSeason) : formatFee(cls?.entryFeePerRound)
+            return formatFee(cls?.entryFeePerRound)
           })(),
         }),
       })
@@ -175,37 +175,18 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
       {step === 1 && (
         <div className="ef-step">
 
-          {/* 참가 정보 */}
           <div className="form-group">
-            <label>ENTRY TYPE *</label>
-            <div className="form-row">
-              {([
-                { value: 'round' as const, label: 'ROUND ENTRY', desc: '원하는 라운드 선택 참가' },
-                { value: 'season' as const, label: 'SEASON ENTRY', desc: '2026 시즌 전체 참가' },
-              ]).map(opt => (
-                <button key={opt.value} type="button" onClick={() => { set('entryType', opt.value); if (opt.value === 'season') { set('roundId', ''); set('roundLabel', '2026 시즌 전체') } }}
-                  className={`ef-chip ef-chip--lg ${form.entryType === opt.value ? 'ef-chip--active' : ''}`}>
-                  <strong>{opt.label}</strong>
-                  <span>{opt.desc}</span>
+            <label>ROUND *</label>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {openRounds.length === 0 && <span style={{ color: '#888', fontSize: '.9rem' }}>접수 중인 라운드가 없습니다</span>}
+              {openRounds.map(r => (
+                <button key={r._id} type="button" onClick={() => { set('roundId', r._id); set('roundLabel', `R${r.roundNumber} ${r.title}`) }}
+                  className={`ef-chip ${form.roundId === r._id ? 'ef-chip--active' : ''}`}>
+                  R{r.roundNumber} — {r.title}
                 </button>
               ))}
             </div>
           </div>
-
-          {form.entryType === 'round' && (
-            <div className="form-group">
-              <label>ROUND *</label>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {openRounds.length === 0 && <span style={{ color: '#888', fontSize: '.9rem' }}>접수 중인 라운드가 없습니다</span>}
-                {openRounds.map(r => (
-                  <button key={r._id} type="button" onClick={() => { set('roundId', r._id); set('roundLabel', `R${r.roundNumber} ${r.title}`) }}
-                    className={`ef-chip ${form.roundId === r._id ? 'ef-chip--active' : ''}`}>
-                    R{r.roundNumber} — {r.title}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
 
           <div className="form-group">
             <label>RACING CLASS *</label>
@@ -403,8 +384,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           <div className="ef-summary">
             <h4 className="ef-summary__title">APPLICATION SUMMARY</h4>
             {[
-              ['ENTRY TYPE', form.entryType === 'season' ? '시즌 전체' : '라운드'],
-              ['ROUND', form.entryType === 'season' ? '2026 시즌 전체' : form.roundLabel],
+              ['ROUND', form.roundLabel],
               ['CLASS', form.className],
               ['TEAM', form.teamName],
               ['VEHICLE', form.carModel],
@@ -416,7 +396,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
               ...(form.showDriver3 && form.drivers[2].name ? [['DRIVER 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
               ...(form.className ? (() => {
                 const cls = classes.find(c => c.name === form.className)
-                const fee = form.entryType === 'season' ? formatFee(cls?.entryFeeSeason) : formatFee(cls?.entryFeePerRound)
+                const fee = formatFee(cls?.entryFeePerRound)
                 return [['ENTRY FEE', fee]]
               })() : []),
             ].map(([l, v], i) => (

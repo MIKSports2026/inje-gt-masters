@@ -120,14 +120,11 @@ export default function ClassesClient({ classes }: Props) {
               )}
             </div>
 
-            {(cls.entryFeePerRound || cls.entryFeePerSeason) && (
+            {cls.entryFeePerRound && (
               <div className={styles.specRow}>
                 <span className={styles.specRowLabel}>참가비</span>
-                <span className={styles.specRowValue} style={{whiteSpace: 'pre-line'}}>
-                  {[
-                    cls.entryFeePerRound ? `라운드 ${cls.entryFeePerRound.toLocaleString('ko-KR')}원` : '',
-                    cls.entryFeePerSeason ? `시즌 ${cls.entryFeePerSeason.toLocaleString('ko-KR')}원` : ''
-                  ].filter(Boolean).join('\n')}
+                <span className={styles.specRowValue}>
+                  {`라운드 ${cls.entryFeePerRound.toLocaleString('ko-KR')}원`}
                 </span>
               </div>
             )}

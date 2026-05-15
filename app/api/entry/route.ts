@@ -16,11 +16,11 @@ interface Driver {
 }
 
 function buildEntryEmail({
-  entryTypeLabel, roundLabel, className, teamName, carModel,
+  roundLabel, className, teamName, carModel,
   teamRepresentative, entryFee, preferredNumber, preferredNumber2,
   drivers, contactPhone, contactEmail, now,
 }: {
-  entryTypeLabel: string; roundLabel: string; className: string
+  roundLabel: string; className: string
   teamName: string; carModel: string; teamRepresentative?: string
   entryFee?: string; preferredNumber: string; preferredNumber2: string
   drivers: Driver[]; contactPhone: string; contactEmail: string; now: string
@@ -34,7 +34,6 @@ function buildEntryEmail({
     `</tr>`
 
   const infoRows = [
-    ['참가 유형', entryTypeLabel],
     ['라운드', roundLabel],
     ['클래스', className],
     ...(entryFee ? [['참가비', entryFee]] : []),
@@ -108,7 +107,7 @@ export async function POST(req: Request) {
       drivers: Driver[]; contactPhone: string; contactEmail: string;
       agreedRules: boolean; agreedPrivacy: boolean; entryFee?: string; preferredNumber?: string; preferredNumber2?: string;
     }
-    const entryTypeLabel = entryType === 'season' ? '시즌 전체' : '라운드'
+    const entryTypeLabel = '라운드'
 
     const numRegex = /^[1-9][0-9]?$/
     if (!preferredNumber || !preferredNumber2 || !numRegex.test(preferredNumber) || !numRegex.test(preferredNumber2)) {
@@ -205,7 +204,7 @@ export async function POST(req: Request) {
     // ── ③④ 이메일 발송 ────────────────────────────────
     const resend = new Resend(process.env.RESEND_API_KEY)
     const emailHtml = buildEntryEmail({
-      entryTypeLabel, roundLabel, className, teamName, carModel,
+      roundLabel, className, teamName, carModel,
       teamRepresentative, entryFee,
       preferredNumber: preferredNumber!,
       preferredNumber2: preferredNumber2!,
