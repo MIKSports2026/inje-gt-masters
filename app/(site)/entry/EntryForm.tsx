@@ -480,10 +480,7 @@ function DriverFields({ driver, idx, setDriver, showContact, karaMode, onKaraMod
     )}
     <div className="form-group">
       <label>KARA 라이센스 번호 *</label>
-      <p style={{ fontSize: '13px', color: '#E60023', fontWeight: 700, margin: '4px 0 10px' }}>
-        ⚠️ 대회 참여를 위해 KARA 라이센스 번호는 필수입니다.
-      </p>
-      <div style={{ display: 'flex', gap: 20, marginBottom: 10 }}>
+      <div style={{ display: 'flex', gap: 20, margin: '8px 0 8px' }}>
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: '.9rem', color: '#ccc' }}>
           <input type="radio" name={`karaMode_${idx}`} value="enter" checked={karaMode === 'enter'} onChange={() => onKaraModeChange('enter')} />
           라이센스 번호 입력
@@ -493,6 +490,9 @@ function DriverFields({ driver, idx, setDriver, showContact, karaMode, onKaraMod
           추후 입력
         </label>
       </div>
+      <p style={{ fontSize: '13px', color: '#E60023', fontWeight: 700, margin: '0 0 8px' }}>
+        ⚠️ 대회 참여를 위해 KARA 라이센스 번호는 필수입니다.
+      </p>
       {karaMode === 'enter' && (
         <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} />
       )}
