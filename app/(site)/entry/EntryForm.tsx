@@ -64,6 +64,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   const [error, setError] = useState('')
   const [showPledgeAccordion, setShowPledgeAccordion] = useState(false)
   const [hasMounted, setHasMounted] = useState(false)
+  const [karaLicenseModes, setKaraLicenseModes] = useState<('enter' | 'later' | '')[]>(['', '', ''])
 
   useEffect(() => {
     try {
@@ -94,6 +95,10 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
       return { ...p, drivers }
     })
   }
+  const setKaraMode = (idx: number, mode: 'enter' | 'later') => {
+    setKaraLicenseModes(prev => { const next = [...prev]; next[idx] = mode; return next })
+    if (mode === 'later') setDriver(idx, 'karaLicense', '')
+  }
 
   const openRounds = rounds.filter(r => r.status === 'entry_open')
   const d1 = form.drivers[0]
@@ -107,11 +112,20 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
     if (v1 === v2) return '1순위와 2순위 번호는 달라야 합니다.'
     return ''
   })()
+  const karaOk = (idx: number, active: boolean): boolean => {
+    if (!active) return true
+    const mode = karaLicenseModes[idx]
+    if (!mode) return false
+    return mode === 'later' || form.drivers[idx].karaLicense.length >= 1
+  }
   const step1Valid = roundOk && form.className && form.teamName.length >= 1 && form.carModel.length >= 1
     && d1.name.length >= 2 && d1.birthDate && d1.bloodType && d1.phone && d1.email
     && form.agreedRules && form.agreedPrivacy
     && isValidEntryNum(form.preferredNumber) && isValidEntryNum(form.preferredNumber2)
     && form.preferredNumber !== form.preferredNumber2
+    && karaOk(0, true)
+    && karaOk(1, form.showDriver2 && !!form.drivers[1].name)
+    && karaOk(2, form.showDriver2 && form.showDriver3 && !!form.drivers[2].name)
 
   async function handleSubmit() {
     setSubmitting(true); setError('')
@@ -259,14 +273,14 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
             <label>DRIVER 1 — 대표</label>
           </div>
-          <DriverFields driver={form.drivers[0]} idx={0} setDriver={setDriver} showContact />
+          <DriverFields driver={form.drivers[0]} idx={0} setDriver={setDriver} showContact karaMode={karaLicenseModes[0]} onKaraModeChange={m => setKaraMode(0, m)} />
 
           {/* 드라이버 2 */}
           {form.showDriver2 ? (<>
             <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
               <label>DRIVER 2</label>
             </div>
-            <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver} />
+            <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver} karaMode={karaLicenseModes[1]} onKaraModeChange={m => setKaraMode(1, m)} />
             <button type="button" onClick={() => { set('showDriver2', false); set('showDriver3', false) }} className="ef-chip" style={{ color: '#E60023', alignSelf: 'flex-start' }}>- 드라이버 2 제거</button>
           </>) : (
             <button type="button" onClick={() => set('showDriver2', true)} className="ef-chip" style={{ color: 'var(--primary-red)', alignSelf: 'flex-start' }}>+ 드라이버 2 추가</button>
@@ -278,7 +292,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
               <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
                 <label>DRIVER 3</label>
               </div>
-              <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver} />
+              <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver} karaMode={karaLicenseModes[2]} onKaraModeChange={m => setKaraMode(2, m)} />
               <button type="button" onClick={() => set('showDriver3', false)} className="ef-chip" style={{ color: '#E60023', alignSelf: 'flex-start' }}>- 드라이버 3 제거</button>
             </>) : (
               <button type="button" onClick={() => set('showDriver3', true)} className="ef-chip" style={{ color: 'var(--primary-red)', alignSelf: 'flex-start' }}>+ 드라이버 3 추가</button>
@@ -427,10 +441,12 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   )
 }
 
-function DriverFields({ driver, idx, setDriver, showContact }: {
+function DriverFields({ driver, idx, setDriver, showContact, karaMode, onKaraModeChange }: {
   driver: Driver; idx: number;
   setDriver: (idx: number, field: keyof Driver, val: string) => void;
   showContact?: boolean;
+  karaMode: 'enter' | 'later' | '';
+  onKaraModeChange: (mode: 'enter' | 'later') => void;
 }) {
   return (<>
     <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
@@ -463,9 +479,23 @@ function DriverFields({ driver, idx, setDriver, showContact }: {
       </div>
     )}
     <div className="form-group">
-      <label>KARA 라이센스 번호 (선택)</label>
-      <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} />
-      <p style={{ fontSize: '12px', color: '#666', marginTop: 4, lineHeight: 1.5 }}>보유하지 않은 경우 비워두셔도 됩니다. 운영팀 검토 후 별도 안내 드립니다.</p>
+      <label>KARA 라이센스 번호 *</label>
+      <p style={{ fontSize: '13px', color: '#E60023', fontWeight: 700, margin: '4px 0 10px' }}>
+        ⚠️ 대회 참여를 위해 KARA 라이센스 번호는 필수입니다.
+      </p>
+      <div style={{ display: 'flex', gap: 20, marginBottom: 10 }}>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: '.9rem', color: '#ccc' }}>
+          <input type="radio" name={`karaMode_${idx}`} value="enter" checked={karaMode === 'enter'} onChange={() => onKaraModeChange('enter')} />
+          라이센스 번호 입력
+        </label>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: '.9rem', color: '#ccc' }}>
+          <input type="radio" name={`karaMode_${idx}`} value="later" checked={karaMode === 'later'} onChange={() => onKaraModeChange('later')} />
+          추후 입력
+        </label>
+      </div>
+      {karaMode === 'enter' && (
+        <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} />
+      )}
     </div>
   </>)
 }

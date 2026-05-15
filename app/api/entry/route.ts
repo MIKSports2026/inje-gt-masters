@@ -70,21 +70,21 @@ function buildEntryEmail({
     ['혈액형', d1.bloodType ?? ''],
     ['전화번호', d1.phone || contactPhone],
     ['이메일', d1.email || contactEmail],
-    ['KARA 라이센스', d1.karaLicense || '-'],
+    ['KARA 라이센스', d1.karaLicense || '추후 입력 예정'],
   ].map((item, i) => r(item[0], item[1], i)).join('')
 
   const driver2Rows = d2?.name ? [
     ['성명', d2.name],
     ['생년월일', d2.birthDate ?? ''],
     ['혈액형', d2.bloodType ?? ''],
-    ['KARA 라이센스', d2.karaLicense || '-'],
+    ['KARA 라이센스', d2.karaLicense || '추후 입력 예정'],
   ].map((item, i) => r(item[0], item[1], i)).join('') : ''
 
   const driver3Rows = d3?.name ? [
     ['성명', d3.name],
     ['생년월일', d3.birthDate ?? ''],
     ['혈액형', d3.bloodType ?? ''],
-    ['KARA 라이센스', d3.karaLicense || '-'],
+    ['KARA 라이센스', d3.karaLicense || '추후 입력 예정'],
   ].map((item, i) => r(item[0], item[1], i)).join('') : ''
 
   return `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
