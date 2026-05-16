@@ -480,22 +480,22 @@ function DriverFields({ driver, idx, setDriver, showContact, karaMode, onKaraMod
     )}
     <div className="form-group">
       <label>KARA 라이센스 번호 *</label>
-      <div style={{ display: 'flex', gap: 20, margin: '8px 0 8px' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: '.9rem', color: '#ccc' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px', marginTop: 8 }}>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: '.9rem', color: '#ccc', flexShrink: 0 }}>
           <input type="radio" name={`karaMode_${idx}`} value="enter" checked={karaMode === 'enter'} onChange={() => onKaraModeChange('enter')} />
           라이센스 번호 입력
         </label>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: '.9rem', color: '#ccc' }}>
+        {karaMode === 'enter' && (
+          <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} style={{ flex: 1, minWidth: 140 }} />
+        )}
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: '.9rem', color: '#ccc', flexShrink: 0 }}>
           <input type="radio" name={`karaMode_${idx}`} value="later" checked={karaMode === 'later'} onChange={() => onKaraModeChange('later')} />
           추후 입력
         </label>
       </div>
-      <p style={{ fontSize: '13px', color: '#E60023', fontWeight: 700, margin: '0 0 8px' }}>
+      <p style={{ fontSize: '12px', color: '#E60023', fontWeight: 700, margin: '6px 0 0' }}>
         ⚠️ 대회 참여를 위해 KARA 라이센스 번호는 필수입니다.
       </p>
-      {karaMode === 'enter' && (
-        <input type="text" placeholder="라이선스 번호" value={driver.karaLicense} onChange={e => setDriver(idx, 'karaLicense', e.target.value)} />
-      )}
     </div>
   </>)
 }
