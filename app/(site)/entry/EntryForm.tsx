@@ -64,7 +64,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   const [error, setError] = useState('')
   const [showPledgeAccordion, setShowPledgeAccordion] = useState(false)
   const [hasMounted, setHasMounted] = useState(false)
-  const [karaLicenseModes, setKaraLicenseModes] = useState<('enter' | 'later' | '')[]>(['', '', ''])
+  const [karaLicenseModes, setKaraLicenseModes] = useState<('enter' | 'later' | '')[]>(['enter', 'enter', 'enter'])
 
   useEffect(() => {
     try {
