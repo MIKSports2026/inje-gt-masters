@@ -109,7 +109,7 @@ ${d3?.name ? section('드라이버 3', driver3Rows) : ''}
 <p style="margin:0;font-size:12px;color:#999;">접수 일시: ${now.replace('T', ' ').slice(0, 19)} (UTC)</p>
 </td></tr>
 <tr><td style="padding:16px 32px;background:#f4f6f8;border-top:1px solid #eee;text-align:center;">
-<p style="margin:0;font-size:11px;color:#999;line-height:1.7;">문의: <a href="mailto:hynam@miksports.com" style="color:#E60023;">hynam@miksports.com</a><br>인제 GT 마스터즈 운영팀</p>
+<p style="margin:0;font-size:11px;color:#999;line-height:1.7;">문의: <a href="mailto:info@miksports.com" style="color:#E60023;">info@miksports.com</a><br>인제 GT 마스터즈 운영팀</p>
 </td></tr>
 </table>
 </td></tr>
@@ -238,7 +238,7 @@ export async function POST(req: Request) {
     const emailSubject = `[인제 GT 마스터즈] 참가 신청 접수 확인 - ${teamName}`
 
     await Promise.all([
-      resend.emails.send({ from: FROM, to: ADMIN, cc: 'hynam@miksports.com', subject: emailSubject, html: emailHtml, replyTo: contactEmail }),
+      resend.emails.send({ from: FROM, to: ADMIN, cc: 'info@miksports.com', subject: emailSubject, html: emailHtml, replyTo: contactEmail }),
       resend.emails.send({ from: FROM, to: contactEmail, subject: emailSubject, html: emailHtml }),
     ])
 
