@@ -238,7 +238,7 @@ export async function POST(req: Request) {
     const emailSubject = `[인제 GT 마스터즈] 참가 신청 접수 확인 - ${teamName}`
 
     await Promise.all([
-      resend.emails.send({ from: FROM, to: ADMIN, cc: 'info@miksports.com', subject: emailSubject, html: emailHtml, replyTo: contactEmail }),
+      resend.emails.send({ from: FROM, to: ADMIN, cc: 'hynam@miksports.com', subject: emailSubject, html: emailHtml, replyTo: contactEmail }),
       resend.emails.send({ from: FROM, to: contactEmail, subject: emailSubject, html: emailHtml }),
     ])
 
