@@ -4,6 +4,7 @@
   height: 100vh;
   overflow: hidden;
   background: #0a0a0a;
+  margin-top: calc(-1 * var(--header-h));
 }
 
 @supports (height: 100svh) {
@@ -49,21 +50,6 @@
     rgba(10, 10, 10, 0.4) 0%,
     rgba(10, 10, 10, 0) 40%,
     rgba(10, 10, 10, 0.7) 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* 좌우 그라디언트 오버레이 */
-.overlayLR {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(10, 10, 10, 0.95) 0%,
-    rgba(10, 10, 10, 0) 12%,
-    rgba(10, 10, 10, 0) 88%,
-    rgba(10, 10, 10, 0.95) 100%
   );
   z-index: 1;
   pointer-events: none;

@@ -59,7 +59,6 @@ export default function SectionHero({ slides }: Props) {
           background: 'linear-gradient(135deg, #0b0b0b 0%, #181818 40%, #1a0008 100%)',
         }} />
         <div className={styles.overlay} />
-        <div className={styles.overlayLR} />
       </section>
     )
   }
@@ -109,8 +108,6 @@ export default function SectionHero({ slides }: Props) {
 
       {/* 상하 그라디언트 */}
       <div className={styles.overlay} />
-      {/* 좌우 그라디언트 */}
-      <div className={styles.overlayLR} />
 
       {isMulti && (
         <div
