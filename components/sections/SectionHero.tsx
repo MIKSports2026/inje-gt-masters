@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { buildHeroSrcSet } from '@/lib/sanity-image'
+import { buildHeroSrcSet, buildSanityImageUrl } from '@/lib/sanity-image'
 import type { HeroSlide } from '@/types/sanity'
 import styles from './SectionHero.module.css'
 
@@ -83,6 +83,12 @@ export default function SectionHero({ slides }: Props) {
               className={`${styles.slide} ${isActive ? styles.slideActive : ''}`}
               aria-hidden={!isActive}
             >
+              {slide.mobileImageUrl && (
+                <source
+                  media="(max-width: 767px)"
+                  srcSet={`${buildSanityImageUrl(slide.mobileImageUrl, { width: 768, quality: 80, hotspot: slide.mobileHotspot })} 1x, ${buildSanityImageUrl(slide.mobileImageUrl, { width: 1536, quality: 80, hotspot: slide.mobileHotspot })} 2x`}
+                />
+              )}
               <source
                 media="(max-width: 768px)"
                 srcSet={`${srcSet.mobile.src1x} 1x, ${srcSet.mobile.src2x} 2x`}

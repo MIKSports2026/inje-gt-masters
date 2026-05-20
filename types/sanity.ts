@@ -25,6 +25,8 @@ export interface HeroSlide {
   hotspot?:   { x: number; y: number }
   crop?:      { top: number; bottom: number; left: number; right: number }
   dimensions?: { width: number; height: number }
+  mobileImageUrl?: string
+  mobileHotspot?:  { x: number; y: number }
   alt:        string
   isActive?:  boolean
   startAt?:   string

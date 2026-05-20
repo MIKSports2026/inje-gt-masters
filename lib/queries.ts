@@ -24,6 +24,8 @@ export const SITE_SETTINGS_QUERY = /* groq */`
       "hotspot": image.hotspot,
       "crop": image.crop,
       "dimensions": image.asset->metadata.dimensions,
+      "mobileImageUrl": mobileImage.asset->url,
+      "mobileHotspot": mobileImage.hotspot,
       alt,
       isActive,
       startAt,

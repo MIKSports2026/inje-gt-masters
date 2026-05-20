@@ -85,6 +85,13 @@ export default defineType({
               validation: (Rule) => Rule.required(),
             },
             {
+              name: 'mobileImage',
+              title: '모바일 이미지 (선택, <768px용, 5:7 권장)',
+              type: 'image',
+              options: { hotspot: true },
+              description: '미입력 시 기본 이미지가 모바일에서도 사용됩니다.',
+            },
+            {
               name: 'alt',
               title: '대체 텍스트 (SEO/접근성, 필수)',
               type: 'string',
