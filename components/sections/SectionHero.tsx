@@ -54,11 +54,13 @@ export default function SectionHero({ slides }: Props) {
   if (slides.length === 0) {
     return (
       <section className={styles.hero} role="region" aria-label="메인 히어로 배너">
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(135deg, #0b0b0b 0%, #181818 40%, #1a0008 100%)',
-        }} />
-        <div className={styles.overlay} />
+        <div className={styles.heroMedia}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(135deg, #0b0b0b 0%, #181818 40%, #1a0008 100%)',
+          }} />
+          <div className={styles.overlay} />
+        </div>
       </section>
     )
   }
@@ -71,49 +73,51 @@ export default function SectionHero({ slides }: Props) {
       onMouseEnter={() => isMulti && setIsPaused(true)}
       onMouseLeave={() => isMulti && setIsPaused(false)}
     >
-      <div className={styles.slideContainer} aria-live="polite">
-        {slides.map((slide, index) => {
-          const srcSet = buildHeroSrcSet(slide.imageUrl, slide.hotspot)
-          const isActive = index === currentIndex
-          const isPriority = index === 0
-          const isEager = index <= 2
-          return (
-            <picture
-              key={`${slide.imageUrl}-${index}`}
-              className={`${styles.slide} ${isActive ? styles.slideActive : ''}`}
-              aria-hidden={!isActive}
-            >
-              {slide.mobileImageUrl && (
+      <div className={styles.heroMedia}>
+        <div className={styles.slideContainer} aria-live="polite">
+          {slides.map((slide, index) => {
+            const srcSet = buildHeroSrcSet(slide.imageUrl, slide.hotspot)
+            const isActive = index === currentIndex
+            const isPriority = index === 0
+            const isEager = index <= 2
+            return (
+              <picture
+                key={`${slide.imageUrl}-${index}`}
+                className={`${styles.slide} ${isActive ? styles.slideActive : ''}`}
+                aria-hidden={!isActive}
+              >
+                {slide.mobileImageUrl && (
+                  <source
+                    media="(max-width: 767px)"
+                    srcSet={`${buildSanityImageUrl(slide.mobileImageUrl, { width: 768, quality: 80, hotspot: slide.mobileHotspot })} 1x, ${buildSanityImageUrl(slide.mobileImageUrl, { width: 1536, quality: 80, hotspot: slide.mobileHotspot })} 2x`}
+                  />
+                )}
                 <source
-                  media="(max-width: 767px)"
-                  srcSet={`${buildSanityImageUrl(slide.mobileImageUrl, { width: 768, quality: 80, hotspot: slide.mobileHotspot })} 1x, ${buildSanityImageUrl(slide.mobileImageUrl, { width: 1536, quality: 80, hotspot: slide.mobileHotspot })} 2x`}
+                  media="(max-width: 768px)"
+                  srcSet={`${srcSet.mobile.src1x} 1x, ${srcSet.mobile.src2x} 2x`}
                 />
-              )}
-              <source
-                media="(max-width: 768px)"
-                srcSet={`${srcSet.mobile.src1x} 1x, ${srcSet.mobile.src2x} 2x`}
-              />
-              <source
-                media="(max-width: 1440px)"
-                srcSet={`${srcSet.tablet.src1x} 1x, ${srcSet.tablet.src2x} 2x`}
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={srcSet.desktop.src1x}
-                srcSet={`${srcSet.desktop.src1x} 1x, ${srcSet.desktop.src2x} 2x`}
-                alt={slide.alt}
-                fetchPriority={isPriority ? 'high' : 'auto'}
-                loading={isEager ? 'eager' : 'lazy'}
-                decoding={isPriority ? 'sync' : 'async'}
-                className={styles.slideImage}
-              />
-            </picture>
-          )
-        })}
-      </div>
+                <source
+                  media="(max-width: 1440px)"
+                  srcSet={`${srcSet.tablet.src1x} 1x, ${srcSet.tablet.src2x} 2x`}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={srcSet.desktop.src1x}
+                  srcSet={`${srcSet.desktop.src1x} 1x, ${srcSet.desktop.src2x} 2x`}
+                  alt={slide.alt}
+                  fetchPriority={isPriority ? 'high' : 'auto'}
+                  loading={isEager ? 'eager' : 'lazy'}
+                  decoding={isPriority ? 'sync' : 'async'}
+                  className={styles.slideImage}
+                />
+              </picture>
+            )
+          })}
+        </div>
 
-      {/* 상하 그라디언트 */}
-      <div className={styles.overlay} />
+        {/* 상하 그라디언트 */}
+        <div className={styles.overlay} />
+      </div>
 
       {isMulti && (
         <div
