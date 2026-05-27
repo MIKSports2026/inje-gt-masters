@@ -46,19 +46,6 @@
   display: block;
 }
 
-/* 상하 그라디언트 오버레이 */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 10, 0.4) 0%,
-    rgba(10, 10, 10, 0) 40%,
-    rgba(10, 10, 10, 0.7) 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-}
 
 .indicators {
   position: relative;
