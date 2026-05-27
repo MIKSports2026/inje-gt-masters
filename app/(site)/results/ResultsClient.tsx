@@ -164,6 +164,40 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
   const showBestLapColumn = useMemo(() => roundStandings.some(s => !!s.fastestLap?.trim()), [roundStandings])
   const hasRoundData      = useMemo(() => roundsWithData.has(selectedRound) && roundStandings.length > 0, [roundsWithData, selectedRound, roundStandings])
 
+  // ── 라운드 드라이버 랭킹 데이터 ─────────────────────────────
+  const roundDriverRows = useMemo(() => {
+    if (roundStandings.length === 0) return []
+    const rows: {
+      rank: number
+      driverName: string
+      carNumber?: string
+      teamName?: string
+      points: number
+      status?: string
+    }[] = []
+    let vehicleRank = 0
+    let prevCarNumber: string | undefined = undefined
+    roundStandings.forEach(s => {
+      if (s.carNumber !== prevCarNumber) {
+        vehicleRank++
+        prevCarNumber = s.carNumber
+      }
+      const drivers = [s.driver1, s.driver2, s.driver3].filter(Boolean) as string[]
+      if (drivers.length === 0) return
+      drivers.forEach(d => {
+        rows.push({
+          rank: vehicleRank,
+          driverName: d,
+          carNumber: s.carNumber,
+          teamName: s.teamName,
+          points: s.points ?? 0,
+          status: s.status,
+        })
+      })
+    })
+    return rows
+  }, [roundStandings])
+
   // ── 예선 데이터 ───────────────────────────────────────────
   const qualifyingStandings = useMemo(() => {
     const statusOrder = (s?: string) => {
@@ -500,6 +534,44 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
     </div>
   )
 
+  // ── 라운드 드라이버 랭킹 테이블 ─────────────────────────────
+  const roundDriverTable = !hasRoundData || roundDriverRows.length === 0 ? pending : (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut }}>
+        <thead>
+          <tr>
+            <th style={TH()}>RANK</th>
+            <th style={TH()}>드라이버</th>
+            <th style={TH()}>NO</th>
+            <th style={TH()}>팀명</th>
+            <th style={TH({ textAlign: 'right', color: RED })}>PTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {roundDriverRows.map((row, i) => (
+            <tr key={i}
+              style={{ transition: 'background .15s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.03)')}
+              onMouseLeave={e => (e.currentTarget.style.background = '')}
+            >
+              <td style={TD({ fontWeight: 700 })}>
+                {(!row.status || row.status === 'classified')
+                  ? row.rank
+                  : row.status === 'dnf' ? 'DNF'
+                  : row.status === 'dns' ? 'DNS'
+                  : 'DQ'}
+              </td>
+              <td style={TD({ fontWeight: 700, fontSize: '.88rem' })}>{row.driverName}</td>
+              <td style={TD()}><span style={carTag}>#{row.carNumber || '—'}</span></td>
+              <td style={TD({ color: 'var(--muted)', fontSize: '.84rem' })}>{row.teamName || '—'}</td>
+              <td style={TD({ textAlign: 'right', fontWeight: 900, color: RED })}>{row.points}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+
   // ── 정렬된 라운드 목록 ───────────────────────────────────────
   const sortedRounds = useMemo(
     () => [...rounds].sort((a, b) => a.roundNumber - b.roundNumber),
@@ -631,7 +703,7 @@ export default function ResultsClient({ rounds, allResults, teamStandings, drive
           {sessionTab === 1 && qualifyingTable}
         </>
       )}
-      {mainTab === 0 && subTab === 1 && pending}
+      {mainTab === 0 && subTab === 1 && roundDriverTable}
       {mainTab === 1 && subTab === 0 && teamStandingTable}
       {mainTab === 1 && subTab === 1 && driverStandingTable}
     </div>
