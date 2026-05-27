@@ -13,6 +13,7 @@
 }
 
 @media (max-width: 767px) {
+  .hero { margin-top: 0; }
   .heroMedia { aspect-ratio: 5 / 7; }
 }
 
