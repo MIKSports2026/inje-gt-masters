@@ -4,8 +4,9 @@ import { sanityFetch } from '@/lib/sanity.client'
 import {
   SITE_SETTINGS_QUERY, ROUNDS_QUERY,
   RECENT_POSTS_QUERY, PARTNERS_QUERY, NEXT_ROUND_QUERY, CLASSES_QUERY,
+  FEATURED_MEDIA_QUERY,
 } from '@/lib/queries'
-import type { SiteSettings, Round, Post, Partner, ClassInfo, HeroSlide } from '@/types/sanity'
+import type { SiteSettings, Round, Post, Partner, ClassInfo, HeroSlide, Media } from '@/types/sanity'
 
 function filterActiveSlides(slides: HeroSlide[] | undefined): HeroSlide[] {
   if (!slides || slides.length === 0) return []
@@ -28,6 +29,7 @@ import SectionHero       from '@/components/sections/SectionHero'
 import SectionRound      from '@/components/sections/SectionRound'
 import SectionClass      from '@/components/sections/SectionClass'
 import SectionNews       from '@/components/sections/SectionNews'
+import SectionMedia      from '@/components/sections/SectionMedia'
 import SectionPartners   from '@/components/sections/SectionPartners'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -52,13 +54,14 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const today = new Date().toISOString().slice(0, 10)
 
-  const [settings, rounds, nextRound, posts, partners, classes] = await Promise.all([
+  const [settings, rounds, nextRound, posts, partners, classes, featuredMedia] = await Promise.all([
     sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY,  revalidate: 60, useCdn: false }).catch(() => null),
     sanityFetch<Round[]>      ({ query: ROUNDS_QUERY,         params: { season: 2026 }, revalidate: 300 }).catch(() => [] as Round[]),
     sanityFetch<Round | null> ({ query: NEXT_ROUND_QUERY,     params: { today },        revalidate: 300 }).catch(() => null),
     sanityFetch<Post[]>       ({ query: RECENT_POSTS_QUERY,   params: { limit: 3 },     revalidate: 60, useCdn: false }).catch(() => [] as Post[]),
     sanityFetch<Partner[]>    ({ query: PARTNERS_QUERY,       params: { currentSeason: 2026 }, revalidate: 3600, useCdn: false }).catch(() => [] as Partner[]),
     sanityFetch<ClassInfo[]>  ({ query: CLASSES_QUERY, useCdn: false, revalidate: 3600 }).catch(() => [] as ClassInfo[]),
+    sanityFetch<Media[]>      ({ query: FEATURED_MEDIA_QUERY, params: { limit: 5 }, revalidate: 300, useCdn: false }).catch(() => [] as Media[]),
   ])
 
   const s  = settings  as SiteSettings | null
@@ -67,6 +70,7 @@ export default async function HomePage() {
   const ps = (posts    ?? []) as Post[]
   const pt = (partners ?? []) as Partner[]
   const cs = (classes  ?? []) as ClassInfo[]
+  const mediaItems = (featuredMedia ?? []) as Media[]
 
   const activeSlides = filterActiveSlides(s?.heroSlides)
 
@@ -156,6 +160,7 @@ export default async function HomePage() {
       <SectionRound    rounds={rs} />
       <SectionClass classes={cs} />
       <SectionNews     posts={ps} />
+      <SectionMedia    media={mediaItems} />
       <SectionPartners partners={pt} />
     </>
   )
