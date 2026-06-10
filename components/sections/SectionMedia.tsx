@@ -9,6 +9,12 @@ interface Props {
   posts?: Post[]
 }
 
+function ytId(url?: string): string | null {
+  if (!url) return null
+  const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/)
+  return m ? m[1] : null
+}
+
 export default function SectionMedia({ media }: Props) {
   // 최대 5개: 첫 번째는 tall (span 2rows), 나머지 4개
   const items = media.slice(0, 5)
@@ -42,17 +48,20 @@ export default function SectionMedia({ media }: Props) {
             {items.map((m, i) => {
               const isTall   = i === 0
               const isVideo  = m.mediaType === 'video'
-              const thumb    = isVideo
-                ? (m.youtubeThumbnail ?? null)
+              const _ytId = isVideo ? ytId(m.youtubeUrl) : null
+              const thumb = isVideo
+                ? (m.youtubeThumbnail || (_ytId ? `https://img.youtube.com/vi/${_ytId}/hqdefault.jpg` : null))
                 : (m as any).coverImage?.asset?.url ?? null
-              const href     = `/media/${m.slug.current}`
+              const href = isVideo ? (m.youtubeUrl ?? '#') : `/media/${m.slug.current}`
               const tagLabel = isVideo ? '영상 ▶' : '포토'
 
+              const Wrapper: any = isVideo ? 'a' : Link
               return (
-                <Link key={m._id} href={href}
+                <Wrapper key={m._id} href={href}
+                  {...(isVideo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   style={{ ...cellBase, gridRow: isTall ? 'span 2' : 'auto', display: 'block', textDecoration: 'none' }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,.6)'; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.05)'; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(220,0,26,0.72) 0%, rgba(0,0,0,0.28) 55%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'rgba(255,255,255,0.75)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = ''; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'var(--red)'; }}
+                  onMouseEnter={(e: React.MouseEvent<HTMLElement>) => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,.6)'; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.05)'; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(220,0,26,0.72) 0%, rgba(0,0,0,0.28) 55%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'rgba(255,255,255,0.75)'; }}
+                  onMouseLeave={(e: React.MouseEvent<HTMLElement>) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = ''; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'var(--red)'; }}
                 >
                   <div className="m-bg" style={{
                     position: 'absolute', inset: 0,
@@ -92,7 +101,7 @@ export default function SectionMedia({ media }: Props) {
                       {m.title}
                     </div>
                   </div>
-                </Link>
+                </Wrapper>
               )
             })}
           </div>
