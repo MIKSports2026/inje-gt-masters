@@ -6,6 +6,8 @@ import { sanityFetch } from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY, PHOTO_ALBUMS_QUERY, VIDEOS_QUERY } from '@/lib/queries'
 import type { SiteSettings, Media } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
+import VideoLink from '@/components/ui/VideoLink'
+import { getYoutubeThumb } from '@/lib/youtube'
 
 export const metadata: Metadata = {
   title: '미디어',
@@ -13,13 +15,6 @@ export const metadata: Metadata = {
 }
 
 const PAGE_SIZE = 12
-
-
-function getYoutubeId(url?: string) {
-  if (!url) return null
-  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&"]+)/)
-  return m?.[1] ?? null
-}
 
 export default async function MediaPage({
   searchParams,
@@ -150,19 +145,15 @@ export default async function MediaPage({
             )}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(340px,1fr))', gap: '20px' }}>
               {displayVideos.map((video) => {
-                const ytId = getYoutubeId(video.youtubeUrl) ?? getYoutubeId(video.youtubeThumbnail)
-                const thumb = ytId
-                  ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`
-                  : video.coverImage?.asset?.url
+                const thumb = getYoutubeThumb(video.youtubeUrl, video.youtubeThumbnail) ?? video.coverImage?.asset?.url
 
                 return (
                   <div key={video._id} style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, overflow: 'hidden' }}>
                     {/* 썸네일 */}
-                    <a
-                      href={video.youtubeUrl ?? '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <VideoLink
+                      youtubeUrl={video.youtubeUrl}
                       style={{ display: 'block', position: 'relative', paddingBottom: '56.25%', background: '#111', overflow: 'hidden' }}
+                      ariaLabel={video.title}
                     >
                       {thumb ? (
                         <Image src={thumb} alt={video.title} fill style={{ objectFit: 'cover' }} sizes="(max-width:768px) 100vw, 50vw" />
@@ -192,7 +183,7 @@ export default async function MediaPage({
                           background: 'rgba(0,0,0,.8)', color: '#fff', borderRadius: '3px',
                         }}>{video.duration}</span>
                       )}
-                    </a>
+                    </VideoLink>
 
                     {/* 정보 */}
                     <div style={{ padding: '16px' }}>

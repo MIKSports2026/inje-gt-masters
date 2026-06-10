@@ -5,28 +5,13 @@ import { sanityFetch } from '@/lib/sanity.client'
 import { VIDEOS_ALL_QUERY } from '@/lib/queries'
 import type { Media } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
+import VideoLink from '@/components/ui/VideoLink'
+import { getYoutubeThumb } from '@/lib/youtube'
 import styles from './VideoPage.module.css'
 
 export const metadata: Metadata = {
   title: 'VIDEO | 인제 GT 마스터즈',
   description: '인제 GT 마스터즈 공식 하이라이트 영상 모음.',
-}
-
-/** YouTube URL → 영상 ID 추출 */
-function extractYouTubeId(url: string): string | null {
-  try {
-    const u = new URL(url)
-    if (u.hostname.includes('youtu.be')) return u.pathname.slice(1).split('?')[0]
-    if (u.hostname.includes('youtube.com')) {
-      return u.searchParams.get('v') ?? u.pathname.split('/').pop() ?? null
-    }
-  } catch {}
-  return null
-}
-
-/** YouTube 썸네일 URL */
-function ytThumb(id: string) {
-  return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`
 }
 
 /** 발행일 포맷 */
@@ -116,20 +101,16 @@ export default async function VideoPage({
               </div>
             ) : (
               displayed.map((video, i) => {
-                const ytId    = video.youtubeUrl ? extractYouTubeId(video.youtubeUrl) : null
-                const thumbUrl = video.youtubeThumbnail
-                  ?? (ytId ? ytThumb(ytId) : null)
-                const href    = video.youtubeUrl ?? '#'
-                const rn      = video.relatedRound?.roundNumber
+                const thumbUrl = getYoutubeThumb(video.youtubeUrl, video.youtubeThumbnail)
+                const rn       = video.relatedRound?.roundNumber
 
                 return (
-                  <a
+                  <VideoLink
                     key={video._id}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    youtubeUrl={video.youtubeUrl}
                     className={styles.card}
                     style={{ animationDelay: `${i * 0.07}s` }}
+                    ariaLabel={video.title}
                   >
                     {/* 썸네일 */}
                     <div className={styles.thumb}>
@@ -180,7 +161,7 @@ export default async function VideoPage({
                         <span className={styles.date}>{fmtDate(video.publishedAt)}</span>
                       )}
                     </div>
-                  </a>
+                  </VideoLink>
                 )
               })
             )}

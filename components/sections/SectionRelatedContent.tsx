@@ -7,6 +7,8 @@ import Link  from 'next/link'
 import Image from 'next/image'
 import SectionHeader from '@/components/ui/SectionHeader'
 import type { RelatedPost, RelatedMediaItem } from '@/types/sanity'
+import VideoLink from '@/components/ui/VideoLink'
+import { getYoutubeThumb } from '@/lib/youtube'
 
 // ── 카테고리 라벨 ──────────────────────────────────────────────
 const CATEGORY_LABEL: Record<string, string> = {
@@ -201,7 +203,9 @@ export default function SectionRelatedContent({ roundLabel, posts, media }: Prop
               gap: '16px',
             }}>
               {validMedia.map(item => {
-                const thumb            = item.youtubeThumbnail ?? item.coverImage?.asset?.url ?? null
+                const thumb = (item.mediaType === 'video')
+                  ? (getYoutubeThumb(item.youtubeUrl, item.youtubeThumbnail) ?? item.coverImage?.asset?.url ?? null)
+                  : (item.youtubeThumbnail ?? item.coverImage?.asset?.url ?? null)
                 const { href, external } = getMediaHref(item)
                 const isVideo          = item.mediaType === 'video' || item.mediaType === 'uploadedVideo'
                 const dateStr          = formatDate(item.publishedAt)
@@ -294,6 +298,19 @@ export default function SectionRelatedContent({ roundLabel, posts, media }: Prop
                   </div>
                 )
 
+                if (item.mediaType === 'video' && item.youtubeUrl) {
+                  return (
+                    <VideoLink
+                      key={item._id}
+                      youtubeUrl={item.youtubeUrl}
+                      className="src-card"
+                      style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+                      ariaLabel={item.title}
+                    >
+                      {inner}
+                    </VideoLink>
+                  )
+                }
                 return external ? (
                   <a
                     key={item._id}

@@ -3,16 +3,12 @@
 import Link from 'next/link'
 import type { Media, Post } from '@/types/sanity'
 import SectionHeader from '@/components/ui/SectionHeader'
+import VideoLink from '@/components/ui/VideoLink'
+import { getYoutubeThumb } from '@/lib/youtube'
 
 interface Props {
   media: Media[]
   posts?: Post[]
-}
-
-function ytId(url?: string): string | null {
-  if (!url) return null
-  const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/)
-  return m ? m[1] : null
 }
 
 export default function SectionMedia({ media }: Props) {
@@ -46,23 +42,42 @@ export default function SectionMedia({ media }: Props) {
             gap: '3px',
           }}>
             {items.map((m, i) => {
-              const isTall   = i === 0
-              const isVideo  = m.mediaType === 'video'
-              const _ytId = isVideo ? ytId(m.youtubeUrl) : null
-              const thumb = isVideo
-                ? (m.youtubeThumbnail || (_ytId ? `https://img.youtube.com/vi/${_ytId}/hqdefault.jpg` : null))
+              const isTall  = i === 0
+              const isVideo = m.mediaType === 'video'
+              const thumb   = isVideo
+                ? getYoutubeThumb(m.youtubeUrl, m.youtubeThumbnail)
                 : (m as any).coverImage?.asset?.url ?? null
-              const href = isVideo ? (m.youtubeUrl ?? '#') : `/media/${m.slug.current}`
               const tagLabel = isVideo ? '영상 ▶' : '포토'
 
-              const Wrapper: any = isVideo ? 'a' : Link
-              return (
-                <Wrapper key={m._id} href={href}
-                  {...(isVideo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  style={{ ...cellBase, gridRow: isTall ? 'span 2' : 'auto', display: 'block', textDecoration: 'none' }}
-                  onMouseEnter={(e: React.MouseEvent<HTMLElement>) => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,.6)'; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.05)'; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(220,0,26,0.72) 0%, rgba(0,0,0,0.28) 55%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'rgba(255,255,255,0.75)'; }}
-                  onMouseLeave={(e: React.MouseEvent<HTMLElement>) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement; if (bg) bg.style.transform = ''; const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement; if (ov) ov.style.background = 'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)'; const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement; if (tag) tag.style.color = 'var(--red)'; }}
-                >
+              const cellStyle: React.CSSProperties = {
+                ...cellBase,
+                gridRow: isTall ? 'span 2' : 'auto',
+                display: 'block',
+                textDecoration: 'none',
+              }
+              const hoverIn = (e: React.MouseEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = 'scale(1.02)'
+                e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,.6)'
+                const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement
+                if (bg) bg.style.transform = 'scale(1.05)'
+                const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement
+                if (ov) ov.style.background = 'linear-gradient(0deg, rgba(220,0,26,0.72) 0%, rgba(0,0,0,0.28) 55%, transparent 100%)'
+                const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement
+                if (tag) tag.style.color = 'rgba(255,255,255,0.75)'
+              }
+              const hoverOut = (e: React.MouseEvent<HTMLElement>) => {
+                e.currentTarget.style.transform = ''
+                e.currentTarget.style.boxShadow = ''
+                const bg = e.currentTarget.querySelector('.m-bg') as HTMLElement
+                if (bg) bg.style.transform = ''
+                const ov = e.currentTarget.querySelector('.m-overlay') as HTMLElement
+                if (ov) ov.style.background = 'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)'
+                const tag = e.currentTarget.querySelector('.m-tag') as HTMLElement
+                if (tag) tag.style.color = 'var(--red)'
+              }
+
+              const inner = (
+                <>
                   <div className="m-bg" style={{
                     position: 'absolute', inset: 0,
                     backgroundImage: thumb ? `url(${thumb})` : undefined,
@@ -101,14 +116,24 @@ export default function SectionMedia({ media }: Props) {
                       {m.title}
                     </div>
                   </div>
-                </Wrapper>
+                </>
+              )
+
+              return isVideo ? (
+                <VideoLink key={m._id} youtubeUrl={m.youtubeUrl} style={cellStyle} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                  {inner}
+                </VideoLink>
+              ) : (
+                <Link key={m._id} href={`/media/${m.slug.current}`} style={cellStyle} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                  {inner}
+                </Link>
               )
             })}
           </div>
         )}
       </div>
 
-      
+
     </section>
   )
 }
