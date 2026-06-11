@@ -15,6 +15,7 @@ interface Props {
 
 export default function VideoLink({ youtubeUrl, children, className, style, onMouseEnter, onMouseLeave, ariaLabel }: Props) {
   const id = getYoutubeId(youtubeUrl)
+  const isShort = typeof youtubeUrl === 'string' && /\/shorts\//.test(youtubeUrl)
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
@@ -46,7 +47,9 @@ export default function VideoLink({ youtubeUrl, children, className, style, onMo
         <div onClick={() => setOpen(false)}
           style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
           <div onClick={(e) => e.stopPropagation()}
-            style={{ position: 'relative', width: 'min(960px,100%)', aspectRatio: '16 / 9', background: '#000' }}>
+            style={ isShort
+              ? { position: 'relative', height: 'min(86vh, 820px)', aspectRatio: '9 / 16', background: '#000' }
+              : { position: 'relative', width: 'min(960px,100%)', aspectRatio: '16 / 9', background: '#000' } }>
             <button type="button" onClick={() => setOpen(false)} aria-label="닫기"
               style={{ position: 'absolute', top: '-44px', right: 0, width: '40px', height: '40px', background: 'transparent', border: 'none', color: '#fff', fontSize: '28px', lineHeight: 1, cursor: 'pointer' }}>×</button>
             <iframe src={`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`} title="YouTube video player"

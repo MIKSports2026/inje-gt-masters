@@ -47,7 +47,7 @@ export default function SectionMedia({ media }: Props) {
               const thumb   = isVideo
                 ? getYoutubeThumb(m.youtubeUrl, m.youtubeThumbnail)
                 : (m as any).coverImage?.asset?.url ?? null
-              const tagLabel = isVideo ? '영상 ▶' : '포토'
+              const tagIcon = isVideo ? 'fa-solid fa-video' : 'fa-solid fa-images'
 
               const cellStyle: React.CSSProperties = {
                 ...cellBase,
@@ -111,7 +111,7 @@ export default function SectionMedia({ media }: Props) {
                       letterSpacing: '2.5px', textTransform: 'uppercase' as const,
                       color: 'var(--red)', marginBottom: '5px',
                       transition: 'color 0.25s',
-                    }}>{tagLabel}</div>
+                    }}><i className={tagIcon} aria-label={isVideo ? '영상' : '사진'} /></div>
                     <div style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-primary, #fff)', lineHeight: 1.4, wordBreak: 'keep-all' }}>
                       {m.title}
                     </div>
