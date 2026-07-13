@@ -319,6 +319,9 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
           </div>
           <div className="form-group">
             <label>희망 엔트리 *</label>
+            <p style={{ fontSize: '.82rem', color: '#E60023', fontWeight: 700, margin: '2px 0 10px', lineHeight: 1.6 }}>
+              ※ 신규 참가자만 입력해 주세요.
+            </p>
             <div className="form-row">
               <div className="form-group">
                 <label>1순위</label>
