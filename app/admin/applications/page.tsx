@@ -11,12 +11,16 @@ import Breadcrumb from '@/components/ui/Breadcrumb'
 //   [19]신청일시(ISO)
 // 구조 B — 희망번호 추가 (21열): 희망번호 [19], 신청일시 [20]
 //   [0-18] 구조A와 동일, [19]희망번호, [20]신청일시(ISO)
-// 구조 C — 오늘 이후 (23열): 팀대표/참가비 추가, 희망번호 [21], 신청일시 [22]
+// 구조 C — 팀대표/참가비 추가 (23열): 희망번호 [21], 신청일시 [22]
 //   [0]참가유형 [1]라운드 [2]클래스 [3]팀명 [4]차량 [5]팀대표 [6]참가비
 //   [7]D1이름 [8]D1생년월일 [9]D1혈액형 [10]D1연락처 [11]D1이메일 [12]D1라이선스
 //   [13]D2이름 [14]D2생년월일 [15]D2혈액형 [16]D2라이선스
 //   [17]D3이름 [18]D3생년월일 [19]D3혈액형 [20]D3라이선스
 //   [21]희망번호, [22]신청일시(ISO)
+// 구조 D — 희망 1·2순위 + 드라이버 전원 연락처 (26열): 신청일시 [23]
+//   [0-20] 구조 C와 동일
+//   [21]희망번호1순위 [22]희망번호2순위 [23]신청일시(ISO)
+//   [24]D2연락처 [25]D3연락처
 
 function fmtDate(iso: string | undefined): string {
   if (!iso || !/\d{4}-\d{2}-\d{2}T/.test(iso)) return iso || '—'
@@ -47,16 +51,23 @@ function isIso(val: string | undefined): boolean {
 }
 
 // 구조 판단: ISO 날짜 위치 기반
-// C → row[22]가 ISO / B → row[20]이 ISO / A → 나머지
-function struct(row: Row): 'C' | 'B' | 'A' {
+// D → row[23]가 ISO / C → row[22]가 ISO / B → row[20]이 ISO / A → 나머지
+function struct(row: Row): 'D' | 'C' | 'B' | 'A' {
+  if (isIso(row[23])) return 'D'
   if (isIso(row[22])) return 'C'
   if (isIso(row[20])) return 'B'
   return 'A'
+}
+// C·D는 [5]~[20] 및 D1 연락처/이메일 열 위치가 동일
+function isCD(row: Row): boolean {
+  const s = struct(row)
+  return s === 'C' || s === 'D'
 }
 
 const COLS: { label: string; render: (row: Row) => string }[] = [
   { label: '신청일시', render: (row) => {
       const s = struct(row)
+      if (s === 'D') return fmtDate(row[23])
       if (s === 'C') return fmtDate(row[22])
       if (s === 'B') return fmtDate(row[20])
       return fmtDate(isIso(row[19]) ? row[19] : undefined)
@@ -65,20 +76,23 @@ const COLS: { label: string; render: (row: Row) => string }[] = [
   { label: '라운드',   render: (row) => fmtRound(row[1]) },
   { label: '클래스',   render: (row) => row[2] ?? '—' },
   { label: '팀명',     render: (row) => row[3] ?? '—' },
-  { label: '팀 대표',  render: (row) => struct(row) === 'C' ? (row[5] ?? '—') : '—' },
+  { label: '팀 대표',  render: (row) => isCD(row) ? (row[5] ?? '—') : '—' },
   { label: '차량',     render: (row) => row[4] ?? '—' },
   { label: '희망번호', render: (row) => {
       const s = struct(row)
+      if (s === 'D') return [row[21], row[22]].filter(Boolean).join(' / ') || '—'
       return s === 'C' ? (row[21] ?? '—') : s === 'B' ? (row[19] ?? '—') : '—'
   }},
-  { label: '드라이버 1', render: (row) => (struct(row) === 'C' ? row[7]  : row[5])  || '—' },
-  { label: '혈액형 1',   render: (row) => (struct(row) === 'C' ? row[9]  : row[7])  || '—' },
-  { label: '드라이버 2', render: (row) => (struct(row) === 'C' ? row[13] : row[11]) || '—' },
-  { label: '혈액형 2',   render: (row) => (struct(row) === 'C' ? row[15] : row[13]) || '—' },
-  { label: '드라이버 3', render: (row) => (struct(row) === 'C' ? row[17] : row[15]) || '—' },
-  { label: '혈액형 3',   render: (row) => (struct(row) === 'C' ? row[19] : row[17]) || '—' },
-  { label: '연락처',   render: (row) => fmtPhone(struct(row) === 'C' ? row[10] : row[8]) },
-  { label: '이메일',   render: (row) => (struct(row) === 'C' ? row[11] : row[9]) ?? '—' },
+  { label: '드라이버 1', render: (row) => (isCD(row) ? row[7]  : row[5])  || '—' },
+  { label: '혈액형 1',   render: (row) => (isCD(row) ? row[9]  : row[7])  || '—' },
+  { label: '드라이버 2', render: (row) => (isCD(row) ? row[13] : row[11]) || '—' },
+  { label: '혈액형 2',   render: (row) => (isCD(row) ? row[15] : row[13]) || '—' },
+  { label: '드라이버 3', render: (row) => (isCD(row) ? row[17] : row[15]) || '—' },
+  { label: '혈액형 3',   render: (row) => (isCD(row) ? row[19] : row[17]) || '—' },
+  { label: '연락처 1', render: (row) => fmtPhone(isCD(row) ? row[10] : row[8]) },
+  { label: '연락처 2', render: (row) => struct(row) === 'D' ? fmtPhone(row[24]) : '—' },
+  { label: '연락처 3', render: (row) => struct(row) === 'D' ? fmtPhone(row[25]) : '—' },
+  { label: '이메일',   render: (row) => (isCD(row) ? row[11] : row[9]) ?? '—' },
 ]
 
 type Row = string[]

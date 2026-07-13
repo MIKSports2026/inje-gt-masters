@@ -152,11 +152,11 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   }
   const handleBirthDateBlur = (idx: number) =>
     setDriverError(idx, 'birthDateError', validateBirthDate(form.drivers[idx].birthDate))
-  const handlePhoneChange = (val: string) => {
-    setDriver(0, 'phone', val)
-    if (!validatePhone(val)) clearDriverError(0, 'phoneError')
+  const handlePhoneChange = (idx: number, val: string) => {
+    setDriver(idx, 'phone', val)
+    if (!validatePhone(val)) clearDriverError(idx, 'phoneError')
   }
-  const handlePhoneBlur = () => setDriverError(0, 'phoneError', validatePhone(form.drivers[0].phone))
+  const handlePhoneBlur = (idx: number) => setDriverError(idx, 'phoneError', validatePhone(form.drivers[idx].phone))
   const handleEmailChange = (val: string) => {
     setDriver(0, 'email', val)
     if (!validateEmail(val)) clearDriverError(0, 'emailError')
@@ -202,8 +202,10 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
     && form.preferredNumber !== form.preferredNumber2
     && karaOk(0, true) && (karaLicenseModes[0] !== 'enter' || validateKaraLicense(d1.karaLicense) === null)
     && (!driver2Active || (!!form.drivers[1].birthDate && validateBirthDate(form.drivers[1].birthDate) === null))
+    && (!driver2Active || (!!form.drivers[1].phone && validatePhone(form.drivers[1].phone) === null))
     && karaOk(1, driver2Active) && (!driver2Active || karaLicenseModes[1] !== 'enter' || validateKaraLicense(form.drivers[1].karaLicense) === null)
     && (!driver3Active || (!!form.drivers[2].birthDate && validateBirthDate(form.drivers[2].birthDate) === null))
+    && (!driver3Active || (!!form.drivers[2].phone && validatePhone(form.drivers[2].phone) === null))
     && karaOk(2, driver3Active) && (!driver3Active || karaLicenseModes[2] !== 'enter' || validateKaraLicense(form.drivers[2].karaLicense) === null)
 
   async function handleSubmit() {
@@ -214,7 +216,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
         ...d,
         name: d.name.trim(),
         email: i === 0 ? d.email.trim() : d.email,
-        phone: i === 0 ? formatPhone(d.phone) : d.phone,
+        phone: formatPhone(d.phone),
       }))
       const res = await fetch('/api/entry', {
         method: 'POST',
@@ -365,8 +367,8 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
             karaError={driverErrors[0].karaError}
             onBirthDateChange={val => handleBirthDateChange(0, val)}
             onBirthDateBlur={() => handleBirthDateBlur(0)}
-            onPhoneChange={handlePhoneChange}
-            onPhoneBlur={handlePhoneBlur}
+            onPhoneChange={val => handlePhoneChange(0, val)}
+            onPhoneBlur={() => handlePhoneBlur(0)}
             onEmailChange={handleEmailChange}
             onEmailBlur={handleEmailBlur}
             onKaraChange={val => handleKaraChange(0, val)}
@@ -377,12 +379,15 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
             <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
               <label>DRIVER 2</label>
             </div>
-            <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver}
+            <DriverFields driver={form.drivers[1]} idx={1} setDriver={setDriver} showPhone
               karaMode={karaLicenseModes[1]} onKaraModeChange={m => setKaraMode(1, m)}
               birthDateError={driverErrors[1].birthDateError}
+              phoneError={driverErrors[1].phoneError}
               karaError={driverErrors[1].karaError}
               onBirthDateChange={val => handleBirthDateChange(1, val)}
               onBirthDateBlur={() => handleBirthDateBlur(1)}
+              onPhoneChange={val => handlePhoneChange(1, val)}
+              onPhoneBlur={() => handlePhoneBlur(1)}
               onKaraChange={val => handleKaraChange(1, val)}
               onKaraBlur={() => handleKaraBlur(1)} />
             <button type="button" onClick={() => { set('showDriver2', false); set('showDriver3', false) }} className="ef-chip" style={{ color: '#E60023', alignSelf: 'flex-start' }}>- 드라이버 2 제거</button>
@@ -396,12 +401,15 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
               <div className="form-group" style={{ borderTop: '1px dashed rgba(255,255,255,.1)', paddingTop: 20 }}>
                 <label>DRIVER 3</label>
               </div>
-              <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver}
+              <DriverFields driver={form.drivers[2]} idx={2} setDriver={setDriver} showPhone
                 karaMode={karaLicenseModes[2]} onKaraModeChange={m => setKaraMode(2, m)}
                 birthDateError={driverErrors[2].birthDateError}
+                phoneError={driverErrors[2].phoneError}
                 karaError={driverErrors[2].karaError}
                 onBirthDateChange={val => handleBirthDateChange(2, val)}
                 onBirthDateBlur={() => handleBirthDateBlur(2)}
+                onPhoneChange={val => handlePhoneChange(2, val)}
+                onPhoneBlur={() => handlePhoneBlur(2)}
                 onKaraChange={val => handleKaraChange(2, val)}
                 onKaraBlur={() => handleKaraBlur(2)} />
               <button type="button" onClick={() => set('showDriver3', false)} className="ef-chip" style={{ color: '#E60023', alignSelf: 'flex-start' }}>- 드라이버 3 제거</button>
@@ -552,7 +560,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   )
 }
 
-function DriverFields({ driver, idx, setDriver, showContact, karaMode, onKaraModeChange,
+function DriverFields({ driver, idx, setDriver, showContact, showPhone, karaMode, onKaraModeChange,
   birthDateError, phoneError, emailError, karaError,
   onBirthDateChange, onBirthDateBlur, onPhoneChange, onPhoneBlur,
   onEmailChange, onEmailBlur, onKaraChange, onKaraBlur,
@@ -560,6 +568,7 @@ function DriverFields({ driver, idx, setDriver, showContact, karaMode, onKaraMod
   driver: Driver; idx: number;
   setDriver: (idx: number, field: keyof Driver, val: string) => void;
   showContact?: boolean;
+  showPhone?: boolean;
   karaMode: 'enter' | 'later' | '';
   onKaraModeChange: (mode: 'enter' | 'later') => void;
   birthDateError?: string | null;
@@ -613,6 +622,15 @@ function DriverFields({ driver, idx, setDriver, showContact, karaMode, onKaraMod
             onBlur={onEmailBlur} />
           {driver.email && emailError && <p style={{ color: '#E60023', fontSize: '.82rem', marginTop: 4 }}>{emailError}</p>}
         </div>
+      </div>
+    )}
+    {!showContact && showPhone && (
+      <div className="form-group">
+        <label>CONTACT *</label>
+        <input type="text" placeholder="010-0000-0000" value={driver.phone}
+          onChange={e => onPhoneChange?.(e.target.value)}
+          onBlur={onPhoneBlur} />
+        {driver.phone && phoneError && <p style={{ color: '#E60023', fontSize: '.82rem', marginTop: 4 }}>{phoneError}</p>}
       </div>
     )}
     <div className="form-group">

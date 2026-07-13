@@ -77,6 +77,7 @@ function buildEntryEmail({
     ['성명', d2.name],
     ['생년월일', d2.birthDate ?? ''],
     ['혈액형', d2.bloodType ?? ''],
+    ['전화번호', d2.phone ?? ''],
     ['KARA 라이센스', d2.karaLicense || '추후 입력 예정'],
   ].map((item, i) => r(item[0], item[1], i)).join('') : ''
 
@@ -84,6 +85,7 @@ function buildEntryEmail({
     ['성명', d3.name],
     ['생년월일', d3.birthDate ?? ''],
     ['혈액형', d3.bloodType ?? ''],
+    ['전화번호', d3.phone ?? ''],
     ['KARA 라이센스', d3.karaLicense || '추후 입력 예정'],
   ].map((item, i) => r(item[0], item[1], i)).join('') : ''
 
@@ -205,7 +207,7 @@ export async function POST(req: Request) {
         const sheets = google.sheets({ version: 'v4', auth })
         await sheets.spreadsheets.values.append({
           spreadsheetId: sheetId,
-          range: 'Sheet1!A:X',
+          range: 'Sheet1!A:Z',
           valueInputOption: 'USER_ENTERED',
           requestBody: {
             values: [[
@@ -217,7 +219,9 @@ export async function POST(req: Request) {
               d3.name ?? '', d3.birthDate ?? '', d3.bloodType ?? '', d3.karaLicense ?? '',        // [17-20]
               preferredNumber ?? '',                                                               // [21]
               preferredNumber2 ?? '',                                                              // [22]
-              now,                                                                                 // [23]
+              now,                                                                                 // [23] 신청일시(ISO) — 어드민 struct 판별 기준
+              d2.phone ?? '',                                                                      // [24] 드라이버2 연락처(신규)
+              d3.phone ?? '',                                                                      // [25] 드라이버3 연락처(신규)
             ]],
           },
         })

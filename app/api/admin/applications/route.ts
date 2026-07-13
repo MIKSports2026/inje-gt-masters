@@ -37,7 +37,7 @@ export async function GET() {
     const sheets = google.sheets({ version: 'v4', auth })
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: 'Sheet1!A:W',
+      range: 'Sheet1!A:Z',
     })
 
     const rows = (res.data.values ?? []).filter((r) => r.some((c) => c))
