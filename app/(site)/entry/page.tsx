@@ -44,7 +44,8 @@ export default async function EntryPage({
   ]).catch(() => [null, [], []] as [SiteSettings | null, ClassInfo[], Round[]])
 
   const s = settings as SiteSettings | null
-  const isOpen = s?.isEntryOpen ?? true
+  // 접수 오픈 여부: 열린 라운드(status === 'entry_open')가 하나라도 있으면 오픈 (round.status 단일 기준)
+  const isOpen = (rounds as Round[]).some(r => r.status === 'entry_open')
 
   return (
     <>
