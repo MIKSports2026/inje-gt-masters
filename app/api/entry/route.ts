@@ -50,8 +50,8 @@ function buildEntryEmail({
     ['팀명', teamName],
     ['대표자', teamRepresentative ?? '—'],
     ['차량', carModel],
-    ['희망 엔트리 1순위', `No. ${preferredNumber}`],
-    ['희망 엔트리 2순위', `No. ${preferredNumber2}`],
+    ...(preferredNumber ? [['희망 엔트리 1순위', `No. ${preferredNumber}`]] : []),
+    ...(preferredNumber2 ? [['희망 엔트리 2순위', `No. ${preferredNumber2}`]] : []),
   ].map((item, i) => r(item[0], item[1], i)).join('')
 
   const hintBox =
@@ -103,7 +103,7 @@ function buildEntryEmail({
 </td></tr>
 ${section('신청 내용', infoRows)}
 ${section('팀 / 차량', teamRows)}
-${hintBox}
+${(preferredNumber || preferredNumber2) ? hintBox : ''}
 ${section('드라이버 1', driver1Rows)}
 ${d2?.name ? section('드라이버 2', driver2Rows) : ''}
 ${d3?.name ? section('드라이버 3', driver3Rows) : ''}
@@ -136,11 +136,12 @@ export async function POST(req: Request) {
     }
     const entryTypeLabel = '라운드'
 
+    // 희망 엔트리 번호는 선택 입력 — 입력한 경우에만 형식/중복 검사
     const numRegex = /^[1-9][0-9]?$/
-    if (!preferredNumber || !preferredNumber2 || !numRegex.test(preferredNumber) || !numRegex.test(preferredNumber2)) {
+    if ((preferredNumber && !numRegex.test(preferredNumber)) || (preferredNumber2 && !numRegex.test(preferredNumber2))) {
       return NextResponse.json({ ok: false, error: '희망 엔트리 번호를 1~99 사이 정수로 입력하세요.' }, { status: 400 })
     }
-    if (preferredNumber === preferredNumber2) {
+    if (preferredNumber && preferredNumber2 && preferredNumber === preferredNumber2) {
       return NextResponse.json({ ok: false, error: '희망 엔트리 1·2순위는 서로 달라야 합니다.' }, { status: 400 })
     }
 
@@ -235,8 +236,8 @@ export async function POST(req: Request) {
     const emailHtml = buildEntryEmail({
       roundLabel, className, teamName, carModel,
       teamRepresentative, entryFee,
-      preferredNumber: preferredNumber!,
-      preferredNumber2: preferredNumber2!,
+      preferredNumber: preferredNumber ?? '',
+      preferredNumber2: preferredNumber2 ?? '',
       drivers, contactPhone, contactEmail, now,
     })
     const emailSubject = `[인제 GT 마스터즈] 참가 신청 접수 확인 - ${teamName}`

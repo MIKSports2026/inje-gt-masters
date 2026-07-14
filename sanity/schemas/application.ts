@@ -19,8 +19,8 @@ export default defineType({
     defineField({ name: 'teamName', title: '팀명', type: 'string', validation: R => R.required() }),
     defineField({ name: 'carModel', title: '차량', type: 'string' }),
     defineField({ name: 'teamRepresentative', title: '팀 대표', type: 'string' }),
-    defineField({ name: 'preferredNumber', title: '희망 엔트리 1순위', type: 'string', validation: R => R.required().regex(/^[1-9][0-9]?$/) }),
-    defineField({ name: 'preferredNumber2', title: '희망 엔트리 2순위', type: 'string', validation: R => R.required().regex(/^[1-9][0-9]?$/) }),
+    defineField({ name: 'preferredNumber', title: '희망 엔트리 1순위 (선택)', type: 'string', validation: R => R.custom(v => !v || /^[1-9][0-9]?$/.test(v as string) || '1~99 사이 정수를 입력하세요') }),
+    defineField({ name: 'preferredNumber2', title: '희망 엔트리 2순위 (선택)', type: 'string', validation: R => R.custom(v => !v || /^[1-9][0-9]?$/.test(v as string) || '1~99 사이 정수를 입력하세요') }),
 
     // 드라이버 배열
     defineField({

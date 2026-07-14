@@ -178,9 +178,8 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
   const isValidEntryNum = (v: string) => /^[1-9][0-9]?$/.test(v)
   const entryNumberError = (() => {
     const v1 = form.preferredNumber; const v2 = form.preferredNumber2
-    if (!v1 || !v2) return ''
-    if (!isValidEntryNum(v1) || !isValidEntryNum(v2)) return '1~99 사이 정수를 입력하세요.'
-    if (v1 === v2) return '1순위와 2순위 번호는 달라야 합니다.'
+    if ((v1 && !isValidEntryNum(v1)) || (v2 && !isValidEntryNum(v2))) return '1~99 사이 정수를 입력하세요.'
+    if (v1 && v2 && v1 === v2) return '1순위와 2순위 번호는 달라야 합니다.'
     return ''
   })()
   const karaOk = (idx: number, active: boolean): boolean => {
@@ -198,8 +197,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
     && !!d1.phone && validatePhone(d1.phone) === null
     && !!d1.email && validateEmail(d1.email) === null
     && form.agreedRules && form.agreedPrivacy
-    && isValidEntryNum(form.preferredNumber) && isValidEntryNum(form.preferredNumber2)
-    && form.preferredNumber !== form.preferredNumber2
+    && entryNumberError === ''
     && karaOk(0, true) && (karaLicenseModes[0] !== 'enter' || validateKaraLicense(d1.karaLicense) === null)
     && (!driver2Active || (!!form.drivers[1].birthDate && validateBirthDate(form.drivers[1].birthDate) === null))
     && (!driver2Active || (!!form.drivers[1].phone && validatePhone(form.drivers[1].phone) === null))
@@ -318,7 +316,7 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
             <input type="text" placeholder="팀 대표 성명" value={form.teamRepresentative} onChange={e => set('teamRepresentative', e.target.value)} />
           </div>
           <div className="form-group">
-            <label>희망 엔트리 *</label>
+            <label>희망 엔트리</label>
             <p style={{ fontSize: '.82rem', color: '#E60023', fontWeight: 700, margin: '2px 0 10px', lineHeight: 1.6 }}>
               ※ 신규 참가자만 입력해 주세요.
             </p>
@@ -330,7 +328,6 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
                   inputMode="numeric"
                   pattern="[0-9]+"
                   maxLength={2}
-                  required
                   placeholder="예: 7"
                   value={form.preferredNumber}
                   onChange={e => set('preferredNumber', e.target.value)}
@@ -343,7 +340,6 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
                   inputMode="numeric"
                   pattern="[0-9]+"
                   maxLength={2}
-                  required
                   placeholder="예: 12"
                   value={form.preferredNumber2}
                   onChange={e => set('preferredNumber2', e.target.value)}
@@ -525,8 +521,8 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
               ['TEAM', form.teamName],
               ['VEHICLE', form.carModel],
               ...(form.teamRepresentative ? [['TEAM REP.', form.teamRepresentative]] : []),
-              ['희망 엔트리 1순위', `No. ${form.preferredNumber}`],
-              ['희망 엔트리 2순위', `No. ${form.preferredNumber2}`],
+              ...(form.preferredNumber ? [['희망 엔트리 1순위', `No. ${form.preferredNumber}`]] : []),
+              ...(form.preferredNumber2 ? [['희망 엔트리 2순위', `No. ${form.preferredNumber2}`]] : []),
               ['DRIVER 1', `${d1.name} / ${d1.birthDate} / ${d1.bloodType}`],
               ...(form.showDriver2 && form.drivers[1].name ? [['DRIVER 2', `${form.drivers[1].name} / ${form.drivers[1].birthDate} / ${form.drivers[1].bloodType}`]] : []),
               ...(form.showDriver3 && form.drivers[2].name ? [['DRIVER 3', `${form.drivers[2].name} / ${form.drivers[2].birthDate} / ${form.drivers[2].bloodType}`]] : []),
@@ -541,9 +537,11 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
                 <span className="ef-summary__value">{v}</span>
               </div>
             ))}
+          {(form.preferredNumber || form.preferredNumber2) && (
           <p style={{ fontSize: '.78rem', color: '#888', marginTop: 12, lineHeight: 1.6, padding: '0 4px' }}>
             1·2순위 번호는 희망사항으로 접수됩니다. 신청 현황을 함께 검토해 최종 엔트리 넘버를 배정한 뒤 별도로 안내 드립니다.
           </p>
+          )}
           </div>
 
           {error && <div style={{ padding: '12px 16px', background: 'rgba(230,0,35,.08)', border: '1px solid rgba(230,0,35,.2)', fontSize: '.88rem', color: '#E60023' }}>{error}</div>}
