@@ -25,6 +25,13 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
   const color = c.accentColor ?? '#e60023'
   const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
 
+  // eligibility는 Portable Text(블록 배열) — 블록별 텍스트를 추출해 목록으로 렌더
+  const blockToText = (b: unknown): string =>
+    typeof b === 'string'
+      ? b
+      : (((b as { children?: { text?: string }[] })?.children) ?? []).map(ch => ch?.text ?? '').join('')
+  const eligibilityLines = ((c.eligibility as unknown[]) ?? []).map(blockToText).filter(Boolean)
+
   return (
     <>
       {/* ── 히어로 ─────────────────────────────────────────── */}
@@ -98,9 +105,9 @@ export default async function ClassDetailPage({ params }: { params: { slug: stri
               <div style={{ background: 'var(--bg-2)', border: '1px solid var(--line)', clipPath: cut, padding: '24px', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: '3px', background: `linear-gradient(90deg,${color},${color}44 60%,transparent)` }} />
                 <h2 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>참가 자격</h2>
-                {c.eligibility && c.eligibility.length > 0 ? (
+                {eligibilityLines.length > 0 ? (
                   <div className="list">
-                    {c.eligibility.map((item: string, i: number) => (
+                    {eligibilityLines.map((item, i) => (
                       <li key={i}><span className="dot" style={{ background: color }} />{item}</li>
                     ))}
                   </div>
