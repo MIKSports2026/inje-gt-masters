@@ -156,7 +156,7 @@ export default async function HomePage() {
         인제 GT 마스터즈 2026 — 대한민국 정통 GT 내구레이스
       </h1>
 
-      <SectionHero slides={activeSlides} />
+      <SectionHero slides={activeSlides} videoUrl={s?.heroVideo} />
       <SectionRound    rounds={rs} />
       <SectionClass classes={cs} />
       <SectionNews     posts={ps} />

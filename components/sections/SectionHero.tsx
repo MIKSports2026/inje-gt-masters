@@ -2,22 +2,31 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { buildHeroSrcSet, buildSanityImageUrl } from '@/lib/sanity-image'
+import { getYoutubeId } from '@/lib/youtube'
 import type { HeroSlide } from '@/types/sanity'
 import styles from './SectionHero.module.css'
 
 interface Props {
   slides: HeroSlide[]
+  videoUrl?: string
 }
 
 const ROTATION_INTERVAL = 6000
 
-export default function SectionHero({ slides }: Props) {
+export default function SectionHero({ slides, videoUrl }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const isMulti = slides.length >= 2
+  useEffect(() => { setMounted(true) }, [])
+
+  const videoId = getYoutubeId(videoUrl?.trim())
+  // 배경 영상이 있으면 이미지 대신 표시. 단, 접근성(움직임 최소화) 설정 시엔 이미지 유지
+  const showVideo = mounted && !!videoId && !prefersReducedMotion
+
+  const isMulti = slides.length >= 2 && !showVideo
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -51,7 +60,7 @@ export default function SectionHero({ slides }: Props) {
     setIsPaused(true)
   }, [])
 
-  if (slides.length === 0) {
+  if (slides.length === 0 && !showVideo) {
     return (
       <section className={styles.hero} role="region" aria-label="메인 히어로 배너">
         <div className={styles.heroMedia}>
@@ -113,6 +122,19 @@ export default function SectionHero({ slides }: Props) {
             )
           })}
         </div>
+
+        {showVideo && (
+          <div className={styles.videoLayer} aria-hidden="true">
+            <iframe
+              className={styles.videoFrame}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&iv_load_policy=3`}
+              title="메인 히어로 배경 영상"
+              allow="autoplay; encrypted-media"
+              tabIndex={-1}
+              frameBorder={0}
+            />
+          </div>
+        )}
 
       </div>
 

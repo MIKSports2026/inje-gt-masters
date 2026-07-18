@@ -47,6 +47,28 @@
   display: block;
 }
 
+/* ── 배경 영상 (YouTube) ─────────────────────────────── */
+.videoLayer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0a0a0a;
+  z-index: 1;
+}
+
+/* 16:9 iframe을 컨테이너(데스크톱 16:9 / 모바일 세로) 전체에 cover 시킴 */
+.videoFrame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  pointer-events: none;
+}
+
 
 .indicators {
   position: relative;
