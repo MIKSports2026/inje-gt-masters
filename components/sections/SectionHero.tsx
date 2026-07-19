@@ -17,14 +17,24 @@ export default function SectionHero({ slides, videoUrl }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [mounted, setMounted] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => { setMounted(true) }, [])
 
+  // 모바일(≤767px)에서는 데이터·배터리 부담과 세로 크롭 문제로 배경 영상 대신 이미지 사용
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
   const videoId = getYoutubeId(videoUrl?.trim())
-  // 배경 영상이 있으면 이미지 대신 표시. 단, 접근성(움직임 최소화) 설정 시엔 이미지 유지
-  const showVideo = mounted && !!videoId && !prefersReducedMotion
+  // 배경 영상은 데스크톱에서만 표시. 움직임 최소화 설정 시엔 이미지 유지
+  const showVideo = mounted && !!videoId && !prefersReducedMotion && !isMobile
 
   const isMulti = slides.length >= 2 && !showVideo
 
