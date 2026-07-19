@@ -35,11 +35,12 @@ export function buildHeroSrcSet(
     },
     tablet: {
       src1x: buildSanityImageUrl(baseUrl, { width: 1440, quality: 80, hotspot }),
-      src2x: buildSanityImageUrl(baseUrl, { width: 2880, quality: 80, hotspot }),
+      src2x: buildSanityImageUrl(baseUrl, { width: 2560, quality: 80, hotspot }),
     },
     desktop: {
-      src1x: buildSanityImageUrl(baseUrl, { width: 2560, quality: 85, hotspot }),
-      src2x: buildSanityImageUrl(baseUrl, { width: 3840, quality: 85, hotspot }),
+      // 2560px 이상은 화면상 차이가 거의 없어 상한을 2560/q80으로 제한 (LCP 리소스 경량화)
+      src1x: buildSanityImageUrl(baseUrl, { width: 1920, quality: 80, hotspot }),
+      src2x: buildSanityImageUrl(baseUrl, { width: 2560, quality: 80, hotspot }),
     },
   }
 }
