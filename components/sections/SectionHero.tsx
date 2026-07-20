@@ -20,6 +20,8 @@ export default function SectionHero({ slides, videoUrl }: Props) {
   const [isMobile, setIsMobile] = useState(false)
   const [mounted, setMounted] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const videoHostRef = useRef<HTMLDivElement | null>(null)
+  const ytPlayerRef = useRef<any>(null)
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -35,6 +37,75 @@ export default function SectionHero({ slides, videoUrl }: Props) {
   const videoId = getYoutubeId(videoUrl?.trim())
   // 배경 영상은 데스크톱에서만 표시. 움직임 최소화 설정 시엔 이미지 유지
   const showVideo = mounted && !!videoId && !prefersReducedMotion && !isMobile
+
+  // 배경 영상: 1회 재생 후 마지막 프레임에서 정지 (YouTube IFrame API)
+  useEffect(() => {
+    if (!showVideo || !videoId || !videoHostRef.current) return
+    let cancelled = false
+    let freezeTimer: ReturnType<typeof setInterval> | null = null
+    const clearFreeze = () => { if (freezeTimer) { clearInterval(freezeTimer); freezeTimer = null } }
+
+    const createPlayer = () => {
+      const YT = (window as any).YT
+      if (cancelled || !YT?.Player || !videoHostRef.current) return
+      ytPlayerRef.current = new YT.Player(videoHostRef.current, {
+        videoId,
+        host: 'https://www.youtube-nocookie.com',
+        width: '100%',
+        height: '100%',
+        playerVars: {
+          autoplay: 1, mute: 1, controls: 0, loop: 0,
+          modestbranding: 1, rel: 0, playsinline: 1,
+          disablekb: 1, fs: 0, iv_load_policy: 3,
+        },
+        events: {
+          onReady: (e: any) => { e.target.mute(); e.target.playVideo() },
+          onStateChange: (e: any) => {
+            const p = ytPlayerRef.current
+            if (!p) return
+            // 재생 시작 → 끝나기 직전 감시 시작 (종료화면 뜨기 전에 정지)
+            if (e.data === 1) {
+              clearFreeze()
+              freezeTimer = setInterval(() => {
+                if (!p.getDuration) return
+                const dur = p.getDuration()
+                if (dur && p.getCurrentTime() >= dur - 0.25) {
+                  clearFreeze()
+                  try { p.pauseVideo() } catch {}
+                }
+              }, 80)
+            }
+            // 혹시 끝까지 재생됐다면 마지막 프레임으로 되돌려 정지
+            if (e.data === 0) {
+              clearFreeze()
+              try { p.seekTo(Math.max(0, p.getDuration() - 0.1), true); p.pauseVideo() } catch {}
+            }
+          },
+        },
+      })
+    }
+
+    const w = window as any
+    if (w.YT?.Player) {
+      createPlayer()
+    } else {
+      if (!document.getElementById('yt-iframe-api')) {
+        const tag = document.createElement('script')
+        tag.id = 'yt-iframe-api'
+        tag.src = 'https://www.youtube.com/iframe_api'
+        document.head.appendChild(tag)
+      }
+      const prev = w.onYouTubeIframeAPIReady
+      w.onYouTubeIframeAPIReady = () => { if (typeof prev === 'function') prev(); createPlayer() }
+    }
+
+    return () => {
+      cancelled = true
+      clearFreeze()
+      try { ytPlayerRef.current?.destroy?.() } catch {}
+      ytPlayerRef.current = null
+    }
+  }, [showVideo, videoId])
 
   const isMulti = slides.length >= 2 && !showVideo
 
@@ -135,14 +206,9 @@ export default function SectionHero({ slides, videoUrl }: Props) {
 
         {showVideo && (
           <div className={styles.videoLayer} aria-hidden="true">
-            <iframe
-              className={styles.videoFrame}
-              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&iv_load_policy=3`}
-              title="메인 히어로 배경 영상"
-              allow="autoplay; encrypted-media"
-              tabIndex={-1}
-              frameBorder={0}
-            />
+            <div className={styles.videoFrame}>
+              <div ref={videoHostRef} className={styles.videoHost} title="메인 히어로 배경 영상" />
+            </div>
           </div>
         )}
 
