@@ -1,0 +1,666 @@
+[
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-1",
+  "classKey": "M1",
+  "raceType": "qualifying",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "3",
+    "teamName": "BOBRACING X 아주자동차대학교",
+    "driver1": "최근환",
+    "driver2": "권도윤",
+    "laps": 2,
+    "fastestLap": "1:48.415",
+    "totalTime": "0:06:10.698",
+    "points": 3,
+    "status": "classified"
+   },
+   {
+    "position": 2,
+    "carNumber": "23",
+    "teamName": "투케이바디",
+    "driver1": "이승렬",
+    "driver2": "박강현",
+    "laps": 5,
+    "fastestLap": "1:49.484",
+    "totalTime": "0:12:06.697",
+    "points": 2,
+    "status": "classified",
+    "gap": "+1.069"
+   },
+   {
+    "position": 3,
+    "carNumber": "10",
+    "teamName": "팀루트개러지",
+    "driver1": "김요셉",
+    "driver2": "지인호",
+    "laps": 4,
+    "fastestLap": "1:49.997",
+    "totalTime": "0:11:35.709",
+    "points": 1,
+    "status": "classified",
+    "gap": "+1.582"
+   },
+   {
+    "position": 4,
+    "carNumber": "1",
+    "teamName": "팀루트개러지",
+    "driver1": "김현석",
+    "driver2": "이동훈",
+    "laps": 3,
+    "fastestLap": "1:50.977",
+    "totalTime": "0:07:54.116",
+    "points": 0,
+    "status": "classified",
+    "gap": "+2.562"
+   },
+   {
+    "position": 5,
+    "carNumber": "58",
+    "teamName": "DMZ",
+    "driver1": "김재정",
+    "driver2": "최철현",
+    "laps": 4,
+    "fastestLap": "2:00.482",
+    "totalTime": "0:21:12.097",
+    "points": 0,
+    "status": "classified",
+    "gap": "+12.067"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-2",
+  "classKey": "M2",
+  "raceType": "qualifying",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "6",
+    "teamName": "아우토모빌",
+    "driver1": "박민제",
+    "driver2": "정연섭",
+    "driver3": "신동민",
+    "laps": 2,
+    "fastestLap": "1:52.296",
+    "totalTime": "0:10:37.770",
+    "points": 3,
+    "status": "classified"
+   },
+   {
+    "position": 2,
+    "carNumber": "24",
+    "teamName": "R247",
+    "driver1": "정지원",
+    "driver2": "김도훈",
+    "driver3": "박성준",
+    "laps": 6,
+    "fastestLap": "1:53.515",
+    "totalTime": "0:21:22.928",
+    "points": 2,
+    "status": "classified",
+    "gap": "+1.219"
+   },
+   {
+    "position": 3,
+    "carNumber": "88",
+    "teamName": "AXIS Racing",
+    "driver1": "조예찬",
+    "driver2": "홍준기",
+    "driver3": "염기태",
+    "laps": 5,
+    "fastestLap": "1:57.771",
+    "totalTime": "0:15:46.188",
+    "points": 1,
+    "status": "classified",
+    "gap": "+5.475"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-3",
+  "classKey": "M3",
+  "raceType": "qualifying",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "72",
+    "teamName": "Club Racing",
+    "driver1": "김지훈",
+    "driver2": "이준성",
+    "laps": 6,
+    "fastestLap": "2:00.640",
+    "totalTime": "0:20:34.497",
+    "points": 3,
+    "status": "classified"
+   },
+   {
+    "position": 2,
+    "carNumber": "52",
+    "teamName": "봉좌레이싱",
+    "driver1": "정시현",
+    "driver2": "이재용",
+    "laps": 7,
+    "fastestLap": "2:01.001",
+    "totalTime": "0:21:52.369",
+    "points": 2,
+    "status": "classified",
+    "gap": "+0.361"
+   },
+   {
+    "position": 3,
+    "carNumber": "79",
+    "teamName": "아주자동차대학교",
+    "driver1": "임진환",
+    "driver2": "장형욱",
+    "laps": 9,
+    "fastestLap": "2:03.155",
+    "totalTime": "0:21:17.280",
+    "points": 1,
+    "status": "classified",
+    "gap": "+2.515"
+   },
+   {
+    "position": 4,
+    "carNumber": "55",
+    "teamName": "원티드모터스포츠",
+    "driver1": "임병춘",
+    "driver2": "배지윤",
+    "laps": 7,
+    "fastestLap": "2:03.298",
+    "totalTime": "0:20:06.413",
+    "points": 0,
+    "status": "classified",
+    "gap": "+2.658"
+   },
+   {
+    "position": 5,
+    "carNumber": "69",
+    "teamName": "아주자동차대학교",
+    "driver1": "신동민",
+    "driver2": "심혜나",
+    "driver3": "심현우",
+    "laps": 9,
+    "fastestLap": "2:03.625",
+    "totalTime": "0:21:35.427",
+    "points": 0,
+    "status": "classified",
+    "gap": "+2.985"
+   },
+   {
+    "position": 6,
+    "carNumber": "89",
+    "teamName": "스틸아트 모터스",
+    "driver1": "성재우",
+    "driver2": "석창원",
+    "driver3": "장준혁",
+    "laps": 8,
+    "fastestLap": "2:03.642",
+    "totalTime": "0:19:22.618",
+    "points": 0,
+    "status": "classified",
+    "gap": "+3.002"
+   },
+   {
+    "position": 7,
+    "carNumber": "90",
+    "teamName": "낭만투카",
+    "driver1": "성종세",
+    "driver2": "홍준영",
+    "laps": 8,
+    "fastestLap": "2:04.788",
+    "totalTime": "0:20:48.335",
+    "points": 0,
+    "status": "classified",
+    "gap": "+4.148"
+   },
+   {
+    "position": 8,
+    "carNumber": "44",
+    "teamName": "원티드모터스포츠",
+    "driver1": "김희태",
+    "driver2": "김진한",
+    "laps": 5,
+    "fastestLap": "2:05.089",
+    "totalTime": "0:16:32.506",
+    "points": 0,
+    "status": "classified",
+    "gap": "+4.449"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-n",
+  "classKey": "MN",
+  "raceType": "qualifying",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "98",
+    "teamName": "비앙코웍스레이싱",
+    "driver1": "이상진",
+    "driver2": "김세진",
+    "driver3": "라이안리",
+    "laps": 2,
+    "fastestLap": "1:54.288",
+    "totalTime": "0:12:25.917",
+    "points": 3,
+    "status": "classified"
+   },
+   {
+    "position": 2,
+    "carNumber": "66",
+    "teamName": "TEAM05X",
+    "driver1": "김태일",
+    "driver2": "장성훈",
+    "laps": 2,
+    "fastestLap": "1:56.523",
+    "totalTime": "0:07:12.261",
+    "points": 2,
+    "status": "classified",
+    "gap": "+2.235"
+   },
+   {
+    "position": 3,
+    "carNumber": "64",
+    "teamName": "팀토마스",
+    "driver1": "김우주",
+    "driver2": "류승제",
+    "laps": 5,
+    "fastestLap": "1:57.009",
+    "totalTime": "0:13:48.980",
+    "points": 1,
+    "status": "classified",
+    "gap": "+2.721"
+   },
+   {
+    "position": 4,
+    "carNumber": "76",
+    "teamName": "TEAM_PITSTART X 무한질주",
+    "driver1": "김민찬",
+    "driver2": "백종건",
+    "driver3": "남명준",
+    "laps": 3,
+    "fastestLap": "1:57.435",
+    "totalTime": "0:19:56.449",
+    "points": 0,
+    "status": "classified",
+    "gap": "+3.147"
+   },
+   {
+    "position": 5,
+    "carNumber": "59",
+    "teamName": "아주자동차대학교",
+    "driver1": "윤창준",
+    "driver2": "정재원",
+    "laps": 6,
+    "fastestLap": "1:58.333",
+    "totalTime": "0:20:41.002",
+    "points": 0,
+    "status": "classified",
+    "gap": "+4.045"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-nevo",
+  "classKey": "MNE",
+  "raceType": "qualifying",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "94",
+    "teamName": "PITSTOP MOTORSPORT",
+    "driver1": "정정재",
+    "driver2": "신형주",
+    "driver3": "최윤민",
+    "laps": 3,
+    "fastestLap": "1:55.147",
+    "totalTime": "0:08:34.689",
+    "points": 3,
+    "status": "classified"
+   },
+   {
+    "position": 2,
+    "carNumber": "80",
+    "teamName": "RWF",
+    "driver1": "이정환",
+    "driver2": "이지웅",
+    "laps": 7,
+    "fastestLap": "1:56.243",
+    "totalTime": "0:20:12.506",
+    "points": 2,
+    "status": "classified",
+    "gap": "+1.096"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-1",
+  "classKey": "M1",
+  "raceType": "race",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "3",
+    "teamName": "BOBRACING X 아주자동차대학교",
+    "driver1": "최근환",
+    "driver2": "권도윤",
+    "laps": 84,
+    "points": 28,
+    "status": "classified",
+    "totalTime": "3:01:59.039",
+    "fastestLap": "1:50.618"
+   },
+   {
+    "position": 2,
+    "carNumber": "58",
+    "teamName": "DMZ",
+    "driver1": "김재정",
+    "driver2": "최철현",
+    "laps": 76,
+    "points": 21,
+    "status": "classified",
+    "totalTime": "3:04:46.966",
+    "fastestLap": "1:57.878",
+    "gap": "+8 laps"
+   },
+   {
+    "position": 3,
+    "carNumber": "10",
+    "teamName": "팀루트개러지",
+    "driver1": "김요셉",
+    "driver2": "지인호",
+    "laps": 59,
+    "points": 18,
+    "status": "classified",
+    "totalTime": "3:03:36.968",
+    "fastestLap": "1:52.321",
+    "gap": "+25 laps"
+   },
+   {
+    "position": 4,
+    "carNumber": "23",
+    "teamName": "투케이바디",
+    "driver1": "이승렬",
+    "driver2": "박강현",
+    "laps": 78,
+    "points": 0,
+    "status": "dnf",
+    "fastestLap": "1:50.798"
+   },
+   {
+    "position": 5,
+    "carNumber": "1",
+    "teamName": "팀루트개러지",
+    "driver1": "김현석",
+    "driver2": "이동훈",
+    "laps": 0,
+    "points": 0,
+    "status": "dns"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-2",
+  "classKey": "M2",
+  "raceType": "race",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "88",
+    "teamName": "AXIS Racing",
+    "driver1": "조예찬",
+    "driver2": "홍준기",
+    "driver3": "염기태",
+    "laps": 81,
+    "points": 28,
+    "status": "classified",
+    "totalTime": "3:03:50.859",
+    "fastestLap": "1:58.152"
+   },
+   {
+    "position": 2,
+    "carNumber": "6",
+    "teamName": "아우토모빌",
+    "driver1": "박민제",
+    "driver2": "정연섭",
+    "driver3": "신동민",
+    "laps": 71,
+    "points": 21,
+    "status": "classified",
+    "totalTime": "3:02:57.680",
+    "fastestLap": "1:54.557",
+    "gap": "+10 laps"
+   },
+   {
+    "position": 3,
+    "carNumber": "24",
+    "teamName": "R247",
+    "driver1": "정지원",
+    "driver2": "김도훈",
+    "driver3": "박성준",
+    "laps": 69,
+    "points": 0,
+    "status": "dnf",
+    "fastestLap": "1:54.739"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-3",
+  "classKey": "M3",
+  "raceType": "race",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "52",
+    "teamName": "봉좌레이싱",
+    "driver1": "정시현",
+    "driver2": "이재용",
+    "laps": 79,
+    "points": 28,
+    "status": "classified",
+    "totalTime": "3:03:10.117",
+    "fastestLap": "2:01.384"
+   },
+   {
+    "position": 2,
+    "carNumber": "55",
+    "teamName": "원티드모터스포츠",
+    "driver1": "임병춘",
+    "driver2": "배지윤",
+    "laps": 78,
+    "points": 21,
+    "status": "classified",
+    "totalTime": "3:03:05.318",
+    "fastestLap": "2:02.162",
+    "gap": "+1 lap"
+   },
+   {
+    "position": 3,
+    "carNumber": "44",
+    "teamName": "원티드모터스포츠",
+    "driver1": "김희태",
+    "driver2": "김진한",
+    "laps": 78,
+    "points": 18,
+    "status": "classified",
+    "totalTime": "3:03:29.804",
+    "fastestLap": "2:02.238",
+    "gap": "+1 lap"
+   },
+   {
+    "position": 4,
+    "carNumber": "89",
+    "teamName": "스틸아트 모터스",
+    "driver1": "성재우",
+    "driver2": "석창원",
+    "driver3": "장준혁",
+    "laps": 76,
+    "points": 15,
+    "status": "classified",
+    "totalTime": "3:03:50.580",
+    "fastestLap": "2:04.660",
+    "gap": "+3 laps"
+   },
+   {
+    "position": 5,
+    "carNumber": "69",
+    "teamName": "아주자동차대학교",
+    "driver1": "신동민",
+    "driver2": "심혜나",
+    "driver3": "심현우",
+    "laps": 61,
+    "points": 0,
+    "status": "dnf",
+    "fastestLap": "2:04.881"
+   },
+   {
+    "position": 6,
+    "carNumber": "90",
+    "teamName": "낭만투카",
+    "driver1": "성종세",
+    "driver2": "홍준영",
+    "laps": 1,
+    "points": 0,
+    "status": "dnf"
+   },
+   {
+    "position": 7,
+    "carNumber": "79",
+    "teamName": "아주자동차대학교",
+    "driver1": "임진환",
+    "driver2": "장형욱",
+    "laps": 1,
+    "points": 0,
+    "status": "dnf"
+   },
+   {
+    "position": 8,
+    "carNumber": "72",
+    "teamName": "Club Racing",
+    "driver1": "김지훈",
+    "driver2": "이준성",
+    "laps": 0,
+    "points": 0,
+    "status": "dnf"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-n",
+  "classKey": "MN",
+  "raceType": "race",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "98",
+    "teamName": "비앙코웍스레이싱",
+    "driver1": "이상진",
+    "driver2": "김세진",
+    "driver3": "라이안리",
+    "laps": 82,
+    "points": 28,
+    "status": "classified",
+    "totalTime": "3:02:52.421",
+    "fastestLap": "1:57.623"
+   },
+   {
+    "position": 2,
+    "carNumber": "66",
+    "teamName": "TEAM05X",
+    "driver1": "김태일",
+    "driver2": "장성훈",
+    "laps": 82,
+    "points": 21,
+    "status": "classified",
+    "totalTime": "3:04:03.459",
+    "fastestLap": "1:58.307",
+    "gap": "+1:11.038"
+   },
+   {
+    "position": 3,
+    "carNumber": "64",
+    "teamName": "팀토마스",
+    "driver1": "김우주",
+    "driver2": "류승제",
+    "laps": 80,
+    "points": 18,
+    "status": "classified",
+    "totalTime": "3:03:13.652",
+    "fastestLap": "1:58.314",
+    "gap": "+2 laps"
+   },
+   {
+    "position": 4,
+    "carNumber": "59",
+    "teamName": "아주자동차대학교",
+    "driver1": "윤창준",
+    "driver2": "정재원",
+    "laps": 77,
+    "points": 15,
+    "status": "classified",
+    "totalTime": "3:03:31.419",
+    "fastestLap": "2:00.729",
+    "gap": "+5 laps"
+   },
+   {
+    "position": 5,
+    "carNumber": "76",
+    "teamName": "TEAM_PITSTART X 무한질주",
+    "driver1": "김민찬",
+    "driver2": "백종건",
+    "driver3": "남명준",
+    "laps": 48,
+    "points": 0,
+    "status": "dnf",
+    "fastestLap": "1:59.584"
+   }
+  ]
+ },
+ {
+  "roundRef": "round-2026-r3",
+  "classRef": "class-masters-nevo",
+  "classKey": "MNE",
+  "raceType": "race",
+  "standings": [
+   {
+    "position": 1,
+    "carNumber": "94",
+    "teamName": "PITSTOP MOTORSPORT",
+    "driver1": "정정재",
+    "driver2": "신형주",
+    "driver3": "최윤민",
+    "laps": 81,
+    "points": 28,
+    "status": "classified",
+    "totalTime": "3:02:42.534",
+    "fastestLap": "1:58.222"
+   },
+   {
+    "position": 2,
+    "carNumber": "80",
+    "teamName": "RWF",
+    "driver1": "이정환",
+    "driver2": "이지웅",
+    "laps": 79,
+    "points": 21,
+    "status": "classified",
+    "totalTime": "3:03:29.307",
+    "fastestLap": "1:58.498",
+    "gap": "+2 laps"
+   }
+  ]
+ }
+]
