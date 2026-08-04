@@ -248,5 +248,305 @@
   ],
   "sourceUrl": "https://www.autoracing.co.kr/news/articleView.html?idxno=49047",
   "media": "오토레이싱"
+ },
+ {
+  "id": "post-r2-isplus-preview",
+  "slug": "r2-isplus-preview",
+  "title": "[일간스포츠] 33대 격돌하는 인제 GT 마스터즈 2R…프로 드라이버도 출격",
+  "category": "press",
+  "author": "일간스포츠 이건 기자",
+  "publishedAt": "2026-06-06T09:00:00Z",
+  "excerpt": "6월 7일 인제 스피디움에서 열리는 2026 인제 GT 마스터즈 2라운드 프리뷰. 개막전(30대·69명)보다 규모가 커진 33대·72명이 3시간 내구레이스에 나선다. 슈퍼레이스·슈퍼GT의 이정우를 비롯한 현역 프로 드라이버들도 합류해 경쟁이 한층 치열해졌다.",
+  "relatedRound": "round-2026-r2",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "6월 7일 인제 스피디움에서 열리는 2026 인제 GT 마스터즈 2라운드 프리뷰. 개막전(30대·69명)보다 규모가 커진 33대·72명이 3시간 내구레이스에 나선다. 슈퍼레이스·슈퍼GT의 이정우를 비롯한 현역 프로 드라이버들도 합류해 경쟁이 한층 치열해졌다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://isplus.com/article/view/isp202606060015"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 일간스포츠 (이건 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://isplus.com/article/view/isp202606060015",
+  "media": "일간스포츠"
+ },
+ {
+  "id": "post-r2-autoracing-result",
+  "slug": "r2-autoracing-result",
+  "title": "[오토레이싱] 인제 GT 마스터즈 제2전 마스터즈 — 김요셉·지인호(팀루트개러지) 짜릿 역전승",
+  "category": "press",
+  "author": "오토레이싱 전현철 기자",
+  "publishedAt": "2026-06-07T09:00:00Z",
+  "excerpt": "2라운드 3시간 내구레이스에서 팀루트개러지의 김요셉·지인호(10호차)가 82랩을 3시간 54초로 완주하며 역전 우승을 차지했다. 개막전 우승팀 김태환·이인용(오버리미트)이 4.491초 차 2위, 최근환·권도윤(BOB레이싱×아주자동차대학교)이 3위에 올랐다.",
+  "relatedRound": "round-2026-r2",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "2라운드 3시간 내구레이스에서 팀루트개러지의 김요셉·지인호(10호차)가 82랩을 3시간 54초로 완주하며 역전 우승을 차지했다. 개막전 우승팀 김태환·이인용(오버리미트)이 4.491초 차 2위, 최근환·권도윤(BOB레이싱×아주자동차대학교)이 3위에 올랐다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://www.autoracing.co.kr/news/articleView.html?idxno=48409"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 오토레이싱 (전현철 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.autoracing.co.kr/news/articleView.html?idxno=48409",
+  "media": "오토레이싱"
+ },
+ {
+  "id": "post-r2-carnsports-result",
+  "slug": "r2-carnsports-result",
+  "title": "[CARNSPORTS] ‘내구 레이스의 묘미’ 김요셉·지인호, 대역전극 펼치며 인제 GT 마스터즈 2R 우승",
+  "category": "press",
+  "author": "CARNSPORTS 방영재 기자",
+  "publishedAt": "2026-06-08T09:00:00Z",
+  "excerpt": "세이프티카 3회 투입 등 변수가 이어진 2라운드에서 김요셉·지인호(팀루트개러지)가 후반 대역전극으로 마스터즈1 우승을 차지했다. 3시간 내구레이스 특유의 전략과 팀워크가 승부를 가른 경기였다.",
+  "relatedRound": "round-2026-r2",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "세이프티카 3회 투입 등 변수가 이어진 2라운드에서 김요셉·지인호(팀루트개러지)가 후반 대역전극으로 마스터즈1 우승을 차지했다. 3시간 내구레이스 특유의 전략과 팀워크가 승부를 가른 경기였다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://carnsports.com/?p=1536"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — CARNSPORTS (방영재 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://carnsports.com/?p=1536",
+  "media": "CARNSPORTS"
+ },
+ {
+  "id": "post-r1-autoracing-preview",
+  "slug": "r1-autoracing-preview",
+  "title": "[오토레이싱] ‘3시간 내구’로 진화한 2026 인제 GT 마스터즈, 26일 개막",
+  "category": "press",
+  "author": "오토레이싱 김태종 기자",
+  "publishedAt": "2026-04-24T09:00:00Z",
+  "excerpt": "2026 인제 GT 마스터즈가 4월 26일 인제 스피디움에서 개막한다. 올 시즌 결승이 3시간 내구레이스로 진화하고 5개 클래스 체계로 개편된 가운데, 30대·69명이 개막전에 출전한다.",
+  "relatedRound": "round-2026-r1",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "2026 인제 GT 마스터즈가 4월 26일 인제 스피디움에서 개막한다. 올 시즌 결승이 3시간 내구레이스로 진화하고 5개 클래스 체계로 개편된 가운데, 30대·69명이 개막전에 출전한다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://www.autoracing.co.kr/news/articleView.html?idxno=47897"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 오토레이싱 (김태종 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.autoracing.co.kr/news/articleView.html?idxno=47897",
+  "media": "오토레이싱"
+ },
+ {
+  "id": "post-r1-autoracing-result",
+  "slug": "r1-autoracing-result",
+  "title": "[오토레이싱] 2026 인제 GT 마스터즈 개막전 — 김태환·이인용, 완벽하게 끝냈다!",
+  "category": "press",
+  "author": "오토레이싱 전현철 기자",
+  "publishedAt": "2026-04-26T09:00:00Z",
+  "excerpt": "개막전 마스터즈1 클래스에서 김태환·이인용(오버리미트)이 3시간 결승 동안 86랩을 소화하며 우승했다. 4번 그리드에서 출발해 중반부터 선두로 올라선 뒤 안정적인 페이스로 개막전 정상에 올랐다.",
+  "relatedRound": "round-2026-r1",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "개막전 마스터즈1 클래스에서 김태환·이인용(오버리미트)이 3시간 결승 동안 86랩을 소화하며 우승했다. 4번 그리드에서 출발해 중반부터 선두로 올라선 뒤 안정적인 페이스로 개막전 정상에 올랐다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://www.autoracing.co.kr/news/articleView.html?idxno=47918"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 오토레이싱 (전현철 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.autoracing.co.kr/news/articleView.html?idxno=47918",
+  "media": "오토레이싱"
+ },
+ {
+  "id": "post-r1-isplus-result",
+  "slug": "r1-isplus-result",
+  "title": "[일간스포츠] 김태환·이인용, 2026 인제 GT 마스터즈 개막전 마스터즈1 우승…“함께이기에 도전할 수 있었다”",
+  "category": "press",
+  "author": "일간스포츠 김희웅 기자",
+  "publishedAt": "2026-04-27T09:00:00Z",
+  "excerpt": "김태환·이인용(오버리미트)이 2026 인제 GT 마스터즈 개막전 마스터즈1 클래스 우승을 차지했다. 팀 단위로 치르는 3시간 내구레이스에서 팀워크의 가치를 보여준 우승이었다.",
+  "relatedRound": "round-2026-r1",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "김태환·이인용(오버리미트)이 2026 인제 GT 마스터즈 개막전 마스터즈1 클래스 우승을 차지했다. 팀 단위로 치르는 3시간 내구레이스에서 팀워크의 가치를 보여준 우승이었다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://isplus.com/article/view/isp202604270112"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 일간스포츠 (김희웅 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://isplus.com/article/view/isp202604270112",
+  "media": "일간스포츠"
  }
 ]

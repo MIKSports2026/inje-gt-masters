@@ -60,7 +60,7 @@ export default function PressImportPage() {
     <main style={{ maxWidth: 780, margin: '40px auto', padding: 24, fontFamily: 'sans-serif' }}>
       <h1 style={{ fontSize: 22, marginBottom: 6 }}>언론보도(press) 일괄 등록</h1>
       <p style={{ color: '#666', fontSize: 14, marginBottom: 20 }}>
-        R3 관련 보도 {posts.length}건을 press 게시물로 등록합니다. 각 글은 요약 + 매체·기자 출처 + 원문 링크로 구성됩니다. 여러 번 눌러도 덮어쓰기라 중복되지 않습니다.
+        언론보도(R1~R3) {posts.length}건을 press 게시물로 등록합니다. 각 글은 요약 + 매체·기자 출처 + 원문 링크로 구성됩니다. 여러 번 눌러도 덮어쓰기라 중복되지 않습니다.
       </p>
 
       <button onClick={handleImport} disabled={busy}
