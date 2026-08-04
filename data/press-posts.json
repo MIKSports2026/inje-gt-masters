@@ -1,0 +1,252 @@
+[
+ {
+  "id": "post-r3-autoracing-3hour",
+  "slug": "r3-autoracing-3hour",
+  "title": "[오토레이싱] 인제 GT 마스터즈 제3전 인제 3시간 — 최근환·권도윤 시즌 첫 승",
+  "category": "press",
+  "author": "오토레이싱 전현철 기자",
+  "publishedAt": "2026-08-02T09:00:00Z",
+  "excerpt": "8월 2일 인제 스피디움에서 열린 2026 인제 GT 마스터즈 제3전 3시간 내구레이스에서 BOB레이싱×아주자동차대학교의 최근환·권도윤(3호차)이 84랩을 3시간 1분 59초로 완주하며 시즌 첫 종합 우승을 차지했다. 개막전과 2전에서 나란히 3위에 오른 뒤, 3전 연속 포디엄 끝에 정상에 올랐다.",
+  "relatedRound": "round-2026-r3",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "8월 2일 인제 스피디움에서 열린 2026 인제 GT 마스터즈 제3전 3시간 내구레이스에서 BOB레이싱×아주자동차대학교의 최근환·권도윤(3호차)이 84랩을 3시간 1분 59초로 완주하며 시즌 첫 종합 우승을 차지했다. 개막전과 2전에서 나란히 3위에 오른 뒤, 3전 연속 포디엄 끝에 정상에 올랐다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://www.autoracing.co.kr/news/articleView.html?idxno=49171"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 오토레이싱 (전현철 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.autoracing.co.kr/news/articleView.html?idxno=49171",
+  "media": "오토레이싱"
+ },
+ {
+  "id": "post-r3-autoracing-masters1",
+  "slug": "r3-autoracing-masters1",
+  "title": "[오토레이싱] 인제 GT 마스터즈 제3전 마스터즈1 — 최근환·권도윤 우승, 김재정·최철현 2위",
+  "category": "press",
+  "author": "오토레이싱 전현철 기자",
+  "publishedAt": "2026-08-03T09:00:00Z",
+  "excerpt": "마스터즈1 클래스 제3전은 최근환·권도윤(BOB레이싱×아주자동차대학교)의 첫 우승으로 마무리됐다. 시즌 3연속 포디엄을 달성한 우승팀에 이어, 김재정·최철현(DMZ)이 2위에 올랐다.",
+  "relatedRound": "round-2026-r3",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "마스터즈1 클래스 제3전은 최근환·권도윤(BOB레이싱×아주자동차대학교)의 첫 우승으로 마무리됐다. 시즌 3연속 포디엄을 달성한 우승팀에 이어, 김재정·최철현(DMZ)이 2위에 올랐다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://www.autoracing.co.kr/news/articleView.html?idxno=49173"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 오토레이싱 (전현철 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.autoracing.co.kr/news/articleView.html?idxno=49173",
+  "media": "오토레이싱"
+ },
+ {
+  "id": "post-r3-segye-masters-n",
+  "slug": "r3-segye-masters-n",
+  "title": "[인천세계타임즈] 비앙코웍스레이싱, 인제 GT 마스터즈 3라운드 마스터즈 N 우승",
+  "category": "press",
+  "author": "인천세계타임즈 방춘재 기자",
+  "publishedAt": "2026-08-03T09:00:00Z",
+  "excerpt": "비앙코웍스레이싱의 이상진·김세진·라이안리 조가 3시간 내구레이스에서 82랩을 완주하며 마스터즈 N 클래스 우승을 차지했다. 클래스 최고 랩타임 1분 57초 623을 기록했고 2위와의 격차는 1분 11초 이상이었다. 팀토마스가 80랩으로 3위에 올랐다.",
+  "relatedRound": "round-2026-r3",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "비앙코웍스레이싱의 이상진·김세진·라이안리 조가 3시간 내구레이스에서 82랩을 완주하며 마스터즈 N 클래스 우승을 차지했다. 클래스 최고 랩타임 1분 57초 623을 기록했고 2위와의 격차는 1분 11초 이상이었다. 팀토마스가 80랩으로 3위에 올랐다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "http://incheon.thesegye.com/news/view/1065581749098555"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 인천세계타임즈 (방춘재 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "http://incheon.thesegye.com/news/view/1065581749098555",
+  "media": "인천세계타임즈"
+ },
+ {
+  "id": "post-r3-edaily-preview",
+  "slug": "r3-edaily-preview",
+  "title": "[이데일리] 지면온도 60도… 인제 GT 마스터즈, 폭염 뚫고 3시간 내구전",
+  "category": "press",
+  "author": "이데일리 이석무 기자",
+  "publishedAt": "2026-07-22T09:00:00Z",
+  "excerpt": "8월 2일 인제 스피디움에서 열리는 2026 인제 GT 마스터즈 3라운드 프리뷰. 서킷 지면 온도가 최고 60도에 이를 것으로 예상되는 폭염 속 3시간 내구전으로, 피트스톱 시점과 타이어 교체·드라이버 교대 등 팀 운영 능력이 순위를 가른다. 냉방 쉼터와 상시 의료 체온검사 등 안전대책과 함께, 출발 순위 대비 최고 상승팀에 주는 신설 ‘하드워크상’도 도입된다.",
+  "relatedRound": "round-2026-r3",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "8월 2일 인제 스피디움에서 열리는 2026 인제 GT 마스터즈 3라운드 프리뷰. 서킷 지면 온도가 최고 60도에 이를 것으로 예상되는 폭염 속 3시간 내구전으로, 피트스톱 시점과 타이어 교체·드라이버 교대 등 팀 운영 능력이 순위를 가른다. 냉방 쉼터와 상시 의료 체온검사 등 안전대책과 함께, 출발 순위 대비 최고 상승팀에 주는 신설 ‘하드워크상’도 도입된다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04083606645517144"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 이데일리 (이석무 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04083606645517144",
+  "media": "이데일리"
+ },
+ {
+  "id": "post-r3-autoracing-preview",
+  "slug": "r3-autoracing-preview",
+  "title": "[오토레이싱] 인제 GT 마스터즈 3라운드, 8월 2일 3시간 내구레이스 개최",
+  "category": "press",
+  "author": "오토레이싱 김태종 기자",
+  "publishedAt": "2026-07-22T09:00:00Z",
+  "excerpt": "2026 인제 GT 마스터즈 3라운드가 8월 2일 강원도 인제 스피디움에서 3시간 내구레이스로 개최된다. 참가 신청은 공식 홈페이지를 통해 접수된다.",
+  "relatedRound": "round-2026-r3",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "2026 인제 GT 마스터즈 3라운드가 8월 2일 강원도 인제 스피디움에서 3시간 내구레이스로 개최된다. 참가 신청은 공식 홈페이지를 통해 접수된다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://www.autoracing.co.kr/news/articleView.html?idxno=49047"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "원문 보기 — 오토레이싱 (김태종 기자)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.autoracing.co.kr/news/articleView.html?idxno=49047",
+  "media": "오토레이싱"
+ }
+]
