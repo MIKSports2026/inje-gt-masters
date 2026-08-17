@@ -98,5 +98,205 @@
   "isFeatured": false,
   "isPublished": true,
   "sortOrder": 12
+ },
+ {
+  "videoId": "X5IFcHr0ujw",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "폴투피니시 완승, 폭염도 못 이긴 하루 | BOB 레이싱 × 아주자동차대학교 | R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-x5ifchr0ujw"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:24",
+  "youtubeUrl": "https://youtube.com/shorts/X5IFcHr0ujw",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 30
+ },
+ {
+  "videoId": "TP80GPnQs1s",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "종료 5분 전, 앞바퀴가 빠졌다 | 인제 GT 마스터즈 R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-tp80gpnqs1s"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:50",
+  "youtubeUrl": "https://youtube.com/shorts/TP80GPnQs1s",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 31
+ },
+ {
+  "videoId": "WZFBWQHIraw",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "다 이긴 줄 알았죠? 피니쉬 20분 전 세이프티카 | 인제 GT 마스터즈 R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-wzfbwqhiraw"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "1:02",
+  "youtubeUrl": "https://youtube.com/shorts/WZFBWQHIraw",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 32
+ },
+ {
+  "videoId": "CvvN9JZzZ_Y",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "트랙 위 흰 연기, 엔진에서 온 신호 | 인제 GT 마스터즈 R3 하이라이트",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-cvvn9jzzz_y"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:42",
+  "youtubeUrl": "https://youtube.com/shorts/CvvN9JZzZ_Y",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 33
+ },
+ {
+  "videoId": "PLUtexJ2ZPU",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "제일 빠르던 차를 멈춘 건 타이어였다 | 2K BODY | 인제 GT 마스터즈 R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-plutexj2zpu"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:33",
+  "youtubeUrl": "https://youtube.com/shorts/PLUtexJ2ZPU",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 34
+ },
+ {
+  "videoId": "dcKgt7PVZPQ",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "우승은 피트에서 갈렸다, 가장 빠른 피트 스탑 | BOB 레이싱 × 아주자동차대학교 | R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-dckgt7pvzpq"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:49",
+  "youtubeUrl": "https://youtube.com/shorts/dcKgt7PVZPQ",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 35
+ },
+ {
+  "videoId": "TQFhHRWr_HM",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "내구레이스 피트스탑, 30초면 이해 완료 | 해설위원의 친절 강의 | 인제 GT 마스터즈",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-tqfhhrwr_hm"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:30",
+  "youtubeUrl": "https://youtube.com/shorts/TQFhHRWr_HM",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 36
+ },
+ {
+  "videoId": "neBA7NVg0aw",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "벌써 피트로? 전통의 강호는 다르다 | 팀루트개러지 | 인제 GT 마스터즈 R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-neba7nvg0aw"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:24",
+  "youtubeUrl": "https://youtube.com/shorts/neBA7NVg0aw",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 37
+ },
+ {
+  "videoId": "Tvf3OjisrPU",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "출발하자마자 리타이어, 드라이버만 아는 신호? | 아주자동차대학교 | 인제 GT 마스터즈 R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-tvf3ojisrpu"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:45",
+  "youtubeUrl": "https://youtube.com/shorts/Tvf3OjisrPU",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 38
+ },
+ {
+  "videoId": "YoNUmcTW6JE",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "3시간을 10편으로, 2026 인제 GT 마스터즈 R3 필수요약 | SUMMER APEX",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-short-yonumctw6je"
+  },
+  "publishedAt": "2026-08-14T09:00:00Z",
+  "duration": "0:28",
+  "youtubeUrl": "https://youtube.com/shorts/YoNUmcTW6JE",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 39
  }
 ]
