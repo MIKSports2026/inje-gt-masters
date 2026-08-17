@@ -1,0 +1,102 @@
+[
+ {
+  "videoId": "gWiuRq8suwM",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "2026 인제 GT 마스터즈 3전 풀 레이스 녹화중계",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-full-race"
+  },
+  "publishedAt": "2026-08-10T09:00:00Z",
+  "duration": "64:27",
+  "youtubeUrl": "https://youtu.be/gWiuRq8suwM",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": true,
+  "isPublished": true,
+  "sortOrder": 1
+ },
+ {
+  "videoId": "MGHeL_H0LMg",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "폭염을 즐겨라! EP.3 | 2026 인제 GT 마스터즈 R3",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-docu-ep3"
+  },
+  "publishedAt": "2026-08-16T09:00:00Z",
+  "duration": "5:09",
+  "youtubeUrl": "https://youtu.be/MGHeL_H0LMg",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": true,
+  "isPublished": true,
+  "sortOrder": 2
+ },
+ {
+  "videoId": "rwFTamPnMpI",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "개막전 사고, 그리고 복귀전 우승 — 팀루트개러지 | 인제 GT 마스터즈 다큐 EP.2",
+  "slug": {
+   "_type": "slug",
+   "current": "docu-ep2-teamroute"
+  },
+  "publishedAt": "2026-08-13T09:00:00Z",
+  "duration": "4:32",
+  "youtubeUrl": "https://youtu.be/rwFTamPnMpI",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r2"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 10
+ },
+ {
+  "videoId": "QehSH8B_q-0",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "2026 인제 GT 마스터즈 ROUND 3 : SUMMER APEX 프로모",
+  "slug": {
+   "_type": "slug",
+   "current": "r3-promo"
+  },
+  "publishedAt": "2026-07-18T09:00:00Z",
+  "duration": "0:29",
+  "youtubeUrl": "https://youtu.be/QehSH8B_q-0",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r3"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 11
+ },
+ {
+  "videoId": "kiOa48NDaFg",
+  "_type": "media",
+  "mediaType": "video",
+  "title": "2026 인제 GT 마스터즈 다큐멘터리 EP.1",
+  "slug": {
+   "_type": "slug",
+   "current": "docu-ep1"
+  },
+  "publishedAt": "2026-05-15T09:00:00Z",
+  "duration": "6:10",
+  "youtubeUrl": "https://youtu.be/kiOa48NDaFg",
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r1"
+  },
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 12
+ }
+]
