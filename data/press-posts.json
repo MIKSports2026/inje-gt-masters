@@ -1,5 +1,55 @@
 [
  {
+  "id": "post-r4-entry-open",
+  "slug": "r4-entry-open",
+  "title": "2026 인제 GT 마스터즈 4라운드 참가 접수 시작 — 9월 6일 인제 스피디움",
+  "category": "notice",
+  "author": "인제 GT 마스터즈 조직위원회",
+  "publishedAt": "2026-08-17T09:00:00Z",
+  "excerpt": "2026 인제 GT 마스터즈 4라운드 참가 접수가 시작됐다. 4라운드는 9월 6일 강원도 인제군 인제 스피디움(3.908km)에서 3시간 내구레이스로 열린다. Masters 1·2·3·N·N-evo 5개 클래스로 진행되며, 참가 신청은 공식 홈페이지 참가신청(ENTRY) 페이지에서 선착순으로 접수한다.",
+  "relatedRound": "round-2026-r4",
+  "body": [
+   {
+    "_key": "b1",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_key": "b1s",
+      "_type": "span",
+      "text": "2026 인제 GT 마스터즈 4라운드 참가 접수가 시작됐다. 4라운드는 9월 6일 강원도 인제군 인제 스피디움(3.908km)에서 3시간 내구레이스로 열린다. Masters 1·2·3·N·N-evo 5개 클래스로 진행되며, 참가 신청은 공식 홈페이지 참가신청(ENTRY) 페이지에서 선착순으로 접수한다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_key": "b2",
+    "_type": "block",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_key": "b2l",
+      "_type": "link",
+      "href": "https://injegtmasters.com/entry"
+     }
+    ],
+    "children": [
+     {
+      "_key": "b2s",
+      "_type": "span",
+      "text": "참가 신청하러 가기 (ENTRY)",
+      "marks": [
+       "b2l"
+      ]
+     }
+    ]
+   }
+  ],
+  "sourceUrl": "https://injegtmasters.com/entry",
+  "media": "인제 GT 마스터즈"
+ },
+ {
   "id": "post-r3-autoracing-3hour",
   "slug": "r3-autoracing-3hour",
   "title": "[오토레이싱] 인제 GT 마스터즈 제3전 인제 3시간 — 최근환·권도윤 시즌 첫 승",
