@@ -57,7 +57,7 @@ export default function PressHidePage() {
     <main style={{ maxWidth: 620, margin: '40px auto', padding: 24, fontFamily: 'sans-serif' }}>
       <h1 style={{ fontSize: 22, marginBottom: 6 }}>외부 연결 보도자료 내리기</h1>
       <p style={{ color: '#666', fontSize: 14, marginBottom: 16 }}>
-        외부 언론사 기사로 연결되는 보도자료 {posts.length}개를 목록에서 숨깁니다(삭제 아님). 언제든 복구할 수 있습니다.
+        외부 언론사 기사로 연결되는 보도자료 + 옛 중복 글 {posts.length}개를 목록에서 숨깁니다(삭제 아님). 언제든 복구할 수 있습니다.
         현재 숨김: <b>{hiddenCount}</b> / {posts.length}
       </p>
       <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
