@@ -37,11 +37,13 @@ export default async function EntryPage({
   const initialTab = (['apply', 'classes', 'regulations'] as const).find(t => t === tabParam)
   const initialRoundNumber = roundParam ? parseInt(roundParam.replace(/^R/i, ''), 10) || undefined : undefined
 
+  // 각 fetch를 독립적으로 처리 — 하나가 실패해도 나머지(특히 rounds)는 유지되어 폼이 통째로 사라지지 않음.
+  // Sanity CDN(useCdn:true) 사용으로 일시적 API 오류·지연에 강함(엣지 캐시). revalidate로 라운드 상태 변경도 최대 60초 내 반영.
   const [settings, classes, rounds] = await Promise.all([
-    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, useCdn: false }),
-    sanityFetch<ClassInfo[]>({ query: CLASSES_QUERY, useCdn: false, revalidate: false }),
-    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, useCdn: false }),
-  ]).catch(() => [null, [], []] as [SiteSettings | null, ClassInfo[], Round[]])
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, useCdn: true, revalidate: 60 }).catch(() => null),
+    sanityFetch<ClassInfo[]>({ query: CLASSES_QUERY, useCdn: true, revalidate: 300 }).catch(() => [] as ClassInfo[]),
+    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, useCdn: true, revalidate: 60 }).catch(() => [] as Round[]),
+  ])
 
   const s = settings as SiteSettings | null
   // 접수 오픈 여부: 열린 라운드(status === 'entry_open')가 하나라도 있으면 오픈 (round.status 단일 기준)
