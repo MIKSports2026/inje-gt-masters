@@ -1371,5 +1371,158 @@
     "kb": 615
    }
   ]
+ },
+ {
+  "_id": "post-r4-matchup",
+  "slug": "r4-matchup",
+  "title": "인제 GT 마스터즈 4라운드, 우승 향한 길목… 마스터즈1, 오버리미트 vs BOB 2파전으로 압축",
+  "category": "press",
+  "author": "인제 GT 마스터즈 조직위원회",
+  "publishedAt": "2026-09-03T09:00:00+09:00",
+  "relatedRoundId": "round-2026-r4",
+  "excerpt": "우승을 향한 길목이다. 오는 6일 강원도 인제군의 인제 스피디움에서 열리는 인제 GT 마스터즈 4라운드를 앞두고 각 클래스의 순위 경쟁이 어느 때보다 치열하다. 시즌 최종 라운드인 5라운드를 한 경기 앞둔 이번 4라운드는 순위에 직접적인 영향을 미칠 것으로 전망된다.",
+  "bodyBlocks": [
+   {
+    "_type": "block",
+    "_key": "bul1",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs1",
+      "text": "마스터즈1, 오버리미트-BOB 2파전으로 압축…두 팀 모두 라운드 우승 경험",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul2",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs2",
+      "text": "마스터즈1 선두 최근환 \"우리 페이스대로 확실하게 이어가겠다\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul3",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs3",
+      "text": "마스터즈2·N·3 등 나머지 클래스도 순위 경쟁 팽팽",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par4",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps4",
+      "text": "우승을 향한 길목이다. 오는 6일 강원도 인제군의 인제 스피디움에서 열리는 인제 GT 마스터즈 4라운드를 앞두고 각 클래스의 순위 경쟁이 어느 때보다 치열하다. 시즌 최종 라운드인 5라운드를 한 경기 앞둔 이번 4라운드는 순위에 직접적인 영향을 미칠 것으로 전망된다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par5",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps5",
+      "text": "이번 라운드 마스터즈1의 관전 포인트는 최근환·권도윤(BOBRACING X 아주자동차대학교) 조와 김태환·이인용(오버리미트) 조의 맞대결이다. 두 팀 모두 이번 시즌 우승 경험이 있다. 김태환·이인용 조는 1라운드에서, 최근환·권도윤 조는 3라운드에서 각각 정상에 올랐다. 이번 4라운드 결과에 따라 시즌 우승 경쟁 구도가 다시 한번 달라질 수 있다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par6",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps6",
+      "text": "최근환은 \"이번 라운드에서도 우리 페이스대로 확실한 결과를 이어가겠다\"고 말했다. 파트너 권도윤도 \"끝까지 방심하지 않고 지금의 흐름을 지키겠다\"고 전했다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par7",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps7",
+      "text": "김태환은 \"1라운드 우승의 기억을 되살려 이번 라운드에서 다시 한번 정상에 서겠다\"고 말했다. 파트너 이인용도 \"정면 승부인 만큼 후회 없이 달리겠다\"고 덧붙였다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par8",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps8",
+      "text": "나머지 클래스에서도 순위 경쟁이 이어지고 있다. 마스터즈2는 아우토모빌과 Axis 레이싱이 경쟁을 벌이고 있으며, 마스터즈N은 비앙코웍스 레이싱팀 조와 팀토마스 조가 단 1점 차로 2위 다툼을 벌이고 있다. 마스터즈3는 봉좌레이싱 조가 선두를 지키고 있어, 이번 라운드에서 시즌 챔피언을 확정 지을 수 있을지도 관심사다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par9",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps9",
+      "text": "이정민 인제 GT 마스터즈 조직위원장은 \"마스터즈1을 비롯해 전 클래스에서 순위 경쟁이 그 어느 때보다 팽팽하다\"며, \"시즌 마지막 라운드를 앞둔 4라운드인 만큼, 모든 팀이 최선을 다해주시길 바란다\"고 말했다.",
+      "marks": []
+     }
+    ]
+   }
+  ],
+  "images": [
+   {
+    "file": "/press-photos/r4-matchup-1.jpg",
+    "caption": "인제 GT 마스터즈에 참가하는 차량들",
+    "alt": "인제 GT 마스터즈에 참가하는 차량들",
+    "cover": true,
+    "kb": 412
+   }
+  ]
  }
 ]
