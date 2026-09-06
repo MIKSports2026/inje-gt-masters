@@ -8,7 +8,7 @@ const PID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? 'cq465tvw'
 const DS = 'production'
 const V = '2024-01-01'
 
-interface ImgIn { file: string; caption: string; alt: string; cover: boolean }
+interface ImgIn { file: string; caption: string; alt: string; cover: boolean; after?: number; bodyExclude?: boolean }
 interface PostIn {
   _id: string; slug: string; title: string; category: string; author: string
   publishedAt: string; relatedRoundId: string; excerpt: string
@@ -62,19 +62,48 @@ export async function POST(req: Request) {
   try {
     for (const p of POSTS) {
       let coverRef = ''
-      const imageBlocks: unknown[] = []
-      let n = 0
+      // 이미지 업로드 + 블록 생성 (파일별 asset 캐시)
+      const mkImg = async (im: ImgIn, idx: number) => {
+        const assetId = await upload(im.file)
+        return {
+          _type: 'image', _key: `img${idx}`,
+          asset: { _type: 'reference', _ref: assetId },
+          caption: im.caption, alt: im.alt,
+        }
+      }
+      // 커버 ref 확보 (모든 이미지 업로드는 아래에서 수행되지만 커버는 먼저)
       for (const im of p.images) {
         const assetId = await upload(im.file)
         if (im.cover) coverRef = assetId
-        n += 1
-        imageBlocks.push({
-          _type: 'image', _key: `img${n}`,
-          asset: { _type: 'reference', _ref: assetId },
-          caption: im.caption, alt: im.alt,
-        })
       }
       if (!coverRef && p.images[0]) coverRef = await upload(p.images[0].file)
+
+      // 본문 조립: after가 지정된 이미지가 하나라도 있으면 위치 삽입, 아니면 끝에 일괄 첨부
+      const positioned = p.images.some(im => typeof im.after === 'number')
+      let body: unknown[]
+      if (positioned) {
+        body = []
+        for (let bi = 0; bi < p.bodyBlocks.length; bi++) {
+          body.push(p.bodyBlocks[bi])
+          for (let ii = 0; ii < p.images.length; ii++) {
+            const im = p.images[ii]
+            if (!im.bodyExclude && im.after === bi) body.push(await mkImg(im, ii + 1))
+          }
+        }
+        // 범위를 벗어난 after 또는 after 미지정(비제외) 이미지는 끝에 첨부
+        for (let ii = 0; ii < p.images.length; ii++) {
+          const im = p.images[ii]
+          if (im.bodyExclude) continue
+          const hasPos = typeof im.after === 'number'
+          if ((hasPos && (im.after as number) >= p.bodyBlocks.length) || !hasPos) {
+            body.push(await mkImg(im, ii + 1))
+          }
+        }
+      } else {
+        const imageBlocks: unknown[] = []
+        for (let ii = 0; ii < p.images.length; ii++) imageBlocks.push(await mkImg(p.images[ii], ii + 1))
+        body = [...p.bodyBlocks, ...imageBlocks]
+      }
 
       const doc: Record<string, unknown> = {
         _type: 'post', _id: p._id,
@@ -84,7 +113,7 @@ export async function POST(req: Request) {
         author: p.author,
         publishedAt: p.publishedAt,
         excerpt: p.excerpt,
-        body: [...p.bodyBlocks, ...imageBlocks],
+        body,
         relatedRound: { _type: 'reference', _ref: p.relatedRoundId },
         isPinned: false,
         isHidden: false,

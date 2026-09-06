@@ -1982,63 +1982,72 @@
     "caption": "인제 GT 마스터즈 4라운드 스타트",
     "alt": "인제 GT 마스터즈 4라운드 스타트",
     "cover": true,
-    "kb": 289
+    "kb": 289,
+    "bodyExclude": true
    },
    {
     "file": "/press-photos/r4-result-2.jpg",
     "caption": "피트스톱을 진행하고 있는 BOBRACING X 아주자동차대학교",
     "alt": "피트스톱을 진행하고 있는 BOBRACING X 아주자동차대학교",
     "cover": false,
-    "kb": 259
+    "kb": 259,
+    "after": 4
    },
    {
     "file": "/press-photos/r4-result-3.jpg",
     "caption": "가장 먼저 체커기를 받는 BOBRACING X 아주자동차대학교",
     "alt": "가장 먼저 체커기를 받는 BOBRACING X 아주자동차대학교",
     "cover": false,
-    "kb": 241
+    "kb": 241,
+    "after": 4
    },
    {
     "file": "/press-photos/r4-result-4.jpg",
     "caption": "세레머니를 펼치치고 있는 BOBRACING X 아주자동차대학교의 최근환(오른쪽)과 권도윤",
     "alt": "세레머니를 펼치치고 있는 BOBRACING X 아주자동차대학교의 최근환(오른쪽)과 권도윤",
     "cover": false,
-    "kb": 188
+    "kb": 188,
+    "after": 5
    },
    {
     "file": "/press-photos/r4-result-5.jpg",
     "caption": "4라운드 우승 후 단체 사진 촬영을 하고 있는 BOBRACING X 아주자동차대학교 크루",
     "alt": "4라운드 우승 후 단체 사진 촬영을 하고 있는 BOBRACING X 아주자동차대학교 크루",
     "cover": false,
-    "kb": 294
+    "kb": 294,
+    "after": 7
    },
    {
     "file": "/press-photos/r4-result-6.jpg",
     "caption": "그리드워크 때의 단체 사진",
     "alt": "그리드워크 때의 단체 사진",
     "cover": false,
-    "kb": 309
+    "kb": 309,
+    "after": 3
    },
    {
     "file": "/press-photos/r4-result-7.jpg",
     "caption": "마스터즈N에서 우승을 차지한 TEAM05X의 김태일, 장성훈(가운데)",
     "alt": "마스터즈N에서 우승을 차지한 TEAM05X의 김태일, 장성훈(가운데)",
     "cover": false,
-    "kb": 274
+    "kb": 274,
+    "after": 6
    },
    {
     "file": "/press-photos/r4-result-8.jpg",
     "caption": "마스터즈3에서 4연승에 성공한 봉좌레이싱의 정시현, 이재용(가운데)",
     "alt": "마스터즈3에서 4연승에 성공한 봉좌레이싱의 정시현, 이재용(가운데)",
     "cover": false,
-    "kb": 277
+    "kb": 277,
+    "after": 6
    },
    {
     "file": "/press-photos/r4-result-9.jpg",
     "caption": "기자회견에 참가한 TEAM05X의 김태일, 장성훈(맨 왼쪽부터), BOBRACING X 아주자동차대학교의 최근환, 권도윤, 봉좌레이싱의 정시현, 이재용",
     "alt": "기자회견에 참가한 TEAM05X의 김태일, 장성훈(맨 왼쪽부터), BOBRACING X 아주자동차대학교의 최근환, 권도윤, 봉좌레이싱의 정시현, 이재용",
     "cover": false,
-    "kb": 263
+    "kb": 263,
+    "after": 11
    }
   ]
  }
