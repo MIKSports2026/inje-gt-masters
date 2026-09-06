@@ -1524,5 +1524,522 @@
     "kb": 412
    }
   ]
+ },
+ {
+  "_id": "post-r4-result",
+  "slug": "r4-result",
+  "title": "인제 GT 마스터즈 4R, 최근환·권도윤 2연승…마스터즈N·마스터즈3는 시즌 챔피언 조기 확정",
+  "category": "press",
+  "author": "인제 GT 마스터즈 조직위원회",
+  "publishedAt": "2026-09-06T09:00:00+09:00",
+  "relatedRoundId": "round-2026-r4",
+  "excerpt": "시즌 챔피언을 향한 한 걸음만 남겨뒀다. 6일 강원도 인제군의 인제 스피디움에서 열린 2026 인제 GT 마스터즈 4라운드 마스터즈1 클래스에서 최근환·권도윤(BOBRACING X 아주자동차대학교) 조가 우승을 차지하며 2연승을 달성했다. 마스터즈N과 마스터즈3에서는 …",
+  "bodyBlocks": [
+   {
+    "_type": "block",
+    "_key": "bul1",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs1",
+      "text": "마스터즈1, 최근환·권도윤 2라운드 연속 우승…시즌 타이틀에 유리한 고지",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul2",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs2",
+      "text": "마스터즈N은 김태일·장성훈(TEAM05X), 마스터즈3는 정시현·이재용(봉좌레이싱) 시즌 챔피언 조기 확정",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul3",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs3",
+      "text": "신설 특별상, 피트스톱 어워드 정시현·이재용(봉좌레이싱) 조·하드워커 어워드 이지웅·최재원·남궁혁(VANTAGE MAX) 조가 첫 수상",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par4",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps4",
+      "text": "시즌 챔피언을 향한 한 걸음만 남겨뒀다. 6일 강원도 인제군의 인제 스피디움에서 열린 2026 인제 GT 마스터즈 4라운드 마스터즈1 클래스에서 최근환·권도윤(BOBRACING X 아주자동차대학교) 조가 우승을 차지하며 2연승을 달성했다. 마스터즈N과 마스터즈3에서는 시즌 챔피언이 조기에 가려졌다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par5",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps5",
+      "text": "스타트는 최근환·권도윤 조가 앞섰으나 이후 김태환·이인용(오버리미트) 조가 선두로 치고 나갔고, 두 팀의 격차는 0.4초까지 좁혀지며 몇 랩에 걸쳐 접전이 이어졌다. 경기 중반 최근환·권도윤 조가 다시 선두를 탈환하며 결승선을 먼저 통과했다. 이번 2연승으로 최근환·권도윤 조는 시즌 챔피언 타이틀에 한층 유리한 고지에 올라섰다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par6",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps6",
+      "text": "우승을 차지한 최근환은 \"4라운드를 준비하면서 차량 적응에 시간이 걸렸는데, 우승해서 기분이 좋다\"고 소감을 밝혔다. 파트너 권도윤도 \"샴페인을 이렇게 많이 맞아본 건 처음\"이라며 기뻐했다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par7",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps7",
+      "text": "마스터즈N에서는 김태일·장성훈(TEAM05X) 조가, 마스터즈3에서는 정시현·이재용(봉좌레이싱) 조가 각각 이번 4라운드에서 우승했다. 특히 정시현·이재용 조는 1라운드부터 4라운드까지 4연승을 달성했다. 두 팀 모두 이번 라운드 결과로 남은 5라운드와 무관하게 시즌 챔피언을 확정지었다. 이외 마스터즈N-evo는 이상호·강동우·송현진(SUCCESS RACING) 조, 마스터즈2는 박민제·정연섭·신동민(아우토모빌) 조가 각각 이번 라운드 우승을 차지했다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par8",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps8",
+      "text": "이번 라운드부터는 두 개의 특별상이 신설됐다. 피트스톱 어워드는 대회 규정상 의무 피트스톱 시간인 5분에 가장 근접하게 피트스톱을 소화한 팀에게 주어지며, 5분 0.16초를 기록한 정시현·이재용(봉좌레이싱) 조가 첫 수상팀으로 선정됐다. 각 클래스별 예선 대비 결승 순위 상승폭이 가장 큰 팀에게 주어지는 하드워커 어워드는 20그리드에서 종합순위 13위로 결승선을 통과한 이지웅·최재원·남궁혁(VANTAGE MAX) 조가 수상했다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par9",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps9",
+      "text": "이정민 인제 스피디움 대표는 \"시즌 챔피언을 조기에 확정지은 팀들에게 축하의 인사를 전한다\"며, \"마스터즈1을 비롯한 나머지 클래스에서는 여전히 순위 경쟁이 팽팽한 만큼, 마지막 5라운드에서 어떤 흐름이 펼쳐질지 기대된다\"고 덧붙였다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par10",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps10",
+      "text": "2026시즌 인제 GT 마스터즈 최종 라운드인 5라운드는 10월 11일 인제 스피디움에서 개최될 예정이다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par11",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps11",
+      "text": "[2026 인제 GT 마스터즈 4라운드 기자회견 전문]",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par12",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps12",
+      "text": "마스터즈1 우승자 최근환·권도윤(BOBRACING X 아주자동차대학교) 조 / 마스터즈N 우승자 김태일·장성훈(TEAM05X) 조 / 마스터즈3 우승자 정시현·이재용(봉좌레이싱) 조",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par13",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps13",
+      "text": "Q. 우승 소감은?",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par14",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps14",
+      "text": "(최근환, BOBRACING X 아주자동차대학교) \"4라운드를 준비하면서 차량 적응에 시간이 걸렸다. 날씨가 풀리면서 덜 힘들었던 것 같다. 우승해서 기분이 좋다. 샴페인을 많이 뿌려주셔서 더 짜릿하다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par15",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps15",
+      "text": "(권도윤, BOBRACING X 아주자동차대학교) \"샴페인을 이렇게 많이 맞아본 건 처음인 것 같다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par16",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps16",
+      "text": "(김태일, TEAM05X) \"사실 별로 기대를 하지는 않았다. 다른 팀에서 많은 실수가 있어서 가능했다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par17",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps17",
+      "text": "(장성훈, TEAM05X) \"실수 투성이인 초보 드라이버인데 우승을 하게 되어 영광이다. 이제 2년 차인데 너무 많은 경험을 하는 것 같다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par18",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps18",
+      "text": "(정시현, 봉좌레이싱) \"올 라운드 우승을 거머쥐어서 기분이 좋다. 저 혼자만 해서 된 게 아니라 팀원들 덕분이다. 저희는 아직 가야 할 길이 많다. 올해 경기를 처음 출전하는데 여러모로 많이 배우고 있고 성장하고 있다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par19",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps19",
+      "text": "(이재용, 봉좌레이싱) \"우승을 많이 해서 얼떨떨하다. 같은 클래스여도 서로 도와주는 상생 관계가 되어서 좋은 추억도 많이 쌓았다. 다른 팀 덕분에 실력도 많이 상승할 수 있었다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par20",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps20",
+      "text": "Q. (TO 최근환·권도윤, BOBRACING X 아주자동차대학교) 오버리미트한테 죄송하다고 하던데 이유가 있었는지?",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par21",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps21",
+      "text": "(최근환, BOBRACING X 아주자동차대학교) \"저희가 시간을 재다가 잘못 말해줬다. 조금 일찍 나가는 바람에 5초 정도 오버리미트를 피트레인에서 막아서 죄송하다고 했다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par22",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps22",
+      "text": "Q. (TO 김태일·장성훈, TEAM05X) 대처 방안을 찾으신 게 없는지?",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par23",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps23",
+      "text": "(김태일, TEAM05X) \"차량 간 랩타임 차이가 예선 기록에서도 1.5~2초 정도 난다. 피트스톱에서 자신이 있다. 차 출력에서 차이가 나지만 이 부분을 보완해서 우승할 수 있었던 것 같다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par24",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps24",
+      "text": "Q. (TO 최근환, BOBRACING X 아주자동차대학교) 두 번째 SC 끝나고 나서 시간 차이가 벌어졌다가 좁혀졌다. 재스타트 할 때 긴장 안 했는지?",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par25",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps25",
+      "text": "(최근환, BOBRACING X 아주자동차대학교) \"두 번째 SC 때는 뒤에 마스터즈3 차량이 있었다. 차량 이점을 활용해 스타트에서 벌려보자는 생각으로 탔다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par26",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps26",
+      "text": "Q. (TO ALL) 마지막 라운드 각오는?",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par27",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps27",
+      "text": "(권도윤, BOBRACING X 아주자동차대학교) \"열심히 타고 최대한 노력해서 좋은 결과를 보여주겠다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par28",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps28",
+      "text": "(정시현, 봉좌레이싱) \"한 라운드밖에 안 남았다. 내구레이스의 묘미가 끝날 때까지 어떻게 될지 모른다는 것이다. 경우의 수를 대비하기 위해 트러블이 날 수 있는 요소를 최소화하고, 3시간 동안 무사히 달릴 수 있도록 잘 점검해서 돌아오겠다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par29",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps29",
+      "text": "(김태일, TEAM05X) \"시즌 포인트 1위다. 언더독도 할 수 있다는 것을 보여주겠다.\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par30",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps30",
+      "text": "Q. (TO 정시현, 봉좌레이싱) 시즌 챔피언 타이틀을 확정지었는데, 클래스를 내년에도 그대로 유지할 것인지, 아니면 업그레이드할 것인지?",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par31",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps31",
+      "text": "(정시현, 봉좌레이싱) \"팀 내부에서 아직 결정된 부분은 없다. 경기를 준비하면서 예산을 많이 쓰고 있어 쉽지 않은 상황이다. 내년은 어떻게 될지 아직 모르겠다.\"",
+      "marks": []
+     }
+    ]
+   }
+  ],
+  "images": [
+   {
+    "file": "/press-photos/r4-result-1.jpg",
+    "caption": "인제 GT 마스터즈 4라운드 스타트",
+    "alt": "인제 GT 마스터즈 4라운드 스타트",
+    "cover": true,
+    "kb": 289
+   },
+   {
+    "file": "/press-photos/r4-result-2.jpg",
+    "caption": "피트스톱을 진행하고 있는 BOBRACING X 아주자동차대학교",
+    "alt": "피트스톱을 진행하고 있는 BOBRACING X 아주자동차대학교",
+    "cover": false,
+    "kb": 259
+   },
+   {
+    "file": "/press-photos/r4-result-3.jpg",
+    "caption": "가장 먼저 체커기를 받는 BOBRACING X 아주자동차대학교",
+    "alt": "가장 먼저 체커기를 받는 BOBRACING X 아주자동차대학교",
+    "cover": false,
+    "kb": 241
+   },
+   {
+    "file": "/press-photos/r4-result-4.jpg",
+    "caption": "세레머니를 펼치치고 있는 BOBRACING X 아주자동차대학교의 최근환(오른쪽)과 권도윤",
+    "alt": "세레머니를 펼치치고 있는 BOBRACING X 아주자동차대학교의 최근환(오른쪽)과 권도윤",
+    "cover": false,
+    "kb": 188
+   },
+   {
+    "file": "/press-photos/r4-result-5.jpg",
+    "caption": "4라운드 우승 후 단체 사진 촬영을 하고 있는 BOBRACING X 아주자동차대학교 크루",
+    "alt": "4라운드 우승 후 단체 사진 촬영을 하고 있는 BOBRACING X 아주자동차대학교 크루",
+    "cover": false,
+    "kb": 294
+   },
+   {
+    "file": "/press-photos/r4-result-6.jpg",
+    "caption": "그리드워크 때의 단체 사진",
+    "alt": "그리드워크 때의 단체 사진",
+    "cover": false,
+    "kb": 309
+   },
+   {
+    "file": "/press-photos/r4-result-7.jpg",
+    "caption": "마스터즈N에서 우승을 차지한 TEAM05X의 김태일, 장성훈(가운데)",
+    "alt": "마스터즈N에서 우승을 차지한 TEAM05X의 김태일, 장성훈(가운데)",
+    "cover": false,
+    "kb": 274
+   },
+   {
+    "file": "/press-photos/r4-result-8.jpg",
+    "caption": "마스터즈3에서 4연승에 성공한 봉좌레이싱의 정시현, 이재용(가운데)",
+    "alt": "마스터즈3에서 4연승에 성공한 봉좌레이싱의 정시현, 이재용(가운데)",
+    "cover": false,
+    "kb": 277
+   },
+   {
+    "file": "/press-photos/r4-result-9.jpg",
+    "caption": "기자회견에 참가한 TEAM05X의 김태일, 장성훈(맨 왼쪽부터), BOBRACING X 아주자동차대학교의 최근환, 권도윤, 봉좌레이싱의 정시현, 이재용",
+    "alt": "기자회견에 참가한 TEAM05X의 김태일, 장성훈(맨 왼쪽부터), BOBRACING X 아주자동차대학교의 최근환, 권도윤, 봉좌레이싱의 정시현, 이재용",
+    "cover": false,
+    "kb": 263
+   }
+  ]
  }
 ]
