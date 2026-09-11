@@ -24,7 +24,7 @@ export default function HeroR4PhotosPage() {
       const res = await fetch('/api/admin/hero-r4-photos', { method: 'POST' })
       const d = await res.json()
       if (!res.ok || !d.ok) { setError(d.error ?? '실패'); return }
-      setMsg(`✅ 히어로 배경 교체 완료 — 슬라이드 ${d.slides}장 (키비쥬얼 유지: ${d.keptKeyvisual ? 'O' : 'X'}, R4 사진 ${d.photos}장)`)
+      setMsg(`✅ 히어로 교체 완료 — R4 사진 ${d.photos}장, 히어로 영상 제거됨`)
     } catch { setError('오류') } finally { setBusy(false) }
   }
 
@@ -46,10 +46,10 @@ export default function HeroR4PhotosPage() {
 
   return (
     <main style={{ maxWidth: 560, margin: '40px auto', padding: 24, fontFamily: 'sans-serif' }}>
-      <h1 style={{ fontSize: 22, marginBottom: 6 }}>홈 히어로 배경 → R4 사진</h1>
+      <h1 style={{ fontSize: 22, marginBottom: 6 }}>홈 히어로 → R4 사진 (영상 제거)</h1>
       <p style={{ color: '#666', fontSize: 14, marginBottom: 16 }}>
-        홈 히어로 슬라이드를 <b>R4 키비쥬얼(1번 유지) + R4 경기 사진 5장</b>으로 교체합니다. (기존 R3 사진 슬라이드는 제거)
-        데스크톱 히어로 영상(R4 프로모)은 그대로 유지됩니다.
+        홈 히어로를 <b>R4 경기 사진(g022)</b>으로 교체하고, <b>히어로 영상(R4 프로모)은 제거</b>합니다.
+        데스크톱·모바일 모두 사진이 배경으로 표시됩니다. (기존 R3·키비쥬얼 슬라이드 제거)
       </p>
       <button onClick={run} disabled={busy}
         style={{ padding: '12px 24px', background: '#E60023', color: '#fff', border: 'none', cursor: 'pointer' }}>
