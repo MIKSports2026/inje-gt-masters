@@ -48,7 +48,7 @@ export default function HeroR4PhotosPage() {
     <main style={{ maxWidth: 560, margin: '40px auto', padding: 24, fontFamily: 'sans-serif' }}>
       <h1 style={{ fontSize: 22, marginBottom: 6 }}>홈 히어로 → R4 사진 (영상 제거)</h1>
       <p style={{ color: '#666', fontSize: 14, marginBottom: 16 }}>
-        홈 히어로를 <b>R4 사진 2장(1번 포디움 샴페인 / 2번 그리드워크)</b>으로 교체하고, <b>히어로 영상은 제거</b>합니다.
+        홈 히어로를 <b>R4 사진 10장(포디움 샴페인·그리드워크 + 질주 액션)</b> 롤링으로 교체하고, <b>히어로 영상은 제거</b>합니다.
         데스크톱·모바일 모두 사진이 배경으로 표시됩니다. (기존 R3·키비쥬얼 슬라이드 제거)
       </p>
       <button onClick={run} disabled={busy}
