@@ -50,6 +50,7 @@ export async function POST(req: Request) {
         set: {
           mediaKitFile: { _type: 'file', asset: { _type: 'reference', _ref: assetId } },
           isReady: true,
+          officialGallery: { _type: 'reference', _ref: 'media-r4-gallery' },
         },
       },
     }]
