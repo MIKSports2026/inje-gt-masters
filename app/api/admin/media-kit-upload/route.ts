@@ -9,9 +9,9 @@ const V = '2024-01-01'
 
 // 대상: 기존 R4 미디어킷 문서 + 올릴 파일(public)
 const DOC_ID = 'e6358fc6-e3a3-4fb0-beca-612c3ef1bde7'
-const FILE_PATH = '/media-kit/2026-inje-gt-r4-media-kit-v1.docx'
-const FILE_NAME = '2026 인제 GT 마스터즈 4라운드 미디어킷 v1.docx'
-const DOCX_CT = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+const FILE_PATH = '/media-kit/2026-inje-gt-r4-media-kit-fin.pdf'
+const FILE_NAME = '2026 인제 GT 마스터즈 4라운드 미디어킷.pdf'
+const DOCX_CT = 'application/pdf'
 
 function makeToken(p: string) { return crypto.createHash('sha256').update(p + ':inje-gt-admin').digest('hex') }
 function authed(): boolean {
