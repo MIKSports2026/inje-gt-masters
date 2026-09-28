@@ -1,0 +1,554 @@
+[
+ {
+  "_type": "media",
+  "_id": "media-yt-xDyQ3lsdaM0",
+  "videoId": "xDyQ3lsdaM0",
+  "mediaType": "video",
+  "title": "전력을 다한 일격 | EP.4 | 🏁 2026 INJE GT MASTERS ROUND 4 #다큐멘터리 #인제GT마스터즈 #ROUND4",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-xDyQ3lsdaM0"
+  },
+  "publishedAt": "2026-09-20T09:00:00Z",
+  "youtubeUrl": "https://youtu.be/xDyQ3lsdaM0",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 100,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-1wsIKEnVBLE",
+  "videoId": "1wsIKEnVBLE",
+  "mediaType": "video",
+  "title": "국내 유일의 내구레이스! 2026 인제GT마스터즈 4전 녹화중계",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-1wsIKEnVBLE"
+  },
+  "publishedAt": "2026-09-20T08:59:00Z",
+  "youtubeUrl": "https://youtu.be/1wsIKEnVBLE",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 101,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-GFZ3dsLdTyM",
+  "videoId": "GFZ3dsLdTyM",
+  "mediaType": "video",
+  "title": "FULL STRIKE : BREAKING DAWN | 2026 인제 GT 마스터즈 R4 프로모 | 9.6 인제스피디움",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-GFZ3dsLdTyM"
+  },
+  "publishedAt": "2026-09-20T08:58:00Z",
+  "youtubeUrl": "https://youtu.be/GFZ3dsLdTyM",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 102,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-Dq-8qes228s",
+  "videoId": "Dq-8qes228s",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ⑩ 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-Dq-8qes228s"
+  },
+  "publishedAt": "2026-09-20T09:00:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/Dq-8qes228s",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 103,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-J5fnj_1RhU4",
+  "videoId": "J5fnj_1RhU4",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ⑨ 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-J5fnj_1RhU4"
+  },
+  "publishedAt": "2026-09-20T08:59:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/J5fnj_1RhU4",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 104,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-hnzoYjP1UxM",
+  "videoId": "hnzoYjP1UxM",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ⑧ 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-hnzoYjP1UxM"
+  },
+  "publishedAt": "2026-09-20T08:58:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/hnzoYjP1UxM",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 105,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-kIPMuXFjuwk",
+  "videoId": "kIPMuXFjuwk",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ⑦ 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-kIPMuXFjuwk"
+  },
+  "publishedAt": "2026-09-20T08:57:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/kIPMuXFjuwk",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 106,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-QXeDKXNYWVI",
+  "videoId": "QXeDKXNYWVI",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ⑥ 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-QXeDKXNYWVI"
+  },
+  "publishedAt": "2026-09-20T08:56:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/QXeDKXNYWVI",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 107,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-K6aBujYtj3k",
+  "videoId": "K6aBujYtj3k",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ⑤ 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-K6aBujYtj3k"
+  },
+  "publishedAt": "2026-09-20T08:55:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/K6aBujYtj3k",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 108,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-nIfaO3EM3K0",
+  "videoId": "nIfaO3EM3K0",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ④ 🏁 2026 INJE GT MASTERS #인제GT마스터 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-nIfaO3EM3K0"
+  },
+  "publishedAt": "2026-09-20T08:54:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/nIfaO3EM3K0",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 109,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-fuA-U8kriBQ",
+  "videoId": "fuA-U8kriBQ",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ③ 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-fuA-U8kriBQ"
+  },
+  "publishedAt": "2026-09-20T08:53:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/fuA-U8kriBQ",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 110,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-z2AEIxED8YM",
+  "videoId": "z2AEIxED8YM",
+  "mediaType": "video",
+  "title": "R4 HIGHLIGHT ② 🏁 2026 INJE GT MASTERS #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-z2AEIxED8YM"
+  },
+  "publishedAt": "2026-09-20T08:52:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/z2AEIxED8YM",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 111,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-u7k1DtqaPZI",
+  "videoId": "u7k1DtqaPZI",
+  "mediaType": "video",
+  "title": "PODIUM VOICE · EP.06 R4 MASTERS 3 P3 낭만투카 #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-u7k1DtqaPZI"
+  },
+  "publishedAt": "2026-09-20T08:51:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/u7k1DtqaPZI",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 112,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-vmlS-OMLfGQ",
+  "videoId": "vmlS-OMLfGQ",
+  "mediaType": "video",
+  "title": "PODIUM VOICE · EP.05 R4 MASTERS 3 준우승🏆 Club Racing #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-vmlS-OMLfGQ"
+  },
+  "publishedAt": "2026-09-20T08:50:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/vmlS-OMLfGQ",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 113,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-5k7H5U60l_E",
+  "videoId": "5k7H5U60l_E",
+  "mediaType": "video",
+  "title": "WINNER'S VOICE · EP.05 R4 MASTERS 3 WINNER🏆 봉좌레이싱 #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-5k7H5U60l_E"
+  },
+  "publishedAt": "2026-09-20T08:49:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/5k7H5U60l_E",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 114,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-SWOw45sSKvY",
+  "videoId": "SWOw45sSKvY",
+  "mediaType": "video",
+  "title": "🏁 2026 INJE GT MASTERS R4 HIGHLIGHT ① #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-SWOw45sSKvY"
+  },
+  "publishedAt": "2026-09-20T08:48:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/SWOw45sSKvY",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 115,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-YLCa1yXZmuM",
+  "videoId": "YLCa1yXZmuM",
+  "mediaType": "video",
+  "title": "WINNER'S VOICE · EP.04 R4 MASTERS 2 WINNER🏆 아우토모빌 #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-YLCa1yXZmuM"
+  },
+  "publishedAt": "2026-09-20T08:47:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/YLCa1yXZmuM",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 116,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-i4aRTin6pLQ",
+  "videoId": "i4aRTin6pLQ",
+  "mediaType": "video",
+  "title": "PODIUM VOICE · EP.04 R4 MASTERS N-evo P3 VANTAGE MAX #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-i4aRTin6pLQ"
+  },
+  "publishedAt": "2026-09-20T08:46:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/i4aRTin6pLQ",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 117,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-2-WiNtjPCo0",
+  "videoId": "2-WiNtjPCo0",
+  "mediaType": "video",
+  "title": "PODIUM VOICE · EP.03 R4 MASTERS N-evo 준우승🏆 SUCCESS RACING #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-2-WiNtjPCo0"
+  },
+  "publishedAt": "2026-09-20T08:45:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/2-WiNtjPCo0",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 118,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-Rkl4aEtNpuw",
+  "videoId": "Rkl4aEtNpuw",
+  "mediaType": "video",
+  "title": "WINNER'S VOICE · EP.01 R4 MASTERS N-evo WINNER🏆 SUCCESS RACING #인제GT마스터즈 #내구레이스",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-Rkl4aEtNpuw"
+  },
+  "publishedAt": "2026-09-20T08:44:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/Rkl4aEtNpuw",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 119,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-xBDSFw0nqxk",
+  "videoId": "xBDSFw0nqxk",
+  "mediaType": "video",
+  "title": "PODIUM VOICE · EP.02 R4 Masters N OVERRUN 준우승🏆 #내구레이스 #인제GT마스터즈",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-xBDSFw0nqxk"
+  },
+  "publishedAt": "2026-09-20T08:43:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/xBDSFw0nqxk",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 120,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-t19AE_yJvZ0",
+  "videoId": "t19AE_yJvZ0",
+  "mediaType": "video",
+  "title": "WINNER'S VOICE · EP.02 R4 MASTERS N WINNER🏆 TEAM05X #내구레이스 #인제GT마스터즈",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-t19AE_yJvZ0"
+  },
+  "publishedAt": "2026-09-20T08:42:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/t19AE_yJvZ0",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 121,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-uSwAg3QKXJg",
+  "videoId": "uSwAg3QKXJg",
+  "mediaType": "video",
+  "title": "PODIUM VOICE · EP.01 R4 Masters 1 오버리미트 준우승🏆 #내구레이스 #인제GT마스터즈",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-uSwAg3QKXJg"
+  },
+  "publishedAt": "2026-09-20T08:41:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/uSwAg3QKXJg",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 122,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ },
+ {
+  "_type": "media",
+  "_id": "media-yt-gzN3WTJ8PZQ",
+  "videoId": "gzN3WTJ8PZQ",
+  "mediaType": "video",
+  "title": "WINNER'S VOICE · EP.01 R4 MASTERS 1 WINNER🏆 BOBRACING X 아주자동차대학교 #내구레이스 #인제GT마스터즈",
+  "slug": {
+   "_type": "slug",
+   "current": "yt-gzN3WTJ8PZQ"
+  },
+  "publishedAt": "2026-09-20T08:40:00Z",
+  "youtubeUrl": "https://www.youtube.com/shorts/gzN3WTJ8PZQ",
+  "isFeatured": false,
+  "isPublished": true,
+  "sortOrder": 123,
+  "relatedRound": {
+   "_type": "reference",
+   "_ref": "round-2026-r4"
+  },
+  "tags": [
+   "r4"
+  ]
+ }
+]
