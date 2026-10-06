@@ -17,6 +17,7 @@
     "@sanity/icons": "^3.3.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.50.0",
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.0",
     "googleapis": "^171.4.0",
