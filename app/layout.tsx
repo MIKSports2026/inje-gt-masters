@@ -1,6 +1,6 @@
 // app/layout.tsx — 루트 레이아웃
 import type { Metadata, Viewport } from 'next'
-import { Analytics } from '@vercel/analytics/next'
+import AnalyticsGuard from '@/components/layout/AnalyticsGuard'
 import './globals.css'
 import { sanityFetch }       from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY } from '@/lib/queries'
@@ -74,7 +74,7 @@ export default async function RootLayout({
       </head>
       <body>
         {children}
-        <Analytics />
+        <AnalyticsGuard />
       </body>
     </html>
   )
