@@ -1,4 +1,4 @@
-// app/api/admin/media-kit-upload/route.ts — R4 미디어킷 파일 업로드 + 공개 처리
+// app/api/admin/media-kit-upload/route.ts — R5 미디어킷 파일 업로드 + 공개 처리
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import crypto from 'crypto'
@@ -7,11 +7,11 @@ const PID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? 'cq465tvw'
 const DS = 'production'
 const V = '2024-01-01'
 
-// 대상: 기존 R4 미디어킷 문서 + 올릴 파일(public)
-const DOC_ID = 'e6358fc6-e3a3-4fb0-beca-612c3ef1bde7'
-const FILE_PATH = '/media-kit/2026-inje-gt-r4-media-kit-fin.pdf'
-const FILE_NAME = '2026 인제 GT 마스터즈 4라운드 미디어킷.pdf'
-const DOCX_CT = 'application/pdf'
+// 대상: 기존 R5 미디어킷 문서(2026 5라운드 미디어킷) + 올릴 파일(public)
+const DOC_ID = '1bdfcb86-a5ef-4104-a776-1c0e8efd7599'
+const FILE_PATH = '/media-kit/2026-inje-gt-r5-media-kit-v3.docx'
+const FILE_NAME = '2026 인제 GT 마스터즈 5라운드 미디어킷.docx'
+const DOCX_CT = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
 function makeToken(p: string) { return crypto.createHash('sha256').update(p + ':inje-gt-admin').digest('hex') }
 function authed(): boolean {
@@ -43,14 +43,13 @@ export async function POST(req: Request) {
     if (!up.ok) return NextResponse.json({ ok: false, error: `에셋 업로드 실패 (${up.status})` }, { status: 500 })
     const assetId = ((await up.json()) as { document: { _id: string } }).document._id
 
-    // 3) R4 미디어킷 문서에 파일 연결 + 공개
+    // 3) R5 미디어킷 문서에 파일 연결 + 공개 (공식 갤러리는 경기 후 등록 시 연결)
     const mutations = [{
       patch: {
         id: DOC_ID,
         set: {
           mediaKitFile: { _type: 'file', asset: { _type: 'reference', _ref: assetId } },
           isReady: true,
-          officialGallery: { _type: 'reference', _ref: 'media-r4-gallery' },
         },
       },
     }]
