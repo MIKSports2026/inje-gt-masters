@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { ClassInfo, Round } from '@/types/sanity'
+import { gaEvent } from '@/components/layout/GoogleAnalytics'
 
 interface Props {
   isOpen: boolean
@@ -239,6 +240,8 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
       })
       if (!res.ok) throw new Error('서버 오류')
       localStorage.removeItem(DRAFT_KEY)
+      // GA4 전환 이벤트: 참가신청 제출 완료
+      gaEvent('entry_submit', { entry_type: form.entryType, round_label: form.roundLabel, class_name: form.className })
       setDone(true)
     } catch { setError('신청 중 오류가 발생했습니다. 다시 시도해 주세요.') }
     finally { setSubmitting(false) }

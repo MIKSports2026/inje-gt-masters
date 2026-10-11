@@ -1,6 +1,7 @@
 // app/layout.tsx — 루트 레이아웃
 import type { Metadata, Viewport } from 'next'
 import AnalyticsGuard from '@/components/layout/AnalyticsGuard'
+import GoogleAnalytics from '@/components/layout/GoogleAnalytics'
 import './globals.css'
 import { sanityFetch }       from '@/lib/sanity.client'
 import { SITE_SETTINGS_QUERY } from '@/lib/queries'
@@ -79,6 +80,7 @@ export default async function RootLayout({
       <body>
         {children}
         <AnalyticsGuard />
+        <GoogleAnalytics />
       </body>
     </html>
   )
