@@ -36,7 +36,11 @@ export const metadata: Metadata = {
   verification: {
     google: 'SHXkOLxdbgVr8Hh1Ig3F_GvTYRQcP5NdL7z_sVhpdbc',
     other: {
-      'naver-site-verification': 'cbb0fdca3a36e434bba6770e826efcc2a7657ed6',
+      // 네이버 서치어드바이저 — 등록 속성별 소유확인 코드(기존 + 2026-10-11 추가 등록)
+      'naver-site-verification': [
+        'cbb0fdca3a36e434bba6770e826efcc2a7657ed6',
+        'c764902963bc417002392dd3afc26822335aafce',
+      ],
     },
   },
 }
