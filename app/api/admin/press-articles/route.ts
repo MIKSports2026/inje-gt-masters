@@ -1,4 +1,4 @@
-// app/api/admin/press-articles/route.ts — 공식 보도자료(R1~R4) 본문+사진 일괄 게시
+// app/api/admin/press-articles/route.ts — 공식 보도자료(R1~R5) 본문+사진 일괄 게시
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import crypto from 'crypto'

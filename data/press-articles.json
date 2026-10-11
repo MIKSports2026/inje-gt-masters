@@ -2050,5 +2050,320 @@
     "after": 11
    }
   ]
+ },
+ {
+  "_id": "post-r5-preview",
+  "slug": "r5-preview",
+  "title": "인제 GT 마스터즈, 11일 시즌 최종전 개최…다섯 라운드 여정 끝에 챔피언이 결정된다",
+  "category": "press",
+  "author": "인제 GT 마스터즈 조직위원회",
+  "publishedAt": "2026-10-02T09:00:00+09:00",
+  "relatedRoundId": "round-2026-r5",
+  "excerpt": "2026 인제 GT 마스터즈가 오는 11일 강원도 인제군의 인제 스피디움에서 시즌 최종 라운드인 5라운드를 개최한다. 1라운드부터 이어져 온 다섯 번의 여정 중 마지막 경기로, 마스터즈1·마스터즈N-evo·마스터즈N·마스터즈2·마스터즈3 5개 클래스가 함께 출격한다.",
+  "bodyBlocks": [
+   {
+    "_type": "block",
+    "_key": "bul1",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs1",
+      "text": "2026시즌 마지막 5라운드, 11일 인제 스피디움 개최",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul2",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs2",
+      "text": "마스터즈1·마스터즈N-evo·마스터즈2, 마지막 라운드서 챔피언 향방 가려진다",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul3",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs3",
+      "text": "이정민 조직위원장 \"다섯 라운드를 버텨낸 모든 팀에게 이미 의미 있는 시즌\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par4",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps4",
+      "text": "챔피언이 탄생할 시간이다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par5",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps5",
+      "text": "2026 인제 GT 마스터즈가 오는 11일 강원도 인제군의 인제 스피디움에서 시즌 최종 라운드인 5라운드를 개최한다. 1라운드부터 이어져 온 다섯 번의 여정 중 마지막 경기로, 마스터즈1·마스터즈N-evo·마스터즈N·마스터즈2·마스터즈3 5개 클래스가 함께 출격한다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par6",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps6",
+      "text": "내구레이스는 한 바퀴의 속도보다 완주까지 버텨낸 과정으로 승부가 갈린다. 세 시간 동안 이어지는 결승 레이스에서는 피트스톱 타이밍과 드라이버 교체가 순위를 가르는 변수로 작용해왔으며, 이번 최종전에서도 각 팀의 전략이 마지막까지 시험대에 오를 전망이다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par7",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps7",
+      "text": "이번 시즌 챔피언이 가려지지 않은 클래스는 마스터즈1·마스터즈N-evo·마스터즈2 세 곳이다. 메인 클래스인 마스터즈1에서는 4라운드까지 2연승을 달성한 최근환·권도윤(BOBRACING X 아주자동차대학교) 조가 선두를 달리고 있는 가운데, 김태환·이인용(오버리미트) 조가 수학적으로 역전 가능한 거리에서 추격하고 있다. 마스터즈N-evo와 마스터즈2 역시 선두와 후위 팀 간 포인트 격차가 남아 있어, 이번 라운드 결과에 따라 챔피언이 가려진다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par8",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps8",
+      "text": "마스터즈N은 김태일·장성훈(TEAM05X) 조, 마스터즈3는 정시현·이재용(봉좌레이싱) 조가 지난 4라운드에서 일찌감치 시즌 챔피언을 확정지었다. 두 팀을 포함한 전 클래스 참가자들에게 이번 5라운드는 순위와 무관하게 한 시즌을 완주했다는 의미를 지닌 마지막 경기다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par9",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps9",
+      "text": "이정민 인제 GT 마스터즈 조직위원장은 \"다섯 라운드를 버텨내며 여기까지 온 모든 팀에게 이미 의미 있는 시즌이었다\"며, \"마지막 경기까지 완주해 각자의 자리에서 영광을 안으시길 바란다\"고 말했다.",
+      "marks": []
+     }
+    ]
+   }
+  ],
+  "images": [
+   {
+    "file": "/press-photos/r5-preview-1.jpg",
+    "caption": "인제 GT 마스터즈 5라운드 포스터",
+    "alt": "인제 GT 마스터즈 5라운드 포스터",
+    "cover": true,
+    "kb": 209
+   }
+  ]
+ },
+ {
+  "_id": "post-r5-matchup",
+  "slug": "r5-matchup",
+  "title": "인제 GT 마스터즈 최종전, 마스터즈1 최근환·권도윤 챔피언 문턱…김태환·이인용, 마지막 세 시간에 역전 건다",
+  "category": "press",
+  "author": "인제 GT 마스터즈 조직위원회",
+  "publishedAt": "2026-10-07T09:00:00+09:00",
+  "relatedRoundId": "round-2026-r5",
+  "excerpt": "챔피언까지 남은 건 세 시간이다. 오는 11일 강원도 인제군 인제 스피디움에서 열리는 2026 인제 GT 마스터즈 최종 5라운드에서 메인 클래스 마스터즈1의 시즌 챔피언이 가려진다.",
+  "bodyBlocks": [
+   {
+    "_type": "block",
+    "_key": "bul1",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs1",
+      "text": "마스터즈1, 최근환·권도윤 조와 김태환·이인용 조의 시즌 챔피언 경쟁",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul2",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs2",
+      "text": "최근환 \"마지막까지 우리 레이스를 하겠다…완주로 시즌을 마무리할 것\"",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "bul3",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "bs3",
+      "text": "마스터즈N-evo·마스터즈N·마스터즈2·마스터즈3는 챔피언 확정…최종전서 유종의 미 노려",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par4",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps4",
+      "text": "챔피언까지 남은 건 세 시간이다. 오는 11일 강원도 인제군 인제 스피디움에서 열리는 2026 인제 GT 마스터즈 최종 5라운드에서 메인 클래스 마스터즈1의 시즌 챔피언이 가려진다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par5",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps5",
+      "text": "마스터즈1 시즌 챔피언 경쟁은 최근환·권도윤(BOBRACING X 아주자동차대학교) 조와 김태환·이인용(오버리미트) 조의 대결로 좁혀졌다. 시즌 챔피언에 더 가까운 쪽은 3·4라운드 연속 우승을 거둔 최근환·권도윤 조다. 반면 김태환·이인용 조가 역전하려면 이번 라운드에서 예선 1위와 결승 우승을 모두 거둬야 하고, 최근환·권도윤 조가 포인트를 거의 얻지 못해야 한다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par6",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps6",
+      "text": "조건만 보면 최근환·권도윤 조가 유리하다. 다만 3시간 동안 이어지는 내구레이스에서는 변수가 많다. 피트스톱 타이밍, 드라이버 교체, 차량 트러블이 언제든 순위를 바꿀 수 있다. 지난 4라운드에서도 두 차례의 세이프티카(SC)와 피트스톱 이후 선두가 여러 번 바뀌었다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par7",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps7",
+      "text": "최근환은 \"포인트 계산보다 우리가 준비한 레이스를 끝까지 하는 게 중요하다\"며 \"마지막 라운드도 피트스톱과 드라이버 교체에서 실수를 줄이고, 완주로 시즌을 마무리하겠다\"고 말했다. 파트너 권도윤은 \"한 시즌 동안 쌓아온 것을 마지막 세 시간에 모두 보여주겠다\"고 덧붙였다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par8",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps8",
+      "text": "나머지 네 클래스는 시즌 챔피언이 이미 확정됐다. 마스터즈N-evo는 정정재·신형주·최윤민(피트스톱 모터스포츠) 조, 마스터즈N은 김태일·장성훈(TEAM05X) 조, 마스터즈2는 박민제·정연섭·신동민(아우토모빌) 조, 마스터즈3는 정시현·이재용(봉좌레이싱) 조가 시즌 챔피언에 올랐다. 이들은 최종전에서 유종의 미를 거두겠다는 각오다. 특히 1라운드부터 4라운드까지 모두 우승한 정시현·이재용 조는 이번 라운드에서 시즌 전 라운드 우승에 도전한다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par9",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "ps9",
+      "text": "이정민 인제 GT 마스터즈 조직위원장은 \"내구레이스의 챔피언은 결승선을 통과하는 한순간이 아니라, 다섯 라운드를 버텨온 시간 위에서 만들어진다\"며, \"마지막 세 시간이 각 팀이 쌓아온 시즌을 증명하는 경기가 되길 기대한다\"고 말했다.",
+      "marks": []
+     }
+    ]
+   }
+  ],
+  "images": [
+   {
+    "file": "/press-photos/r5-matchup-1.jpg",
+    "caption": "인제 GT 마스터즈 4라운드 스타트 장면",
+    "alt": "인제 GT 마스터즈 4라운드 스타트 장면",
+    "cover": true,
+    "kb": 462,
+    "bodyExclude": true
+   },
+   {
+    "file": "/press-photos/r5-matchup-2.jpg",
+    "caption": "인제 GT 마스터즈 4라운드 그리드에 도열한 차량들이 스타트하는 장면",
+    "alt": "인제 GT 마스터즈 4라운드 그리드에 도열한 차량들이 스타트하는 장면",
+    "cover": false,
+    "kb": 341,
+    "after": 5
+   }
+  ]
  }
 ]
