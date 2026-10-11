@@ -13,7 +13,7 @@ export default function SectionHeader({ subtitle, title }: Props) {
         <div className="shdr__line" />
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .shdr { margin-bottom: 40px; }
         .shdr__sub {
           font-family: var(--font-heading, 'Oswald', sans-serif);
@@ -36,7 +36,7 @@ export default function SectionHeader({ subtitle, title }: Props) {
           flex: 1; height: 2px;
           background: var(--primary-red, #E60023);
         }
-      `}</style>
+      ` }} />
     </div>
   )
 }

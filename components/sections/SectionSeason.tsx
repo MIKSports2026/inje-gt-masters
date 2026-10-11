@@ -103,7 +103,7 @@ export default function SectionSeason({ rounds }: Props) {
         })}
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .ssn { background: #0a0a0a; padding: 60px 0; }
         .ssn__hd {
           max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
@@ -224,7 +224,7 @@ export default function SectionSeason({ rounds }: Props) {
           .ssn__p-dt { writing-mode: horizontal-tb; }
           .ssn__hd { padding: 0 20px; }
         }
-      `}</style>
+      ` }} />
     </section>
   )
 }

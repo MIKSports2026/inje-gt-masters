@@ -171,7 +171,7 @@ export default function SectionClass({ classes }: Props) {
         ))}
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cls { background: var(--bg-carbon, #0a0a0a); padding: 60px 0; position: relative; z-index: 1; }
         .cls__hd {
           max-width: 1400px; margin: 0 auto 32px; padding: 0 40px;
@@ -433,7 +433,7 @@ export default function SectionClass({ classes }: Props) {
           .cls__p-title { font-size: 2.2rem; }
           .cls__hd { padding: 0 20px; }
         }
-      `}</style>
+      ` }} />
     </section>
   )
 }

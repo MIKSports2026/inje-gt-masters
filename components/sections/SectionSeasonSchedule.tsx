@@ -114,7 +114,7 @@ export default function SectionSeasonSchedule({ rounds }: Props) {
 
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .sss-section {
           background: var(--bg-carbon, #0a0a0a);
           min-height: 80vh;
@@ -348,7 +348,7 @@ export default function SectionSeasonSchedule({ rounds }: Props) {
           .sss-card__date,
           .sss-card--feature .sss-card__date { font-size: 3.5rem; }
         }
-      `}</style>
+      ` }} />
     </section>
   )
 }

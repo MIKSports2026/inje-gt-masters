@@ -60,7 +60,7 @@ export default function SectionPartners({ partners }: Props) {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .ptn {
           background: var(--bg-carbon, #0a0a0a);
           padding: 64px 0;
@@ -102,7 +102,7 @@ export default function SectionPartners({ partners }: Props) {
           .ptn__inner { padding: 0 20px; }
           .ptn__card { min-width: 120px; padding: 18px 20px; }
         }
-      `}</style>
+      ` }} />
     </section>
   )
 }

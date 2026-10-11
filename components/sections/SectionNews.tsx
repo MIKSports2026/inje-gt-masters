@@ -31,7 +31,7 @@ export default function SectionNews({ posts }: Props) {
         )}
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .snews { background: #0a0a0a; padding: 72px 0 64px; }
         .snews__hd {
           max-width: 1400px; margin: 0 auto 36px; padding: 0 40px;
@@ -71,7 +71,7 @@ export default function SectionNews({ posts }: Props) {
         @media (max-width: 600px) {
           .snews__grid { grid-template-columns: 1fr; }
         }
-      `}</style>
+      ` }} />
     </section>
   )
 }

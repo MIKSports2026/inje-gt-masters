@@ -7,7 +7,7 @@ import PageHero from '@/components/ui/PageHero'
 import ClassesClient from './ClassesClient'
 
 export const metadata: Metadata = {
-  title: '클래스 안내 | 인제 GT 마스터즈',
+  title: '클래스 안내',
   description: '인제 GT 마스터즈 2026 시즌 참가 클래스별 차량 규정, 참가 자격, 참가비 안내.',
 }
 
