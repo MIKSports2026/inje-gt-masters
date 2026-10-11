@@ -2365,5 +2365,261 @@
     "after": 5
    }
   ]
+ },
+ {
+  "_id": "post-season-2027",
+  "slug": "season-2027",
+  "title": "인제 GT 마스터즈, 2027시즌 확 바뀐다…람보르기니·나이트 레이스·4시간 레이스 온다",
+  "category": "press",
+  "author": "인제 GT 마스터즈 조직위원회",
+  "publishedAt": "2026-10-11T12:00:00+09:00",
+  "relatedRoundId": "round-2026-r5",
+  "excerpt": "인제 GT 마스터즈가 2027시즌 캘린더와 함께 대회의 새로운 방향을 공개했다. 4월 10일 개막전을 시작으로 총 5라운드로 치러지는 2027시즌은 레이스 구성부터 관람 환경, 대회 운영까지 전반적인 변화를 예고했다. 직접 달리는 참가자뿐 아니라 관중석의 관람객도 함께 즐기는 대회로 거듭난다는 계획이다.",
+  "bodyBlocks": [
+   {
+    "_type": "block",
+    "_key": "bul1",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "sbul1",
+      "text": "4월 10일 개막 총 5라운드…람보르기니 슈퍼 트로페오 동시 개최·나이트 레이스·4시간 레이스 도입",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "bul2",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "sbul2",
+      "text": "레이스 생중계·티켓 플랫폼 도입…메인 클래스 통합·피트스톱 규정 강화",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "bul3",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "sbul3",
+      "text": "이정민 조직위원장 \"관람객이 직접 찾아와 즐기는 대회로 한 단계 끌어올리겠다\"",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "par4",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "spar4",
+      "text": "인제 GT 마스터즈가 2027시즌 캘린더와 함께 대회의 새로운 방향을 공개했다. 4월 10일 개막전을 시작으로 총 5라운드로 치러지는 2027시즌은 레이스 구성부터 관람 환경, 대회 운영까지 전반적인 변화를 예고했다. 직접 달리는 참가자뿐 아니라 관중석의 관람객도 함께 즐기는 대회로 거듭난다는 계획이다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par5",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "spar5",
+      "text": "라운드별 레이스 구성도 한층 다채로워진다. 2라운드에는 람보르기니 레이스카만 출전하는 원메이크 레이스인 람보르기니 슈퍼 트로페오가 함께 열린다. 관람객은 한 라운드에서 GT 내구레이스와 슈퍼카 레이스를 모두 볼 수 있다. 3라운드는 해가 진 뒤 조명 아래에서 달리는 나이트 레이스로 진행된다. 낮과는 다른 시야와 노면 조건에서 드라이버의 집중력이 승부를 가른다. 4라운드는 기존 3시간보다 1시간 늘어난 4시간 레이스다. 레이스가 길어지는 만큼 피트스톱 타이밍과 드라이버 교체, 타이어·연료 관리 등 전략의 변수도 늘어난다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par6",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "spar6",
+      "text": "대회의 수준도 높아진다. 마스터즈1과 마스터즈N-evo를 하나로 통합해 메인 클래스의 출전 규모를 키우고 경쟁 구도를 강화한다. 내구레이스의 핵심인 피트스톱 규정도 강화된다. 급유 장비인 퓨얼 저그(Fuel Jug) 기준을 새로 도입하고, 피트 작업에 참여하는 미케닉의 레이싱 수트 착용을 의무화한다. 피트 작업의 안전성을 높이는 동시에, 피트스톱 자체를 관람객이 즐길 수 있는 볼거리로 만든다는 취지다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par7",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "spar7",
+      "text": "관람 환경도 한 단계 업그레이드된다. 2027시즌부터 레이스를 생중계할 예정이며, 주관 방송사와 중계 채널은 추후 공개된다. 대회 전용 티켓 플랫폼도 구축해 관람객을 본격적으로 맞이한다. 하루에 모두 치르던 레이스 일정은 이틀로 늘려, 관람객이 대회를 더 여유 있게 즐길 수 있도록 했다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "par8",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "spar8",
+      "text": "이정민 인제 GT 마스터즈 조직위원장은 \"2027시즌 인제 GT 마스터즈는 일정부터 클래스, 피트 운영, 중계까지 대회의 많은 부분이 새로워진다\"며, \"참가자만의 무대를 넘어 관람객이 직접 찾아와 즐기는 대회로 한 단계 끌어올리겠다. 내년 4월 인제 스피디움에서 더 많은 분을 만나길 기대한다\"고 말했다.",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "h3cal",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "sh3cal",
+      "text": "2027시즌 캘린더",
+      "marks": []
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "cal1",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "scal1",
+      "text": "1라운드 — 4월 10일(토)~11일(일) · 개막전",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "cal2",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "scal2",
+      "text": "2라운드 — 5월 14일(금)~16일(일) · 람보르기니 슈퍼 트로페오 동시 개최",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "cal3",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "scal3",
+      "text": "3라운드 — 8월 14일(토) · 나이트 레이스",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "cal4",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "scal4",
+      "text": "4라운드 — 9월 3일(금)~4일(토) · 4시간 레이스",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "cal5",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "scal5",
+      "text": "5라운드 — 10월 16일(토)~17일(일) · 최종전",
+      "marks": []
+     }
+    ],
+    "listItem": "bullet",
+    "level": 1
+   },
+   {
+    "_type": "block",
+    "_key": "calnote",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "scalnote",
+      "text": "※ 세부 일정은 추후 공지되는 공식 일정표를 기준으로 하며, 변경될 수 있습니다.",
+      "marks": []
+     }
+    ]
+   }
+  ],
+  "images": [
+   {
+    "file": "/press-photos/season-2027-1.jpg",
+    "caption": "인제 GT 마스터즈의 2027년도의 방향성에 대해서 공유하고 있다",
+    "alt": "인제 GT 마스터즈의 2027년도의 방향성에 대해서 공유하고 있다",
+    "cover": true,
+    "kb": 119,
+    "bodyExclude": true
+   },
+   {
+    "file": "/press-photos/season-2027-2.jpg",
+    "caption": "인제 GT 마스터즈 이정민 조직위원장(오른쪽)과 김동빈 부조직위원장",
+    "alt": "인제 GT 마스터즈 이정민 조직위원장(오른쪽)과 김동빈 부조직위원장",
+    "cover": false,
+    "kb": 280,
+    "after": 7
+   }
+  ]
  }
 ]
