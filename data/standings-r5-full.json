@@ -1,0 +1,6891 @@
+{
+ "team": [
+  {
+   "_id": "teamStanding-2026-masters-1",
+   "_type": "teamStanding",
+   "classInfo": {
+    "_ref": "class-masters-1",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "3",
+     "drivers": "최근환 / 권도윤",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 20,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 24,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BOBRACING X 아주자동차대학교",
+     "totalPoints": 124
+    },
+    {
+     "_key": "p4-3",
+     "carNumber": "5",
+     "drivers": "김태환 / 이인용",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 28,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 28,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오버리미트",
+     "totalPoints": 100
+    },
+    {
+     "_key": "p2-1",
+     "carNumber": "10",
+     "drivers": "김요셉 / 지인호",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 14,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 29,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 19,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 62
+    },
+    {
+     "_key": "p3-2",
+     "carNumber": "58",
+     "drivers": "김재정 / 최철현",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 21,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "DMZ",
+     "totalPoints": 51
+    },
+    {
+     "_key": "p5-4",
+     "carNumber": "2",
+     "drivers": "변인성 / 박동섭",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 24,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 3,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀디랩",
+     "totalPoints": 27
+    },
+    {
+     "_key": "p-new5-86",
+     "carNumber": "86",
+     "teamName": "TEAM MF",
+     "drivers": "최철현 / 김태홍",
+     "rounds": [
+      {
+       "_key": "r1-n586",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n586",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n586",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n586",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n586",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 18,
+     "position": 6
+    },
+    {
+     "_key": "p6-5",
+     "carNumber": "1",
+     "drivers": "김현석 / 원대한",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p7-6",
+     "carNumber": "23",
+     "drivers": "이승렬 / 박강현",
+     "position": 8,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 2,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "투케이바디",
+     "totalPoints": 2
+    },
+    {
+     "_key": "p-new5-93",
+     "carNumber": "93",
+     "teamName": "투케이바디",
+     "drivers": "정병민 / 구본웅 / 유재훈",
+     "rounds": [
+      {
+       "_key": "r1-n593",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n593",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n593",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n593",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n593",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 2,
+     "position": 8
+    },
+    {
+     "_key": "p-new5-92",
+     "carNumber": "92",
+     "teamName": "비트알앤디",
+     "drivers": "정원형 / 김준서",
+     "rounds": [
+      {
+       "_key": "r1-n592",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n592",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n592",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n592",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n592",
+       "points": 1,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 1,
+     "position": 9
+    },
+    {
+     "_key": "p8-7",
+     "carNumber": "9",
+     "drivers": "황석연 / 최창열",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 0
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "teamStanding-2026-masters-2",
+   "_type": "teamStanding",
+   "classInfo": {
+    "_ref": "class-masters-2",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "6",
+     "drivers": "박민제 / 정연섭 / 신동민",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 30,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 31,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 24,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 3,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아우토모빌",
+     "totalPoints": 119
+    },
+    {
+     "_key": "p2-1",
+     "carNumber": "88",
+     "drivers": "이운영 / 홍준기 / 염기태",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 22,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 19,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 29,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 2,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "AXIS Racing",
+     "totalPoints": 90
+    },
+    {
+     "_key": "p3-2",
+     "carNumber": "24",
+     "drivers": "이서준 / 이대준 / 정지원",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 3,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 2,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 30,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "R247",
+     "totalPoints": 58
+    },
+    {
+     "_key": "p-new5-19",
+     "carNumber": "19",
+     "teamName": "팀이타샤",
+     "drivers": "김규식 / 김우석 / 최현중",
+     "rounds": [
+      {
+       "_key": "r1-n519",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n519",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n519",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n519",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n519",
+       "points": 22,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 22,
+     "position": 4
+    },
+    {
+     "_key": "p4-3",
+     "carNumber": "27",
+     "drivers": "김경수 / 유준선",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "A-TEAM",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p-new5-60",
+     "carNumber": "60",
+     "teamName": "브로스 모터스포트",
+     "drivers": "김주현 / 신찬",
+     "rounds": [
+      {
+       "_key": "r1-n560",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n560",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n560",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n560",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n560",
+       "points": 15,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 15,
+     "position": 5
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "teamStanding-2026-masters-3",
+   "_type": "teamStanding",
+   "classInfo": {
+    "_ref": "class-masters-3",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "52",
+     "drivers": "정시현 / 이재용",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 29,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 29,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 30,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 30,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 28,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "봉좌레이싱",
+     "totalPoints": 146
+    },
+    {
+     "_key": "p3-2",
+     "carNumber": "90",
+     "drivers": "성종세 / 홍준영",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "낭만투카",
+     "totalPoints": 51
+    },
+    {
+     "_key": "p4-3",
+     "carNumber": "89",
+     "drivers": "성재우 / 석창원 / 박재현",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 15,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 21,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "스틸아트 모터스",
+     "totalPoints": 49
+    },
+    {
+     "_key": "p2-1",
+     "carNumber": "55",
+     "drivers": "임병춘 / 배지윤",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 6,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 21,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 48
+    },
+    {
+     "_key": "p5-4",
+     "carNumber": "72",
+     "drivers": "김지훈 / 이준성",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 21,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 3,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 22,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Club Racing",
+     "totalPoints": 46
+    },
+    {
+     "_key": "p7-6",
+     "carNumber": "44",
+     "drivers": "김희태 / 김진한",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 18,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 15,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 33
+    },
+    {
+     "_key": "p6-5",
+     "carNumber": "11",
+     "drivers": "김권",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 20,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오토라인",
+     "totalPoints": 20
+    },
+    {
+     "_key": "p9-8",
+     "carNumber": "7",
+     "drivers": "손성열",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-8",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-8",
+       "points": 2,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-8",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-8",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-8",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "레이싱마니아",
+     "totalPoints": 20
+    },
+    {
+     "_key": "p-new5-28",
+     "carNumber": "28",
+     "teamName": "원티드모터스포츠",
+     "drivers": "강선구 / 표명섭",
+     "rounds": [
+      {
+       "_key": "r1-n528",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n528",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n528",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n528",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n528",
+       "points": 19,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 19,
+     "position": 8
+    },
+    {
+     "_key": "p12-11",
+     "carNumber": "77",
+     "drivers": "이원재 / 김정호 / 최민현",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-11",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-11",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-11",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-11",
+       "points": 13,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-11",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀아저스",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p-new5-31",
+     "carNumber": "31",
+     "teamName": "레이싱마니아",
+     "drivers": "손성열 / 손현호",
+     "rounds": [
+      {
+       "_key": "r1-n531",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n531",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n531",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n531",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n531",
+       "points": 3,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 3,
+     "position": 10
+    },
+    {
+     "_key": "p8-7",
+     "carNumber": "74",
+     "drivers": "최승석 / 이국현 / 서승완",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 3,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "티스테이션 강남개포점",
+     "totalPoints": 3
+    },
+    {
+     "_key": "p10-9",
+     "carNumber": "79",
+     "drivers": "임진환 / 장형욱",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-9",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-9",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-9",
+       "points": 1,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-9",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-9",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 1
+    },
+    {
+     "_key": "p11-10",
+     "carNumber": "18",
+     "drivers": "홍슬기 / 김철",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-10",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-10",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-10",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-10",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-10",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "슬기야 철들자",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p13-12",
+     "carNumber": "69",
+     "drivers": "신동민 / 심혜나 / 심현우",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-12",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-12",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-12",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-12",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-12",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 0
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "teamStanding-2026-masters-n",
+   "_type": "teamStanding",
+   "classInfo": {
+    "_ref": "class-masters-n",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "66",
+     "drivers": "김태일 / 장성훈",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 31,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 23,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 29,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "TEAM05X",
+     "totalPoints": 122
+    },
+    {
+     "_key": "p2-1",
+     "carNumber": "98",
+     "drivers": "이상진 / 라이안리 / 황준호",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 3,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 31,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 86
+    },
+    {
+     "_key": "p5-4",
+     "carNumber": "67",
+     "drivers": "정윤호 / 이정우 / 강신홍",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 30,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 23,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "OVERRUN",
+     "totalPoints": 76
+    },
+    {
+     "_key": "p3-2",
+     "carNumber": "64",
+     "drivers": "김우주 / 류승제",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 19,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 13,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 19,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 16,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀토마스",
+     "totalPoints": 67
+    },
+    {
+     "_key": "p4-3",
+     "carNumber": "99",
+     "drivers": "강준수",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 21,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 11,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 32
+    },
+    {
+     "_key": "p6-5",
+     "carNumber": "37",
+     "drivers": "임태호",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 17,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오토라인",
+     "totalPoints": 17
+    },
+    {
+     "_key": "p7-6",
+     "carNumber": "62",
+     "drivers": "정상오 / 김진수 / 강승영",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "브라비오",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p8-7",
+     "carNumber": "59",
+     "drivers": "윤창준 / 정재원",
+     "position": 8,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 15,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p9-8",
+     "carNumber": "26",
+     "drivers": "한명수 / 김가민 / 김세진",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-8",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-8",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-8",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-8",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-8",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 13
+    },
+    {
+     "_key": "p10-9",
+     "carNumber": "76",
+     "drivers": "김민찬 / 백종건 / 남명준",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-9",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-9",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-9",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-9",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-9",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "TEAM_PITSTART X 무한질주",
+     "totalPoints": 0
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "teamStanding-2026-masters-n-evo",
+   "_type": "teamStanding",
+   "classInfo": {
+    "_ref": "class-masters-nevo",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "94",
+     "drivers": "정정재 / 신형주 / 최윤민",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 30,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 20,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "PITSTOP MOTORSPORT",
+     "totalPoints": 104
+    },
+    {
+     "_key": "p3-2",
+     "carNumber": "22",
+     "drivers": "이대웅",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 28,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 21,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "SUCCESS RACING",
+     "totalPoints": 72
+    },
+    {
+     "_key": "p9-8",
+     "carNumber": "20",
+     "drivers": "이상호",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-8",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-8",
+       "points": 1,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-8",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-8",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-8",
+       "points": 29,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "SUCCESS RACING",
+     "totalPoints": 61
+    },
+    {
+     "_key": "p2-1",
+     "carNumber": "80",
+     "drivers": "이정환",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 23,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "RWF",
+     "totalPoints": 41
+    },
+    {
+     "_key": "p4-3",
+     "carNumber": "96",
+     "drivers": "신동주 / 라이안리 / 이상진",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 24,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 24
+    },
+    {
+     "_key": "p5-4",
+     "carNumber": "4",
+     "drivers": "최지욱",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 19,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오버리미트",
+     "totalPoints": 19
+    },
+    {
+     "_key": "p-new-16",
+     "carNumber": "16",
+     "drivers": "이지웅 / 최재원 / 남궁혁",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-new16",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new16",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new16",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new16",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new16",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "VANTAGE MAX",
+     "totalPoints": 18
+    },
+    {
+     "_key": "p-new5-21",
+     "carNumber": "21",
+     "teamName": "SUCCESS RACING",
+     "drivers": "최원철 / 이민주",
+     "rounds": [
+      {
+       "_key": "r1-n521",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n521",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n521",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n521",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n521",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 18,
+     "position": 7
+    },
+    {
+     "_key": "p6-5",
+     "carNumber": "71",
+     "drivers": "이재인 / 최은준 / 백승태",
+     "position": 8,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "이브이오토&DRT",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p8-7",
+     "carNumber": "25",
+     "drivers": "김영남",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "EXPERT",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p7-6",
+     "carNumber": "8",
+     "drivers": "김찬영 / 유용균 / 김형준",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "다이나믹레이싱",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p-new-99",
+     "carNumber": "99",
+     "drivers": "정민규 / 강준수 / 공승권",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-new99",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new99",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new99",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new99",
+       "points": 1,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new99",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 1
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  }
+ ],
+ "driver": [
+  {
+   "_id": "driverStanding-2026-masters-1",
+   "_type": "driverStanding",
+   "classInfo": {
+    "_ref": "class-masters-1",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "3",
+     "driverName": "권도윤",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 20,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 24,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BOBRACING X 아주자동차대학교",
+     "totalPoints": 124
+    },
+    {
+     "_key": "p1-1",
+     "carNumber": "3",
+     "driverName": "최근환",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 20,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 24,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BOBRACING X 아주자동차대학교",
+     "totalPoints": 124
+    },
+    {
+     "_key": "p4-6",
+     "carNumber": "5",
+     "driverName": "김태환",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 28,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 28,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오버리미트",
+     "totalPoints": 100
+    },
+    {
+     "_key": "p4-7",
+     "carNumber": "5",
+     "driverName": "이인용",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 28,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 28,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오버리미트",
+     "totalPoints": 100
+    },
+    {
+     "_key": "p-new5-86-최철현",
+     "carNumber": "86",
+     "driverName": "최철현",
+     "teamName": "TEAM MF",
+     "rounds": [
+      {
+       "_key": "r1-m86",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-m86",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-m86",
+       "points": 21,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-m86",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-m86",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 69,
+     "position": 3
+    },
+    {
+     "_key": "p2-2",
+     "carNumber": "10",
+     "driverName": "김요셉",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 14,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 29,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 19,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 62
+    },
+    {
+     "_key": "p2-3",
+     "carNumber": "10",
+     "driverName": "지인호",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 14,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 29,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 19,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 62
+    },
+    {
+     "_key": "p3-4",
+     "carNumber": "58",
+     "driverName": "김재정",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 21,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "DMZ",
+     "totalPoints": 51
+    },
+    {
+     "_key": "p-new5-5-탁범진",
+     "carNumber": "5",
+     "driverName": "탁범진",
+     "teamName": "오버리미트",
+     "rounds": [
+      {
+       "_key": "r1-n55탁범진",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n55탁범진",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n55탁범진",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n55탁범진",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n55탁범진",
+       "points": 28,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 28,
+     "position": 6
+    },
+    {
+     "_key": "p5-8",
+     "carNumber": "2",
+     "driverName": "박동섭",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-8",
+       "points": 24,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-8",
+       "points": 3,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-8",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-8",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-8",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀디랩",
+     "totalPoints": 27
+    },
+    {
+     "_key": "p5-9",
+     "carNumber": "2",
+     "driverName": "변인성",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-9",
+       "points": 24,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-9",
+       "points": 3,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-9",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-9",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-9",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀디랩",
+     "totalPoints": 27
+    },
+    {
+     "_key": "p-new5-86-김태홍",
+     "carNumber": "86",
+     "driverName": "김태홍",
+     "teamName": "TEAM MF",
+     "rounds": [
+      {
+       "_key": "r1-n586김태홍",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n586김태홍",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n586김태홍",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n586김태홍",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n586김태홍",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 18,
+     "position": 8
+    },
+    {
+     "_key": "p6-10",
+     "carNumber": "1",
+     "driverName": "김현석",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-10",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-10",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-10",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-10",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-10",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p6-11",
+     "carNumber": "1",
+     "driverName": "원대한",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-11",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-11",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-11",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-11",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-11",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p7-13",
+     "carNumber": "23",
+     "driverName": "박강현",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-13",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-13",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-13",
+       "points": 2,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-13",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-13",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "투케이바디",
+     "totalPoints": 2
+    },
+    {
+     "_key": "p7-12",
+     "carNumber": "23",
+     "driverName": "이승렬",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-12",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-12",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-12",
+       "points": 2,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-12",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-12",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "투케이바디",
+     "totalPoints": 2
+    },
+    {
+     "_key": "p-new5-93-구본웅",
+     "carNumber": "93",
+     "driverName": "구본웅",
+     "teamName": "투케이바디",
+     "rounds": [
+      {
+       "_key": "r1-n593구본웅",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n593구본웅",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n593구본웅",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n593구본웅",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n593구본웅",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 2,
+     "position": 10
+    },
+    {
+     "_key": "p-new5-93-유재훈",
+     "carNumber": "93",
+     "driverName": "유재훈",
+     "teamName": "투케이바디",
+     "rounds": [
+      {
+       "_key": "r1-n593유재훈",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n593유재훈",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n593유재훈",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n593유재훈",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n593유재훈",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 2,
+     "position": 10
+    },
+    {
+     "_key": "p-new5-93-정병민",
+     "carNumber": "93",
+     "driverName": "정병민",
+     "teamName": "투케이바디",
+     "rounds": [
+      {
+       "_key": "r1-n593정병민",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n593정병민",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n593정병민",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n593정병민",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n593정병민",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 2,
+     "position": 10
+    },
+    {
+     "_key": "p-new5-92-김준서",
+     "carNumber": "92",
+     "driverName": "김준서",
+     "teamName": "비트알앤디",
+     "rounds": [
+      {
+       "_key": "r1-n592김준서",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n592김준서",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n592김준서",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n592김준서",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n592김준서",
+       "points": 1,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 1,
+     "position": 11
+    },
+    {
+     "_key": "p-new5-92-정원형",
+     "carNumber": "92",
+     "driverName": "정원형",
+     "teamName": "비트알앤디",
+     "rounds": [
+      {
+       "_key": "r1-n592정원형",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n592정원형",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n592정원형",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n592정원형",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n592정원형",
+       "points": 1,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 1,
+     "position": 11
+    },
+    {
+     "_key": "p8-16",
+     "carNumber": "1",
+     "driverName": "이동훈",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-16",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-16",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-16",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-16",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-16",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p8-14",
+     "carNumber": "9",
+     "driverName": "최창열",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-14",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-14",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-14",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-14",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-14",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p8-15",
+     "carNumber": "9",
+     "driverName": "황석연",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-15",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-15",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-15",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-15",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-15",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀루트개러지",
+     "totalPoints": 0
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "driverStanding-2026-masters-2",
+   "_type": "driverStanding",
+   "classInfo": {
+    "_ref": "class-masters-2",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "6",
+     "driverName": "박민제",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 30,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 31,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 24,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 3,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아우토모빌",
+     "totalPoints": 119
+    },
+    {
+     "_key": "p1-1",
+     "carNumber": "6",
+     "driverName": "정연섭",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 30,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 31,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 24,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 3,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아우토모빌",
+     "totalPoints": 119
+    },
+    {
+     "_key": "p3-3",
+     "carNumber": "6",
+     "driverName": "신동민",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 31,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 24,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 3,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아우토모빌",
+     "totalPoints": 89
+    },
+    {
+     "_key": "p2-2",
+     "carNumber": "88",
+     "driverName": "홍준기",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 22,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 19,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 29,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 2,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "AXIS Racing",
+     "totalPoints": 72
+    },
+    {
+     "_key": "p4-4",
+     "carNumber": "88",
+     "driverName": "조예찬",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 22,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 29,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 2,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "AXIS Racing",
+     "totalPoints": 71
+    },
+    {
+     "_key": "p5-5",
+     "carNumber": "88",
+     "driverName": "염기태",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 19,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 29,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 2,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "AXIS Racing",
+     "totalPoints": 68
+    },
+    {
+     "_key": "p6-6",
+     "carNumber": "88",
+     "driverName": "이운영",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 22,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 19,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "AXIS Racing",
+     "totalPoints": 59
+    },
+    {
+     "_key": "p7-7",
+     "carNumber": "24",
+     "driverName": "이대준",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 3,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 30,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "R247",
+     "totalPoints": 56
+    },
+    {
+     "_key": "p7-8",
+     "carNumber": "24",
+     "driverName": "이서준",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-8",
+       "points": 3,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-8",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-8",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-8",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-8",
+       "points": 30,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "R247",
+     "totalPoints": 56
+    },
+    {
+     "_key": "p10-13",
+     "carNumber": "24",
+     "driverName": "박성준",
+     "position": 8,
+     "rounds": [
+      {
+       "_key": "r1-13",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-13",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-13",
+       "points": 2,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-13",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-13",
+       "points": 30,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "R247",
+     "totalPoints": 32
+    },
+    {
+     "_key": "p8-9",
+     "carNumber": "24",
+     "driverName": "정지원",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-9",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-9",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-9",
+       "points": 2,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-9",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-9",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "R247",
+     "totalPoints": 25
+    },
+    {
+     "_key": "p-new5-19-김규식",
+     "carNumber": "19",
+     "driverName": "김규식",
+     "teamName": "팀이타샤",
+     "rounds": [
+      {
+       "_key": "r1-n519김규식",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n519김규식",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n519김규식",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n519김규식",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n519김규식",
+       "points": 22,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 22,
+     "position": 10
+    },
+    {
+     "_key": "p-new5-19-김우석",
+     "carNumber": "19",
+     "driverName": "김우석",
+     "teamName": "팀이타샤",
+     "rounds": [
+      {
+       "_key": "r1-n519김우석",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n519김우석",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n519김우석",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n519김우석",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n519김우석",
+       "points": 22,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 22,
+     "position": 10
+    },
+    {
+     "_key": "p-new5-19-최현중",
+     "carNumber": "19",
+     "driverName": "최현중",
+     "teamName": "팀이타샤",
+     "rounds": [
+      {
+       "_key": "r1-n519최현중",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n519최현중",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n519최현중",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n519최현중",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n519최현중",
+       "points": 22,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 22,
+     "position": 10
+    },
+    {
+     "_key": "p9-10",
+     "carNumber": "27",
+     "driverName": "김경수",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-10",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-10",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-10",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-10",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-10",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "A-TEAM",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p9-11",
+     "carNumber": "27",
+     "driverName": "유준선",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-11",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-11",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-11",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-11",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-11",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "A-TEAM",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p-new5-60-김주현",
+     "carNumber": "60",
+     "driverName": "김주현",
+     "teamName": "브로스 모터스포트",
+     "rounds": [
+      {
+       "_key": "r1-n560김주현",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n560김주현",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n560김주현",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n560김주현",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n560김주현",
+       "points": 15,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 15,
+     "position": 11
+    },
+    {
+     "_key": "p-new5-60-신찬",
+     "carNumber": "60",
+     "driverName": "신찬",
+     "teamName": "브로스 모터스포트",
+     "rounds": [
+      {
+       "_key": "r1-n560신찬",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n560신찬",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n560신찬",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n560신찬",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n560신찬",
+       "points": 15,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 15,
+     "position": 11
+    },
+    {
+     "_key": "p10-12",
+     "carNumber": "24",
+     "driverName": "김도훈",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-12",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-12",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-12",
+       "points": 2,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-12",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-12",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "R247",
+     "totalPoints": 2
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "driverStanding-2026-masters-3",
+   "_type": "driverStanding",
+   "classInfo": {
+    "_ref": "class-masters-3",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "52",
+     "driverName": "이재용",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 29,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 29,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 30,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 30,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 28,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "봉좌레이싱",
+     "totalPoints": 146
+    },
+    {
+     "_key": "p1-1",
+     "carNumber": "52",
+     "driverName": "정시현",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 29,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 29,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 30,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 30,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 28,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "봉좌레이싱",
+     "totalPoints": 146
+    },
+    {
+     "_key": "p3-3",
+     "carNumber": "44",
+     "driverName": "김희태",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 18,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 15,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 54
+    },
+    {
+     "_key": "p4-4",
+     "carNumber": "90",
+     "driverName": "성종세",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "낭만투카",
+     "totalPoints": 51
+    },
+    {
+     "_key": "p4-5",
+     "carNumber": "90",
+     "driverName": "홍준영",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "낭만투카",
+     "totalPoints": 51
+    },
+    {
+     "_key": "p5-6",
+     "carNumber": "89",
+     "driverName": "성재우",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 15,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 21,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "스틸아트 모터스",
+     "totalPoints": 49
+    },
+    {
+     "_key": "p5-7",
+     "carNumber": "89",
+     "driverName": "장준혁",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 15,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 21,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "스틸아트 모터스",
+     "totalPoints": 49
+    },
+    {
+     "_key": "p2-2",
+     "carNumber": "55",
+     "driverName": "임병춘",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 6,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 21,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 48
+    },
+    {
+     "_key": "p6-8",
+     "carNumber": "72",
+     "driverName": "김지훈",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-8",
+       "points": 21,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-8",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-8",
+       "points": 3,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-8",
+       "points": 22,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-8",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Club Racing",
+     "totalPoints": 46
+    },
+    {
+     "_key": "p6-9",
+     "carNumber": "72",
+     "driverName": "이준성",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-9",
+       "points": 21,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-9",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-9",
+       "points": 3,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-9",
+       "points": 22,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-9",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Club Racing",
+     "totalPoints": 46
+    },
+    {
+     "_key": "p11-14",
+     "carNumber": "89",
+     "driverName": "박재현",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-14",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-14",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-14",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-14",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-14",
+       "points": 21,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "스틸아트 모터스",
+     "totalPoints": 34
+    },
+    {
+     "_key": "p9-12",
+     "carNumber": "44",
+     "driverName": "김진한",
+     "position": 8,
+     "rounds": [
+      {
+       "_key": "r1-12",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-12",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-12",
+       "points": 18,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-12",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-12",
+       "points": 15,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 33
+    },
+    {
+     "_key": "p-new5-31-손성열",
+     "carNumber": "31",
+     "driverName": "손성열",
+     "teamName": "레이싱마니아",
+     "rounds": [
+      {
+       "_key": "r1-m31",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-m31",
+       "points": 2,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-m31",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-m31",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-m31",
+       "points": 3,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 23,
+     "position": 9
+    },
+    {
+     "_key": "p7-10",
+     "carNumber": "55",
+     "driverName": "배지윤",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-10",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-10",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-10",
+       "points": 21,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-10",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-10",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 21
+    },
+    {
+     "_key": "p8-11",
+     "carNumber": "11",
+     "driverName": "김권",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-11",
+       "points": 20,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-11",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-11",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-11",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-11",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오토라인",
+     "totalPoints": 20
+    },
+    {
+     "_key": "p-new5-28-강선구",
+     "carNumber": "28",
+     "driverName": "강선구",
+     "teamName": "원티드모터스포츠",
+     "rounds": [
+      {
+       "_key": "r1-n528강선구",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n528강선구",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n528강선구",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n528강선구",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n528강선구",
+       "points": 19,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 19,
+     "position": 12
+    },
+    {
+     "_key": "p-new5-28-표명섭",
+     "carNumber": "28",
+     "driverName": "표명섭",
+     "teamName": "원티드모터스포츠",
+     "rounds": [
+      {
+       "_key": "r1-n528표명섭",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n528표명섭",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n528표명섭",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n528표명섭",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n528표명섭",
+       "points": 19,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 19,
+     "position": 12
+    },
+    {
+     "_key": "p-new-7-김영남",
+     "carNumber": "7",
+     "driverName": "김영남",
+     "position": 13,
+     "rounds": [
+      {
+       "_key": "r1-new7김영남",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new7김영남",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new7김영남",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new7김영남",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new7김영남",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "레이싱마니아",
+     "totalPoints": 18
+    },
+    {
+     "_key": "p-new-7-이철호",
+     "carNumber": "7",
+     "driverName": "이철호",
+     "position": 13,
+     "rounds": [
+      {
+       "_key": "r1-new7이철호",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new7이철호",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new7이철호",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new7이철호",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new7이철호",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "레이싱마니아",
+     "totalPoints": 18
+    },
+    {
+     "_key": "p16-25",
+     "carNumber": "77",
+     "driverName": "김정호",
+     "position": 14,
+     "rounds": [
+      {
+       "_key": "r1-25",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-25",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-25",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-25",
+       "points": 13,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-25",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀아저스",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p16-27",
+     "carNumber": "77",
+     "driverName": "이원재",
+     "position": 14,
+     "rounds": [
+      {
+       "_key": "r1-27",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-27",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-27",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-27",
+       "points": 13,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-27",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀아저스",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p16-28",
+     "carNumber": "77",
+     "driverName": "최민현",
+     "position": 14,
+     "rounds": [
+      {
+       "_key": "r1-28",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-28",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-28",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-28",
+       "points": 13,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-28",
+       "points": 2,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀아저스",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p10-13",
+     "carNumber": "89",
+     "driverName": "석창원",
+     "position": 14,
+     "rounds": [
+      {
+       "_key": "r1-13",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-13",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-13",
+       "points": 15,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-13",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-13",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "스틸아트 모터스",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p12-15",
+     "carNumber": "55",
+     "driverName": "김대규",
+     "position": 15,
+     "rounds": [
+      {
+       "_key": "r1-15",
+       "points": 6,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-15",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-15",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-15",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-15",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 6
+    },
+    {
+     "_key": "p-new5-31-손현호",
+     "carNumber": "31",
+     "driverName": "손현호",
+     "teamName": "레이싱마니아",
+     "rounds": [
+      {
+       "_key": "r1-n531손현호",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n531손현호",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n531손현호",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n531손현호",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n531손현호",
+       "points": 3,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 3,
+     "position": 16
+    },
+    {
+     "_key": "p13-16",
+     "carNumber": "74",
+     "driverName": "서승완",
+     "position": 16,
+     "rounds": [
+      {
+       "_key": "r1-16",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-16",
+       "points": 3,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-16",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-16",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-16",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "티스테이션 강남개포점",
+     "totalPoints": 3
+    },
+    {
+     "_key": "p13-17",
+     "carNumber": "74",
+     "driverName": "이국현",
+     "position": 16,
+     "rounds": [
+      {
+       "_key": "r1-17",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-17",
+       "points": 3,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-17",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-17",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-17",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "티스테이션 강남개포점",
+     "totalPoints": 3
+    },
+    {
+     "_key": "p13-18",
+     "carNumber": "74",
+     "driverName": "최승석",
+     "position": 16,
+     "rounds": [
+      {
+       "_key": "r1-18",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-18",
+       "points": 3,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-18",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-18",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-18",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "티스테이션 강남개포점",
+     "totalPoints": 3
+    },
+    {
+     "_key": "p15-20",
+     "carNumber": "79",
+     "driverName": "임진환",
+     "position": 17,
+     "rounds": [
+      {
+       "_key": "r1-20",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-20",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-20",
+       "points": 1,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-20",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-20",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 1
+    },
+    {
+     "_key": "p15-21",
+     "carNumber": "79",
+     "driverName": "장형욱",
+     "position": 17,
+     "rounds": [
+      {
+       "_key": "r1-21",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-21",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-21",
+       "points": 1,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-21",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-21",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 1
+    },
+    {
+     "_key": "p16-22",
+     "carNumber": "18",
+     "driverName": "김철",
+     "position": 18,
+     "rounds": [
+      {
+       "_key": "r1-22",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-22",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-22",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-22",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-22",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "슬기야 철들자",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p16-23",
+     "carNumber": "18",
+     "driverName": "홍슬기",
+     "position": 18,
+     "rounds": [
+      {
+       "_key": "r1-23",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-23",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-23",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-23",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-23",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "슬기야 철들자",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p16-24",
+     "carNumber": "44",
+     "driverName": "나승환",
+     "position": 18,
+     "rounds": [
+      {
+       "_key": "r1-24",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-24",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-24",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-24",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-24",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "원티드모터스포츠",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p16-29",
+     "carNumber": "69",
+     "driverName": "신동민",
+     "position": 18,
+     "rounds": [
+      {
+       "_key": "r1-29",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-29",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-29",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-29",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-29",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p16-31",
+     "carNumber": "69",
+     "driverName": "심현우",
+     "position": 18,
+     "rounds": [
+      {
+       "_key": "r1-31",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-31",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-31",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-31",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-31",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p16-30",
+     "carNumber": "69",
+     "driverName": "심혜나",
+     "position": 18,
+     "rounds": [
+      {
+       "_key": "r1-30",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-30",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-30",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-30",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-30",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p16-26",
+     "carNumber": "77",
+     "driverName": "김주완",
+     "position": 18,
+     "rounds": [
+      {
+       "_key": "r1-26",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-26",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-26",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-26",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-26",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀아저스",
+     "totalPoints": 0
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "driverStanding-2026-masters-n",
+   "_type": "driverStanding",
+   "classInfo": {
+    "_ref": "class-masters-n",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "66",
+     "driverName": "김태일",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 31,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 23,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 29,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "TEAM05X",
+     "totalPoints": 122
+    },
+    {
+     "_key": "p1-1",
+     "carNumber": "66",
+     "driverName": "장성훈",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 31,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 23,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 29,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "TEAM05X",
+     "totalPoints": 122
+    },
+    {
+     "_key": "p2-2",
+     "carNumber": "98",
+     "driverName": "라이안리",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 3,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 31,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 86
+    },
+    {
+     "_key": "p2-3",
+     "carNumber": "98",
+     "driverName": "이상진",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 3,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 31,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 86
+    },
+    {
+     "_key": "p6-10",
+     "carNumber": "67",
+     "driverName": "정윤호",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-10",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-10",
+       "points": 30,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-10",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-10",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-10",
+       "points": 23,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "OVERRUN",
+     "totalPoints": 76
+    },
+    {
+     "_key": "p3-4",
+     "carNumber": "64",
+     "driverName": "김우주",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 19,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 13,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 19,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 16,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀토마스",
+     "totalPoints": 67
+    },
+    {
+     "_key": "p3-5",
+     "carNumber": "64",
+     "driverName": "류승제",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 19,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 13,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 19,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 16,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "팀토마스",
+     "totalPoints": 67
+    },
+    {
+     "_key": "p6-8",
+     "carNumber": "67",
+     "driverName": "강신홍",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-8",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-8",
+       "points": 30,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-8",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-8",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-8",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "OVERRUN",
+     "totalPoints": 53
+    },
+    {
+     "_key": "p4-6",
+     "carNumber": "98",
+     "driverName": "김세진",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 44
+    },
+    {
+     "_key": "p5-7",
+     "carNumber": "99",
+     "driverName": "강준수",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 21,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 11,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 32
+    },
+    {
+     "_key": "p-new5-98-이해성",
+     "carNumber": "98",
+     "driverName": "이해성",
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "rounds": [
+      {
+       "_key": "r1-n598이해성",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n598이해성",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n598이해성",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n598이해성",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n598이해성",
+       "points": 31,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 31,
+     "position": 8
+    },
+    {
+     "_key": "p6-9",
+     "carNumber": "67",
+     "driverName": "이정우",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-9",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-9",
+       "points": 30,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-9",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-9",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-9",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "OVERRUN",
+     "totalPoints": 30
+    },
+    {
+     "_key": "p-new-67-민병호",
+     "carNumber": "67",
+     "driverName": "민병호",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-new67민병호",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new67민병호",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new67민병호",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new67민병호",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new67민병호",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "OVERRUN",
+     "totalPoints": 23
+    },
+    {
+     "_key": "p-new5-67-이재연",
+     "carNumber": "67",
+     "driverName": "이재연",
+     "teamName": "OVERRUN",
+     "rounds": [
+      {
+       "_key": "r1-n567이재연",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n567이재연",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n567이재연",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n567이재연",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n567이재연",
+       "points": 23,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 23,
+     "position": 10
+    },
+    {
+     "_key": "p-new5-67-최동섭",
+     "carNumber": "67",
+     "driverName": "최동섭",
+     "teamName": "OVERRUN",
+     "rounds": [
+      {
+       "_key": "r1-n567최동섭",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n567최동섭",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n567최동섭",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n567최동섭",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n567최동섭",
+       "points": 23,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 23,
+     "position": 10
+    },
+    {
+     "_key": "p7-13",
+     "carNumber": "98",
+     "driverName": "황준호",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-13",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-13",
+       "points": 21,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-13",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-13",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-13",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 21
+    },
+    {
+     "_key": "p7-11",
+     "carNumber": "99",
+     "driverName": "공승권",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-11",
+       "points": 21,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-11",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-11",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-11",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-11",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 21
+    },
+    {
+     "_key": "p7-12",
+     "carNumber": "99",
+     "driverName": "정민규",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-12",
+       "points": 21,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-12",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-12",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-12",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-12",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 21
+    },
+    {
+     "_key": "p8-14",
+     "carNumber": "37",
+     "driverName": "임태호",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-14",
+       "points": 17,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-14",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-14",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-14",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-14",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오토라인",
+     "totalPoints": 17
+    },
+    {
+     "_key": "p9-15",
+     "carNumber": "62",
+     "driverName": "강승영",
+     "position": 13,
+     "rounds": [
+      {
+       "_key": "r1-15",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-15",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-15",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-15",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-15",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "브라비오",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p9-16",
+     "carNumber": "62",
+     "driverName": "김진수",
+     "position": 13,
+     "rounds": [
+      {
+       "_key": "r1-16",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-16",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-16",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-16",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-16",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "브라비오",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p9-17",
+     "carNumber": "62",
+     "driverName": "정상오",
+     "position": 13,
+     "rounds": [
+      {
+       "_key": "r1-17",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-17",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-17",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-17",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-17",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "브라비오",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p-new5-64-정평재",
+     "carNumber": "64",
+     "driverName": "정평재",
+     "teamName": "팀토마스",
+     "rounds": [
+      {
+       "_key": "r1-n564정평재",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n564정평재",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n564정평재",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n564정평재",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n564정평재",
+       "points": 16,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 16,
+     "position": 13
+    },
+    {
+     "_key": "p10-18",
+     "carNumber": "59",
+     "driverName": "윤창준",
+     "position": 14,
+     "rounds": [
+      {
+       "_key": "r1-18",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-18",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-18",
+       "points": 15,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-18",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-18",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p10-19",
+     "carNumber": "59",
+     "driverName": "정재원",
+     "position": 14,
+     "rounds": [
+      {
+       "_key": "r1-19",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-19",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-19",
+       "points": 15,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-19",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-19",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "아주자동차대학교",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p11-20",
+     "carNumber": "26",
+     "driverName": "김가민",
+     "position": 15,
+     "rounds": [
+      {
+       "_key": "r1-20",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-20",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-20",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-20",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-20",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 13
+    },
+    {
+     "_key": "p11-21",
+     "carNumber": "26",
+     "driverName": "한명수",
+     "position": 15,
+     "rounds": [
+      {
+       "_key": "r1-21",
+       "points": 13,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-21",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-21",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-21",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-21",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 13
+    },
+    {
+     "_key": "p-new-98-황준성",
+     "carNumber": "98",
+     "driverName": "황준성",
+     "position": 16,
+     "rounds": [
+      {
+       "_key": "r1-new98황준성",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new98황준성",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new98황준성",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new98황준성",
+       "points": 3,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new98황준성",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "비앙코웍스 레이싱",
+     "totalPoints": 3
+    },
+    {
+     "_key": "p12-22",
+     "carNumber": "76",
+     "driverName": "김민찬",
+     "position": 17,
+     "rounds": [
+      {
+       "_key": "r1-22",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-22",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-22",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-22",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-22",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "TEAM_PITSTART X 무한질주",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p12-24",
+     "carNumber": "76",
+     "driverName": "남명준",
+     "position": 17,
+     "rounds": [
+      {
+       "_key": "r1-24",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-24",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-24",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-24",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-24",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "TEAM_PITSTART X 무한질주",
+     "totalPoints": 0
+    },
+    {
+     "_key": "p12-23",
+     "carNumber": "76",
+     "driverName": "백종건",
+     "position": 17,
+     "rounds": [
+      {
+       "_key": "r1-23",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-23",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-23",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-23",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-23",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "TEAM_PITSTART X 무한질주",
+     "totalPoints": 0
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  },
+  {
+   "_id": "driverStanding-2026-masters-n-evo",
+   "_type": "driverStanding",
+   "classInfo": {
+    "_ref": "class-masters-nevo",
+    "_type": "reference"
+   },
+   "entries": [
+    {
+     "_key": "p1-0",
+     "carNumber": "94",
+     "driverName": "신형주",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-0",
+       "points": 30,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-0",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-0",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-0",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-0",
+       "points": 20,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "PITSTOP MOTORSPORT",
+     "totalPoints": 104
+    },
+    {
+     "_key": "p1-1",
+     "carNumber": "94",
+     "driverName": "정정재",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-1",
+       "points": 30,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-1",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-1",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-1",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-1",
+       "points": 20,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "PITSTOP MOTORSPORT",
+     "totalPoints": 104
+    },
+    {
+     "_key": "p1-2",
+     "carNumber": "94",
+     "driverName": "최윤민",
+     "position": 1,
+     "rounds": [
+      {
+       "_key": "r1-2",
+       "points": 30,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-2",
+       "points": 23,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-2",
+       "points": 31,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-2",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-2",
+       "points": 20,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "PITSTOP MOTORSPORT",
+     "totalPoints": 104
+    },
+    {
+     "_key": "p3-4",
+     "carNumber": "22",
+     "driverName": "이대웅",
+     "position": 2,
+     "rounds": [
+      {
+       "_key": "r1-4",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-4",
+       "points": 28,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-4",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-4",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-4",
+       "points": 21,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "SUCCESS RACING",
+     "totalPoints": 72
+    },
+    {
+     "_key": "p9-17",
+     "carNumber": "20",
+     "driverName": "이상호",
+     "position": 3,
+     "rounds": [
+      {
+       "_key": "r1-17",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-17",
+       "points": 1,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-17",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-17",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-17",
+       "points": 29,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "SUCCESS RACING",
+     "totalPoints": 61
+    },
+    {
+     "_key": "p-new-20-강동우",
+     "carNumber": "20",
+     "driverName": "강동우",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-new20강동우",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new20강동우",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new20강동우",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new20강동우",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new20강동우",
+       "points": 29,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "SUCCESS RACING",
+     "totalPoints": 60
+    },
+    {
+     "_key": "p-new-20-송형진",
+     "carNumber": "20",
+     "driverName": "송형진",
+     "position": 4,
+     "rounds": [
+      {
+       "_key": "r1-new20송형진",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new20송형진",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new20송형진",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new20송형진",
+       "points": 31,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new20송형진",
+       "points": 29,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "SUCCESS RACING",
+     "totalPoints": 60
+    },
+    {
+     "_key": "p-new-22-조민철",
+     "carNumber": "22",
+     "driverName": "조민철",
+     "position": 5,
+     "rounds": [
+      {
+       "_key": "r1-new22조민철",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new22조민철",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new22조민철",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new22조민철",
+       "points": 23,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new22조민철",
+       "points": 21,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "SUCCESS RACING",
+     "totalPoints": 44
+    },
+    {
+     "_key": "p-new-16-이지웅",
+     "carNumber": "16",
+     "driverName": "이지웅",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-m16",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-m16",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-m16",
+       "points": 23,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-m16",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-m16",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "VANTAGE MAX",
+     "totalPoints": 41
+    },
+    {
+     "_key": "p2-3",
+     "carNumber": "80",
+     "driverName": "이정환",
+     "position": 6,
+     "rounds": [
+      {
+       "_key": "r1-3",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-3",
+       "points": 18,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-3",
+       "points": 23,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-3",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-3",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "RWF",
+     "totalPoints": 41
+    },
+    {
+     "_key": "p4-5",
+     "carNumber": "96",
+     "driverName": "라이안리",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-5",
+       "points": 24,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-5",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-5",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-5",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-5",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 24
+    },
+    {
+     "_key": "p4-6",
+     "carNumber": "96",
+     "driverName": "신동주",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-6",
+       "points": 24,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-6",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-6",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-6",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-6",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 24
+    },
+    {
+     "_key": "p4-7",
+     "carNumber": "96",
+     "driverName": "이상진",
+     "position": 7,
+     "rounds": [
+      {
+       "_key": "r1-7",
+       "points": 24,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-7",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-7",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-7",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-7",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "BIANCOWORKS RACING TEAM",
+     "totalPoints": 24
+    },
+    {
+     "_key": "p6-9",
+     "carNumber": "4",
+     "driverName": "최지욱",
+     "position": 8,
+     "rounds": [
+      {
+       "_key": "r1-9",
+       "points": 19,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-9",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-9",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-9",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-9",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "오버리미트",
+     "totalPoints": 19
+    },
+    {
+     "_key": "p-new-16-남궁혁",
+     "carNumber": "16",
+     "driverName": "남궁혁",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-new16남궁혁",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new16남궁혁",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new16남궁혁",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new16남궁혁",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new16남궁혁",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "VANTAGE MAX",
+     "totalPoints": 18
+    },
+    {
+     "_key": "p-new-16-최재원",
+     "carNumber": "16",
+     "driverName": "최재원",
+     "position": 9,
+     "rounds": [
+      {
+       "_key": "r1-new16최재원",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new16최재원",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new16최재원",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new16최재원",
+       "points": 18,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new16최재원",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "VANTAGE MAX",
+     "totalPoints": 18
+    },
+    {
+     "_key": "p-new5-21-이민주",
+     "carNumber": "21",
+     "driverName": "이민주",
+     "teamName": "SUCCESS RACING",
+     "rounds": [
+      {
+       "_key": "r1-n521이민주",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n521이민주",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n521이민주",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n521이민주",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n521이민주",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 18,
+     "position": 9
+    },
+    {
+     "_key": "p-new5-21-최원철",
+     "carNumber": "21",
+     "driverName": "최원철",
+     "teamName": "SUCCESS RACING",
+     "rounds": [
+      {
+       "_key": "r1-n521최원철",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-n521최원철",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-n521최원철",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-n521최원철",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-n521최원철",
+       "points": 18,
+       "roundNumber": 5
+      }
+     ],
+     "totalPoints": 18,
+     "position": 9
+    },
+    {
+     "_key": "p7-10",
+     "carNumber": "71",
+     "driverName": "백승태",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-10",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-10",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-10",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-10",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-10",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "이브이오토&DRT",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p7-11",
+     "carNumber": "71",
+     "driverName": "이재인",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-11",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-11",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-11",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-11",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-11",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "이브이오토&DRT",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p7-12",
+     "carNumber": "71",
+     "driverName": "최은준",
+     "position": 10,
+     "rounds": [
+      {
+       "_key": "r1-12",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-12",
+       "points": 16,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-12",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-12",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-12",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "이브이오토&DRT",
+     "totalPoints": 16
+    },
+    {
+     "_key": "p8-16",
+     "carNumber": "25",
+     "driverName": "김영남",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-16",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-16",
+       "points": 15,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-16",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-16",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-16",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "EXPERT",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p8-13",
+     "carNumber": "8",
+     "driverName": "김찬영",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-13",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-13",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-13",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-13",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-13",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "다이나믹레이싱",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p8-14",
+     "carNumber": "8",
+     "driverName": "김형준",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-14",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-14",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-14",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-14",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-14",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "다이나믹레이싱",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p8-15",
+     "carNumber": "8",
+     "driverName": "유용균",
+     "position": 11,
+     "rounds": [
+      {
+       "_key": "r1-15",
+       "points": 15,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-15",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-15",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-15",
+       "points": 0,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-15",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "다이나믹레이싱",
+     "totalPoints": 15
+    },
+    {
+     "_key": "p-new-99-강준수",
+     "carNumber": "99",
+     "driverName": "강준수",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-new99강준수",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new99강준수",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new99강준수",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new99강준수",
+       "points": 1,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new99강준수",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 1
+    },
+    {
+     "_key": "p-new-99-공승권",
+     "carNumber": "99",
+     "driverName": "공승권",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-new99공승권",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new99공승권",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new99공승권",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new99공승권",
+       "points": 1,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new99공승권",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 1
+    },
+    {
+     "_key": "p-new-99-정민규",
+     "carNumber": "99",
+     "driverName": "정민규",
+     "position": 12,
+     "rounds": [
+      {
+       "_key": "r1-new99정민규",
+       "points": 0,
+       "roundNumber": 1
+      },
+      {
+       "_key": "r2-new99정민규",
+       "points": 0,
+       "roundNumber": 2
+      },
+      {
+       "_key": "r3-new99정민규",
+       "points": 0,
+       "roundNumber": 3
+      },
+      {
+       "_key": "r4-new99정민규",
+       "points": 1,
+       "roundNumber": 4
+      },
+      {
+       "_key": "r5-new99정민규",
+       "points": 0,
+       "roundNumber": 5
+      }
+     ],
+     "teamName": "Team MR",
+     "totalPoints": 1
+    }
+   ],
+   "isPublished": true,
+   "season": 2026,
+   "updatedAt": "2026-10-12T05:00:30Z"
+  }
+ ]
+}
