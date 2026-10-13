@@ -15,18 +15,22 @@ interface Props {
 }
 
 export default function EntryTabs({ isOpen, classes, rounds, settings, initialRoundNumber }: Props) {
+  // 시즌 전 라운드 종료 → 차기(2027) 시즌 표기
+  const seasonOver = rounds.length > 0 && rounds.every(r => r.status === 'finished')
   return (
     <section className="app-section">
       <div className="app-wrap">
         {/* 좌측: 안내 */}
         <div className="app-info">
           <div className="app-info__header">
-            <h2 className="app-info__title">2026 SEASON <span style={{ color: 'var(--primary-red)' }}>ENTRY</span></h2>
+            <h2 className="app-info__title">{seasonOver ? '2027' : '2026'} SEASON <span style={{ color: 'var(--primary-red)' }}>ENTRY</span></h2>
             <div className="app-info__slash" />
           </div>
           <h3 className="app-info__slogan">당신의 도전이 시작되는 곳,<br/>INJE GT MASTERS.</h3>
           <p className="app-info__desc">
-            강원도 인제스피디움을 배경으로 펼쳐지는 아마추어 레이서들의 열정의 무대. 2026 시즌도 더욱 뜨겁게 달립니다.
+            {seasonOver
+              ? '강원도 인제스피디움을 배경으로 펼쳐지는 아마추어 레이서들의 열정의 무대. 2027 시즌, 더 새로워진 레이스로 돌아옵니다.'
+              : '강원도 인제스피디움을 배경으로 펼쳐지는 아마추어 레이서들의 열정의 무대. 2026 시즌도 더욱 뜨겁게 달립니다.'}
           </p>
 
           <div className="app-info__guide">
