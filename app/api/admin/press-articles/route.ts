@@ -4,6 +4,9 @@ import { cookies } from 'next/headers'
 import crypto from 'crypto'
 import articles from '@/data/press-articles.json'
 
+// 사진 업로드가 많아 기본 실행 시간을 넘길 수 있음 → 기사 1건씩(?id=) 게시 + 실행 시간 상향
+export const maxDuration = 60
+
 const PID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? 'cq465tvw'
 const DS = 'production'
 const V = '2024-01-01'
@@ -49,7 +52,11 @@ export async function POST(req: Request) {
   const token = process.env.SANITY_API_WRITE_TOKEN
   if (!token) return NextResponse.json({ ok: false, error: 'SANITY_API_WRITE_TOKEN 미설정' }, { status: 500 })
 
-  const origin = new URL(req.url).origin
+  const url = new URL(req.url)
+  const origin = url.origin
+  const onlyId = url.searchParams.get('id')
+  const targets = onlyId ? POSTS.filter(p => p._id === onlyId) : POSTS
+  if (onlyId && targets.length === 0) return NextResponse.json({ ok: false, error: `기사 없음: ${onlyId}` }, { status: 404 })
   const assetCache = new Map<string, string>()
   const upload = async (file: string) => {
     if (assetCache.has(file)) return assetCache.get(file)!
@@ -60,7 +67,7 @@ export async function POST(req: Request) {
 
   const mutations: unknown[] = []
   try {
-    for (const p of POSTS) {
+    for (const p of targets) {
       let coverRef = ''
       // 이미지 업로드 + 블록 생성 (파일별 asset 캐시)
       const mkImg = async (im: ImgIn, idx: number) => {
@@ -128,7 +135,7 @@ export async function POST(req: Request) {
       const t = await r.text()
       return NextResponse.json({ ok: false, error: `저장 실패 ${r.status}: ${t}` }, { status: 500 })
     }
-    return NextResponse.json({ ok: true, count: POSTS.length, uploaded: assetCache.size })
+    return NextResponse.json({ ok: true, count: targets.length, uploaded: assetCache.size })
   } catch (err) {
     return NextResponse.json({ ok: false, error: (err as Error).message }, { status: 500 })
   }
