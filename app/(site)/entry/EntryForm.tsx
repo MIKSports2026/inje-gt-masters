@@ -247,6 +247,38 @@ export default function EntryForm({ isOpen, classes, rounds, initialRoundNumber 
     finally { setSubmitting(false) }
   }
 
+  // 시즌 전 라운드 종료 → 차기 시즌 안내
+  const seasonOver = rounds.length > 0 && rounds.every(r => r.status === 'finished')
+  if (!isOpen && seasonOver) return (
+    <div className="ef-summary" style={{ textAlign: 'center', padding: '48px 24px' }}>
+      <p style={{ fontFamily: 'Oswald, sans-serif', fontSize: '.9rem', letterSpacing: '.12em', color: '#E60023', fontWeight: 700, marginBottom: 10 }}>
+        SEE YOU IN 2027
+      </p>
+      <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: 16 }}>
+        2026 시즌이 모두 종료되었습니다
+      </h3>
+      <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 6 }}>
+        다섯 라운드를 함께 달려 주신 모든 팀과 드라이버, 관람객 여러분께 감사드립니다.
+      </p>
+      <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+        2027 시즌은 <b style={{ color: 'var(--text-primary)' }}>4월 10일 인제 스피디움</b>에서 개막합니다. 참가 신청 일정은 추후 공지됩니다.
+      </p>
+      <p style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: 24 }}>
+        2027 시즌, 트랙에서 다시 만나요! 🏁
+      </p>
+      <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <Link href="/media/news/season-2027"
+          style={{ padding: '12px 22px', background: '#E60023', color: '#fff', fontWeight: 700, borderRadius: 6, textDecoration: 'none' }}>
+          2027 시즌 변경 사항 보기
+        </Link>
+        <Link href="/results"
+          style={{ padding: '12px 22px', border: '1px solid var(--border, #333)', color: 'var(--text-primary)', fontWeight: 700, borderRadius: 6, textDecoration: 'none' }}>
+          2026 시즌 최종 결과
+        </Link>
+      </div>
+    </div>
+  )
+
   if (!isOpen) return (
     <div className="ef-summary" style={{ textAlign: 'center', padding: 40 }}>
       <p style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>현재 Register 접수 기간이 아닙니다.</p>

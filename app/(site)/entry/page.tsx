@@ -48,12 +48,17 @@ export default async function EntryPage({
   const s = settings as SiteSettings | null
   // 접수 오픈 여부: 열린 라운드(status === 'entry_open')가 하나라도 있으면 오픈 (round.status 단일 기준)
   const isOpen = (rounds as Round[]).some(r => r.status === 'entry_open')
+  // 시즌 전 라운드 종료 → 차기(2027) 시즌 안내 문구
+  const seasonOver = (rounds as Round[]).length > 0 && (rounds as Round[]).every(r => r.status === 'finished')
+  const notice = isOpen ? '현재 Register 접수 중입니다.'
+    : seasonOver ? '2026 시즌 종료 — 2027 시즌에 만나요!'
+    : (s?.entryNotice ?? 'Register 일정을 준비 중입니다.')
 
   return (
     <>
       <PageHero
         image={s?.heroEntry}
-        badge={ENTRY_CLOSED ? '접수 마감' : '2026 Season Entry'}
+        badge={ENTRY_CLOSED ? '접수 마감' : (seasonOver ? '2027 Season' : '2026 Season Entry')}
         title="Register"
         subtitle="당신의 도전이 시작되는 곳, 인제 GT 마스터즈."
       >
@@ -65,8 +70,8 @@ export default async function EntryPage({
           borderRadius: '6px', color: ENTRY_CLOSED ? '#ff6b6b' : (isOpen ? '#4ade80' : '#ff6b6b'),
           fontSize: '.9rem', fontWeight: 800,
         }}>
-          <i className={`fa-solid ${ENTRY_CLOSED ? 'fa-ban' : (isOpen ? 'fa-circle-check' : 'fa-clock')}`} />
-          {ENTRY_CLOSED ? '1라운드 접수가 마감되었습니다.' : (isOpen ? '현재 Register 접수 중입니다.' : (s?.entryNotice ?? 'Register 일정을 준비 중입니다.'))}
+          <i className={`fa-solid ${ENTRY_CLOSED ? 'fa-ban' : (isOpen ? 'fa-circle-check' : (seasonOver ? 'fa-flag-checkered' : 'fa-clock'))}`} />
+          {ENTRY_CLOSED ? '1라운드 접수가 마감되었습니다.' : notice}
         </div>
       </PageHero>
 
