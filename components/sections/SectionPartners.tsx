@@ -1,4 +1,4 @@
-// components/sections/SectionPartners.tsx — v2 Dark theme with local logo fallback
+// components/sections/SectionPartners.tsx — v3 로고만 표시 (박스·선·등급/이름 텍스트 없음)
 'use client'
 import Image from 'next/image'
 import type { Partner } from '@/types/sanity'
@@ -35,13 +35,12 @@ export default function SectionPartners({ partners }: Props) {
             const logoSrc = p.sanityLogo ?? `/partners/${p.slug}.png`
             return (
               <div key={p.slug} className="ptn__card">
-                <div className="ptn__tier">{p.tier}</div>
                 <div className="ptn__logo-wrap">
                   <Image
                     src={logoSrc}
                     alt={p.name}
-                    width={140}
-                    height={56}
+                    width={160}
+                    height={64}
                     className="ptn__logo-img"
                     style={{ objectFit: 'contain' }}
                     onError={(e) => {
@@ -53,7 +52,6 @@ export default function SectionPartners({ partners }: Props) {
                   />
                   <span className="ptn__name-fallback" style={{ display: 'none' }}>{p.name}</span>
                 </div>
-                <div className="ptn__name">{p.name}</div>
               </div>
             )
           })}
@@ -64,43 +62,23 @@ export default function SectionPartners({ partners }: Props) {
         .ptn {
           background: var(--bg-carbon, #0a0a0a);
           padding: 64px 0;
-          border-top: 1px solid rgba(255,255,255,.06);
         }
-        .ptn__logo-img {
-          filter: grayscale(100%); opacity: .5;
-          transition: filter .3s ease, opacity .3s ease;
-        }
-        .ptn__card:hover .ptn__logo-img {
-          filter: grayscale(0%); opacity: 1;
-        }
+        .ptn__logo-img { transition: transform .25s ease; }
+        .ptn__card:hover .ptn__logo-img { transform: scale(1.05); }
         .ptn__inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .ptn__grid {
-          display: flex; flex-wrap: wrap; justify-content: center; gap: 2px;
+          display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px 64px;
         }
-        .ptn__card {
-          padding: 24px 32px; background: #111;
-          border: 1px solid rgba(255,255,255,.04);
-          display: flex; flex-direction: column; align-items: center;
-          min-width: 160px; transition: background .2s;
-        }
-        .ptn__card:hover { background: #1a1a1a; }
-        .ptn__tier {
-          font-family: 'Oswald', sans-serif; font-size: .6rem; font-weight: 600;
-          letter-spacing: .15em; text-transform: uppercase;
-          color: rgba(255,255,255,.2); margin-bottom: 12px;
-        }
-        .ptn__logo-wrap { height: 56px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
-        .ptn__name {
-          font-family: 'Noto Sans KR', sans-serif; font-size: .75rem; font-weight: 500;
-          color: rgba(255,255,255,.3);
-        }
+        .ptn__card { display: flex; align-items: center; justify-content: center; }
+        .ptn__logo-wrap { height: 64px; display: flex; align-items: center; justify-content: center; }
         .ptn__name-fallback {
           font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700;
           letter-spacing: .08em; color: rgba(255,255,255,.4);
         }
         @media (max-width: 768px) {
           .ptn__inner { padding: 0 20px; }
-          .ptn__card { min-width: 120px; padding: 18px 20px; }
+          .ptn__grid { gap: 28px 36px; }
+          .ptn__logo-wrap { height: 48px; }
         }
       ` }} />
     </section>

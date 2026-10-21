@@ -1,43 +1,73 @@
-// app/(site)/season/page.tsx — 2026 시즌 안내 (라운드 일정 + 클래스 + 포인트)
+// app/(site)/season/page.tsx — 2026 시즌 캘린더 (라운드 일정 행 리스트)
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { sanityFetch } from '@/lib/sanity.client'
-import { SITE_SETTINGS_QUERY, ROUNDS_QUERY, CLASSES_QUERY } from '@/lib/queries'
-import type { SiteSettings, Round, ClassInfo } from '@/types/sanity'
-import { resolveRoundStatus } from '@/lib/roundStatus'
+import { SITE_SETTINGS_QUERY, ROUNDS_QUERY } from '@/lib/queries'
+import type { SiteSettings, Round } from '@/types/sanity'
 import PageHero from '@/components/ui/PageHero'
-import SectionSeasonSchedule from '@/components/sections/SectionSeasonSchedule'
+import SeasonRows, { type SeasonRow } from '@/components/sections/SeasonRows'
 import { ENTRY_CLOSED, ENTRY_CLOSED_TEXT_EN } from '@/lib/config'
+
+// 라운드별 Masters 1 결승 우승팀 (행 설명용)
+const M1_WINNERS_QUERY = /* groq */`
+  *[_type == "result" && raceType == "race" && classInfo._ref == "class-masters-1" && round->season == $season]{
+    "round": round->roundNumber,
+    "team": standings[position == 1][0].teamName
+  }`
+
+const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT']
+
+// 'YYYY-MM-DD' 문자열을 서버 시간대와 무관하게 해석
+function parseDay(s?: string) {
+  const m = s?.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  if (!m) return null
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])]
+  return { label: `${MONTHS[mo - 1]} ${String(d).padStart(2, '0')}`, weekday: DAYS[new Date(Date.UTC(y, mo - 1, d)).getUTCDay()] }
+}
+
+function toRow(r: Round, winner?: string): SeasonRow {
+  const d = parseDay(r.dateStart)
+  const st = r.status ?? 'upcoming'
+  const n = r.roundNumber
+  const title = n === 1 ? '개막전' : n === 5 ? '최종전' : `${n}라운드`
+  const status: SeasonRow['status'] =
+    st === 'entry_open' ? { label: 'ENTRY OPEN', tone: 'open' }
+    : st === 'finished' ? { label: 'COMPLETED', tone: 'done' }
+    : st === 'entry_closed' ? { label: 'ENTRY CLOSED', tone: 'done' }
+    : st === 'ongoing' ? { label: 'ON TRACK', tone: 'open' }
+    : { label: 'UPCOMING', tone: 'soon' }
+  const action: SeasonRow['action'] =
+    st === 'entry_open' ? { href: `/entry?tab=apply&round=R${n}`, label: 'APPLY NOW', primary: true }
+    : st === 'finished' ? { href: `/results?round=${r.slug.current}`, label: 'VIEW RESULTS' }
+    : undefined
+  return {
+    key: r._id, round: n,
+    date: d?.label ?? '—',
+    weekdays: d?.weekday,
+    title,
+    note: winner ? `MASTERS 1 우승 · ${winner}` : undefined,
+    status, action,
+  }
+}
 
 export const metadata: Metadata = {
   title: '2026 Calendar',
   description: '인제 GT 마스터즈 2026 시즌 라운드 일정, 클래스 소개, 포인트 시스템, 규정 안내.',
 }
 
-const STATUS_MAP: Record<string, { text: string; color: string; bg: string }> = {
-  upcoming:     { text: '예정',     color: '#3b82f6', bg: 'rgba(59,130,246,.1)'  },
-  entry_open:   { text: '접수중',   color: '#16a34a', bg: 'rgba(22,163,74,.1)'   },
-  entry_closed: { text: '접수마감', color: '#d97706', bg: 'rgba(217,119,6,.1)'   },
-  ongoing:      { text: '진행중',   color: '#e60023', bg: 'rgba(230,0,35,.1)'    },
-  finished:     { text: '종료',     color: '#6b7280', bg: 'rgba(107,114,128,.1)' },
-}
-
-const POINT_TABLE = [
-  { pos: 1, pts: 25 }, { pos: 2, pts: 18 }, { pos: 3, pts: 15 },
-  { pos: 4, pts: 12 }, { pos: 5, pts: 10 }, { pos: 6, pts: 8  },
-  { pos: 7, pts: 6  }, { pos: 8, pts: 4  }, { pos: 9, pts: 2  }, { pos: 10, pts: 1 },
-]
-
 export default async function SeasonPage() {
-  const [settings, rounds, classes] = await Promise.all([
-    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }),
-    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300 }),
-    sanityFetch<ClassInfo[]>({ query: CLASSES_QUERY, revalidate: 3600 }),
-  ]).catch(() => [null, [], []] as [SiteSettings | null, Round[], ClassInfo[]])
+  const [settings, rounds, winners] = await Promise.all([
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY }).catch(() => null),
+    sanityFetch<Round[]>({ query: ROUNDS_QUERY, params: { season: 2026 }, revalidate: 300 }).catch(() => [] as Round[]),
+    sanityFetch<{ round: number; team?: string }[]>({ query: M1_WINNERS_QUERY, params: { season: 2026 }, revalidate: 300 }).catch(() => []),
+  ])
 
-  const displayRounds = rounds as Round[]
-  const displayClasses = classes as ClassInfo[]
-const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
+  const winnerByRound = new Map((winners ?? []).map(w => [w.round, w.team]))
+  const rows = (rounds as Round[]).map(r => toRow(r, winnerByRound.get(r.roundNumber)))
+  // 시즌 전 라운드 종료 → 참가 신청 버튼·CTA 대신 결과 안내
+  const seasonOver = (rounds as Round[]).length > 0 && (rounds as Round[]).every(r => r.status === 'finished')
+  const closed = ENTRY_CLOSED || seasonOver
 
   return (
     <>
@@ -55,24 +85,35 @@ const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
           </Link>
         </div>
         <div style={{ marginTop: '20px' }}>
-          <Link
-            href={ENTRY_CLOSED ? '/season' : '/entry'}
-            className="btn btn-primary"
-            aria-disabled={ENTRY_CLOSED}
-            style={ENTRY_CLOSED ? { pointerEvents: 'none', opacity: 0.5 } : undefined}
-          >
-            <i className="fa-solid fa-flag-checkered" />
-            {ENTRY_CLOSED ? ENTRY_CLOSED_TEXT_EN : '2026 Register'}
-          </Link>
+          {seasonOver ? (
+            <Link href="/results" className="btn btn-primary">
+              <i className="fa-solid fa-trophy" />
+              2026 SEASON RESULTS
+            </Link>
+          ) : (
+            <Link
+              href={ENTRY_CLOSED ? '/season' : '/entry'}
+              className="btn btn-primary"
+              aria-disabled={ENTRY_CLOSED}
+              style={ENTRY_CLOSED ? { pointerEvents: 'none', opacity: 0.5 } : undefined}
+            >
+              <i className="fa-solid fa-flag-checkered" />
+              {ENTRY_CLOSED ? ENTRY_CLOSED_TEXT_EN : '2026 Register'}
+            </Link>
+          )}
         </div>
       </PageHero>
 
-      {/* ── 라운드 일정 (카드 그리드) ───────────────────────── */}
-      <SectionSeasonSchedule rounds={displayRounds} />
+      {/* ── 라운드 일정 (행 리스트) ───────────────────────── */}
+      <section className="bg-[#0a0a0a] py-16 md:py-24" id="schedule">
+        <div className="max-w-5xl mx-auto px-4 md:px-6">
+          <SeasonRows heading="SEASON 2026 SCHEDULE" rows={rows} />
+        </div>
+      </section>
 
 
 {/* ── CTA ──────────────────────────────────────────────── */}
-      {!ENTRY_CLOSED && (
+      {!closed && (
         <section style={{ background: 'linear-gradient(135deg,#111,#1a0008)', padding: '64px 0' }}>
           <div className="container" style={{ textAlign: 'center' }}>
             <h2 style={{ color: '#fff', fontSize: 'clamp(1.6rem,3vw,2.6rem)', marginBottom: '14px' }}>Where Legends Begin</h2>

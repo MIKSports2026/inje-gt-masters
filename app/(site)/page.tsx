@@ -27,6 +27,7 @@ function filterActiveSlides(slides: HeroSlide[] | undefined): HeroSlide[] {
 
 import SectionHero       from '@/components/sections/SectionHero'
 import SectionRound      from '@/components/sections/SectionRound'
+import SectionSchedule2027 from '@/components/sections/SectionSchedule2027'
 import SectionClass      from '@/components/sections/SectionClass'
 import SectionNews       from '@/components/sections/SectionNews'
 import SectionMedia      from '@/components/sections/SectionMedia'
@@ -157,7 +158,10 @@ export default async function HomePage() {
       </h1>
 
       <SectionHero slides={activeSlides} videoUrl={s?.heroVideo} />
-      <SectionRound    rounds={rs} />
+      {/* 2026 시즌 전 라운드 종료 후에는 2027 일정(행 리스트)으로 교체 */}
+      {rs.length > 0 && rs.every(r => r.status === 'finished')
+        ? <SectionSchedule2027 />
+        : <SectionRound rounds={rs} />}
       <SectionClass classes={cs} />
       <SectionNews     posts={ps} />
       <SectionMedia    media={mediaItems} />
