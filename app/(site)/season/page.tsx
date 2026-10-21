@@ -48,6 +48,12 @@ const cut = 'polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)'
         title="2026 Calendar"
         subtitle="레이서의 근성과 머신의 한계가 만나는 곳"
       >
+        <div className="mt-5 flex flex-wrap gap-2">
+          <span className="px-4 py-2 bg-[#E60023] text-white text-sm font-bold tracking-wide">2026</span>
+          <Link href="/season/2027" className="px-4 py-2 border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm font-bold tracking-wide transition-colors">
+            2027
+          </Link>
+        </div>
         <div style={{ marginTop: '20px' }}>
           <Link
             href={ENTRY_CLOSED ? '/season' : '/entry'}

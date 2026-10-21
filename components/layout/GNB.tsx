@@ -22,6 +22,7 @@ const NAV_ITEMS: NavItem[] = [
     href: '/season',
     drop: [
       { label: '2026 Calendar', href: '/season' },
+      { label: '2027 Calendar', href: '/season/2027' },
     ],
   },
   {
