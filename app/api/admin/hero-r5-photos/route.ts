@@ -1,4 +1,4 @@
-// app/api/admin/hero-r5-photos/route.ts — 홈 히어로의 R4 경기 사진을 R5 포디움·질주 사진으로 교체
+// app/api/admin/hero-r5-photos/route.ts — 홈 히어로 정리: R5 키비쥬얼 → 2027 캘린더, R4 경기 사진 → R5 포디움·질주 사진
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import crypto from 'crypto'
@@ -39,27 +39,37 @@ export async function POST(req: Request) {
 
   const origin = new URL(req.url).origin
   try {
+    const upload = async (path: string, name: string) => {
+      const img = await fetch(`${origin}/${path}`, { cache: 'no-store' })
+      if (!img.ok) throw new Error(`이미지 로드 실패 ${path} (${img.status})`)
+      const up = await fetch(`https://${PID}.api.sanity.io/v${V}/assets/images/${DS}?filename=${name}`,
+        { method: 'POST', headers: { 'Content-Type': 'image/jpeg', Authorization: `Bearer ${token}` }, body: Buffer.from(await img.arrayBuffer()) })
+      if (!up.ok) throw new Error(`에셋 업로드 실패 ${path} (${up.status})`)
+      const assetId = ((await up.json()) as { document: { _id: string } }).document._id
+      return { _type: 'image', asset: { _type: 'reference', _ref: assetId } }
+    }
+
+    // 2027 캘린더 (데스크톱 16:9 + 모바일 3:4)
+    const calendar: Slide = {
+      _key: 'calendar-2027', _type: 'heroSlide',
+      image: await upload('hero-2027/desktop.jpg', 'hero-2027-calendar-desktop.jpg'),
+      mobileImage: await upload('hero-2027/mobile.jpg', 'hero-2027-calendar-mobile.jpg'),
+      alt: '2027 인제 GT 마스터즈 캘린더 — 4월 개막전부터 10월 최종전까지 5라운드', isActive: true,
+    }
     const fresh: Slide[] = []
     for (let i = 0; i < R5_HERO.length; i++) {
       const p = R5_HERO[i]
-      const img = await fetch(`${origin}/${FOLDER}/${p.file}`, { cache: 'no-store' })
-      if (!img.ok) return NextResponse.json({ ok: false, error: `이미지 로드 실패 ${p.file} (${img.status})` }, { status: 500 })
-      const up = await fetch(`https://${PID}.api.sanity.io/v${V}/assets/images/${DS}?filename=hero-r5-${p.file}`,
-        { method: 'POST', headers: { 'Content-Type': 'image/jpeg', Authorization: `Bearer ${token}` }, body: Buffer.from(await img.arrayBuffer()) })
-      if (!up.ok) return NextResponse.json({ ok: false, error: `에셋 업로드 실패 ${p.file} (${up.status})` }, { status: 500 })
-      const assetId = ((await up.json()) as { document: { _id: string } }).document._id
-      const ref = { _type: 'image', asset: { _type: 'reference', _ref: assetId } }
+      const ref = await upload(`${FOLDER}/${p.file}`, `hero-r5-${p.file}`)
       fresh.push({ _key: `r5-hero-${String(i + 1).padStart(2, '0')}`, _type: 'heroSlide', image: ref, mobileImage: ref, alt: p.alt, isActive: true })
     }
 
-    // 기존 슬라이드에서 R4·R5 경기 사진과 비노출 슬라이드를 빼고, 남은 것(챔피언 카드·키비쥬얼) 뒤에 R5 사진을 붙임
+    // 기존 슬라이드에서 R5 키비쥬얼·R4/R5 경기 사진·2027 캘린더·비노출 슬라이드를 빼고(=챔피언 카드만 남음) 순서대로 재구성
     const q = encodeURIComponent(`*[_id=="siteSettings"][0].heroSlides`)
     const cur = await fetch(`https://${PID}.api.sanity.io/v${V}/data/query/${DS}?query=${q}`,
       { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' })
     const existing: Slide[] = ((await cur.json()) as { result: Slide[] | null }).result ?? []
-    const keep = existing.filter(s => !/^r[45]-hero-/.test(String(s._key)) && s.isActive !== false)
-    const slides = [...keep, ...fresh].slice(0, MAX_SLIDES)
-
+    const keep = existing.filter(s => !/^(r[45]-hero-|r[45]-keyvisual|calendar-2027)/.test(String(s._key)) && s.isActive !== false)
+    const slides = [...keep, calendar, ...fresh].slice(0, MAX_SLIDES)
     const r = await fetch(`https://${PID}.api.sanity.io/v${V}/data/mutate/${DS}`,
       { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ mutations: [{ patch: { id: 'siteSettings', set: { heroSlides: slides } } }] }) })

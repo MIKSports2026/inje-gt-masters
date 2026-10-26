@@ -48,11 +48,13 @@ export default function HeroR5PhotosPage() {
 
   return (
     <main style={{ maxWidth: 640, margin: '40px auto', padding: 24, fontFamily: 'sans-serif' }}>
-      <h1 style={{ fontSize: 22, marginBottom: 6 }}>홈 히어로 — R4 사진을 R5 포디움·질주 사진으로</h1>
+      <h1 style={{ fontSize: 22, marginBottom: 6 }}>홈 히어로 정리 — 2027 캘린더 + R5 포디움·질주 사진</h1>
       <p style={{ color: '#666', fontSize: 14, marginBottom: 16 }}>
-        챔피언 카드·키비쥬얼은 그대로 두고, 뒤쪽 R4 경기 사진 자리를 아래 R5 사진 4장(포디움·질주 교차)으로 바꿉니다. 여러 번 눌러도 중복되지 않습니다.
+        챔피언 카드 5장은 그대로 두고, <b>5라운드 키비쥬얼 → 2027 캘린더</b>로 바꾸고, <b>R4 경기 사진 4장을 내리고</b> 아래 R5 사진 4장(포디움·질주 교차)을 넣습니다. 여러 번 눌러도 중복되지 않습니다.
       </p>
       <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/hero-2027/desktop.jpg" alt="2027 캘린더" style={{ width: 200, borderRadius: 6, border: '1px solid #eee' }} />
         {FILES.map(f => (
           // eslint-disable-next-line @next/next/no-img-element
           <img key={f} src={`/r5-gallery/${f}.jpg`} alt={f} style={{ width: 140, borderRadius: 6, border: '1px solid #eee' }} />
@@ -60,7 +62,7 @@ export default function HeroR5PhotosPage() {
       </div>
       <button onClick={run} disabled={busy}
         style={{ padding: '12px 24px', background: '#E60023', color: '#fff', border: 'none', cursor: 'pointer' }}>
-        {busy ? '처리 중…' : 'R5 사진으로 교체'}
+        {busy ? '처리 중…' : '히어로 정리 실행'}
       </button>
       {error && <p style={{ color: '#E60023', fontSize: 14, marginTop: 12 }}>{error}</p>}
       {msg && <p style={{ background: '#e8f5e9', border: '1px solid #a5d6a7', padding: 12, fontSize: 14, marginTop: 12 }}>{msg}</p>}
