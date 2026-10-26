@@ -49,8 +49,14 @@ export async function POST(req: Request) {
       return { _type: 'image', asset: { _type: 'reference', _ref: assetId } }
     }
 
-    // 2027 캘린더 (데스크톱 16:9 + 모바일 3:4)
-    const calendar: Slide = {
+    const q = encodeURIComponent(`*[_id=="siteSettings"][0].heroSlides`)
+    const cur = await fetch(`https://${PID}.api.sanity.io/v${V}/data/query/${DS}?query=${q}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' })
+    const existing: Slide[] = ((await cur.json()) as { result: Slide[] | null }).result ?? []
+    const found = (key: string) => existing.find(s => s._key === key && s.isActive !== false)
+
+    // 2027 캘린더 (데스크톱 16:9 + 모바일 3:4) — 이미 올라가 있으면 재사용
+    const calendar: Slide = found('calendar-2027') ?? {
       _key: 'calendar-2027', _type: 'heroSlide',
       image: await upload('hero-2027/desktop.jpg', 'hero-2027-calendar-desktop.jpg'),
       mobileImage: await upload('hero-2027/mobile.jpg', 'hero-2027-calendar-mobile.jpg'),
@@ -59,17 +65,16 @@ export async function POST(req: Request) {
     const fresh: Slide[] = []
     for (let i = 0; i < R5_HERO.length; i++) {
       const p = R5_HERO[i]
+      const key = `r5-hero-${String(i + 1).padStart(2, '0')}`
+      const prev = found(key)
+      if (prev) { fresh.push(prev); continue }
       const ref = await upload(`${FOLDER}/${p.file}`, `hero-r5-${p.file}`)
-      fresh.push({ _key: `r5-hero-${String(i + 1).padStart(2, '0')}`, _type: 'heroSlide', image: ref, mobileImage: ref, alt: p.alt, isActive: true })
+      fresh.push({ _key: key, _type: 'heroSlide', image: ref, mobileImage: ref, alt: p.alt, isActive: true })
     }
 
-    // 기존 슬라이드에서 R5 키비쥬얼·R4/R5 경기 사진·2027 캘린더·비노출 슬라이드를 빼고(=챔피언 카드만 남음) 순서대로 재구성
-    const q = encodeURIComponent(`*[_id=="siteSettings"][0].heroSlides`)
-    const cur = await fetch(`https://${PID}.api.sanity.io/v${V}/data/query/${DS}?query=${q}`,
-      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' })
-    const existing: Slide[] = ((await cur.json()) as { result: Slide[] | null }).result ?? []
+    // 2027 캘린더를 1번으로, 이어서 챔피언 카드(기존 슬라이드에서 키비쥬얼·경기 사진·캘린더·비노출 제외), R5 사진 순
     const keep = existing.filter(s => !/^(r[45]-hero-|r[45]-keyvisual|calendar-2027)/.test(String(s._key)) && s.isActive !== false)
-    const slides = [...keep, calendar, ...fresh].slice(0, MAX_SLIDES)
+    const slides = [calendar, ...keep, ...fresh].slice(0, MAX_SLIDES)
     const r = await fetch(`https://${PID}.api.sanity.io/v${V}/data/mutate/${DS}`,
       { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ mutations: [{ patch: { id: 'siteSettings', set: { heroSlides: slides } } }] }) })

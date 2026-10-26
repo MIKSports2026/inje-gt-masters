@@ -50,7 +50,7 @@ export default function HeroR5PhotosPage() {
     <main style={{ maxWidth: 640, margin: '40px auto', padding: 24, fontFamily: 'sans-serif' }}>
       <h1 style={{ fontSize: 22, marginBottom: 6 }}>홈 히어로 정리 — 2027 캘린더 + R5 포디움·질주 사진</h1>
       <p style={{ color: '#666', fontSize: 14, marginBottom: 16 }}>
-        챔피언 카드 5장은 그대로 두고, <b>5라운드 키비쥬얼 → 2027 캘린더</b>로 바꾸고, <b>R4 경기 사진 4장을 내리고</b> 아래 R5 사진 4장(포디움·질주 교차)을 넣습니다. 여러 번 눌러도 중복되지 않습니다.
+        <b>2027 캘린더를 1번</b>으로 두고, 이어서 챔피언 카드 5장, R5 사진 4장(포디움·질주 교차) 순으로 정리합니다. 이미 올라간 이미지는 재사용하며 여러 번 눌러도 중복되지 않습니다.
       </p>
       <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
