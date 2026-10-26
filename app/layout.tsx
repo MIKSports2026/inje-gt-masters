@@ -24,11 +24,13 @@ export const metadata: Metadata = {
     siteName:    '인제 GT 마스터즈',
     title:       '인제 GT 마스터즈 2026 | Inje GT Masters',
     description: '인제스피디움에서 열리는 대한민국 정통 GT 내구레이스. 2026 시즌 일정·참가신청·결과를 확인하세요.',
+    images:      [{ url: '/og-2027.jpg', width: 1200, height: 630, alt: '2027 인제 GT 마스터즈 캘린더' }],
   },
   twitter: {
     card:        'summary_large_image',
     title:       '인제 GT 마스터즈 2026 | Inje GT Masters',
     description: '인제스피디움에서 열리는 대한민국 정통 GT 내구레이스. 2026 시즌 일정·참가신청·결과를 확인하세요.',
+    images:      ['/og-2027.jpg'],
   },
   robots: {
     index:  true,

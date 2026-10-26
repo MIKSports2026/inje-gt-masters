@@ -33,6 +33,8 @@ import SectionNews       from '@/components/sections/SectionNews'
 import SectionMedia      from '@/components/sections/SectionMedia'
 import SectionPartners   from '@/components/sections/SectionPartners'
 
+const OG_IMAGE = { url: '/og-2027.jpg', width: 1200, height: 630, alt: '2027 인제 GT 마스터즈 캘린더' }
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await sanityFetch<SiteSettings>({
     query: SITE_SETTINGS_QUERY, revalidate: 60, useCdn: false,
@@ -45,9 +47,10 @@ export async function generateMetadata(): Promise<Metadata> {
       title:       settings.metaTitle,
       description: settings.metaDescription,
       url:         settings.canonicalUrl,
-      images: settings.ogImage?.asset?.url
-        ? [{ url: settings.ogImage.asset.url, width: 1200, height: 630 }] : [],
+      // SNS 공유 이미지: 2026 시즌 종료 후 2027 캘린더로 고정 (Studio ogImage보다 우선)
+      images: [OG_IMAGE],
     },
+    twitter: { card: 'summary_large_image', title: settings.metaTitle, description: settings.metaDescription, images: [OG_IMAGE.url] },
     alternates: { canonical: settings.canonicalUrl },
   }
 }
