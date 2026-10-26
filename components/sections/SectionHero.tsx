@@ -141,6 +141,20 @@ export default function SectionHero({ slides, videoUrl }: Props) {
     setIsPaused(true)
   }, [])
 
+  const step = useCallback((dir: 1 | -1) => {
+    setCurrentIndex((prev) => (prev + dir + slides.length) % slides.length)
+  }, [slides.length])
+
+  // 모바일 스와이프로도 넘기기
+  const touchX = useRef<number | null>(null)
+  const onTouchStart = (e: React.TouchEvent) => { touchX.current = e.touches[0].clientX }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current === null || !isMulti) return
+    const dx = e.changedTouches[0].clientX - touchX.current
+    touchX.current = null
+    if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1)
+  }
+
   if (slides.length === 0 && !showVideo) {
     return (
       <section className={styles.hero} role="region" aria-label="메인 히어로 배너">
@@ -162,7 +176,7 @@ export default function SectionHero({ slides, videoUrl }: Props) {
       onMouseEnter={() => isMulti && setIsPaused(true)}
       onMouseLeave={() => isMulti && setIsPaused(false)}
     >
-      <div className={styles.heroMedia}>
+      <div className={styles.heroMedia} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <div className={styles.slideContainer} aria-live="polite">
           {slides.map((slide, index) => {
             const srcSet = buildHeroSrcSet(slide.imageUrl, slide.hotspot)
@@ -212,6 +226,16 @@ export default function SectionHero({ slides, videoUrl }: Props) {
           </div>
         )}
 
+        {isMulti && (
+          <>
+            <button type="button" className={`${styles.arrow} ${styles.arrowPrev}`} onClick={() => step(-1)} aria-label="이전 슬라이드">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+            </button>
+            <button type="button" className={`${styles.arrow} ${styles.arrowNext}`} onClick={() => step(1)} aria-label="다음 슬라이드">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </>
+        )}
       </div>
 
       {isMulti && (

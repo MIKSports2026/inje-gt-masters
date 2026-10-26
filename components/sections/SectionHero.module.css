@@ -76,6 +76,54 @@
   pointer-events: none;
 }
 
+/* ── 좌우 화살표 ─────────────────────────────────────── */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.arrow svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: square;
+}
+
+.arrow:hover {
+  background: #e60023;
+  border-color: #e60023;
+}
+
+.arrow:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.arrowPrev { left: 24px; }
+.arrowNext { right: 24px; }
+
+@media (max-width: 767px) {
+  .arrow { width: 40px; height: 40px; }
+  .arrow svg { width: 20px; height: 20px; }
+  .arrowPrev { left: 12px; }
+  .arrowNext { right: 12px; }
+}
 
 .indicators {
   position: relative;
