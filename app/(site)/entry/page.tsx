@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Register | 인제 GT 마스터즈 2026',
     description: '2026 시즌 온라인 Register — 신청 후 담당자 검토 및 결제 링크 발송',
+    images: [{ url: '/og-2027.jpg', width: 1200, height: 630, alt: '2027 인제 GT 마스터즈 캘린더' }],
   },
 }
 
