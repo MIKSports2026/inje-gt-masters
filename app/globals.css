@@ -740,14 +740,16 @@ textarea:focus-visible {
 @media (max-width: 1100px) {
   #media .inner > .media-mosaic {
     grid-template-columns: 1fr 1fr !important;
-    grid-template-rows: auto !important;
+    grid-template-rows: none !important;
+    grid-auto-rows: 220px !important;
   }
   #media .inner > .media-mosaic > a:first-child { grid-row: auto !important; }
 }
 @media (max-width: 768px) {
   #media .inner > .media-mosaic {
     grid-template-columns: 1fr !important;
-    grid-template-rows: repeat(5, 200px) !important;
+    grid-template-rows: none !important;
+    grid-auto-rows: 200px !important;
   }
 }
 

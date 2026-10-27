@@ -65,7 +65,7 @@ export default async function HomePage() {
     sanityFetch<Post[]>       ({ query: RECENT_POSTS_QUERY,   params: { limit: 3 },     revalidate: 60, useCdn: false }).catch(() => [] as Post[]),
     sanityFetch<Partner[]>    ({ query: PARTNERS_QUERY,       params: { currentSeason: 2026 }, revalidate: 3600, useCdn: false }).catch(() => [] as Partner[]),
     sanityFetch<ClassInfo[]>  ({ query: CLASSES_QUERY, useCdn: false, revalidate: 3600 }).catch(() => [] as ClassInfo[]),
-    sanityFetch<Media[]>      ({ query: FEATURED_MEDIA_QUERY, params: { limit: 5 }, revalidate: 300, useCdn: false }).catch(() => [] as Media[]),
+    sanityFetch<Media[]>      ({ query: FEATURED_MEDIA_QUERY, params: { limit: 6 }, revalidate: 300, useCdn: false }).catch(() => [] as Media[]),
   ])
 
   const s  = settings  as SiteSettings | null

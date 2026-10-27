@@ -12,8 +12,9 @@ interface Props {
 }
 
 export default function SectionMedia({ media }: Props) {
-  // 최대 5개: 첫 번째는 tall (span 2rows), 나머지 4개
-  const items = media.slice(0, 5)
+  // 5개: 첫 번째는 tall (span 2rows), 나머지 4개 / 6개: 3×2 균등 그리드
+  const items = media.slice(0, 6)
+  const isSix = items.length === 6
 
   const cellBase: React.CSSProperties = {
     position: 'relative', overflow: 'hidden',
@@ -37,12 +38,12 @@ export default function SectionMedia({ media }: Props) {
         ) : (
           <div className="media-mosaic" style={{
             display: 'grid',
-            gridTemplateColumns: '1.65fr 1fr 1fr',
-            gridTemplateRows: '270px 210px',
+            gridTemplateColumns: isSix ? '1fr 1fr 1fr' : '1.65fr 1fr 1fr',
+            gridTemplateRows: isSix ? '250px 250px' : '270px 210px',
             gap: '3px',
           }}>
             {items.map((m, i) => {
-              const isTall  = i === 0
+              const isTall  = !isSix && i === 0
               const isVideo = m.mediaType === 'video'
               const thumb   = isVideo
                 ? getYoutubeThumb(m.youtubeUrl, m.youtubeThumbnail)
