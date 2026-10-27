@@ -19,6 +19,8 @@ const CHAMPION_VOICES = [
   { id: 'media-yt-gyB8f7WPN9M', title: '시즌 챔피언 소감 | Masters 3 봉좌레이싱 정시현·이재용' },
 ]
 const R5_GALLERY = 'media-r5-gallery'
+// 갤러리 #26(g026) 시상대 사진 — 이미 업로드된 에셋 재사용
+const R5_COVER = { _type: 'image', asset: { _type: 'reference', _ref: 'image-a89bfc552b6fc913e670b93d439452ff6d9ef055-1920x1280-jpg' } }
 
 function makeToken(p: string) { return crypto.createHash('sha256').update(p + ':inje-gt-admin').digest('hex') }
 function authed(): boolean {
@@ -36,8 +38,8 @@ export async function POST() {
     ...CHAMPION_VOICES.map((v, i) => ({
       patch: { id: v.id, set: { isFeatured: true, isPublished: true, title: v.title, sortOrder: -10 + i } },
     })),
-    // R5 갤러리: 홈 마지막 칸 + 갤러리 페이지 맨 앞
-    { patch: { id: R5_GALLERY, set: { isFeatured: true, sortOrder: -1 } } },
+    // R5 갤러리: 홈 마지막 칸 + 갤러리 페이지 맨 앞, 대표사진 = 시상대(g026)
+    { patch: { id: R5_GALLERY, set: { isFeatured: true, sortOrder: -1, coverImage: R5_COVER } } },
   ]
   try {
     const r = await fetch(`https://${PID}.api.sanity.io/v${V}/data/mutate/${DS}`,

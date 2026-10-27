@@ -51,7 +51,7 @@ export default function HomeMediaR5Page() {
       <h1 style={{ fontSize: 22, marginBottom: 6 }}>홈 MEDIA 교체 — 시즌 챔피언 소감 + R5 갤러리</h1>
       <p style={{ color: '#666', fontSize: 14, marginBottom: 16 }}>
         R3 갤러리·R3 영상을 홈에서 내리고, <b>2026 시즌 챔피언 소감 영상 5개</b>(클래스 순)와 <b>R5 갤러리</b>를 올립니다.
-        R5 갤러리는 갤러리 페이지 맨 앞으로 옮깁니다. 여러 번 눌러도 결과는 같습니다.
+        R5 갤러리는 갤러리 페이지 맨 앞으로 옮기고 대표사진을 <b>시상대 사진</b>으로 바꿉니다. 여러 번 눌러도 결과는 같습니다.
       </p>
       <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
         {VOICES.map(v => (
