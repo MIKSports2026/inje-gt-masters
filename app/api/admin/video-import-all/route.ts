@@ -1,5 +1,5 @@
 // app/api/admin/video-import-all/route.ts — 채널 미등록 영상 일괄 등록(신규만, 홈 메인/featured 미변경)
-// data/video-import-all.json: 2026-10-27 기준 미등록 31개(R5 쇼츠·녹화중계 등), sortOrder 0 = 영상 목록 맨 앞
+// data/video-import-all.json: 2026-10-30 기준 미등록 2개(R5 하이라이트 ⑧⑨ 쇼츠), sortOrder 0 = 영상 목록 앞(최신순)
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import crypto from 'crypto'
