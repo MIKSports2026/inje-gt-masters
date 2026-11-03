@@ -1,41 +1,17 @@
 [
  {
   "_type": "media",
-  "_id": "media-yt-7zXXI_950Xc",
-  "videoId": "7zXXI_950Xc",
+  "_id": "media-yt-dYUdPjE0T2U",
+  "videoId": "dYUdPjE0T2U",
   "mediaType": "video",
-  "title": "🏁 2026 INJE GT MASTERS ROUND 5 THE FINAL STINT : ENDURE TO GLORY🎬HIGHLIGHT ⑨ #INJEGTMASTERS #ENDU...",
+  "title": "🏁 2026 INJE GT MASTERS ROUND 5 Documentary EP.5 | THE FINAL Who Will Claim the Throne #InjeGTMast...",
   "slug": {
    "_type": "slug",
-   "current": "yt-7zXXI_950Xc"
+   "current": "yt-dYUdPjE0T2U"
   },
-  "publishedAt": "2026-10-29T07:21:18Z",
-  "duration": "0:21",
-  "youtubeUrl": "https://www.youtube.com/shorts/7zXXI_950Xc",
-  "isFeatured": false,
-  "isPublished": true,
-  "sortOrder": 0,
-  "relatedRound": {
-   "_type": "reference",
-   "_ref": "round-2026-r5"
-  },
-  "tags": [
-   "r5"
-  ]
- },
- {
-  "_type": "media",
-  "_id": "media-yt-qexzO2W41cM",
-  "videoId": "qexzO2W41cM",
-  "mediaType": "video",
-  "title": "🏁 2026 INJE GT MASTERS ROUND 5 THE FINAL STINT : ENDURE TO GLORY🎬HIGHLIGHT ⑧ #INJEGTMASTERS #ENDU...",
-  "slug": {
-   "_type": "slug",
-   "current": "yt-qexzO2W41cM"
-  },
-  "publishedAt": "2026-10-28T05:18:04Z",
-  "duration": "0:53",
-  "youtubeUrl": "https://www.youtube.com/shorts/qexzO2W41cM",
+  "publishedAt": "2026-11-02T10:00:08Z",
+  "duration": "8:11",
+  "youtubeUrl": "https://youtu.be/dYUdPjE0T2U",
   "isFeatured": false,
   "isPublished": true,
   "sortOrder": 0,
