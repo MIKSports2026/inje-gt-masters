@@ -66,11 +66,11 @@ export default defineType({
     /* ── 히어로 슬라이드 ─────────────────────────────────── */
     defineField({
       name: 'heroSlides',
-      title: '히어로 배너 슬라이드 (최대 10장, 드래그로 순서 변경)',
+      title: '히어로 배너 슬라이드 (최대 12장, 드래그로 순서 변경)',
       type: 'array',
       group: 'basic',
       description: '드래그로 우선순위 변경. 노출 토글과 스케줄링으로 제어 가능. 모든 슬라이드가 비노출 상태면 첫 슬라이드가 강제 노출됩니다.',
-      validation: (Rule) => Rule.max(10),
+      validation: (Rule) => Rule.max(12),
       of: [
         {
           type: 'object',
@@ -97,6 +97,13 @@ export default defineType({
               type: 'string',
               description: '예: "2026 인제 GT 마스터즈 R1 결승 스타트 그리드" — 대회명/라운드/장면 순. 60자 이내 권장. 검색엔진과 스크린리더에 노출됩니다.',
               validation: (Rule) => Rule.required().min(5).max(100),
+            },
+            {
+              name: 'link',
+              title: '클릭 시 이동 링크 (선택)',
+              type: 'url',
+              description: '배너를 누르면 이동할 주소. 외부 주소(https://...)는 새 창으로, 사이트 안 페이지는 /entry 처럼 입력하면 같은 창으로 열립니다.',
+              validation: (Rule) => Rule.uri({ allowRelative: true, scheme: ['http', 'https'] }),
             },
             {
               name: 'isActive',

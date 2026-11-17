@@ -27,6 +27,7 @@ export const SITE_SETTINGS_QUERY = /* groq */`
       "mobileImageUrl": mobileImage.asset->url,
       "mobileHotspot": mobileImage.hotspot,
       alt,
+      link,
       isActive,
       startAt,
       endAt

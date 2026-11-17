@@ -28,6 +28,7 @@ export interface HeroSlide {
   mobileImageUrl?: string
   mobileHotspot?:  { x: number; y: number }
   alt:        string
+  link?:      string
   isActive?:  boolean
   startAt?:   string
   endAt?:     string

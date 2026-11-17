@@ -218,6 +218,19 @@ export default function SectionHero({ slides, videoUrl }: Props) {
           })}
         </div>
 
+        {!showVideo && slides[currentIndex]?.link && (() => {
+          const href = slides[currentIndex].link as string
+          const external = /^https?:\/\//i.test(href)
+          return (
+            <a
+              href={href}
+              className={styles.slideLink}
+              aria-label={`${slides[currentIndex].alt}${external ? ' (새 창)' : ''}`}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            />
+          )
+        })()}
+
         {showVideo && (
           <div className={styles.videoLayer} aria-hidden="true">
             <div className={styles.videoFrame}>
